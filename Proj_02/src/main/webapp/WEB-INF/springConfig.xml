@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:annotation-config></context:annotation-config>
-	<context:component-scan base-package="_02_model"></context:component-scan>
+	<context:component-scan base-package="_02_model , _04_model"></context:component-scan>
 	
 	<!-- 這邊要讓spring(annotation) 管理交易 (還不會用)-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
@@ -19,25 +19,12 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
-	
-	
-<!-- 	<tx:advice id="txAdvice" transaction-manager="transactionManager"> -->
-<!-- 		<tx:attributes> -->
-<!-- 			<tx:method name="*" rollback-for="java.lang.Exception"/> -->
-<!-- 		</tx:attributes> -->
-<!-- 	</tx:advice> -->
-	
-<!-- 	<aop:config> -->
-<!-- 		<aop:pointcut id="demoServicePointcut" expression="execution(* _02_model.DemoService.*(..))"/> -->
-<!-- 		<aop:advisor advice-ref="txAdvice" pointcut-ref="demoServicePointcut"/> -->
-<!-- 	</aop:config> -->
-	
-	
 	<!-- 這邊要讓spring 管理交易 -->
 
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/xxx"></property>
 	</bean>
+	
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" destroy-method="destroy">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="hibernateProperties">
@@ -53,6 +40,7 @@
 				<value>_02_model.Bean.ActivityBean</value>
 				<value>_02_model.Bean.ActivityDetailBean</value>
 				<value>_02_model.Bean.MemberBean</value>
+				<value>_04_model.Event01</value>
 			</list>
 		</property>
 	</bean>
