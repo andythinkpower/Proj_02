@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 失敗導回原頁面 (有用到)-->
+	<bean id="login.error"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/login/login.jsp"></property>
+	</bean>
+
+	<bean id="login.success" class="org.springframework.web.servlet.view.RedirectView">
+		<property name="url" value="/activity/success.jsp"></property>
+		<property name="contextRelative" value="true"></property>
+	</bean>
+
+	<!-- 行程 -->
+	<bean id="actDetail" class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/activity/actDetail.jsp"></property>
+	</bean>
+
+	<!-- 顯示細節  (有用到)-->
+	<bean id="showall" class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/activity/showDetail.jsp"  />
+	</bean>
+
+
+	<!-- 行程完成顯示頁 -->
+	<bean id="display" class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/activity/display.jsp"></property>
+	</bean>
+	
+	<!-- 測試更新-1 -->
+	<bean id="change_before" class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/temp/test_update.jsp"></property>
+	</bean>
+	
+	
+	<bean id="kkk" class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/activity/temp.jsp"></property>
+	</bean>
+	
+</beans>
