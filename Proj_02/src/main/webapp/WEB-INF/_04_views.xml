@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 	<bean id="event.self" class="org.springframework.web.servlet.view.RedirectView"> -->
+<!-- 		<property name="contextRelative" value="true"></property> -->
+<!-- 		<property name="url" value="/EventPage/EventSelf.jsp"></property> -->
+<!-- 	</bean> -->
+
+	<bean id="eventType.select" class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/EventPage/Event01.jsp"></property>
+	</bean>
+	
+<!-- 	<bean id="event.self" class="org.springframework.web.servlet.view.InternalResourceView"> -->
+<!-- 		<property name="url" value="/EventPage/EventSelf.jsp"></property> -->
+<!-- 	</bean> -->
+	
+</beans>
