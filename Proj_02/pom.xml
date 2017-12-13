@@ -65,7 +65,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- JSP 2.3.1 API -->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -73,7 +73,7 @@
 			<version>2.3.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Servlet 3.1 API -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
