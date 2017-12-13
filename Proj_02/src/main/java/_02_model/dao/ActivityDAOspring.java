@@ -21,7 +21,7 @@ public class ActivityDAOspring implements ActivityDAO {
 		return sessionFactory.getCurrentSession();
 	}
 
-	//利用primary key 取得單筆資料
+	// 利用primary key 取得單筆資料
 	@Override
 	public ActivityBean select(Integer activityID) {
 		return getSession().get(ActivityBean.class, activityID);
@@ -58,8 +58,8 @@ public class ActivityDAOspring implements ActivityDAO {
 			insert.setIntroduction(bean.getIntroduction());
 			insert.setMemberID(bean.getMemberID());
 			Session session = getSession();
-			Integer pk=(Integer)session.save(insert);
-			System.out.println("主key為:"+pk);
+			Integer pk = (Integer) session.save(insert);
+			System.out.println("主key為:" + pk);
 			return pk;
 		} else {
 			return null;
@@ -68,12 +68,12 @@ public class ActivityDAOspring implements ActivityDAO {
 
 	@Override
 	public boolean update(Integer activityID, ActivityBean change) {
-		
+
 		Session session = getSession();
-		try {			
-			ActivityBean update  = session.get(ActivityBean.class, activityID);
-			//成功從資料庫取得ID 並修改資料
-			System.out.println("現在在DAOspring"+update);
+		try {
+			ActivityBean update = session.get(ActivityBean.class, activityID);
+			// 成功從資料庫取得ID 並修改資料
+			System.out.println("現在在DAOspring" + update);
 			if (update != null) {
 				update.setActPhoto(change.getActPhoto());
 				update.setActRegion(change.getActRegion());
@@ -87,6 +87,18 @@ public class ActivityDAOspring implements ActivityDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	//行程總覽 連同細節一起刪除
+	@Override
+	public boolean delete(Integer ActivityID) {
+		if (ActivityID != null) {
+			Session session = getSession();
+			ActivityBean delete = session.get(ActivityBean.class, ActivityID);
+			session.delete(delete);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

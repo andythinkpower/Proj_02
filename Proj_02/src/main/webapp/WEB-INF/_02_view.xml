@@ -30,11 +30,10 @@
 		<property name="url" value="/activity/display.jsp"></property>
 	</bean>
 	
-	<!-- 測試更新-1 -->
-	<bean id="change_before" class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/temp/test_update.jsp"></property>
-	</bean>
-	
+	<!-- 顯示單一行程(有用到) -->
+	<bean id="soloPage" class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/activity/soloPage.jsp"></property>
+	</bean>		
 	
 	<bean id="kkk" class="org.springframework.web.servlet.view.InternalResourceView">
 		<property name="url" value="/activity/temp.jsp"></property>

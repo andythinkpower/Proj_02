@@ -40,7 +40,10 @@ public class ActivityService {
 		boolean a = activityDAO.update(activityID, change);
 		System.out.println("Service :" + a);
 		return a;
-
+	}
+	@Transactional
+	public boolean Delete_Schedule(Integer ActivityID) {
+		return activityDAO.delete(ActivityID);
 	}
 
 }
