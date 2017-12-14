@@ -8,41 +8,26 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONValue;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import _05_model.Event02;
 import _05_model.Event02Service;
 
-//@WebServlet("/mapcontroller")
-public class eventMap extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-   
-    public eventMap() {
-        super();
-    
-    }
-
+@Controller
+public class GoogleMap {
+	@Autowired
 	private Event02Service event01Service;
-
-	@Override
-	public void init() throws ServletException {
-		ServletContext application = this.getServletContext();
-		ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
-		event01Service = (Event02Service) context.getBean("event02Service");
-	}
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@RequestMapping(
+			path="/mapcontroller.controller",
+			method={RequestMethod.GET, RequestMethod.POST})
+	public void method(HttpServletResponse response) throws IOException {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -75,15 +60,13 @@ public class eventMap extends HttpServlet {
 //		String jsonString = JSONValue.toJSONString(l1);   
 		 jsonString = JSONValue.toJSONString(m2);  
 		 out.println(jsonString);
-//      System.out.println(jsonString);
-	
-	
+   //   System.out.println(jsonString);
+//		 return jsonString;
 	
 	
 	}
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		this.doGet(request, response);
-	}
+	
+	
+	
+	
 }

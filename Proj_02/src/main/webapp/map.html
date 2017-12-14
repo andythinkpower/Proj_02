@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style>
+#map {
+	height: 800px;
+	width: 100%;
+}
+</style>
+
+</head>
+<body>
+	<h3>My Google Maps Demo2</h3>
+	<div id="map"></div>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.js"></script>
+	<script src="js/jquery-1.12.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/ButtomController.js"></script>
+	<script src="js/GoogleMap.js">
+
+ </script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK3MRTGkyj0FYu-OExTnVYDLuaNDwBRL8&callback=initMap">
+    </script>
+	<input onclick="musicControl();" type=button value="音樂 顯示/隱藏">
+    <input onclick="exhibitionControl();" type=button value="展覽 顯示/隱藏">
+    <input onclick="performanceControl();" type=button value="表演 顯示/隱藏">
+	<input onclick="studyControl();" type=button value="研習 顯示/隱藏">
+	<input onclick="movieControl();" type=button value="影視 顯示/隱藏">
+	<input onclick="LeisureControl();" type=button value="休閒 顯示/隱藏">
+	<input onclick="familyControl();" type=button value="親子 顯示/隱藏">
+
+</body>
+
+
+</html>
