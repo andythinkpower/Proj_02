@@ -29,15 +29,13 @@ function CenterControl(controlDiv, map) {
      controlUI.addEventListener('click', function() {
     	 var visible=true;
     	 if(visible){
-    	 for (var i = 0; i < markers.length; i++) {
-    		 markers[i].setVisible(!visible);
-    		}
-    	 	visible =false;
+    		 for (var i = 0; i < markers.length; i++) {
+    		 markers[i].setVisible(!visible);}
+    		visible =false;
     	 }else{
     		 for (var i = 0; i < markers.length; i++) {
-        		 markers[i].setVisible(!visible);
-        		}
-    		 visible =true;
+    		 markers[i].setVisible(!visible);}
+        	 visible =true;
         	 }
     	 
      
@@ -57,7 +55,7 @@ function CenterControl(controlDiv, map) {
      map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 //從後端抓資料載入圖標
-$.getJSON('/_05_web/mapcontroller.controller', {  }, function (data) {
+$.getJSON('mapcontroller.controller', {  }, function (data) {
 	 $.each(data.data, function (i, event01) {
          var eventname=event01.EventName;
 		 var address=event01.Address;
