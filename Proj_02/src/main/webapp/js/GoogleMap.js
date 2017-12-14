@@ -1,5 +1,6 @@
 var markers=[]
- function CenterControl(controlDiv, map) {
+//上方開啟隱藏圖標鍵 
+function CenterControl(controlDiv, map) {
 
      // Set CSS for the control border.
      var controlUI = document.createElement('div');
@@ -26,16 +27,24 @@ var markers=[]
 
      
      controlUI.addEventListener('click', function() {
+    	 var visible=true;
+    	 if(visible){
     	 for (var i = 0; i < markers.length; i++) {
-    		 if(markers[i].getVisible()){
-    		 markers[i].setVisible(false);
+    		 markers[i].setVisible(!visible);
     		}
-    		}
-    	
+    	 	visible =false;
+    	 }else{
+    		 for (var i = 0; i < markers.length; i++) {
+        		 markers[i].setVisible(!visible);
+        		}
+    		 visible =true;
+        	 }
+    	 
+     
      });
 
    }
-
+//初始化地圖
  function initMap() {
 	 var map = new google.maps.Map(document.getElementById('map'), {
      zoom: 14,
@@ -47,7 +56,7 @@ var markers=[]
 	 centerControlDiv.index = 1;
      map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
-
+//從後端抓資料載入圖標
 $.getJSON('mapcontroller.controller', {  }, function (data) {
 	 $.each(data.data, function (i, event01) {
          var eventname=event01.EventName;

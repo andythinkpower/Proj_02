@@ -25,7 +25,7 @@ public class GoogleMap {
 	@Autowired
 	private Event02Service event01Service;
 	@RequestMapping(
-			path="/mapcontroller.controller",
+			path="/_05_web/mapcontroller.controller",
 			method={RequestMethod.GET, RequestMethod.POST})
 	public void method(HttpServletResponse response) throws IOException {
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -60,7 +60,7 @@ public class GoogleMap {
 //		String jsonString = JSONValue.toJSONString(l1);   
 		 jsonString = JSONValue.toJSONString(m2);  
 		 out.println(jsonString);
-   //   System.out.println(jsonString);
+  System.out.println(jsonString);
 //		 return jsonString;
 	
 	
