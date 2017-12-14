@@ -9,7 +9,7 @@
 <title>顯示頁面</title>
 </head>
 <body>
-	<a href="../activity/schedule.jsp">建立行程</a>
+	<a href="../_02_activity/schedule.jsp">建立行程</a>
 	<h2>你好:${ans.account }</h2>
 
 	<h1>顯示該會員 所有行程大綱頁面</h1>

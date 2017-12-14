@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
      -->
-    
+
     <style>
         .large {
             border: 1px solid yellow;
@@ -31,128 +31,42 @@
             border: 1px solid blue;
         }
     </style>
+    <script>
+        //計算目前天數 全域變數
+        count = 0;
+
+    </script>
 
 </head>
 <body>
 
-
-
-
-
-
-    <h1>建立行程-2</h1>
-    <form action="ActivityController.do" id="formm" method="post">
-        <!--之後 日期要顯示在fieldset 下面的legend-->
-       <input type="text" name="doWhat" value="detail" style="display:none;">
-                <div id="days" class="middle">
-                    <fieldset>
-                        <legend>第一天</legend>
-                        <!-- 這是activitybean -->
-                        <input type="text" name="actStartDate" value="${activityBean.actStartDate }" style="display:none;">
-                        <input type="text" name="actRegion" value="${activityBean.actRegion }" style="display:none;">
-                        <input type="text" name="actTitle" value="${activityBean.actTitle }" style="display:none;">
-                        <input type="text" name="introduction" value="${activityBean.introduction }" style="display:none;">
-                        <!-- 這是activitybean -->
-                        <div id="detail" class="small">
-                            <select id="ho" name="hour">
-                                <option value="">時</option>
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                            </select>
-                            <select name="min">
-                                <option value="">分</option>
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                            </select>
-                            <select name="kinds">
-                                <option>表演</option>
-                                <option>展覽</option>
-                                <option>音樂</option>
-                                <option>研習</option>
-                                <option>影視</option>
-                                <option>休閒</option>
-                                <option>親子</option>
-                            </select>
-                            <input class="form-group col-md-1" type="text" id="x" name="note" placeholder="活動名稱">
-                            <input type="text" name="budget" placeholder="預算">
-                            <input type="button" id="add_detail" value="新增行程">
-                            <br />
-                           
-
-                        </div>
-                    </fieldset>
-</div>
-          
-          
-      
+    <form action="ActivityController.do" id="form" method="post">
+    <fieldset><legend>行程總覽</legend>
+    	<input type="text" name="doWhat" value="detail" style="display:none;">
+    	<input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
+    	<input type="text" name="actRegion" value="${activityBean.actRegion}"><br>
+    	<input type="text" name="actTitle" value="${activityBean.actTitle}"><br>
+    	<input type="text" name="introduction" value="${activityBean.introduction}"><br>
+    </fieldset>
     </form>
 
-    <button id="create_Day">新增天數</button> <button id="submit">儲存</button>  
-
-   
-
-
-
-    <script>
+    <button id="create_Day">新增天數</button> <button id="submit">儲存</button>
+      <script>
         $(function () {
 
-            //計算目前天數
-            count = 1;
+            $("#form").append(addDay());
 
             //送出資料
             $("#submit").on('click', function () {
-                $("#formm").submit();
+                $("#form").submit();
             });
 
-            //新增新的一天
-            $('#create_Day').on('click', create_day);
-
-            function create_day() {
-                count++;
-                console.log(count);
-                var days = document.getElementById('days');
-                var newDay = document.createElement('div');
-                var fieldDay = document.createElement("fieldset")
-                var legend = document.createElement("legend");
-                legend.innerText = "第" + count + "天";
-
-                fieldDay.appendChild(legend);
-                newDay.appendChild(fieldDay);
-                
-                var add_Detail = document.createElement('input');
-                add_Detail.type = "button";
-                add_Detail.value = "新增行程";
-                
-
-
-
-
-
-                newDay.className = "small";
-                fieldDay.appendChild(add_Detail)
-               
-
-
-
-                days.append(newDay);
-            }
-
-
-
-            
-
             //增加單天活動項目
-            $('#add_detail').on('click', create_detail);
-
+            $('body').on('click', ".add_detail", create_detail);
 
             function create_detail() {
                 var detail = document.getElementById('detail');
+                //  alert($(this).parent().parent().find("#x").val());
                 //停留小時 動態新增
                 var temp_hour = document.createElement('select');
                 temp_hour.name = 'hour';
@@ -165,8 +79,7 @@
                     }
                     temp_hour.appendChild(temp_option);
                 }
-
-                detail.append(temp_hour);
+                $(this).before(temp_hour);
 
                 //停留分鐘 動態新增
                 var temp_min = document.createElement('select');
@@ -180,46 +93,59 @@
                     }
                     temp_min.appendChild(temp_option);
                 }
-                detail.append(temp_min);
+                $(this).before(temp_min);
 
-                
 
-                var activity = ['表演', '展覽', '音樂', '研習', '影視', '休閒', '親子'];               
+                var activity = ['表演', '展覽', '音樂', '研習', '影視', '休閒', '親子'];
                 //類型 動態更新
                 var temp_kinds = document.createElement('select');
                 temp_kinds.name = 'kinds';
-                for (i = 0; i < 4; i++) {
+                for (i = 0; i <= activity.length; i++) {
                     var temp_option = document.createElement('option');
                     if (i == 0) {
                         temp_option.innerText = '種類'
                     } else {
-                        temp_option.innerText = activity[i];
+                        temp_option.innerText = activity[i-1];
                     }
                     temp_kinds.append(temp_option);
                 }
-                detail.appendChild(temp_kinds);
-
-
+                $(this).before(temp_kinds);
+                //  <input type="text" name="dates" value="1" style="display:none">
                 //活動名稱 預算 動態更新
-                for (j = 0; j < 2; j++) {
+                for (j = 0; j < 3; j++) {
                     var temp_input = document.createElement('input');
                     temp_input.type = "text";
                     if (j == 0) {
                         temp_input.name = "note";
                         temp_input.placeholder = "活動名稱";
-                    } else {
+                    } else if (j == 1) {
                         temp_input.name = "budget";
                         temp_input.placeholder = "預算";
+                    } else {
+                        temp_input.name = "dates";
+                        temp_input.setAttribute("value",$(this).parents(".father").find("span").text());
+                        temp_input.style = "display:none";
+                        console.log($(this).parents(".father").find("span").text());
                     }
-                    detail.appendChild(temp_input);
+                    $(this).before(temp_input);
                 }
                 //換行
                 var br = document.createElement("br");
-                detail.appendChild(br);
-
+                $(this).before(br);
             }
+
+            //新增新的一天
+            $('#create_Day').on('click', addDay);
+
+
+            function addDay() {
+                //天數+1
+                count++;
+                //新增天數框架
+                $("#form").append('<div id="days"><div class="father"><fieldset><legend>第<span>' + count + '</span>天</legend>'
+                    + '<div><input type="button" class="add_detail" value="新增行程"></div></fieldset></div></div>')            
+            };           
         });
     </script>
-
 </body>
 </html>
