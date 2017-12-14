@@ -22,6 +22,6 @@ public interface ActivityDAO {
 	
 	
 //	// 刪除行程  !!刪除指令可能要再研究一下
-//	public boolean delete(ActivityBean bean);
+	public boolean delete(Integer ActivityID);
 
 }

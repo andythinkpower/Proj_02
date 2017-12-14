@@ -144,7 +144,7 @@ public class ActivityDetailBean {
 	public String toString() {
 		return "ActivityDetailBean [actDetail=" + actDetail + ", note=" + note + ", times=" + times + ", budget="
 				+ budget + ", kinds=" + kinds + ", dates=" + dates + ", longitude=" + longitude + ", latitude="
-				+ latitude + ", activityID=" + activityID + ", activityBean=" + activityBean + "]";
+				+ latitude + ", activityID=" + activityID  + "]";
 	}
 	
 	

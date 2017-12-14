@@ -22,7 +22,7 @@ public class TempController {
 	
 	
 	
-	@RequestMapping(method= {RequestMethod.GET},path= {"/activity/qq.do"})
+	@RequestMapping(method= {RequestMethod.GET},path= {"/_02_activity/qq.do"})
 	public String test(Model model,String primary_key) {
 		
 		

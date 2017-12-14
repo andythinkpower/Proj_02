@@ -2,7 +2,9 @@ package _02_controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _02_model.Bean.ActivityBean;
 import _02_model.Bean.ActivityDetailBean;
@@ -39,7 +40,7 @@ public class Activity_Controller {
 				new SqlDateEditor(new SimpleDateFormat("yyyy-MM-dd"),false));
 	}
 
-	@RequestMapping(path= {"/activity/ActivityController.do"},method= {RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(path= {"/_02_activity/ActivityController.do"},method= {RequestMethod.POST,RequestMethod.GET})
 	public String xxx(ActivityBean bean,ActivityDetailBean detailBean,BindingResult bindingResult,Model model,
 			@SessionAttribute(name="ans")MemberBean member,String doWhat,String hour,String min) {
 		
@@ -99,48 +100,41 @@ public class Activity_Controller {
 			//並且可以點選只訂 編輯或者修改
 			
 			List<ActivityBean> Member_activity=activityService.Schedule(member.getMemberID());
-			System.out.println("總共有"+Member_activity.size()+"項");
 			//放入request中 
 			model.addAttribute("allSchedule",Member_activity);
 			
 			return "display";
 		}
+		else if("single".equals(doWhat)) {
+			//尚未檢查錯誤
+			System.out.println("顯示單人頁面");
+			System.out.println(bean);
+			ActivityBean soloBean=activityService.solo_select(bean.getActivityID());
+			model.addAttribute("soloBean", soloBean);
+			Set<ActivityDetailBean> soloDetail=soloBean.getActivityDetails();
+			model.addAttribute("soloDetail", soloDetail);
+			
+			//進入單獨行程頁面
+			return "soloPage";
+		}else if("delete".equals(doWhat)) {
+			System.out.println("行程總覽 連同行程細節一起刪除");
+			
+			//刪除
+			boolean result=activityService.Delete_Schedule(detailBean.getActivityID());
+			System.out.println("刪除結果:"+result);
+			if(result) {
+				//刪除成功 接下來重新select 該member的所有行程
+				List<ActivityBean> Member_activity=activityService.Schedule(member.getMemberID());
+				model.addAttribute("allSchedule",Member_activity);				
+				return "display";
+			}else {
+				//代表刪除失敗
+				return "login.error";
+			}
+			
+			
+		}
 		
-		
-		
-//		System.out.println(member);
-//		if(member.getMemberID()==null) {
-//		bean.setMemberID(member.getMemberID());
-//		}
-//		System.out.println("顯示轉換過日期:"+bean.getActStartDate());
-//		if(bindingResult.hasErrors()) {
-//			System.out.println("轉換出錯GG");
-//			return "login.error";
-//		}
-//		
-//		System.out.println("bean:"+bean);
-//		
-//		//把bean存起來等等細節頁面要顯示
-//		model.addAttribute("activity",bean);
-//		
-//		
-//		//判斷 先跳過
-//		
-//		//新增
-//		System.out.println("新增結果:"+activityService.Create_Schedule(bean));
-//		
-		
-//		//查詢
-//		List<ActivityBean> beans=activityService.Schedule(1);
-//		if(!beans.isEmpty()) {
-//			System.out.println("成功取值");
-//			Iterator<ActivityBean> ite=beans.iterator();
-//			while(ite.hasNext()) {
-//				System.out.println(ite.next());
-//			}
-//		}else {
-//			System.out.println("取值失敗");
-//		}
 		
 		return "actDetail";
 		

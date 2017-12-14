@@ -1,6 +1,6 @@
 --刪除表格
 use proj02
-
+--!!!會員為為測試暫時創的!!! 
 drop table ActivityDetail
 drop table activity
 drop table member

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _02_model.Bean.MemberBean;
@@ -19,7 +20,7 @@ public class LoginController {
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping(path = { "/login/Login.do" }, method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(path = { "/_02_login/Login.do" }, method = { RequestMethod.POST, RequestMethod.GET })
 	public String ProjLogin(String account, String psd, Model model) {
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
@@ -31,6 +32,7 @@ public class LoginController {
 			errors.put("psd", "密碼必須輸入");
 		}
 
+		
 		// 代表使用者帳密有空白
 		if (!errors.isEmpty()) {
 			return "login.error";
