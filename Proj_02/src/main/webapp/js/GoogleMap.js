@@ -57,7 +57,7 @@ function CenterControl(controlDiv, map) {
      map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 //從後端抓資料載入圖標
-$.getJSON('mapcontroller.controller', {  }, function (data) {
+$.getJSON('/_05_web/mapcontroller.controller', {  }, function (data) {
 	 $.each(data.data, function (i, event01) {
          var eventname=event01.EventName;
 		 var address=event01.Address;
