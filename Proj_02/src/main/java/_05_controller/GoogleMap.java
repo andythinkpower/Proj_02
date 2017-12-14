@@ -60,7 +60,7 @@ public class GoogleMap {
 //		String jsonString = JSONValue.toJSONString(l1);   
 		 jsonString = JSONValue.toJSONString(m2);  
 		 out.println(jsonString);
-  System.out.println(jsonString);
+      System.out.println(jsonString);
 //		 return jsonString;
 	
 	
