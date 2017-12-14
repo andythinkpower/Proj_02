@@ -40,7 +40,7 @@ public class Activity_Controller {
 				new SqlDateEditor(new SimpleDateFormat("yyyy-MM-dd"),false));
 	}
 
-	@RequestMapping(path= {"/activity/ActivityController.do"},method= {RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(path= {"/_02_activity/ActivityController.do"},method= {RequestMethod.POST,RequestMethod.GET})
 	public String xxx(ActivityBean bean,ActivityDetailBean detailBean,BindingResult bindingResult,Model model,
 			@SessionAttribute(name="ans")MemberBean member,String doWhat,String hour,String min) {
 		

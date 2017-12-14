@@ -20,7 +20,7 @@ public class LoginController {
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping(path = { "/login/Login.do" }, method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(path = { "/_02_login/Login.do" }, method = { RequestMethod.POST, RequestMethod.GET })
 	public String ProjLogin(String account, String psd, Model model) {
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errors", errors);

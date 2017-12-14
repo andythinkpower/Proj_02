@@ -56,6 +56,7 @@ html, body {
 				<div>活動類型:${detail.kinds}</div>
 				<div>活動名稱:${detail.note}</div>
 				<div>預算:${detail.budget}</div>
+				<hr>
 			</c:forEach>
 		</div>
 	</div>

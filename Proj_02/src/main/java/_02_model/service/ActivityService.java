@@ -36,10 +36,8 @@ public class ActivityService {
 	}
 	@Transactional
 	public boolean Change_Schedule(Integer activityID, ActivityBean change) {
-		System.out.println("Service 進入");
-		boolean a = activityDAO.update(activityID, change);
-		System.out.println("Service :" + a);
-		return a;
+		boolean result = activityDAO.update(activityID, change);
+		return result;
 	}
 	@Transactional
 	public boolean Delete_Schedule(Integer ActivityID) {

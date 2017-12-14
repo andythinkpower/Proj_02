@@ -59,7 +59,6 @@ public class ActivityDAOspring implements ActivityDAO {
 			insert.setMemberID(bean.getMemberID());
 			Session session = getSession();
 			Integer pk = (Integer) session.save(insert);
-			System.out.println("主key為:" + pk);
 			return pk;
 		} else {
 			return null;
