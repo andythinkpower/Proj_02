@@ -31,12 +31,12 @@
 	<servlet-mapping>
 		<servlet-name>proj</servlet-name>
 		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.controller</url-pattern>
 	</servlet-mapping>
 	<!-- _01_end -->
 
-
 	<!-- _04_start -->
-	<servlet>
+<!--  	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -48,7 +48,7 @@
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>*.controller</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 	<!-- _04_end -->
-
+ 
 </web-app>
