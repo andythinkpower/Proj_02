@@ -14,12 +14,12 @@ import _02_model.Bean.MemberBean;
 import _02_model.service.MemberService;
 
 @Controller
-@SessionAttributes(names= {"ans"})
+@SessionAttributes(names= {"user_member"})
 public class LoginController {
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping(path = { "/login/Login.do" }, method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(path = { "/_02_login/Login.do" }, method = { RequestMethod.POST, RequestMethod.GET })
 	public String ProjLogin(String account, String psd, Model model) {
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
@@ -31,6 +31,7 @@ public class LoginController {
 			errors.put("psd", "密碼必須輸入");
 		}
 
+		
 		// 代表使用者帳密有空白
 		if (!errors.isEmpty()) {
 			return "login.error";
@@ -44,7 +45,7 @@ public class LoginController {
 			return "login.error";
 		} else {
 			bean.setAccount(account); // 使用Session傳送資料到新頁面 HttpSession session =
-			model.addAttribute("ans", bean);
+			model.addAttribute("user_member", bean);
 			return "login.success";
 		}
 
