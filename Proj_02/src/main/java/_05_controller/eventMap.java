@@ -47,8 +47,8 @@ public class eventMap extends HttpServlet {
 		response.setHeader("content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		Event02 bean = new Event02();
-		List<Event02> result = event01Service.select(bean);
+	
+		List<Event02> result = event01Service.select();
 	    List<Map<String, String>>  l1 = new LinkedList<Map<String, String>>();
 	    String jsonString;
 	    Map<String, List<Map<String, String>>> m2 = new HashMap<String, List<Map<String, String>>>();

@@ -120,8 +120,7 @@
 						<td>${bean.eventTypeId}</td>
 						<td><a href="<c:url value="/EventPage/EventSelf.jsp"/>">${bean.eventName}</a></td>
 						<td>${bean.areaId}</td>
-						<td><c:choose><c:when test="${bean.isCharge==0}">免費 </c:when>    
-    						<c:otherwise>付費</c:otherwise></c:choose></td>
+						<td>${bean.isCharge}</td>
 						<td>${bean.dtStart}~${bean.durationEnd}</td>
 						<td>${bean.showGroupName}</td>
 						<td>${bean.briefIntroduction}</td>

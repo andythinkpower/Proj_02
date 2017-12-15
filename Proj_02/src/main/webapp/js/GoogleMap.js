@@ -22,24 +22,15 @@ function CenterControl(controlDiv, map) {
      controlText.style.lineHeight = '38px';
      controlText.style.paddingLeft = '5px';
      controlText.style.paddingRight = '5px';
-     controlText.innerHTML = '圖標全部隱藏';
+     controlText.innerHTML = '圖標顯示隱藏';
      controlUI.appendChild(controlText);
 
-     
+     var visible=true;
      controlUI.addEventListener('click', function() {
-    	 var visible=true;
-    	 if(visible){
-    		 for (var i = 0; i < markers.length; i++) {
-    		 markers[i].setVisible(!visible);}
-    		visible =false;
-    	 }else{
-    		 for (var i = 0; i < markers.length; i++) {
-    		 markers[i].setVisible(!visible);}
-        	 visible =true;
-        	 }
-    	 
-     
-     });
+    	for (var i = 0; i < markers.length; i++) {
+    	markers[i].setVisible(!visible);}
+    		visible =!visible;
+    });
 
    }
 //初始化地圖
@@ -57,7 +48,8 @@ function CenterControl(controlDiv, map) {
 //從後端抓資料載入圖標
 $.getJSON('mapcontroller.controller', {  }, function (data) {
 	 $.each(data.data, function (i, event01) {
-         var eventname=event01.EventName;
+         var eventid=event01.EventID;
+		 var eventname=event01.EventName;
 		 var address=event01.Address;
          var briefIntroduction=event01.BriefIntroduction;
          var image=event01.logoimageFile;
@@ -67,28 +59,13 @@ $.getJSON('mapcontroller.controller', {  }, function (data) {
 		 var point = new google.maps.LatLng(
 	    		 parseFloat(event01.Latitude),
 	    		 parseFloat(event01.Longitude));
-		 var infowincontent = document.createElement('div');
-         var strong = document.createElement('strong');
-         strong.textContent = eventname
-         infowincontent.appendChild(strong);
-         infowincontent.appendChild(document.createElement('br'));
-		 if(image.length>5){
-         var img =document.createElement('img');
-         img.setAttribute("src", image);
-         infowincontent.appendChild(img);
-         infowincontent.appendChild(document.createElement('br'));
-		}
-		var text = document.createElement('text');
-        text.textContent = "日期:"+dtStart;
-        infowincontent.appendChild(text);
-        infowincontent.appendChild(document.createElement('br'));
-        var text = document.createElement('text');
-        text.textContent = "地址:"+address;
-        infowincontent.appendChild(text);
-        infowincontent.appendChild(document.createElement('br'));
-        var text = document.createElement('text');
-        text.textContent ="簡介:"+briefIntroduction;
-        infowincontent.appendChild(text);
+		var img=(image.length>5)?'<img src='+image+'><br>':'';
+        var link="display?eventid="+eventid;
+       
+		var contentString = '<div><a href='+link+'><strong>'+eventname+
+        					'</strong></a><br>'+img+'<text>日期:'+dtStart+'</text><br>'+
+        					'<text>地址:'+address+'</text><br>'+
+        					'<text>"簡介:'+briefIntroduction+'</text><br></div>'
         var iconBase = '/Proj_02/img/';
         var block=(type=='thismonth')?'':'_block';
         var icons = {
@@ -124,21 +101,23 @@ $.getJSON('mapcontroller.controller', {  }, function (data) {
         };
         
 		var marker = new google.maps.Marker({
-	            			type:eventtype,
+	            			id:eventid,
+							type:eventtype,
     	  					position:point, 
 	            			map: map,
 	            			icon: icons[eventtype].icon,
 	            			visible: true
       					});
          marker.addListener("click", function() {
-            infoWindow.setContent(infowincontent);
+            infoWindow.setContent(contentString);
             infoWindow.open(map, marker);
+           
             });
-         marker.addListener("mouseout", function() {
+        /* marker.addListener("mouseout", function() {
              
              infoWindow.close();
              });
-         markers.push(marker);
+         */markers.push(marker);
       
       });
  });
