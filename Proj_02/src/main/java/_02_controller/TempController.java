@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _02_model.Bean.ActivityBean;
+import _02_model.Bean.MemberBean;
 import _02_model.service.ActivityService;
 
 @Controller
-@SessionAttributes(names= {"allSchedule"})
+@SessionAttributes(names= {"user_member"})
 public class TempController {
 	
 	@Autowired
@@ -22,21 +23,17 @@ public class TempController {
 	
 	
 	
-	@RequestMapping(method= {RequestMethod.GET},path= {"/activity/qq.do"})
+	@RequestMapping(method= {RequestMethod.GET},path= {"/_02_activity/qq.do"})
 	public String test(Model model,String primary_key) {
 		
-		
-		
-		
-		
-		
-		
-		
-//		
-		List<ActivityBean> list=activityService.Schedule(2);
+		MemberBean bean=new MemberBean();
+		bean.setMemberID(1);
+			
+		List<ActivityBean> list=activityService.Schedule(bean.getMemberID());
 		System.out.println(list);
 		
 		
+		model.addAttribute("user_member",bean);
 		
 		model.addAttribute("allSchedule", list);
 		

@@ -18,7 +18,6 @@ public class ActivityDetailService {
 	public boolean insert(List<ActivityDetailBean> bean) {
 		//在這邊可能要新增筆資料 必須要全部資料都成功才commit 只要有一個失敗就rollback
 		if (bean != null) {
-			System.out.println("Service端");
 			return activityDetailDAO.insert(bean);
 			
 		} else {
