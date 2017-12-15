@@ -9,112 +9,70 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import _05_model.Event02;
 import _05_model.Event01DAO;
+import _05_model.Event02;
+
 
 @Repository
 public class Event01DAOjdbc implements Event01DAO {
-	
 	@Autowired
-	private DataSource dataSource;
+	private SessionFactory sessionFactory;
+	public Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
 	private static final String SELECT_ALL = "select * from event01 order by datediff ( day , getdate() , DurationEnd )";
 	private static final String SELECT_BY_MUSIC = "select * from event01 where EventTypeID = '音樂'";
 
 	@Override
+	@Transactional
 	public List<Event02> select() {
-		
-		List<Event02> result = null;
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(SELECT_ALL);
-				ResultSet rset = stmt.executeQuery();) {
+		Query<Event02> query =this.getSession().createQuery("FROM Event02", Event02.class);
+		return query.getResultList();
+	}
 
-			result = new ArrayList<>();
-			while (rset.next()) {
-				Event02 obj = new Event02();
-				obj.setEventID(rset.getInt("eventID"));
-				obj.setEventName(rset.getString("eventName"));
-				obj.setShowGroupName(rset.getString("showGroupName"));
-				obj.setEventTypeId(rset.getString("eventTypeId"));
-				obj.setDurationStart(rset.getDate("durationStart"));
-				obj.setDurationEnd(rset.getDate("durationEnd"));
-				obj.setIsCharge(rset.getInt("isCharge"));
-				obj.setFee(rset.getString("fee"));
-				obj.setShoppingUrl(rset.getString("shoppingUrl"));
-				obj.setContactName(rset.getString("contactName"));
-				obj.setContactTel(rset.getString("contactTel"));
-				obj.setContactFax(rset.getString("contactFax"));
-				obj.setBriefIntroduction(rset.getString("briefIntroduction"));
-				obj.setVcontent(rset.getString("vcontent"));
-				obj.setEventUrl(rset.getString("eventUrl"));
-				obj.setYouTubeUrl(rset.getString("youTubeUrl"));
-				obj.setimageFile(rset.getString("imageFile"));
-				obj.setLogoimageFile(rset.getString("logoimageFile"));
-				obj.setInsertTime(rset.getDate("insertTime"));
-				obj.setDtStart(rset.getDate("dtStart"));
-				obj.setDtEnd(rset.getDate("dtEnd"));
-				obj.setTimeStart(rset.getTime("timeStart"));
-				obj.setLocation(rset.getString("location"));
-				obj.setCityId(rset.getString("cityId"));
-				obj.setAreaId(rset.getString("areaId"));
-				obj.setAddress(rset.getString("address"));
-				obj.setLongitude(rset.getString("longitude"));
-				obj.setLatitude(rset.getString("latitude"));
-				result.add(obj);
+	@Override
+	@Transactional
+	public Event02 select(int eventID) {
+		return this.getSession().get(Event02.class, eventID);
+	}
+
+	@Override
+	public Event02 insert(Event02 event) {
+		if(event!=null) {
+			Event02 select = this.select(event.getEventID());
+			if(select==null) {
+				this.getSession().saveOrUpdate(event);
+				return event;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
-		return result;
+		return null;
+	}
+
+	@Override
+	public Event02 update(Event02 event) {
+		Event02 select = this.select(event.getEventID());
+		if(select!=null) {
+			this.getSession().save(event);
+			return event;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean delete(int eventID) {
+		Event02 select = this.select(eventID);
+		if(select!=null) {
+			this.getSession().delete(select);
+			return true;
+		}
+		return false;
 	}
 	
-	@Override
-	public List<Event02> selectMusic() {
-		
-		List<Event02> result = null;
-
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(SELECT_BY_MUSIC);
-				ResultSet rset = stmt.executeQuery();) {
-
-			result = new ArrayList<>();
-			while (rset.next()) {
-				Event02 obj = new Event02();
-				obj.setEventID(rset.getInt("eventID"));
-				obj.setEventName(rset.getString("eventName"));
-				obj.setShowGroupName(rset.getString("showGroupName"));
-				obj.setEventTypeId(rset.getString("eventTypeId"));
-				obj.setDurationStart(rset.getDate("durationStart"));
-				obj.setDurationEnd(rset.getDate("durationEnd"));
-				obj.setIsCharge(rset.getInt("isCharge"));
-				obj.setFee(rset.getString("fee"));
-				obj.setShoppingUrl(rset.getString("shoppingUrl"));
-				obj.setContactName(rset.getString("contactName"));
-				obj.setContactTel(rset.getString("contactTel"));
-				obj.setContactFax(rset.getString("contactFax"));
-				obj.setBriefIntroduction(rset.getString("briefIntroduction"));
-				obj.setVcontent(rset.getString("vcontent"));
-				obj.setEventUrl(rset.getString("eventUrl"));
-				obj.setYouTubeUrl(rset.getString("youTubeUrl"));
-				obj.setimageFile(rset.getString("imageFile"));
-				obj.setLogoimageFile(rset.getString("logoimageFile"));
-				obj.setInsertTime(rset.getDate("insertTime"));
-				obj.setDtStart(rset.getDate("dtStart"));
-				obj.setDtEnd(rset.getDate("dtEnd"));
-				obj.setTimeStart(rset.getTime("timeStart"));
-				obj.setLocation(rset.getString("location"));
-				obj.setCityId(rset.getString("cityId"));
-				obj.setAreaId(rset.getString("areaId"));
-				obj.setAddress(rset.getString("address"));
-				obj.setLongitude(rset.getString("longitude"));
-				obj.setLatitude(rset.getString("latitude"));
-				result.add(obj);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 }
