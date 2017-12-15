@@ -66,24 +66,28 @@ public class ActivityDAOspring implements ActivityDAO {
 	}
 
 	@Override
-	public boolean update(Integer activityID, ActivityBean change) {
+	public boolean update(Integer activityID, ActivityBean updateBean) {
 
 		Session session = getSession();
 		try {
 			ActivityBean update = session.get(ActivityBean.class, activityID);
+			
 			// 成功從資料庫取得ID 並修改資料
 			System.out.println("現在在DAOspring" + update);
 			if (update != null) {
-				update.setActPhoto(change.getActPhoto());
-				update.setActRegion(change.getActRegion());
-				update.setActStartDate(change.getActStartDate());
-				update.setActTitle(change.getActTitle());
-				update.setIntroduction(change.getIntroduction());
-				update.setPrivacy(change.isPrivacy());
+				update.setActPhoto(updateBean.getActPhoto());
+				update.setActRegion(updateBean.getActRegion());
+				update.setActStartDate(updateBean.getActStartDate());
+				update.setActTitle(updateBean.getActTitle());
+				update.setIntroduction(updateBean.getIntroduction());
+				update.setPrivacy(updateBean.isPrivacy());
+				update.setClickNumber(updateBean.getClickNumber());
+				//不知是否會有問題
+				update.setActivityDetails(updateBean.getActivityDetails());				
 				return true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();			
 		}
 		return false;
 	}

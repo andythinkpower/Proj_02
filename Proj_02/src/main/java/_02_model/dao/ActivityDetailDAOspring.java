@@ -26,7 +26,7 @@ public class ActivityDetailDAOspring implements ActivityDetailDAO {
 	public List<ActivityDetailBean> select(Integer activityID) {
 		  Query<ActivityDetailBean> query=
 				  getSession().createQuery("from ActivityDetailBean where activityID=?",ActivityDetailBean.class);
-		  query.setParameter(0,activityID);
+		  query.setParameter(0,activityID);		 
 		  return query.list();
 	}
 
