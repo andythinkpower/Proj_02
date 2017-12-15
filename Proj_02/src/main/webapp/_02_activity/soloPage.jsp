@@ -35,32 +35,33 @@ html, body {
 <body>
 	<div id="map"></div>
 
-
+<!-- 這邊要全部改成表格  -->
+<form action="#">
 	<div id="section">
 		<div style="border: 2px solid red;">
 			<p>這邊要顯示單一行程 總覽</p>
-			<div>標題:${soloBean.actTitle }</div>
-			<div>起始時間:${soloBean.actStartDate }</div>
-			<div>地區:${soloBean.actRegion }</div>
-			<div>照片:${soloBean.actPhoto }</div>
-			<div>簡介:${soloBean.introduction }</div>
+		標題:<input type="text" name="actTitle" value="${soloBean.actTitle }"><br>
+		起始時間:<input type="text" name="actStartDate" value="${soloBean.actStartDate }"><br>
+		地區:<input type="text" name="actRegion" value="${soloBean.actRegion }"><br>
+		照片:<input type="text" name="actPhoto" value="${soloBean.actPhoto }"><br>
+		簡介:<input type="text" name="introduction" value="${soloBean.introduction }"><br>			
 		</div>
 
 		<p>這邊要顯示單一行程 所有細節</p>
 		<div style="border: 2px solid blue;">
 			<div>測試文字</div>
 			<c:forEach var="detail" items="${soloDetail}">
-
-				<div>第天數:${detail.dates }</div>
-				<div>停留時間:${detail.times}</div>
-				<div>活動類型:${detail.kinds}</div>
-				<div>活動名稱:${detail.note}</div>
-				<div>預算:${detail.budget}</div>
+			<div>第${detail.dates }天</div>
+		停留時間:<input type="text" name="times" value="${detail.times }"><br>
+		活動類型:<input type="text" name="kinds" value="${detail.kinds }"><br>
+		活動名稱:<input type="text" name="note" value="${detail.note }"><br>
+		預算:<input type="text" name="budget" value="${detail.budget }"><br>				
 				<hr>
 			</c:forEach>
 		</div>
 	</div>
-
+	<input type="submit" value="儲存">
+</form>
 	<script>
 		function initMap() {
 			//建立一個 google.maps.DirectionsService class 的物件 Constructor 為 DirectionsService()

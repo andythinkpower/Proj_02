@@ -26,7 +26,7 @@ public class ActivityDetailDAOspring implements ActivityDetailDAO {
 	public List<ActivityDetailBean> select(Integer activityID) {
 		  Query<ActivityDetailBean> query=
 				  getSession().createQuery("from ActivityDetailBean where activityID=?",ActivityDetailBean.class);
-		  query.setParameter(0,activityID);
+		  query.setParameter(0,activityID);		 
 		  return query.list();
 	}
 
@@ -40,7 +40,7 @@ public class ActivityDetailDAOspring implements ActivityDetailDAO {
 			int count=0;
 			for(int i=0;i<beans.size();i++) {				
 				int x=(int)session.save(beans.get(i));
-				count+=x;				
+				count=x;				
 			}
 			if(count!=0) {
 				System.out.println("新增成功 第"+count+"筆");

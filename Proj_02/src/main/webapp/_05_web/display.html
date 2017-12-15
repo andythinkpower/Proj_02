@@ -13,6 +13,7 @@
 
 <div id="event"><table id='eventTable'><tbody>
 	<script type="text/javascript">
+
 	var id=document.location.search.substring(1)
 	$(function(){ 
 		$.getJSON('display.controller',{'eventid':id},function(data){
@@ -27,6 +28,7 @@
 			  tb.html(doc)
 		  });
 	});
+
 	</script></tbody></table>
 </div>
 </body>

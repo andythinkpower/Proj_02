@@ -61,8 +61,7 @@ $.getJSON('mapcontroller.controller', {  }, function (data) {
 	    		 parseFloat(event01.Longitude));
 		var img=(image.length>5)?'<img src='+image+'><br>':'';
         var link="display.html?"+eventid;
-       
-		var contentString = '<div><a href='+link+'><strong>'+eventname+
+        var contentString = '<div><a href='+link+'><strong>'+eventname+
         					'</strong></a><br>'+img+'<text>日期:'+dtStart+'</text><br>'+
         					'<text>地址:'+address+'</text><br>'+
         					'<text>"簡介:'+briefIntroduction+'</text><br></div>'

@@ -9,8 +9,8 @@
 <title>顯示頁面</title>
 </head>
 <body>
-	<a href="../activity/schedule.jsp">建立行程</a>
-	<h2>你好:${ans.account }</h2>
+	<a href="../_02_activity/schedule.jsp">建立行程</a>
+	<h2>你好:${user_member.account }</h2>
 
 	<h1>顯示該會員 所有行程大綱頁面</h1>
 	<!-- ActivityController.do -->
@@ -77,16 +77,27 @@
                     $("#solo").submit();
                 });
             //點擊刪除按鈕 (要使用ajax來做)
-            $(".delete").on(
-                'click',
-                function () {
+            $(".delete").on('click',function () {
                     var pk = $(this).parent().find(
                         "tr:first-child>td:first-child").text();
-                    //告訴Controller 要做刪除動作
                     $("#doWhat").attr("value", "delete");
                     $("#pk").val(pk);
                     $("#solo").submit();
-                    console.log("delete : " + pk);
+                    //告訴Controller 要做刪除動作 練習用AJAX
+                    //type 先暫時用get練習 之後要嘗試轉成delete 還不會寫
+//                    $.ajax({
+//                 	   //把要刪除的行程primary key傳給後端
+//                 	   'data':{"primary_key":pk},
+//                 	   'type':'GET',
+//                 	   'url':'test.do'
+//                    }).done(function(datas){
+//                 	   console.log("看看迴圈");
+//                 	   console.log(datas);
+//                 	   $.each(datas,function(i,v){
+//                 		   console.log("測試結果:"+v);
+                		  
+//                 	   });
+//                    });
                 });
         });
     </script>

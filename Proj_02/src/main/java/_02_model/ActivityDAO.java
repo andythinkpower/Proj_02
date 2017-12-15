@@ -18,7 +18,7 @@ public interface ActivityDAO {
 	public Integer insert(ActivityBean bean);
 
 //	// 修改行程
-	public boolean update(Integer activityID,ActivityBean bean);
+	public boolean update(Integer targetID,ActivityBean pdateBean);
 	
 	
 //	// 刪除行程  !!刪除指令可能要再研究一下

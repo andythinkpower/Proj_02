@@ -1,11 +1,17 @@
 package _02_controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
@@ -42,7 +48,7 @@ public class Activity_Controller {
 
 	@RequestMapping(path= {"/_02_activity/ActivityController.do"},method= {RequestMethod.POST,RequestMethod.GET})
 	public String xxx(ActivityBean bean,ActivityDetailBean detailBean,BindingResult bindingResult,Model model,
-			@SessionAttribute(name="ans")MemberBean member,String doWhat,String hour,String min) {
+			@SessionAttribute(name="user_member")MemberBean member,String doWhat,String hour,String min) {
 		
 		//代表是從schedule.jsp進來
 		if("schedule".equals(doWhat)) {		
@@ -57,7 +63,8 @@ public class Activity_Controller {
 			String[] kinds=detailBean.getKinds().split(",");
 			String[] note=detailBean.getNote().split(",");	
 			String[] budgets=detailBean.getBudget().split(",");
-			
+			String[] dates=detailBean.getDates().split(",");
+
 			//先把停留時間 的時和分合併起來
 			String[] hours=hour.split(",");
 			String[] mins=min.split(",");
@@ -69,6 +76,7 @@ public class Activity_Controller {
 				temp.setKinds(kinds[i]);
 				temp.setNote(note[i]);
 				temp.setBudget(budgets[i]);
+				temp.setDates(dates[i]);
 				list.add(temp);
 			}					
 			//測試 顯示結果
@@ -90,6 +98,7 @@ public class Activity_Controller {
 			activityDetailService.insert(list);
 			//新增成功後要回會員頁面 要呈現會員已建立的所有行程
 			List<ActivityBean> Member_activity=activityService.Schedule(member.getMemberID());
+		
 			//放入request中 
 			model.addAttribute("allSchedule",Member_activity);
 			System.out.println("總共有"+Member_activity.size()+"項");
@@ -133,11 +142,44 @@ public class Activity_Controller {
 			}
 			
 			
+		}else if("update".equals(doWhat)) {
+			System.out.println("進入修改頁面");
+			
+			return "login.success";
+			
 		}
 		
 		
-		return "actDetail";
 		
+		return "actDetail";		
+	}
+	
+	@RequestMapping(method= {RequestMethod.GET},path= {"/_02_activity/test.do"})
+	public void delete(HttpServletResponse response,String primary_key,
+			@SessionAttribute(name="user_member")MemberBean member) throws IOException {
+		//
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("content-type", "text/html;charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		//步驟1.先刪除剛所點選的行程
+		//boolean result=activityService.Delete_Schedule(Integer.valueOf(primary_key));
+		//System.out.println("刪除結果:"+result);
+		
+		//步驟2.如果沒問題 再對該會員做select所有行程動作顯示回原頁面 
+		List<ActivityBean> list=activityService.Schedule(member.getMemberID());
+		ActivityBean temp=new ActivityBean();
+		
+		for(ActivityBean i:list) {
+			Map<String,ActivityBean> min_map=new HashMap<String,ActivityBean>();
+			min_map.put("activityID",i);
+		}
+		
+		//String json;
+		//json=JSONValue.toJSONString(list);
+		//System.out.println("顯示 : "+json);
+		out.println(list);
 		
 	}
 
