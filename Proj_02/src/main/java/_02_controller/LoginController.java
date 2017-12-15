@@ -8,14 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _02_model.Bean.MemberBean;
 import _02_model.service.MemberService;
 
 @Controller
-@SessionAttributes(names= {"ans"})
+@SessionAttributes(names= {"user_member"})
 public class LoginController {
 	@Autowired
 	private MemberService memberService;
@@ -46,7 +45,7 @@ public class LoginController {
 			return "login.error";
 		} else {
 			bean.setAccount(account); // 使用Session傳送資料到新頁面 HttpSession session =
-			model.addAttribute("ans", bean);
+			model.addAttribute("user_member", bean);
 			return "login.success";
 		}
 

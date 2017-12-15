@@ -2,7 +2,6 @@ package _02_controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -42,7 +41,7 @@ public class Activity_Controller {
 
 	@RequestMapping(path= {"/_02_activity/ActivityController.do"},method= {RequestMethod.POST,RequestMethod.GET})
 	public String xxx(ActivityBean bean,ActivityDetailBean detailBean,BindingResult bindingResult,Model model,
-			@SessionAttribute(name="ans")MemberBean member,String doWhat,String hour,String min) {
+			@SessionAttribute(name="user_member")MemberBean member,String doWhat,String hour,String min) {
 		
 		//代表是從schedule.jsp進來
 		if("schedule".equals(doWhat)) {		
@@ -57,7 +56,7 @@ public class Activity_Controller {
 			String[] kinds=detailBean.getKinds().split(",");
 			String[] note=detailBean.getNote().split(",");	
 			String[] budgets=detailBean.getBudget().split(",");
-			
+
 			//先把停留時間 的時和分合併起來
 			String[] hours=hour.split(",");
 			String[] mins=min.split(",");
