@@ -24,7 +24,7 @@ create table event01(
 [dtEnd]	Datetime,
 [timeStart]	time,
 [Location]	Nvarchar(max),
-[CityID]	nVarchar(100),
+[CityID]	nVarchar(100),  
 [AreaID]	nVarchar(100), 
 [Address]	Nvarchar(max),
 [longitude]	Varchar(100),
