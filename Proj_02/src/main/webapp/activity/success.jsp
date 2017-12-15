@@ -9,9 +9,9 @@
 </head>
 <body>
 		<h1>成功登入</h1>
-		<h2>主Key${user_member.memberID }</h2>
-		<h2>帳號:${user_member.account }</h2>
-		<h2>密碼:${user_member.psd }</h2>
+		<h2>主Key${ans.memberID }</h2>
+		<h2>帳號:${ans.account }</h2>
+		<h2>密碼:${ans.psd }</h2>
 		
 		<div><button id="activity">行程</button></div>
 		

@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,8 +34,7 @@ public class ActivityBean {
 	//一對多關係
 	@OneToMany(
 		mappedBy="activityBean",
-		cascade= {CascadeType.REMOVE},
-		fetch=FetchType.EAGER //不寫會發生lazily 狀況
+		cascade= {CascadeType.REMOVE}
 		)
 	private Set<ActivityDetailBean> activityDetails;
 	

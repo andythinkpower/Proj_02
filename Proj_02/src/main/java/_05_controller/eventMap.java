@@ -22,7 +22,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import _05_model.Event02;
 import _05_model.Event02Service;
 
-//@WebServlet("/mapcontroller")
+@WebServlet("/mapcontroller")
 public class eventMap extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    

@@ -38,17 +38,16 @@ public class ActivityDetailDAOspring implements ActivityDetailDAO {
 			System.out.println("DAO端");
 			Session session = getSession();
 			int count=0;
-			for(int i=0;i<beans.size();i++) {				
+			for(int i=0;i<beans.size();i++) {
+				
 				int x=(int)session.save(beans.get(i));
-				count=x;				
-			}
-			if(count!=0) {
+				count+=x;
+				if(count!=0) {
 				System.out.println("新增成功 第"+count+"筆");
-				return true;
-			}else {
-				return false;
+				}
 			}
 			
+			return true;
 		} else {
 			return false;
 		}
