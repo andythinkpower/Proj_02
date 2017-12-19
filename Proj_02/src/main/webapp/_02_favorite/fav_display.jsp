@@ -46,7 +46,35 @@
 			$(".event").on('click',function(){
 				pk=$(this).find(".eventID").text();				
 				console.log(pk);
-				
+				$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+pk , function(data) {
+					$.each(data, function(index, eventData) {
+						var column1 = $("<td></td>").html(
+							'<a href="' + eventData.eventUrl + '"><img src="' + eventData.imageFile + '"></a>');
+						var column2 = $("<td></td>").text(eventData.eventTypeId);
+						var column3 = $("<td></td>").text(eventData.eventName);
+						var column4 = $("<td></td>").text(eventData.areaId);
+						var column5 = $("<td></td>").text(eventData.isCharge);
+						// 對毫秒數做轉換 ↓
+						var Start = new Date(eventData.dtStart);
+						var End = new Date(eventData.durationEnd);
+						var Y1 = Start.getFullYear() + '-';
+						var M1 = (Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-';
+						var D1 = Start.getDate() + ' ';
+						var dtStart = Y1 + M1 + D1;
+						var Y2 = End.getFullYear() + '-';
+						var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
+						var D2 = End.getDate() + ' ';
+						var durationEnd = Y2 + M2 + D2;
+						
+						var column6 = $("<td></td>").text(dtStart + " ~ " + durationEnd);
+						var column7 = $("<td></td>").text(eventData.showGroupName);
+
+						var row = $('<tr></tr>').append(
+								[column1, column2, column3, column4, column5, column6, column7]);
+						
+						$('#eventTable>tbody').append(row);
+					});
+				}); // JSON END
 				}); // JSON END
 			});
 

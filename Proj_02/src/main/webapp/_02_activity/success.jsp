@@ -12,8 +12,8 @@
 <body>
 <jsp:include page="../commons/header.jsp"/>
 		<h1>成功登入</h1>
-		<h2>email:${user_member.email }</h2>
-		<h2>密碼:${user_member.psd }</h2>
+		<h2>email:${member.email }</h2>
+		<h2>密碼:${member.psd }</h2>
 		
 		<div><button id="activity">行程</button><button id="favorite">收藏</button></div>
 		

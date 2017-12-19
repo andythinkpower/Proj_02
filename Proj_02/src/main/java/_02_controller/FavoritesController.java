@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import _01_member.model.MemberBean;
 import _02_model.Bean.FavoritesBean;
-import _02_model.Bean.MemberBean;
 import _02_model.service.FavoritesService;
 import _04_model.Event01;
 import _04_model.Event01Service;
@@ -38,7 +38,7 @@ public class FavoritesController {
 	public String favorite(@SessionAttribute(name="user_member")MemberBean member,String doWhat,
 			Model model) throws IOException {
 		
-		List<FavoritesBean> list=favoritesService.selectFav(member.getEmail());
+		List<FavoritesBean> list=favoritesService.selectFav(member.getMemberemail());
 		List<Event02> event_list=new ArrayList<Event02> ();
 		for(int i=0;i<list.size();i++) {			
 			event_list.add(event02Service.select(list.get(i).getEventID()));

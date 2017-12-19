@@ -1,5 +1,4 @@
 
-
 DROP TABLE LikeTypes;
 DROP TABLE LikeRegions;
 DROP TABLE EventTypes;

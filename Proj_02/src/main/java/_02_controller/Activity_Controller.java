@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import _01_member.model.MemberBean;
 import _02_model.Bean.ActivityBean;
 import _02_model.Bean.ActivityDetailBean;
-import _02_model.Bean.MemberBean;
 import _02_model.service.ActivityDetailService;
 import _02_model.service.ActivityService;
 import _02_spring.SqlDateEditor;
@@ -46,7 +46,7 @@ public class Activity_Controller {
 
 	
 	@RequestMapping(path= {"/_02_activity/ActivityController.do"},method= {RequestMethod.POST,RequestMethod.GET})
-	public String xxx(@SessionAttribute(name="user_member")MemberBean member,ActivityBean bean,ActivityDetailBean detailBean,
+	public String xxx(@SessionAttribute(name="member")MemberBean member,ActivityBean bean,ActivityDetailBean detailBean,
 			BindingResult bindingResult,Model model,String doWhat,HttpServletRequest request) {
 		
 		//代表是從schedule.jsp進來
@@ -67,7 +67,7 @@ public class Activity_Controller {
 //			
 //			
 			//資料都沒問題一次全部存進資料庫
-			bean.setEmail(member.getEmail());
+			bean.setEmail(member.getMemberemail());
 			System.out.println("準備新增行程總覽"+bean);
 			Integer pk=activityService.Create_Schedule(bean);
 			//新增完行程總覽後 得到的主key 塞入細節中
@@ -76,7 +76,7 @@ public class Activity_Controller {
 			}
 			activityDetailService.insert(list);
 			//新增成功後要回會員頁面 要呈現會員已建立的所有行程
-			List<ActivityBean> Member_activity=activityService.Schedule(member.getEmail());
+			List<ActivityBean> Member_activity=activityService.Schedule(member.getMemberemail());
 		
 			//放入request中 
 			model.addAttribute("allSchedule",Member_activity);
@@ -87,7 +87,7 @@ public class Activity_Controller {
 			//這邊要顯示該會員所有的行程
 			//並且可以點選只訂 編輯或刪除
 			System.out.println("現在進入showAct動作");
-			List<ActivityBean> Member_activity=activityService.Schedule(member.getEmail());
+			List<ActivityBean> Member_activity=activityService.Schedule(member.getMemberemail());
 			//放入request中 
 			model.addAttribute("allSchedule",Member_activity);
 			
@@ -114,7 +114,7 @@ public class Activity_Controller {
 			System.out.println("刪除結果:"+result);
 			if(result) {
 				//刪除成功 接下來重新select 該member的所有行程
-				List<ActivityBean> Member_activity=activityService.Schedule(member.getEmail());
+				List<ActivityBean> Member_activity=activityService.Schedule(member.getMemberemail());
 				model.addAttribute("allSchedule",Member_activity);				
 				return "display";
 			}else {
@@ -184,7 +184,6 @@ public class Activity_Controller {
 	
 	public static List<ActivityDetailBean> Detail_split(ActivityDetailBean detailBean,boolean haveID) {
 		List<ActivityDetailBean> list=new ArrayList<ActivityDetailBean>();
-		String[] pk=null;
 		if(haveID) {
 			
 		}
