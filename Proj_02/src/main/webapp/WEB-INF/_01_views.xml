@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="login.error" class="org.springframework.web.servlet.view.InternalResourceView">
+	<property name="url" value="/_01_member/login.jsp"></property>
+</bean>
+
+<bean id="login.success" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="contextRelative" value="true"></property>
+	<property name="url" value="/_01_member/member.jsp"></property>
+</bean>
+
+<bean id="register.error" class="org.springframework.web.servlet.view.InternalResourceView">
+	<property name="url" value="/_01_member/register.jsp"></property>
+</bean>
+
+<bean id="register.success" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="contextRelative" value="true"></property>
+	<property name="url" value="/_01_member/member.jsp"></property>
+</bean>
+
+<bean id="update.error" class="org.springframework.web.servlet.view.InternalResourceView">
+	<property name="url" value="/_01_member/member.jsp"></property>
+</bean>
+
+<bean id="update.success" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="contextRelative" value="true"></property>
+	<property name="url" value="/index.jsp"></property>
+</bean>
+
+</beans>
