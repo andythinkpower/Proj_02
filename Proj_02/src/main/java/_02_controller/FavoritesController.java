@@ -9,12 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _02_model.Bean.FavoritesBean;
 import _02_model.Bean.MemberBean;
 import _02_model.service.FavoritesService;
+import _04_model.Event01;
+import _04_model.Event01Service;
 import _05_model.Event02;
 import _05_model.Event02Service;
 
@@ -27,6 +30,9 @@ public class FavoritesController {
 	
 	@Autowired
 	private Event02Service event02Service;
+	
+	@Autowired
+	private Event01Service event01Service;
 
 	@RequestMapping(method= {RequestMethod.GET,RequestMethod.POST},path= {"/_02_activity/fav.do"})
 	public String favorite(@SessionAttribute(name="user_member")MemberBean member,String doWhat,
@@ -42,8 +48,14 @@ public class FavoritesController {
 		for(Event02 o:event_list) {
 			System.out.println(o);
 		}
-		model.addAttribute("event_list", event_list);
-		
+		model.addAttribute("event_list", event_list);		
 		return "fav_display";
 	}
+	
+	@RequestMapping(path = { "/_04_EventPage/oneEvent.controller" }, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public List<Event01> eventSelf(String eventID) {
+		return event01Service.eventSelf(eventID);
+	}
+	
 }
