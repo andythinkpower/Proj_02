@@ -36,7 +36,7 @@ public class Event01Controller {
 		}
 	} // selectChange END
 
-	@RequestMapping(path = { "/_04_EventPage/oneEvent.controller" }, produces = { "application/json;charset=UTF-8" })
+	@RequestMapping(path = { "/_04_EventPage/oneEvent.controller","/_02_favorite/oneEvent.controller" }, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public List<Event01> eventSelf(String eventID) {
 		return event01Service.eventSelf(eventID);

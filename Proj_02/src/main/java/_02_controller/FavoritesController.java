@@ -35,7 +35,7 @@ public class FavoritesController {
 	private Event01Service event01Service;
 
 	@RequestMapping(method= {RequestMethod.GET,RequestMethod.POST},path= {"/_02_activity/fav.do"})
-	public String favorite(@SessionAttribute(name="user_member")MemberBean member,String doWhat,
+	public String favorite(@SessionAttribute(name="member")MemberBean member,String doWhat,
 			Model model) throws IOException {
 		
 		List<FavoritesBean> list=favoritesService.selectFav(member.getMemberemail());
