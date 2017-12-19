@@ -39,6 +39,9 @@
 		</property>
 		<property name="annotatedClasses">
 			<list>
+				<value>_01_member.model.MemberBean</value>
+				<value>_01_member.model.EventsBean</value>
+				<value>_01_member.model.RegionsBean</value>
 				<value>_02_model.Bean.ActivityBean</value>
 				<value>_02_model.Bean.ActivityDetailBean</value>
 				<value>_02_model.Bean.MemberBean</value>
