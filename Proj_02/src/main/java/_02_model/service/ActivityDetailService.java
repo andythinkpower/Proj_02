@@ -28,10 +28,12 @@ public class ActivityDetailService {
 	@Transactional(readOnly=true)
 	public List<ActivityDetailBean> showALL(Integer activityID){
 		return activityDetailDAO.select(activityID);
-		
-		
+				
 	}
-	
-	
+	@Transactional
+	public boolean Allupdate(List<ActivityDetailBean> beans) {
+		
+		return activityDetailDAO.update(beans);
+	}
 
 }

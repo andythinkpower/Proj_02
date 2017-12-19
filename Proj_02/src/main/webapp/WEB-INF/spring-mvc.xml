@@ -6,10 +6,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-	<context:component-scan base-package="_02_controller,_04_controller,_05_controller"></context:component-scan>
-
+	
+	<context:component-scan base-package="_01_member.controller,_02_controller,_04_controller,_05_controller"></context:component-scan>
+	
 	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location" value="/WEB-INF/_01_views.xml"></property>
+	</bean>
 
 	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
 		<property name="location" value="/WEB-INF/_04_views.xml"></property>
@@ -18,4 +22,5 @@
 	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
 		<property name="location" value="/WEB-INF/_02_view.xml"></property>
 	</bean>
+	
 </beans>

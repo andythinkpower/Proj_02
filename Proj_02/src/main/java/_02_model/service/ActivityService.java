@@ -18,13 +18,13 @@ public class ActivityService {
 		return activityDAO.select(activityID);
 	}
 	@Transactional(readOnly=true)
-	public List<ActivityBean> Schedule(Integer memberID) {
+	public List<ActivityBean> Schedule(String member_email) {
 		List<ActivityBean> beans=null;
-		//如果memberID為null 代表要查詢所有的行程 反之則為查詢個人行程
-		if (memberID == null) {
-			beans = activityDAO.selectAll(0);
+		//如果memberID為null 
+		if (member_email.isEmpty()||member_email.trim().length()==0) {
+			return null;   
 		} else {
-			beans = activityDAO.selectAll(memberID);
+			beans = activityDAO.selectAll(member_email);
 		}
 		
 		return beans;
@@ -35,8 +35,8 @@ public class ActivityService {
 
 	}
 	@Transactional
-	public boolean Change_Schedule(Integer activityID, ActivityBean change) {
-		return activityDAO.update(activityID, change);		 
+	public boolean Change_Schedule(ActivityBean change) {
+		return activityDAO.update(change);		 
 	}
 	@Transactional
 	public boolean Delete_Schedule(Integer ActivityID) {
