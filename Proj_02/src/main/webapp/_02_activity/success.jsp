@@ -9,18 +9,24 @@
 </head>
 <body>
 		<h1>成功登入</h1>
-		<h2>主Key${user_member.memberID }</h2>
-		<h2>帳號:${user_member.account }</h2>
+		<h2>email:${user_member.email }</h2>
 		<h2>密碼:${user_member.psd }</h2>
 		
-		<div><button id="activity">行程</button></div>
+		<div><button id="activity">行程</button><button id="favorite">收藏</button></div>
 		
 		<form action="ActivityController.do" id="disable">
-			<input type="text" name="doWhat" value="showAct" style="display:none;">
+			<input id="doWhat" type="text" name="doWhat" value="" style="display:none;">
 		</form>
 		
 		<script>
 			$('#activity').on('click',function(){
+				$("#disable").attr("action","ActivityController.do");
+				$("#doWhat").attr("value","showAct");
+				$('#disable').submit();
+			});
+			$('#favorite').on('click',function(){
+				$("#disable").attr("action","fav.do");
+				$("#doWhat").attr("value","showFav");
 				$('#disable').submit();
 			});
 		</script>

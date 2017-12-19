@@ -28,13 +28,13 @@ public class ActivityDAOspring implements ActivityDAO {
 	}
 
 	@Override
-	public List<ActivityBean> selectAll(Integer memberID) {
+	public List<ActivityBean> selectAll(String member_email) {
 		List<ActivityBean> beans = null;
 		Session session = getSession();
-		if (memberID != 0) {
+		if (!member_email.isEmpty()||member_email.trim().length()!=0) {
 			// 代表查詢單一會員所有行程
-			Query<ActivityBean> query = session.createQuery("from ActivityBean where memberID=?", ActivityBean.class);
-			query.setParameter(0, memberID);
+			Query<ActivityBean> query = session.createQuery("from ActivityBean where email=?", ActivityBean.class);
+			query.setParameter(0, member_email);
 			beans = query.list();
 			return beans;
 		} else {
@@ -50,13 +50,13 @@ public class ActivityDAOspring implements ActivityDAO {
 	public Integer insert(ActivityBean bean) {
 		System.out.println("進入Insert方法");
 
-		if (bean.getMemberID() != null) {
+		if (!bean.getEmail().isEmpty()||bean.getEmail().trim().length()!=0) {
 			ActivityBean insert = new ActivityBean();
 			insert.setActStartDate(bean.getActStartDate());
 			insert.setActRegion(bean.getActRegion());
 			insert.setActTitle(bean.getActTitle());
 			insert.setIntroduction(bean.getIntroduction());
-			insert.setMemberID(bean.getMemberID());
+			insert.setEmail(bean.getEmail());
 			Session session = getSession();
 			Integer pk = (Integer) session.save(insert);
 			return pk;
@@ -66,11 +66,11 @@ public class ActivityDAOspring implements ActivityDAO {
 	}
 
 	@Override
-	public boolean update(Integer activityID, ActivityBean updateBean) {
+	public boolean update(ActivityBean updateBean) {
 
 		Session session = getSession();
 		try {
-			ActivityBean update = session.get(ActivityBean.class, activityID);
+			ActivityBean update = session.get(ActivityBean.class, updateBean.getActivityID());
 			
 			// 成功從資料庫取得ID 並修改資料
 			System.out.println("現在在DAOspring" + update);
@@ -81,9 +81,7 @@ public class ActivityDAOspring implements ActivityDAO {
 				update.setActTitle(updateBean.getActTitle());
 				update.setIntroduction(updateBean.getIntroduction());
 				update.setPrivacy(updateBean.isPrivacy());
-				update.setClickNumber(updateBean.getClickNumber());
-				//不知是否會有問題
-				update.setActivityDetails(updateBean.getActivityDetails());				
+				update.setClickNumber(updateBean.getClickNumber());			
 				return true;
 			}
 		} catch (Exception e) {

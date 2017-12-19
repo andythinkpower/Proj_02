@@ -28,8 +28,7 @@ $(function () {
 	<input type="text" name="doWhat" value="schedule" style="display:none;">
 		起始時間:<input type="text" name="actStartDate" id="date"> <br><!-- 使用jQuery ui Datepicker  -->
 		地區:<input type="text" name="actRegion"> <br> 
-		活動標題:<input
-			type="text" name="actTitle">
+		活動標題:<input type="text" name="actTitle">
 		<hr>
 		上傳圖片:
 <!-- 		<input type="file" id="file1"  name="ggggg"> -->

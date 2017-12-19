@@ -40,7 +40,7 @@
 </head>
 <body>
 
-    <form action="ActivityController.do" id="form" method="get">
+    <form action="qq.do" id="form" method="post">
     <fieldset><legend>行程總覽</legend>
     	<input type="text" name="doWhat" value="detail" style="display:none;">
     	<input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
@@ -55,7 +55,7 @@
     
     
   
-
+<div class="container">
     <div class="modal" >
       <div class="modal-dialog">
         <div class="modal-content">
@@ -75,6 +75,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
     
       

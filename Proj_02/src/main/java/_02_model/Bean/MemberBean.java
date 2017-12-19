@@ -1,36 +1,25 @@
 package _02_model.Bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="MEMBER")
-public class MemberBean {
+public class MemberBean implements Serializable{
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer memberID;
-	private String account;
+	private String email;
 	private String psd;
 	private String phone;
 
-	
-	public Integer getMemberID() {
-		return memberID;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMemberID(Integer memberID) {
-		this.memberID = memberID;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPsd() {
@@ -52,7 +41,7 @@ public class MemberBean {
 
 	@Override
 	public String toString() {
-		return "MemberBean [memberid=" + memberID + ", account=" + account + ", psd=" + psd + ", phone=" + phone + "]";
+		return "MemberBean [email=" + email + ", psd=" + psd + ", phone=" + phone + "]";
 	}
 	
 	

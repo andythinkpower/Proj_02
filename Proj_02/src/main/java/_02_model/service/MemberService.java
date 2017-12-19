@@ -16,9 +16,9 @@ public class MemberService {
 	//private MemberDAO memberDao=new MemberDAOHibernate(HibernateUtil.getSessionFactory());
 	//private MemberDAO memberDao=new MemberDAOjdbc();
 	@Transactional(readOnly=true)
-	public MemberBean login(String account, String psd) {
+	public MemberBean login(String email, String psd) {
 
-		MemberBean bean = memberDao.select(account);
+		MemberBean bean = memberDao.select(email);
 		if (bean != null) {
 			if (psd != null && psd.trim().length() != 0) {
 				if (bean.getPsd().equals(psd)) {

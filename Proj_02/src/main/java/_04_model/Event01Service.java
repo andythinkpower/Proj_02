@@ -13,27 +13,25 @@ public class Event01Service {
 	@Autowired
 	private Event01DAO event01dao;
 	
-//	@Transactional
-//	Event01 select(int eventID) {
-//		Event01 result = (Event01) event01dao.select();
-//		return result;
+	@Transactional(readOnly=true)
+	public List<Event01> select() {
+		return event01dao.select();
+	}
+	
+	@Transactional(readOnly=true)
+	public List<Event01> selectChange(String newTypes) {
+		return event01dao.selectChange(newTypes);
+	}
+	
+	@Transactional(readOnly=true)
+	public List<Event01> eventSelf(String eventID){
+		return event01dao.eventSelf(eventID);
+	}
+	
+//	@Transactional(readOnly=true)
+//	public List<Event01> selectCount(String newTypes) {
+//		// TODO Auto-generated method stub
+//		return null;
 //	}
 	
-	@Transactional(readOnly=true)
-	public List<Event01> select(Event01 bean) {
-		List<Event01> result = event01dao.select();
-		return result;
-	}
-	
-	@Transactional(readOnly=true)
-	public List<Event01> selectMusic(Event01 bean) {
-		List<Event01> result = event01dao.selectMusic();
-		return result;
-	}
-	
-	@Transactional(readOnly=true)
-	public List<Event01> selectMany(String manyType) {
-		List<Event01> result = event01dao.selectMusic();
-		return result;
-	}
 }

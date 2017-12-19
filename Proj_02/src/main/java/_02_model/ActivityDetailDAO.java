@@ -9,5 +9,7 @@ public interface ActivityDetailDAO {
 	public List<ActivityDetailBean> select(Integer activityID);		
 	
 	public boolean insert(List<ActivityDetailBean> beans);
+	
+	public boolean update(List<ActivityDetailBean> beans);
 
 }

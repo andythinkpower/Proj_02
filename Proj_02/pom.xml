@@ -15,19 +15,39 @@
 	</properties>
 
 	<dependencies>
-		<!-- JSON-->
+		<!-- Jackson -->
 		<dependency>
-   			 <groupId>com.googlecode.json-simple</groupId>
-   			 <artifactId>json-simple</artifactId>
-   		 <version>1.1</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.3</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		
+		<!-- JSON -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
 		<!-- 爬蟲 -->
 		<dependency>
 			<groupId>com.github.abola</groupId>
 			<artifactId>crawler</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		
+
 		<!-- JDBC -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
@@ -35,35 +55,35 @@
 			<version>6.2.2.jre8</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.12.Final</version>
 		</dependency>
-		
+
 		<!-- Spring Context -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>5.0.1.RELEASE</version>
 		</dependency>
-		
+
 		<!-- Spring O/R Mapping -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>5.0.1.RELEASE</version>
 		</dependency>
-		
+
 		<!-- Spring WebMVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.0.1.RELEASE</version>
 		</dependency>
-		
+
 		<!-- jstl -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

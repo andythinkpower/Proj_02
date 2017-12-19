@@ -10,7 +10,8 @@
 </head>
 <body>
 	<a href="../_02_activity/schedule.jsp">建立行程</a>
-	<h2>你好:${user_member.account }</h2>
+	<h2>你好:${user_member.email }</h2>
+
 
 	<h1>顯示該會員 所有行程大綱頁面</h1>
 	<!-- ActivityController.do -->

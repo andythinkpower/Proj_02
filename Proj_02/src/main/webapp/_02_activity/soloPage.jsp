@@ -36,14 +36,18 @@ html, body {
 	<div id="map"></div>
 
 <!-- 這邊要全部改成表格  -->
-<form action="#">
+<form action="ActivityController.do" method="post">
+	<input type="text" style="display:none" name="doWhat" value="update">
 	<div id="section">
 		<div style="border: 2px solid red;">
 			<p>這邊要顯示單一行程 總覽</p>
+			
+			<input type="text" style="display:none" name="email" value="${soloBean.email }">
+			<input type="text" style="display:none" name="activityID" value="${soloBean.activityID }">
 		標題:<input type="text" name="actTitle" value="${soloBean.actTitle }"><br>
 		起始時間:<input type="text" name="actStartDate" value="${soloBean.actStartDate }"><br>
 		地區:<input type="text" name="actRegion" value="${soloBean.actRegion }"><br>
-		照片:<input type="text" name="actPhoto" value="${soloBean.actPhoto }"><br>
+<%-- 		照片:<input type="text" name="actPhoto" value="${soloBean.actPhoto }"><br> --%>
 		簡介:<input type="text" name="introduction" value="${soloBean.introduction }"><br>			
 		</div>
 
@@ -52,10 +56,12 @@ html, body {
 			<div>測試文字</div>
 			<c:forEach var="detail" items="${soloDetail}">
 			<div>第${detail.dates }天</div>
+			<input type="text" style="display:none" name="actDetail" value="${detail.actDetail }">
+			<input type="text" style="display:none" name="dates" value="${detail.dates }">
 		停留時間:<input type="text" name="times" value="${detail.times }"><br>
 		活動類型:<input type="text" name="kinds" value="${detail.kinds }"><br>
 		活動名稱:<input type="text" name="note" value="${detail.note }"><br>
-		預算:<input type="text" name="budget" value="${detail.budget }"><br>				
+		預算:<input type="text" name="budget" value="${detail.budget }"><br>			
 				<hr>
 			</c:forEach>
 		</div>
