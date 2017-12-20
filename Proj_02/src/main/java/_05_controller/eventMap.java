@@ -19,7 +19,7 @@ import org.json.simple.JSONValue;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import _05_model.Event02;
+import _05_model.Event01;
 import _05_model.Event02Service;
 
 //@WebServlet("/mapcontroller")
@@ -48,11 +48,11 @@ public class eventMap extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 	
-		List<Event02> result = event01Service.select();
+		List<Event01> result = event01Service.select();
 	    List<Map<String, String>>  l1 = new LinkedList<Map<String, String>>();
 	    String jsonString;
 	    Map<String, List<Map<String, String>>> m2 = new HashMap<String, List<Map<String, String>>>();
-	    for(Event02 event01:result) {
+	    for(Event01 event01:result) {
 	    	if ( event01.getLongitude() != null && !event01.getLongitude().isEmpty()&&event01.getLongitude().length()>5) {
 				 Map<String, String> m1 = new HashMap<String, String>();       
 				 m1.put("EventName",event01.getEventName());   

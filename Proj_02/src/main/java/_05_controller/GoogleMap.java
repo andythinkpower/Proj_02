@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import _05_model.Event02;
+import _05_model.Event01;
 import _05_model.Event02Service;
 
 @Controller
@@ -31,11 +31,11 @@ public class GoogleMap {
 		response.setHeader("content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		List<Event02> result = event01Service.select();
+		List<Event01> result = event01Service.select();
 	    List<Map<String, String>>  l1 = new LinkedList<Map<String, String>>();
 	    String jsonString;
 	    Map<String, List<Map<String, String>>> m2 = new HashMap<String, List<Map<String, String>>>();
-	    for(Event02 event01:result) {
+	    for(Event01 event01:result) {
 	    	if ( event01.getLongitude() != null && !event01.getLongitude().isEmpty()&&event01.getLongitude().length()>5) {
 				 Map<String, String> m1 = new HashMap<String, String>();       
 				 m1.put("EventID", event01.getEventID().toString());
@@ -75,7 +75,7 @@ public class GoogleMap {
 		PrintWriter out = response.getWriter();
 		String jsonString;
 //	    ObjectMapper objectMapper = new ObjectMapper();
-		Event02 event01 = event01Service.select(Integer.parseInt(eventid));
+		Event01 event01 = event01Service.select(Integer.parseInt(eventid));
 		Map<String, String> m1 = new HashMap<String, String>();       
 		m1.put("EventID", event01.getEventID().toString());
 		m1.put("EventName",event01.getEventName());   
