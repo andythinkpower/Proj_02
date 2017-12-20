@@ -12,7 +12,7 @@
 	
 	<form action="qq.do">
 	
-	 <input type="text" name="doWhat" value="showAct">
+	 <input type="text" name="doWhat" value="update">
 		<input type="submit" value="提交"><br>
 	</form>
 </body>

@@ -1,5 +1,7 @@
 package _02_model.Bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ACTIVITYDETAIL")
-public class ActivityDetailBean {
+public class ActivityDetailBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer actDetail;

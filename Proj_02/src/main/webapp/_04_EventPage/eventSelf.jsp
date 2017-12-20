@@ -24,6 +24,7 @@
 	
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
 	
+<<<<<<< HEAD
 	<table id="eventTable">
 		<thead>
 			<tr>
@@ -78,6 +79,91 @@
 			}); // JSON END
 			
 		}); // 開啟即執行function END
+=======
+	<input type="button" value="收藏" style="width:120px;height:40px;font-size:20px;background-color: orange">
+	
+	<table id="eventTable">
+		<thead>
+			<tr>
+				<th width="100px">ImageFile</th> <!-- column1 -->
+				<th>EventType</th> <!-- column2 -->
+				<th width="300px">EventName</th> <!-- column3 -->
+				<th>活動時間</th> <!-- column4 -->
+				<th>場次開始時間</th> <!-- column5 -->
+				<th>IsCharge</th> <!-- column6 -->
+				<th>售票網址</th> <!-- column7 -->
+				<th width="300px">ShowGroupName</th> <!-- column8 -->
+				<th>活動聯絡電話</th> <!-- column9 -->
+				<th>活動網址</th> <!-- column10 -->
+				<th>地址</th> <!-- column11 -->
+				<th>更新日期</th> <!-- column12 -->
+				<th width="100px">活動內容</th> <!-- column13 -->
+			</tr>
+		</thead>
+		<tbody>
+			<!-- td插入點 -->
+		</tbody>
+	</table>
+	
+	<script>
+		// 開啟即執行
+		$(function(){
+			
+			var eventID = $("#eventID").text();
+			$('#eventTable>tbody').empty();
+			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
+				$.each(data, function(index, eventData) {
+					var column1 = $("<td></td>").html('<img src="' + eventData.imageFile + '">');
+					var column2 = $("<td></td>").text(eventData.eventTypeId);
+					var column3 = $("<td></td>").text(eventData.eventName);
+					
+					// 對毫秒數做轉換，取年月日再組裝 ↓
+					var Start = new Date(eventData.dtStart);
+					var End = new Date(eventData.durationEnd);
+					var Y1 = Start.getFullYear() + '-';
+					var M1 = (Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-';
+					var D1 = Start.getDate() + ' ';
+					var dtStart = Y1 + M1 + D1;
+					var Y2 = End.getFullYear() + '-';
+					var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
+					var D2 = End.getDate() + ' ';
+					var durationEnd = Y2 + M2 + D2;
+					var column4 = $("<td></td>").text(dtStart + " ~ " + durationEnd);
+					
+					// 對毫秒數做轉換，取年月日再組裝 ↓
+					var timeS = new Date(eventData.timeStart);
+					var Y3 = timeS.getFullYear() + '-';
+					var M3 = (timeS.getMonth()+1 < 10 ? '0'+(timeS.getMonth()+1) : timeS.getMonth()+1) + '-';
+					var D3 = timeS.getDate() + ' ';
+					var timeStart = Y3 + M3 + D3;
+					var column5 = $("<td></td>").text(timeStart);
+					
+					var column6 = $("<td></td>").text(eventData.isCharge);
+					var column7 = $("<td></td>").html('<a href="' + eventData.shoppingUrl + '">售票網址</a>');
+					var column8 = $("<td></td>").text(eventData.showGroupName);
+					var column9 = $("<td></td>").text(eventData.contactTel);
+					var column10 = $("<td></td>").html('<a href="' + eventData.eventUrl + '">活動網址</a>');
+					var column11 = $("<td></td>").text(eventData.address);
+					
+					// 對毫秒數做轉換，取年月日再組裝 ↓
+					var InsertT = new Date(eventData.insertTime);
+					var Y4 = InsertT.getFullYear() + '-';
+					var M4 = (InsertT.getMonth()+1 < 10 ? '0'+(InsertT.getMonth()+1) : InsertT.getMonth()+1) + '-';
+					var D4 = InsertT.getDate() + ' ';
+					var insertTime = Y4 + M4 + D4;
+					var column12 = $("<td></td>").text(eventData.insertTime);
+					
+					var column13 = $("<td></td>").text(eventData.vcontent);
+
+					var row = $('<tr></tr>').append(
+							[column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, column13]);
+					
+					$('#eventTable>tbody').append(row);
+				});
+			}); // JSON END
+			
+		}); // 開啟即執行 END
+>>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
 		
 	</script>
 

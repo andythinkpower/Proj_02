@@ -7,8 +7,11 @@
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <script>
 $(function () {
     //預設星期格式為yy-mm-dd
@@ -20,7 +23,7 @@ $(function () {
 <title>create_activity</title>
 </head>
 <body>
-
+<jsp:include page="../commons/header.jsp"/>
 	<h1>建立行程-1</h1>
 	<!-- 利用JavaScript 先做一些簡易判斷 符合才可送出(未完成)-->
 	<form action="ActivityController.do" method="post" >
@@ -28,8 +31,7 @@ $(function () {
 	<input type="text" name="doWhat" value="schedule" style="display:none;">
 		起始時間:<input type="text" name="actStartDate" id="date"> <br><!-- 使用jQuery ui Datepicker  -->
 		地區:<input type="text" name="actRegion"> <br> 
-		活動標題:<input
-			type="text" name="actTitle">
+		活動標題:<input type="text" name="actTitle">
 		<hr>
 		上傳圖片:
 <!-- 		<input type="file" id="file1"  name="ggggg"> -->
@@ -38,6 +40,7 @@ $(function () {
 		<textarea rows="20px" cols="40px" name="introduction"></textarea>
 		<br> <input type="submit" value="下一步">
 	</form>
-
+	
+<jsp:include page="../commons/footer.jsp"/>
 </body>
 </html>
