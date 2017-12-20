@@ -22,22 +22,18 @@ public class Event01DAOHibernate implements Event01DAO {
 	}
 	
 	@Override
-	public List<Event01> select() {
-		Query<Event01> query = this.getSession().createQuery("FROM Event01 order by datediff ( day , getdate() , DurationEnd )", Event01.class);
-		return query.getResultList();
-	}
-
-	@Override
-	public List<Event01> selectChange(String newTypes) {
+	public List<Event01> eventSearch(String newTypes) {
 		Query<Event01> query = this.getSession().createQuery("FROM Event01 where EventTypeID like :types order by datediff ( day , getdate() , DurationEnd )", Event01.class);
 		query.setParameter("types", "%["+newTypes+"]%");
 		return query.getResultList();
 	}
 
 	@Override
+
 	public List<Event01> eventSelf(String eventID) {
 		Query<Event01> query = this.getSession().createQuery("FROM Event01 where EventID=?0 order by datediff ( day , getdate() , DurationEnd )", Event01.class);
 		query.setParameter("0", eventID);
 		return query.getResultList();
 	}
+
 }

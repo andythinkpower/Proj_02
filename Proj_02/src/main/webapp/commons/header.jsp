@@ -50,5 +50,3 @@
         </div><!--container end here-->
     </nav><!--navbar end here-->
     
-    
-    

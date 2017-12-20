@@ -2,10 +2,12 @@ package _02_controller;
 
 import java.io.File;
 import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +56,7 @@ public class Activity_Controller {
 	public String xxx(@SessionAttribute(name = "member") MemberBean member, ActivityBean bean,
 			ActivityDetailBean detailBean, BindingResult bindingResult, Model model, String doWhat,
 			HttpServletRequest request) throws IllegalStateException, IOException {
+
 		
 		// 代表是從schedule.jsp進來
 		if ("schedule".equals(doWhat)) {
