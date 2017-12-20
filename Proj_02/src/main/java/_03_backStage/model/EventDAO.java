@@ -1,22 +1,21 @@
 package _03_backStage.model;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import _00_init.GlobalService;
+
 
 public class EventDAO implements EventDAO_interface
 {
@@ -45,7 +44,7 @@ public class EventDAO implements EventDAO_interface
 			//要使用JNDI
 			Context ctx = new InitialContext();
 			//取得連線物件
-			ds = (DataSource)ctx.lookup("");
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/xxx");
 		}catch(NamingException e){
 			e.printStackTrace();
 		}
