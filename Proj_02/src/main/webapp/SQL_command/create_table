@@ -4,13 +4,7 @@ use proj02
 drop table ActivityDetail
 drop table activity
 drop table favorites
-drop table member
 
-create table Member(
-	email varchar(40) primary key,
-	psd varchar(10),
-	phone varchar(20)
-);
 --刪除表格
 
 create table Activity(
@@ -22,8 +16,8 @@ create table Activity(
 	privacy bit default 1,
 	actPhoto varbinary(MAX),
 	clickNumber integer default 0,
-	email varchar(40) not null,
-	foreign key(email) references member(email)
+	email varchar(50) not null,
+	foreign key(email) references Members(MemberEmail)
 );
 
 	--dates	天數	varchar(10)
@@ -43,13 +37,17 @@ create table ActivityDetail(
 
 create table Favorites(
 	pk integer primary key identity not null,
-	email varchar(40) references Member(email) not null,
+	targetDate datetime,   --暫時用字串表示 決定要放在行事曆的哪一天
+	--活動過來的資料--
+	EventName	Nvarchar(max),		
+	dtStart	Datetime,
+	DurationEnd datetime,
+	--活動過來的資料--	 
+	email varchar(50) references Members(MemberEmail) not null,
 	eventID Integer references event01(eventID) not null,
-	targetDate varchar(30)   --暫時用字串表示 
 );
 
 
---select * from Member
 --select * from Activity
 --select * from ActivityDetail
 --select * from Favorites
@@ -58,15 +56,13 @@ create table Favorites(
 -- select * from activity order by clickNumber desc 熱門推薦 點閱率由高至低排列
 
 --放入預設資料
-insert into member values('fly911338@gmail.com','aaa','0911009338')
-insert into member values('abcd6603@yahoo.com.tw','bbb','0912345678')
 
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2000-2-29','逢甲','逢甲3日遊','今天我要去逢甲',900,'fly911338@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2015/1/1','花蓮','觀賞大自然的遼闊','預計從花蓮玩到台東',8452,'fly911338@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-12-31','全台','挑戰7天環島!!','腳踏車環島',5,'abcd6603@yahoo.com.tw')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-10-8','新竹','考察竹科','觀察回收業者',77,'fly911338@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-9-7','澎湖','來到澎湖灣','挑戰一天玩遍澎湖',135765,'fly911338@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-6-6','綠島','浮淺','聽說綠島浮淺世界美',1,'abcd6603@yahoo.com.tw')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2000-2-29','逢甲','逢甲3日遊','今天我要去逢甲',900,'aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2015/1/1','花蓮','觀賞大自然的遼闊','預計從花蓮玩到台東',8452,'aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-12-31','全台','挑戰7天環島!!','腳踏車環島',5,'bbb@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-10-8','新竹','考察竹科','觀察回收業者',77,'aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-9-7','澎湖','來到澎湖灣','挑戰一天玩遍澎湖',135765,'aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-6-6','綠島','浮淺','聽說綠島浮淺世界美',1,'bbb@gmail.com')
 
 insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(1,'都會公園','100','戶外','1:20','1')
 insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(1,'台中歌劇廳','2000','音樂','2:20','1')
@@ -78,15 +74,22 @@ insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'
 insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'玉山攻頂','500','戶外','12:00','2')
 insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'墾丁大街','1000','美食','1:10','3')
 insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'墾丁音樂祭','900','音樂','5:30','3')
+insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(6,'墾丁音樂祭','900','音樂','5:30','1')
 
-insert into Favorites values('abcd6603@yahoo.com.tw',99900092,'2000-12-12')
-insert into Favorites values('abcd6603@yahoo.com.tw',99900407,'2000-12-21')
-insert into Favorites values('abcd6603@yahoo.com.tw',99901336,'2000-12-5')
-insert into Favorites values('abcd6603@yahoo.com.tw',99904582,'2000-12-31')
-insert into Favorites values('abcd6603@yahoo.com.tw',99904584,'2000-3-21')
-insert into Favorites values('fly911338@gmail.com',99911914,'2000-4-21')
-insert into Favorites values('fly911338@gmail.com',99912337,'2000-5-21')
-insert into Favorites values('fly911338@gmail.com',99912663,'2000-6-21')
-insert into Favorites values('fly911338@gmail.com',99914533,'2000-7-21')
-insert into Favorites values('fly911338@gmail.com',99914572,'2000-8-21')
+
+--	EventName	Nvarchar(max),		
+--	DurationEnd datetime,
+--	dtStart	Datetime,
+	--活動過來的資料--	 
+
+insert into Favorites values('2000-12-12','唐卡自己畫','2017-03-01 00:00:00.000','2017-12-06 00:00:00.000','bbb@gmail.com',99900092)
+insert into Favorites values('2000-12-21','Holidayya二手市集愛心義賣x魔法/塔羅占卜x古著x手作甜點x意想不到..每月1-2場!','2018-02-04 00:00:00.000','2018-02-04 00:00:00.000','bbb@gmail.com',99900407)
+insert into Favorites values('2000-12-5','【台北市文化基金會】藝文諮詢服務平台','2014-09-17 00:00:00.000','2020-12-31 00:00:00.000','bbb@gmail.com',99901336)
+insert into Favorites values('2000-12-31','名揚象棋文化藝術研習營~幼兒研習','2017-11-01 00:00:00.000','2020-12-31 00:00:00.000','bbb@gmail.com',99904582)
+insert into Favorites values('2000-3-21','兒童象棋研習營（台北地區）','2017-11-01 00:00:00.000','2020-12-31 00:00:00.000','bbb@gmail.com',99904584)
+--insert into Favorites values('2000-4-21',,,'fly911338@gmail.com',99911914)
+--insert into Favorites values('2000-5-21',,,'fly911338@gmail.com',99912337)
+--insert into Favorites values('2000-6-21',,,'fly911338@gmail.com',99912663)
+--insert into Favorites values('2000-7-21',,,'fly911338@gmail.com',99914533)
+--insert into Favorites values('2000-8-21',,,'fly911338@gmail.com',99914572)
 

@@ -23,13 +23,13 @@ MemberRole varchar(10),                           /*會員角色*/
 CONSTRAINT PK_Members_MemberEmail PRIMARY KEY CLUSTERED (MemberEmail) /*Members.MemberEmail為主鍵*/
 );
 
-/*會員假資料
+
 INSERT INTO Members VALUES('aaa@gmail.com', 'abc123', '小小', '女生', '2000-12-22', null, 1, null, null);
 INSERT INTO Members VALUES('bbb@gmail.com', 'abc123', '大大', '女生', '2000-12-22', null, 1, null, null);
 INSERT INTO Members VALUES('ccc@gmail.com', 'abc123', '中中', '女生', '2000-12-22', null, 1, null, null);
 INSERT INTO Members VALUES('ddd@gmail.com', 'zzz', null, null, null, null, null, null, null);
 INSERT INTO Members (memberemail, memberpassword) VALUES('eee@gmail.com', 'eee');
-*/
+
 
 /*EventTypes*/
 CREATE TABLE EventTypes
@@ -82,7 +82,7 @@ ON UPDATE CASCADE,
 primary key(MemberEmail,Type)
 );
 
-/*
+
 insert into LikeTypes values ('aaa@gmail.com','表演萬象')
 insert into LikeTypes values ('aaa@gmail.com','展覽廣場')
 insert into LikeTypes values ('aaa@gmail.com','戶外行腳')
@@ -90,7 +90,7 @@ insert into LikeTypes values ('aaa@gmail.com','城市萬花筒')
 insert into LikeTypes values ('bbb@gmail.com','表演萬象')
 insert into LikeTypes values ('bbb@gmail.com','展覽廣場')
 insert into LikeTypes values ('ccc@gmail.com','電影瞭望')
-*/
+
 
 create table LikeRegions
 (
@@ -103,14 +103,14 @@ ON UPDATE CASCADE,
 primary key(MemberEmail,Region)
 );
 
-/*
+
 insert into LikeRegions values ('aaa@gmail.com','大安')
 insert into LikeRegions values ('aaa@gmail.com','萬華')
 insert into LikeRegions values ('bbb@gmail.com','大安')
 insert into LikeRegions values ('bbb@gmail.com','萬華')
 insert into LikeRegions values ('ccc@gmail.com','大安')
 insert into LikeRegions values ('ccc@gmail.com','中正')
-*/
+
 
 CREATE TABLE Blogs
 (
