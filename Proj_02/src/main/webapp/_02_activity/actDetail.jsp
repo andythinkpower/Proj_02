@@ -7,9 +7,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Insert title here</title>
+    <title>細節更新</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -39,8 +40,8 @@
 
 </head>
 <body>
-
-    <form action="ActivityController.do" id="form" method="get">
+<jsp:include page="../commons/header.jsp"/>
+    <form action="ActivityController.do" id="form" method="post">
     <fieldset><legend>行程總覽</legend>
     	<input type="text" name="doWhat" value="detail" style="display:none;">
     	<input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
@@ -55,7 +56,7 @@
     
     
   
-
+<div class="container">
     <div class="modal" >
       <div class="modal-dialog">
         <div class="modal-content">
@@ -76,7 +77,8 @@
         </div>
       </div>
     </div>
+    </div>
     
-      
+ <jsp:include page="../commons/footer.jsp"/>   
 </body>
 </html>

@@ -1,7 +1,7 @@
 package _02_model.Bean;
 
+import java.io.Serializable;
 import java.sql.Blob;
-import java.util.Arrays;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ACTIVITY")
-public class ActivityBean {
+public class ActivityBean implements Serializable{
 
 	//行程規畫 主表
 	@Id
@@ -27,9 +27,9 @@ public class ActivityBean {
 	private String introduction;
 	//預設public
 	private boolean privacy=false;
-	private Blob actPhoto;
+	private String photoPath;
 	private Integer clickNumber;
-	private Integer memberID;
+	private String email;
 	
 	
 	//一對多關係
@@ -131,20 +131,23 @@ public class ActivityBean {
 		this.privacy = privacy;
 	}
 	
-	public Blob getActPhoto() {
-		return actPhoto;
+	public String getActPhoto() {
+		return photoPath;
 	}
 
-	public void setActPhoto(Blob actPhoto) {
-		this.actPhoto = actPhoto;
+	public void setActPhoto(String actPhoto) {
+		this.photoPath = actPhoto;
 	}
 
-	public Integer getMemberID() {
-		return memberID;
+	
+	public String getEmail() {
+		return email;
 	}
-	public void setMemberID(Integer memberID) {
-		this.memberID = memberID;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
 	public Integer getClickNumber() {
 		return clickNumber;
 	}
@@ -155,8 +158,8 @@ public class ActivityBean {
 	@Override
 	public String toString() {
 		return "ActivityBean [activityID=" + activityID + ", actStartDate=" + actStartDate + ", actRegion=" + actRegion
-				+ ", actTitle=" + actTitle + ", introduction=" + introduction + ", privacy=" + privacy 
-				+ ", clickNumber=" + clickNumber + ", memberID=" + memberID;
+				+ ", actTitle=" + actTitle + ", introduction=" + introduction + ", privacy=" + privacy + ", photoPath="
+				+ photoPath + ", clickNumber=" + clickNumber + ", email=" + email + "]";
 	}
 	
 
