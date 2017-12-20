@@ -1,43 +1,63 @@
 package _02_controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import _02_model.Bean.ActivityBean;
-import _02_model.Bean.MemberBean;
-import _02_model.service.ActivityService;
+import _01_member.model.MemberBean;
+import _05_model.FavoritesBean;
+import _05_model.FavoritesService;
 
 @Controller
-@SessionAttributes(names= {"user_member"})
 public class TempController {
 	
 	@Autowired
-	private ActivityService activityService;
+	private FavoritesService favoritesService;
 	
 	
 	
-	@RequestMapping(method= {RequestMethod.GET},path= {"/_02_activity/qq.do"})
-	public String test(Model model,String primary_key) {
+	@RequestMapping(path= {"/_04_EventPage/insert.controller"},method= {RequestMethod.POST,RequestMethod.GET})
+	public String insert(String eventName,String eventID,String durationEnd,String dtStart,
+			@SessionAttribute(name="member")MemberBean member) {
+
 		
-		MemberBean bean=new MemberBean();
-		bean.setMemberID(1);
+		FavoritesBean bean=new FavoritesBean();
+		bean.setEventID(Integer.valueOf(eventID));
+		bean.setEventName(eventName);
+		bean.setEmail(member.getMemberemail());
+		SimpleDateFormat sdate=new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			java.util.Date date1=sdate.parse(dtStart);
+			bean.setDtStart(date1);
+			date1=sdate.parse(durationEnd);
+			bean.setDurationEnd(date1);
 			
-		List<ActivityBean> list=activityService.Schedule(bean.getMemberID());
-		System.out.println(list);
+		} catch (ParseException e) {
+			System.out.println("轉換錯誤");
+			e.printStackTrace();
+		}
+		System.out.println("bean"+bean);
+		//資料如果沒問題 新增進資料庫
+		
+		Integer pk=favoritesService.Create_fav(bean);
+		System.out.println("新增主key為:"+pk);
 		
 		
-		model.addAttribute("user_member",bean);
 		
-		model.addAttribute("allSchedule", list);
-		
-		return "display";
+		return "login.error";
 		
 	}
+	
+	
+	
 }

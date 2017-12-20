@@ -19,7 +19,9 @@
                 <!--list start here-->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item px-2">
+
                         <a href="${pageContext.request.contextPath}/_04_EventPage/eventSearch.jsp" class="nav-link">活動篩選</a>
+
                     </li>
                     <li class="nav-item px-2">
                         <a href="" class="nav-link">Event Map</a>

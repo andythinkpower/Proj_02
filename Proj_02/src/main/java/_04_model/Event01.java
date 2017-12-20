@@ -17,7 +17,7 @@ public class Event01 {
 	private String eventTypeId;
 	private Date durationStart;
 	private Date durationEnd;
-	private Integer isCharge;
+	private String isCharge;
 	private String fee;
 	private String shoppingUrl;
 	private String contactName;
@@ -96,11 +96,11 @@ public class Event01 {
 		this.durationEnd = durationEnd;
 	}
 
-	public Integer getIsCharge() {
+	public String getIsCharge() {
 		return isCharge;
 	}
 
-	public void setIsCharge(Integer isCharge) {
+	public void setIsCharge(String isCharge) {
 		this.isCharge = isCharge;
 	}
 
