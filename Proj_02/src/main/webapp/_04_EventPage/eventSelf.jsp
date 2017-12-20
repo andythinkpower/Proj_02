@@ -24,6 +24,7 @@
 	
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
 	
+
 	<input type="button" value="收藏" style="width:120px;height:40px;font-size:20px;background-color: orange">
 	
 	<table id="eventTable">

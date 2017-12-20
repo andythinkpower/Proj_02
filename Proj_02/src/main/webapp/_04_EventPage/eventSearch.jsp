@@ -25,6 +25,7 @@
 	<form name="selectForm">
 		<fieldset>
 			<legend>活動類型</legend>
+
 				<input type="checkbox" id="全部" name="manyTypes" value="休閒展覽音樂表演研習親子影視" checked="checked" onclick="switchToAll(this.form)">全部
 				<input type="checkbox" id="休閒" name="eventType" value="休閒" onclick="changeTypes(this.form)">休閒
 				<input type="checkbox" id="展覽" name="eventType" value="展覽" onclick="changeTypes(this.form)">展覽
@@ -132,6 +133,7 @@
 				$('#count').empty().append('&emsp;&emsp;&emsp;共有' + count + '筆活動');
 			}); // JSON END
 		}; // changeType END
+
 		
 //			// --- DataTable寫法(未完成) ---
 //			$('#eventTable').DataTable({

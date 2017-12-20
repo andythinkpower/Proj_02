@@ -29,6 +29,7 @@ public class Event01DAOHibernate implements Event01DAO {
 	}
 
 	@Override
+
 	public List<Event01> eventSelf(String eventID) {
 		Query<Event01> query = this.getSession().createQuery("FROM Event01 where EventID=?0 order by datediff ( day , getdate() , DurationEnd )", Event01.class);
 		query.setParameter("0", eventID);

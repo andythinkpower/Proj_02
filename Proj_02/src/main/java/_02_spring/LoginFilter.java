@@ -29,14 +29,14 @@ public class LoginFilter implements Filter {
 	String contextPath;
 	String requestURI;
 	public void init(FilterConfig fConfig) throws ServletException {
-		System.out.println("濾波器初始化....");
+//		System.out.println("濾波器初始化....");
 		Enumeration<String> e = fConfig.getInitParameterNames();
 		while (e.hasMoreElements()) {
 			String path = e.nextElement();
 			url.add(fConfig.getInitParameter(path));
-			System.out.println("這些路徑要檢查會員登入"+fConfig.getInitParameter(path));
+//			System.out.println("這些路徑要檢查會員登入"+fConfig.getInitParameter(path));
 		}
-		System.out.println("把上述路徑存起來 之後有用到這些路徑就必須檢查是否有 會員session物件");
+//		System.out.println("把上述路徑存起來 之後有用到這些路徑就必須檢查是否有 會員session物件");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -54,7 +54,7 @@ public class LoginFilter implements Filter {
 //			System.out.println("requestURI="+requestURI);
 //			System.out.println("==============================");
 			isRequestedSessionIdValid = req.isRequestedSessionIdValid();
-			System.out.println("session 仍然有效?:"+isRequestedSessionIdValid);
+			//System.out.println("session 仍然有效?:"+isRequestedSessionIdValid);
 			if (mustLogin()) {
 				if (checkLogin(req)) {   //  需要登入，已經登入
 					chain.doFilter(request, response);
@@ -64,7 +64,7 @@ public class LoginFilter implements Filter {
 					if ( ! isRequestedSessionIdValid ) {
 						session.setAttribute("timeOut", "使用逾時，請重新登入");
 					}
-					resp.sendRedirect(contextPath + "/_01_member/login.jsp");
+					resp.sendRedirect(contextPath + "/security/login.jsp");
 					return;
 				}
 			} else {   //不需要登入
@@ -77,7 +77,7 @@ public class LoginFilter implements Filter {
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		MemberBean loginToken = (MemberBean) session.getAttribute("member");
-		System.out.println("現在檢查Session物件 是否有一個屬性較做member : "+loginToken);
+		//System.out.println("現在檢查Session物件 是否有一個屬性較做member : "+loginToken);
 		if (loginToken == null) {
 			return false;
 		} else {
@@ -91,7 +91,7 @@ public class LoginFilter implements Filter {
 			if (sURL.endsWith("*")) {
 				//System.out.println("sURL="+sURL);
 				sURL = sURL.substring(0, sURL.length() - 1);
-				System.out.println("sURL="+sURL);
+//				System.out.println("sURL="+sURL);
 				if (servletPath.startsWith(sURL)) {
 					login = true;
 					break;

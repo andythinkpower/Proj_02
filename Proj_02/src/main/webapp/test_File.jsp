@@ -7,11 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="test.do" enctype="multipart/form-data" method="post">
+	<form action="test.controller" enctype="multipart/form-data" method="post">
         <input type="text" name="something" />
-        <input type="file" name="input_file_name" />
+        <select name="choose">
+        	<option>insert</option>
+        	<option>select</option>
+        </select>
+        <input type="file" name="input_file_name" />       
         <input type="submit" value="上傳" />
-
     </form>
 </body>
 </html>
