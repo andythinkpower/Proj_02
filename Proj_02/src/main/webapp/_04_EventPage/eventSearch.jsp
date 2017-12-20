@@ -25,7 +25,7 @@
 	<form name="selectForm">
 		<fieldset>
 			<legend>活動類型</legend>
-				<input type="checkbox" id="全部" name="manyTypes" value="休閒展覽音樂表演研習親子影視" checked="checked" onclick="changeTypes(this.form)">全部
+				<input type="checkbox" id="全部" name="manyTypes" value="休閒展覽音樂表演研習親子影視" checked="checked" onclick="switchToAll(this.form)">全部
 				<input type="checkbox" id="休閒" name="eventType" value="休閒" onclick="changeTypes(this.form)">休閒
 				<input type="checkbox" id="展覽" name="eventType" value="展覽" onclick="changeTypes(this.form)">展覽
 				<input type="checkbox" id="音樂" name="eventType" value="音樂" onclick="changeTypes(this.form)">音樂
@@ -33,20 +33,20 @@
 				<input type="checkbox" id="研習" name="eventType" value="研習" onclick="changeTypes(this.form)">研習
 				<input type="checkbox" id="親子" name="eventType" value="親子" onclick="changeTypes(this.form)">親子
 				<input type="checkbox" id="影視" name="eventType" value="影視" onclick="changeTypes(this.form)">影視
-				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;共有筆符合資料</span>
+				<span id="count" ></span>
 		</fieldset>
 	</form>
 	
 	<table id="eventTable">
 		<thead>
 			<tr>
-				<th>ImageFile</th> <!-- column1 -->
+				<th width="100px">ImageFile</th> <!-- column1 -->
 				<th>EventType</th> <!-- column2 -->
-				<th>EventName</th> <!-- column3 -->
+				<th width="300px">EventName</th> <!-- column3 -->
 				<th>地區</th> <!-- column4 -->
 				<th>IsCharge</th> <!-- column5 -->
 				<th>活動時間</th> <!-- column6 -->
-				<th>ShowGroupName</th> <!-- column7 -->
+				<th width="300px">ShowGroupName</th> <!-- column7 -->
 			</tr>
 		</thead>
 		<tbody>
@@ -57,11 +57,15 @@
 	<script>
 		// 開啟即執行
 		$(function(){
-			var selectAll = $('#全部').prop('checked');
-			if ( selectAll == true ) {
-				selectEvent(selectForm);
-			};
+			selectEvent(selectForm);
 		}); // 開啟即執行 END
+		
+		// --- 活動類型切換 ---
+		function switchToAll(selectForm){
+			$(':checkbox[name="manyTypes"]').prop('checked',true);
+			$(':checkbox[name="eventType"]').prop('checked',false);
+			selectEvent(selectForm);
+		}; // switchToAll END
 		
 		// --- 活動類型切換 ---
 		function changeTypes(selectForm){
@@ -75,48 +79,35 @@
 			var family = $('#親子 ').prop('checked');
 			var video = $('#影視 ').prop('checked');
 			
-// 			$('#全部').one('click',function(){
-// 				$(':checkbox[name="eventType"]').prop('checked',false);
-// 				$(':checkbox[name="manyTypes"]').prop('checked',true);
-// 				selectEvent(selectForm);
-// 			});
-			
 			if ( leisure == true || exhibit == true || music == true || show == true || study == true || family == true || video == true ) {
 				$(':checkbox[name="manyTypes"]').prop('checked',false);
 				selectEvent(selectForm);
 			} else if ( leisure == false && exhibit == false && music == false && show == false && study == false && family == false && video == false ) {
 				$(':checkbox[name="manyTypes"]').prop('checked',true);
 				selectEvent(selectForm);
-			} else if ( selectAll == true && ( leisure == true || exhibit == true || music == true || show == true || study == true || family == true || video == true )) {
-				
-			}
-			
+			}; // if END
 		}; // changeTypes END
 		
+		
+		// 送controller撈資料
 		function selectEvent(selectForm){
+			
 			var types = [];
-			$(':checked[name="manyTypes"]').each(function(){
+			$(':checked[type="checkbox"]').each(function(){
 				var typeString = $(this).val();
 				types.push(typeString);
 			});
-			$(':checked[name="eventType"]').each(function(){
-				var typeString = $(this).val();
-				types.push(typeString);
-			});
-// 			$(':checked[type="checkbox"]').each(function(){
-// 				var typeString = $(this).val();
-// 				types.push(typeString);
-// 			});
-			console.log(types);
+			
 			$('#eventTable>tbody').empty();
-			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/newTypes.controller', 'newTypes='+types, function(data) {
+			
+			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', 'newTypes='+types, function(data) {
 				$.each(data, function(index, eventData) {
 					var column1 = $("<td></td>").html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="' + eventData.imageFile + '" title="' + eventData.briefIntroduction + '"></a>');
 					var column2 = $("<td></td>").text(eventData.eventTypeId);
-					var column3 = $("<td></td>").html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>">' + eventData.eventName + '</a>');
+					var column3 = $('<td class="count"></td>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>">' + eventData.eventName + '</a>');
 					var column4 = $("<td></td>").text(eventData.areaId);
 					var column5 = $("<td></td>").text(eventData.isCharge);
-					// 對毫秒數做轉換 ↓
+					// 對毫秒數做轉換，取年月日再組裝 ↓
 					var Start = new Date(eventData.dtStart);
 					var End = new Date(eventData.durationEnd);
 					var Y1 = Start.getFullYear() + '-';
@@ -136,49 +127,11 @@
 					
 					$('#eventTable>tbody').append(row);
 				});
-			});
-		}; // changeType END
-		
-		
-		// 				// 取得搜尋筆數
-		// 				$(function(){
-		// 					alert("yaya");
-		// 					$.getJSON('${pageContext.request.contextPath}/_04_EventPage/selectCount.controller', function(data) {
-		// 						$.each(data, function(index, countResult) {
-		// 						});
-		// 					});
-		// 				}); // 搜尋筆數 END
-		
-		function nonononononodoSelect() {
-			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/Event01.controller', function(data) {
-				$.each(data, function(index, eventData) {
-					var column1 = $("<td></td>").html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="' + eventData.imageFile + '" title="' + eventData.briefIntroduction + '"></a>');
-					var column2 = $("<td></td>").text(eventData.eventTypeId);
-					var column3 = $("<td></td>").html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>">' + eventData.eventName + '</a>');
-					var column4 = $("<td></td>").text(eventData.areaId);
-					var column5 = $("<td></td>").text(eventData.isCharge);
-					// 對毫秒數做轉換 ↓
-					var Start = new Date(eventData.dtStart);
-					var End = new Date(eventData.durationEnd);
-					var Y1 = Start.getFullYear() + '-';
-					var M1 = (Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-';
-					var D1 = Start.getDate() + ' ';
-					var dtStart = Y1 + M1 + D1;
-					var Y2 = End.getFullYear() + '-';
-					var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
-					var D2 = End.getDate() + ' ';
-					var durationEnd = Y2 + M2 + D2;
-					
-					var column6 = $("<td></td>").text(dtStart + " ~ " + durationEnd);
-					var column7 = $("<td></td>").text(eventData.showGroupName);
-
-					var row = $('<tr></tr>').append(
-							[column1, column2, column3, column4, column5, column6, column7]);
-					
-					$('#eventTable>tbody').append(row);
-				});
+				// 取得搜尋筆數
+				var count = $('.count').length;
+				$('#count').empty().append('&emsp;&emsp;&emsp;共有' + count + '筆活動');
 			}); // JSON END
-		}; // doSelect END
+		}; // changeType END
 		
 //			// --- DataTable寫法(未完成) ---
 //			$('#eventTable').DataTable({
