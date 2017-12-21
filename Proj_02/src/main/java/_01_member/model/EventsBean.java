@@ -37,20 +37,21 @@ public class EventsBean {
 
 	
 //	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int typeid;
+//	private int typeid;
 	@Id
 	private String type;
 	
-	@Override
+
+@Override
 	public String toString() {
-		return "EventBean [typeid=" + typeid + ", type=" + type + "]";
+		return "EventsBean [type=" + type + "]";
 	}
-	public int getTypeid() {
-		return typeid;
-	}
-	public void setTypeid(int typeid) {
-		this.typeid = typeid;
-	}
+//	public int getTypeid() {
+//		return typeid;
+//	}
+//	public void setTypeid(int typeid) {
+//		this.typeid = typeid;
+//	}
 	public String getType() {
 		return type;
 	}

@@ -35,6 +35,7 @@
 				<!-- 要把交易交給spring管理(未完成) -->
 <!-- 				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.show_sql">true</prop> -->
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
 			</props>
 		</property>
 		<property name="annotatedClasses">
