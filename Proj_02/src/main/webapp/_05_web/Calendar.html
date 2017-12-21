@@ -63,37 +63,35 @@
 </style>
 </head>
 <script type="text/javascript">
-
-var everyevent=[{title:'GGG',start:'2017-12-19',end:'2017-12-20'},{title:'XXX',start:'2017-12-22',end:'2017-12-23'}];
-
 $(document).ready(function() {
 	var allevent=[];
 //	$.getJSON('findEventtype.controller', {'selectType':'影視' }, function (data) {
 	$.getJSON('getFavorites.controller', {'email':'bbb@gmail.com' }, function (data) {
-		
 		$.each(data, function (i, event01) {
-		 	var event= {
+			var eventallow={
+			 		id: 'available'+event01.eventID,
+			 	    start: moment(event01.dtStart).format('YYYY-MM-DD HH:mm:ss'),
+			 	    end: moment(event01.durationEnd+86400000).format('YYYY-MM-DD HH:mm:ss'),
+			 	    allDay:false,
+			 	    rendering: 'background'
+			 	};
+			//alert(event01.targetDate)
+			if(event01.targetDate!=0){
+			/*var event= {
 		 		id:event01.eventID,
 		 		title: event01.eventName,
-			    start: moment(event01.dtStart).format('YYYY-MM-DD'),
+			    start: moment(event01.targetDate).format('YYYY-MM-DD HH:mm:ss'),
 			    constraint: 'available'+event01.eventID,
-			  //  url:"display.html?"+event01.EventID,
+			 	url:"../_04_EventPage/eventSelf.jsp?eventID="+event01.EventID,
 			    stick: true,
-			};
-		 	//alert(moment(event01.dtStart).format('YYYY-MM-DD'));
-		 	var eventallow={
-		 		id: 'available'+event01.eventID,
-		 	    start: moment(event01.dtStart).format('YYYY-MM-DD'),
-		 	    end: moment(event01.durationEnd+86400000).format('YYYY-MM-DD HH:mm:ss'),
-		 	    allDay:false,
-		 	    rendering: 'background'
-		 	}
-		$('#external-events-listing').append('<div class="fc-event" value='+event01.eventID+'>'+event01.eventName+'</div>')
-	//	allevent.push(event);
-		allevent.push(eventallow)
+			}allevent.push(event);*/
+		 	}else{
+			$('#external-events-listing').append('<div class="fc-event" value='+event01.eventID+'>'+event01.eventName+'</div>')
+			}
 		
+		allevent.push(eventallow)
 		});
-		console.log(allevent)
+		//console.log(allevent)
 	var isEventOverDiv = function(x, y) {
 			var external_events = $( '#external-events' );
             var offset = external_events.offset();
@@ -113,29 +111,23 @@ $(document).ready(function() {
 	-----------------------------------------------------------------*/
 
 	$('#external-events .fc-event').each(function() {
-
 		// store data so the calendar knows to render an event upon drop
 		$(this).data('event', {
 			id:$(this).attr('value'),
 			title: $.trim($(this).text()), // use the element's text as the event title
 			constraint: 'available'+($(this).attr('value')),
+			url:"../_04_EventPage/eventSelf.jsp?eventID="+$(this).attr('value'),
 			stick: false // maintain when user navigates (see docs on the renderEvent method)
 		});
-
 		// make the event draggable using jQuery UI
 		$(this).draggable({
 			zIndex: 999,
 			revert: true,      // will cause the event to go back to its
 			revertDuration: 0  //  original position after the drag
 		});
-		
-	
-		
-
 	});
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
-	
 	$('#calendar').fullCalendar({
 		events:allevent,
 		header: {
@@ -147,7 +139,6 @@ $(document).ready(function() {
 		editable: true,
 		droppable: true, // this allows things to be dropped onto the calendar
 		drop: function() {
-			
 			// is the "remove after drop" checkbox checked?
 			if ($('#drop-remove').is(':checked')) {
 				// if so, remove the element from the "Draggable Events" list
@@ -157,7 +148,6 @@ $(document).ready(function() {
 		eventDragStart:function(event){
 			//alert(event.title+"id:"+event.id);
 			var allowplace='available'+event.id;
-			
 			//$(#allowplace).rendering= 'background2';
 		},
 		/*eventDrop: function(event, delta, revertFunc) {
@@ -168,7 +158,6 @@ $(document).ready(function() {
         },
         */
         eventDragStop: function( event, jsEvent, ui, view ) {
-            
             if(isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
                 $('#calendar').fullCalendar('removeEvents', event.id);
                 var el = $( "<div class='fc-event'>" ).appendTo('#external-events-listing').text( event.title );
@@ -184,35 +173,31 @@ $(document).ready(function() {
              
             alert(event.id+event.title);
             $('#calendar').fullCalendar('updateEvent', event); 
-        } ,
+        },
     	navLinks: true, // can click day/week names to navigate views
 		eventLimit: true // allow "more" link when too many events
-		
-	});
-	
-	
+		});
 	});
 	
 
 	$('#GGG').click(function(){
 		var getallevent=$('#calendar').fullCalendar('clientEvents');
 		var datas=[];
+		var data0=[];
+		var data1=[];
+		var email='bbb@gmail.com';
 		$.each(getallevent, function (i, event01) {
 			if((event01.id).length<9){
-				var event= {
-					id:event01.id,
-			 		targetdate:moment(event01.start).format('YYYY-MM-DD'),
-				}
-				datas.push(event);
+				var id=event01.id
+				var date=moment(event01.start).format('YYYY-MM-DD HH:mm:ss')
+				data0=('eventid='+id+' '+'targetdate='+date+' email='+email);
+				data1.push(data0);
 			}
-			
 		});
-		
-		$.post('savecalendar.controller',{'getallevent':datas},function(){
-		
-		
+		var getallevent=data1.join();
+		$.post('savecalendar.controller',{'getallevent':getallevent,'email':email},function(data){
+			alert(data);	
 		});
-		console.log(datas);
 	});
 	
 		

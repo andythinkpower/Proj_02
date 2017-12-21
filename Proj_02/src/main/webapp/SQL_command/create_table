@@ -81,11 +81,10 @@ insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(6,'
 --	dtStart	Datetime,
 	--活動過來的資料--	 
 
-insert into Favorites values('2000-12-12','唐卡自己畫','2017-03-01 00:00:00.000','2017-12-06 00:00:00.000','bbb@gmail.com',99900092)
-insert into Favorites values('2000-12-21','Holidayya二手市集愛心義賣x魔法/塔羅占卜x古著x手作甜點x意想不到..每月1-2場!','2018-02-04 00:00:00.000','2018-02-04 00:00:00.000','bbb@gmail.com',99900407)
-insert into Favorites values('2000-12-5','【台北市文化基金會】藝文諮詢服務平台','2014-09-17 00:00:00.000','2020-12-31 00:00:00.000','bbb@gmail.com',99901336)
-insert into Favorites values('2000-12-31','名揚象棋文化藝術研習營~幼兒研習','2017-11-01 00:00:00.000','2020-12-31 00:00:00.000','bbb@gmail.com',99904582)
-insert into Favorites values('2000-3-21','兒童象棋研習營（台北地區）','2017-11-01 00:00:00.000','2020-12-31 00:00:00.000','bbb@gmail.com',99904584)
+insert into Favorites values('2017-12-21','Holidayya二手市集愛心義賣x魔法/塔羅占卜x古著x手作甜點x意想不到..每月1-2場!','2018-12-04 00:00:00.000','2018-12-25 00:00:00.000','11:00','bbb@gmail.com',99900407)
+insert into Favorites values('2017-12-5','【台北市文化基金會】藝文諮詢服務平台','2017-12-17 00:00:00.000','2020-12-17 00:00:00.000','15:00','bbb@gmail.com',99901336)
+insert into Favorites values('2017-12-31','名揚象棋文化藝術研習營~幼兒研習','2017-12-03 00:00:00.000','2020-12-16 00:00:00.000','13:00','bbb@gmail.com',99904582)
+insert into Favorites values('2017-12-11','兒童象棋研習營（台北地區）','2017-12-01 00:00:00.000','2020-12-31 00:00:00.000','10:00','bbb@gmail.com',99904584)
 --insert into Favorites values('2000-4-21',,,'fly911338@gmail.com',99911914)
 --insert into Favorites values('2000-5-21',,,'fly911338@gmail.com',99912337)
 --insert into Favorites values('2000-6-21',,,'fly911338@gmail.com',99912663)

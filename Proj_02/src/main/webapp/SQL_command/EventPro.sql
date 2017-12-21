@@ -7,7 +7,7 @@ create table event01(
 [EventTypeID]	Nvarchar(max),
 [DurationStart]	datetime,
 [DurationEnd]	datetime,
-[IsCharge]	integer,
+[IsCharge]	Varchar(10),
 [Fee]	Nvarchar(max),
 [ShoppingUrl]	Nvarchar(max),
 [ContactName]	Nvarchar(max),

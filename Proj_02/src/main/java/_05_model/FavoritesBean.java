@@ -19,12 +19,6 @@ public class FavoritesBean {
 	private Date dtStart;
 	private Date durationEnd;
 	private Date timeStart;
-	public Date getTimeStart() {
-		return timeStart;
-	}
-	public void setTimeStart(Date timeStart) {
-		this.timeStart = timeStart;
-	}
 	private String email;
 	private Integer eventID;
 	public Integer getPk() {
@@ -69,7 +63,12 @@ public class FavoritesBean {
 	public void setEventID(Integer eventID) {
 		this.eventID = eventID;
 	}
-	
+	public Date getTimeStart() {
+		return timeStart;
+	}
+	public void setTimeStart(Date timeStart) {
+		this.timeStart = timeStart;
+	}
 	
 	
 	
