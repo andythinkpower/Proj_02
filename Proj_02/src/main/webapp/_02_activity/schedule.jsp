@@ -4,9 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -34,12 +32,33 @@ $(function () {
 		活動標題:<input type="text" name="actTitle">
 		<hr>
 		上傳圖片:
-		<input type="file" id="file"  name="file">
+		<input type="file" id="file"  name="file"><br>
+		<img class="preview" style="max-width: 150px; max-height: 150px;">
 		<hr>
 		簡介:
 		<textarea rows="20px" cols="40px" name="introduction"></textarea>
 		<br> <input type="submit" value="下一步">
 	</form>
+	
+	
+	<script>
+	$(function (){
+		//當id=file 的欄位做"change"這個動作會觸發 preview(參數)這個方法
+		 $("body").on("change", "#file", function (){
+		        preview(this);
+		    })
+	    function preview(input) {	 
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();            
+	            reader.onload = function (e) {
+	            	//會在class="preview" e.target.result為圖片暫存路徑  
+	                $('.preview').attr('src', e.target.result);
+	            }	 
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+	})
+	</script>
 	
 <jsp:include page="../commons/footer.jsp"/>
 </body>

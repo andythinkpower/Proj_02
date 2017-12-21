@@ -2,15 +2,15 @@ package _02_controller;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +37,7 @@ import _02_model.service.ActivityService;
 import _02_spring.SqlDateEditor;
 
 @Controller
-@SessionAttributes(names = { "soloDetail" })
+@SessionAttributes(names = { "soloDetail"})
 public class Activity_Controller {
 	@Autowired
 	private ActivityService activityService;
@@ -55,7 +56,7 @@ public class Activity_Controller {
 			RequestMethod.GET })
 	public String xxx(@SessionAttribute(name = "member") MemberBean member, ActivityBean bean,
 			ActivityDetailBean detailBean, BindingResult bindingResult, Model model, String doWhat,
-			HttpServletRequest request) throws IllegalStateException, IOException {
+			HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException {
 
 		
 		// 代表是從schedule.jsp進來
@@ -76,22 +77,21 @@ public class Activity_Controller {
 					System.out.println("有傳檔案");
 					ServletContext context=request.getServletContext();
 					String filename=file.getOriginalFilename();
+					String showPic="/uploadFile/"+filename;
+					Cookie picPath=new Cookie("picPath",showPic);
+					picPath.setMaxAge(60*60);
+					
+					response.addCookie(picPath);
+					
 					String path=context.getRealPath("/uploadFile/"+filename);
 					System.out.println("路徑"+path);
 					file.transferTo(new File(path));
-					model.addAttribute("filePath",path);
-					
 				}
-				
-			}
-			
-			
-			
-			
+			}			
 			return "actDetail";
 		} // 代表從actDetail.jsp進來
 		else if ("detail".equals(doWhat)) {
-
+			System.out.println("現在在細節 路徑為:"+bean.getPhotoPath());
 			// 呼叫自己寫的方法 把多的細節拆開
 			List<ActivityDetailBean> list = Activity_Controller.Detail_split(detailBean, false);
 
@@ -116,17 +116,8 @@ public class Activity_Controller {
 			model.addAttribute("allSchedule", Member_activity);
 			System.out.println("總共有" + Member_activity.size() + "項");
 			return "display";
-		} // 會員首頁進入 要顯示所有的行程頁面
-		else if ("showAct".equals(doWhat)) {
-			// 這邊要顯示該會員所有的行程
-			// 並且可以點選只訂 編輯或刪除
-			System.out.println("現在進入showAct動作");
-			List<ActivityBean> Member_activity = activityService.Schedule(member.getMemberemail());
-			// 放入request中
-			model.addAttribute("allSchedule", Member_activity);
-
-			return "display";
-		} else if ("single".equals(doWhat)) {
+		}
+		else if ("single".equals(doWhat)) {
 			// 尚未檢查錯誤
 			System.out.println("顯示單人頁面");
 			System.out.println(bean);
@@ -138,23 +129,26 @@ public class Activity_Controller {
 
 			// 進入單獨行程頁面
 			return "soloPage";
-		} else if ("delete".equals(doWhat)) {
-			System.out.println("行程總覽 連同行程細節一起刪除");
-
-			// 刪除
-			boolean result = activityService.Delete_Schedule(detailBean.getActivityID());
-			System.out.println("刪除結果:" + result);
-			if (result) {
-				// 刪除成功 接下來重新select 該member的所有行程
-				List<ActivityBean> Member_activity = activityService.Schedule(member.getMemberemail());
-				model.addAttribute("allSchedule", Member_activity);
-				return "display";
-			} else {
-				// 代表刪除失敗
-				return "login.error";
-			}
-
-		} else if ("update".equals(doWhat)) {
+		} 
+		//由ajax取代
+//		else if ("delete".equals(doWhat)) {
+//			System.out.println("行程總覽 連同行程細節一起刪除");
+//
+//			// 刪除
+//			boolean result = activityService.Delete_Schedule(detailBean.getActivityID());
+//			System.out.println("刪除結果:" + result);
+//			if (result) {
+//				// 刪除成功 接下來重新select 該member的所有行程
+//				List<ActivityBean> Member_activity = activityService.Schedule(member.getMemberemail());
+//				model.addAttribute("allSchedule", Member_activity);
+//				return "display";
+//			} else {
+//				// 代表刪除失敗
+//				return "login.error";
+//			}
+//
+//		} 
+		else if ("update".equals(doWhat)) {
 			System.out.println("進入修改 儲存資料");
 			System.out.println(detailBean);
 			HttpSession session = request.getSession();
@@ -182,6 +176,28 @@ public class Activity_Controller {
 
 		return "actDetail";
 	}
+	
+	@RequestMapping(path= {"/_02_activity/show.controller"},method= {RequestMethod.GET},produces = { "application/json;charset=UTF-8" })	
+	@ResponseBody
+	public List<ActivityBean> displayPage(@SessionAttribute(name="member")MemberBean member) {
+		
+		List<ActivityBean> list=activityService.Schedule(member.getMemberemail());
+		 return list;
+	
+	}
+	
+	@RequestMapping(path= {"/_02_activity/delete.controller"},method= {RequestMethod.GET},produces = { "application/json;charset=UTF-8" })	
+	@ResponseBody
+	public String delete(@SessionAttribute(name="member")MemberBean member,String ActivityID) {
+		Integer actID=Integer.valueOf(ActivityID);
+		return "刪除結果:"+activityService.Delete_Schedule(actID);
+	
+	}
+	
+	
+	
+	
+	
 
 	public static List<ActivityDetailBean> Detail_split(ActivityDetailBean detailBean, boolean haveID) {
 		List<ActivityDetailBean> list = new ArrayList<ActivityDetailBean>();

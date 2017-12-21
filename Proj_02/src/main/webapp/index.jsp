@@ -12,7 +12,7 @@
 <jsp:include page="/commons/header.jsp"></jsp:include>
 <h3 class="display-1 bg-success text-center">Welcome ${member.memberemail}</h3>
 <h3 class="bg-warning text-center"><a href="<c:url value="/_01_member/register.jsp"/>">Register</a></h3>
-<h3 class="bg-warning text-center"><a href="<c:url value="/_01_member/login.jsp"/>">Login</a></h3>
+<h3 class="bg-warning text-center"><a href="<c:url value="/security/login.jsp"/>">Login</a></h3>
 <h3 class="bg-warning text-center"><a href="<c:url value="/_01_member/member.jsp"/>">Member</a></h3>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

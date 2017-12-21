@@ -1,7 +1,11 @@
 package _02_controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -27,36 +31,50 @@ public class TempController {
 	
 	
 	@RequestMapping(path= {"/_04_EventPage/insert.controller"},method= {RequestMethod.POST,RequestMethod.GET})
-	public String insert(String eventName,String eventID,String durationEnd,String dtStart,
-			@SessionAttribute(name="member")MemberBean member) {
-
+	public void insert(String eventName,String eventID,String durationEnd,String dtStart,String timeStart,String doWhat,
+			@SessionAttribute(name="member")MemberBean member,HttpServletResponse rs) throws IOException {
+		rs.setHeader("Access-Control-Allow-Origin", "*");
+		rs.setHeader("content-type", "text/html;charset=UTF-8");
+		rs.setCharacterEncoding("UTF-8");
+		PrintWriter out = rs.getWriter();
+		
 		
 		FavoritesBean bean=new FavoritesBean();
 		bean.setEventID(Integer.valueOf(eventID));
 		bean.setEventName(eventName);
 		bean.setEmail(member.getMemberemail());
 		SimpleDateFormat sdate=new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdate2=new SimpleDateFormat("HH-mm-ss");
 		try {
 			java.util.Date date1=sdate.parse(dtStart);
 			bean.setDtStart(date1);
 			date1=sdate.parse(durationEnd);
 			bean.setDurationEnd(date1);
-			
+			date1=sdate2.parse(timeStart);
+			bean.setTimeStart(date1);			
 		} catch (ParseException e) {
 			System.out.println("轉換錯誤");
 			e.printStackTrace();
 		}
 		System.out.println("bean"+bean);
 		//資料如果沒問題 新增進資料庫
-		
 		Integer pk=favoritesService.Create_fav(bean);
 		System.out.println("新增主key為:"+pk);
 		
-		
-		
-		return "login.error";
-		
+		out.println(pk);
+	
 	}
+	
+	@RequestMapping(path= {"/_04_EventPage/delete.controller"},method= {RequestMethod.POST,RequestMethod.GET})
+	public String insert(String eventID,@SessionAttribute(name="member")MemberBean member,
+			HttpServletResponse rs) throws IOException {
+		System.out.println("要刪除的主KEY :"+eventID);
+		
+		
+		return "login.error";	
+	}
+	
+
 	
 	
 	
