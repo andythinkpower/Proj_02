@@ -11,6 +11,11 @@
 	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
 	crossorigin="anonymous">
 </head>
+    <style>
+        body {
+            font-family: Microsoft JhengHei;
+        }
+    </style>
 <body>
 	<jsp:include page="../commons/header.jsp"></jsp:include>
 

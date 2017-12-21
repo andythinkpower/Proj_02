@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Microsoft JhengHei;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../commons/header.jsp"></jsp:include>
@@ -48,8 +53,39 @@
                     <!-- 密碼 -->
                     <div>
                         <label>密碼：</label>
-                        <input class="btn btn-sm" type="submit" name="memberpassword"
-                               value="修改密碼" />
+                        
+        <input type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#changepasswordModal" value="修改密碼">
+        <div class="modal" id="changepasswordModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">修改密碼</h5>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label>舊密碼</label>
+                                <input type="password" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>新密碼</label>
+                                <input type="password" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>再輸入一次密碼</label>
+                                <input type="password" class="form-control" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal">送出修改</button>
+                        <button class="btn btn-secondary" data-dismiss="modal">關閉視窗</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
                     </div>
                     <!-- 暱稱 -->
                     <div>

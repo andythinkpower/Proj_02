@@ -45,6 +45,7 @@
                         <div class="dropdown-menu">
                             <a href="${pageContext.request.contextPath}/security/login.jsp" class="dropdown-item">登入</a>
                             <a href="${pageContext.request.contextPath}/security/login_out.jsp" class="dropdown-item login_out">登出</a>
+
                         </div>
                     </li>
                 </ul><!--ul3 end here-->

@@ -10,6 +10,11 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
 	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
 	crossorigin="anonymous">
+	    <style>
+        body {
+            font-family: Microsoft JhengHei;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../commons/header.jsp"></jsp:include>
@@ -80,17 +85,18 @@ function checkLoginState() {
                                 <div class="form-group">
                                     <label for="username">帳號：</label>
                                     <input type="text" id="email" placeholder="請輸入E-mail"
-                                           class="" name="memberemail" value="${param.memberemail}">
+                                           class="" name="memberemail" value="${sessionScope.memberemail}">
                                     <span>${errors.erremail}</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">密碼：</label>
                                     <input type="password" id="password" placeholder="請輸入密碼"
-                                           class="" name="memberpassword" value="${param.memberpassword}">
+                                           class="" name="memberpassword" value="${sessionScope.memberpassword}">
                                     <span>${errors.errpsw}</span>
                                 </div>
                                 <div class="checkbox">
-                                	<input name="rememberme" type="checkbox" value="${param.rememberme}"> 記住密碼
+                                	<input name="rememberme" type="checkbox" 
+                                	<c:if test='${sessionScope.rememberme==true}'>checked='checked'</c:if> value="true"> 記住密碼
                                 </div>
                                 <br>
                                 <div class="form-group">
