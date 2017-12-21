@@ -49,7 +49,9 @@ html, body {
 		標題:<input type="text" name="actTitle" value="${soloBean.actTitle }"><br>
 		起始時間:<input type="text" name="actStartDate" value="${soloBean.actStartDate }"><br>
 		地區:<input type="text" name="actRegion" value="${soloBean.actRegion }"><br>
-<%-- 		照片:<input type="text" name="actPhoto" value="${soloBean.actPhoto }"><br> --%>
+		<div>
+			照片:<img src="${pageContext.request.contextPath}${showPic}" style="width:300px"/>
+		</div>
 		簡介:<input type="text" name="introduction" value="${soloBean.introduction }"><br>			
 		</div>
 

@@ -44,6 +44,7 @@
     <form action="ActivityController.do" id="form" method="post">
     <fieldset><legend>行程總覽</legend>
     	<input type="text" name="doWhat" value="detail" style="display:none;">
+    	<input type="text" name="photoPath" value="${filePath }" style="display:none;">
     	<input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
     	<input type="text" name="actRegion" value="${activityBean.actRegion}"><br>
     	<input type="text" name="actTitle" value="${activityBean.actTitle}"><br>
@@ -78,6 +79,11 @@
       </div>
     </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script>
+   var aa=$.cookie('picPath')
+   console.log("觀察cookie:"+aa);
+    </script>
     
  <jsp:include page="../commons/footer.jsp"/>   
 </body>

@@ -43,7 +43,7 @@
                         <a href="" class="nav-link drop-toggle" data-toggle="dropdown">
                             <img src="${pageContext.request.contextPath}/img/default.jpg" width="30" height="30" class="d-inline-block align-top" /></a>
                         <div class="dropdown-menu">
-                            <a href="${pageContext.request.contextPath}/_01_member/login.jsp" class="dropdown-item">登入</a>
+                            <a href="${pageContext.request.contextPath}/security/login.jsp" class="dropdown-item">登入</a>
                             <a href="${pageContext.request.contextPath}/_02_activity/login_out.jsp" class="dropdown-item login_out">登出</a>
                         </div>
                     </li>

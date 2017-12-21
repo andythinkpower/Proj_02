@@ -22,9 +22,7 @@
 		
 		<script>
 			$('#activity').on('click',function(){
-				$("#disable").attr("action","ActivityController.do");
-				$("#doWhat").attr("value","showAct");
-				$('#disable').submit();
+				 $(location).attr('href',"display.jsp");
 			});
 			$('#favorite').on('click',function(){
 				$("#disable").attr("action","fav.do");
