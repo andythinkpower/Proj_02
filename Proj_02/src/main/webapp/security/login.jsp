@@ -67,30 +67,48 @@ function checkLoginState() {
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<form action="<c:url value='/login.controller' />" method="post">
-      <h3>Login</h3>
-       <div class="form-group">
-         <label for="username">帳號：</label>
-         <input type="text" id="email" placeholder="請輸入E-mail"
-         class="" name="memberemail" value="${param.memberemail}">
-         <span>${errors.erremail}</span>
-       </div>
-       <div class="form-group">
-         <label for="password">密碼：</label>
-         <input type="password" id="password" placeholder="請輸入密碼"
-         class="" name="memberpassword" value="${param.memberpassword}">
-         <span>${errors.errpsw}</span>
-       </div>
-       <div class="form-group">
-<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
-         <a href="">Google</a>
-       </div>
-       <div class="form-group">
-         <a href="">忘記密碼？</a>
-         <a href="">建立新會員</a>
-       </div>
-       <input class="btn btn-primary" type="submit" value="登入" />
-     </form>
+<section>
+        <div class="container p-5">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header" style="background-color:	#97CBFF">
+                            <h4>登入</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="<c:url value='/login.controller' />" method="post">
+                                <div class="form-group">
+                                    <label for="username">帳號：</label>
+                                    <input type="text" id="email" placeholder="請輸入E-mail"
+                                           class="" name="memberemail" value="${param.memberemail}">
+                                    <span>${errors.erremail}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">密碼：</label>
+                                    <input type="password" id="password" placeholder="請輸入密碼"
+                                           class="" name="memberpassword" value="${param.memberpassword}">
+                                    <span>${errors.errpsw}</span>
+                                </div>
+                                <div class="checkbox">
+                                	<input name="rememberme" type="checkbox" value="${param.rememberme}"> 記住密碼
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                                </div>
+                                <div class="form-group">
+                                    <a href="">忘記密碼？</a>
+                                    <a href="">建立新會員</a>
+                                </div>
+                                <input class="btn btn-primary" type="submit" value="登入" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 <jsp:include page="../commons/footer.jsp"></jsp:include>
 </body>
 </html>

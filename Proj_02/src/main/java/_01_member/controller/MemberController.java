@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import _01_member.SqlDateEditor;
 import _01_member.model.MemberBean;
 import _01_member.model.MemberService;
 
@@ -30,27 +31,31 @@ public class MemberController {
 	@InitBinder
 	public void initialize(WebDataBinder webDataBinder) {
 		webDataBinder.registerCustomEditor(java.util.Date.class, "memberbdate", 
-				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+				new SqlDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
 	
 	@RequestMapping(method = { RequestMethod.POST })
-	public String edit(MemberBean bean, BindingResult bindingResult, Model model) {
+	public String edit(MemberBean bean, BindingResult bindingResult, Model model, 
+			String liketype, String likeregion) {
 		
-//		if(bindingResult.getFieldError("memberbdate") !=null) {			
-//		}
-		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		String date=sdf.format(memberbdate);
-//		java.util.Date parseDate=null;
-//		try {
-//			parseDate = sdf.parse(date);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-		
+		System.out.println(liketype);
+		System.out.println(likeregion);		
 		System.out.println(bean);
 		
+		String type[] = liketype.split(",");
+		for(String u:type) {
+			System.out.println(u);
+		}
+		String region[] =likeregion.split(",");
+		for(String v:region) {
+			System.out.println(v);
+		}
 		MemberBean bean2=memberService.update(bean);
+		memberService.disliketype(bean);
+		memberService.dislikeregion(bean);
+		memberService.liketype(bean,type);
+		memberService.likeregion(bean, region);
+		
 		if(bean2==null) {			
 			return "update.error";
 		} else {
