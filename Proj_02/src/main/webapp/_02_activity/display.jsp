@@ -9,7 +9,7 @@
  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
- 
+ <script src="../js/cookie.js" type="text/javascript"></script>
 <title>顯示頁面</title>
 </head>
 <body>
@@ -17,7 +17,6 @@
 	<a href="../_02_activity/schedule.jsp">建立行程</a>
 	<h2>你好:${member.membernickname }</h2>
 	<!-- 暫時這樣取得會員email 之後要用cookie取才對 -->
-	<h2 id="email" style="display:none">${member.memberemail}</h2>
 
 	<h1></h1>
 	<h1>顯示該會員 所有行程大綱頁面</h1>
@@ -32,11 +31,12 @@
 	<script>
 	
         $(function () {
-        	//$("#wholePage").empty();
+        	//取得會員主key
+        	var email=Cookies.get("user");
         	reflashPage();
         	//進入頁面 會載入資料 !!(目前尚未輸入參數 )
         	function reflashPage(){
-        		$.getJSON("${pageContext.request.contextPath}/_02_activity/show.controller",{"email":$("#email").text()},function(data){        		
+        		$.getJSON("${pageContext.request.contextPath}/_02_activity/show.controller",{"email":email},function(data){        		
              		$.each(data,function(i,v){    
              			var Start=new Date(v.actStartDate);
              			var Start = Start.getFullYear() + '-'+(Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-'+Start.getDate();

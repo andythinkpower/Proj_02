@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    
+    <script src="../js/cookie.js" type="text/javascript"></script>
     <script src="../js/_02_actDetail.js" type="text/javascript"></script>
     
 
@@ -40,12 +40,20 @@
 
 </head>
 <body>
+<script>
+$(function(){
+	var picPath=Cookies.get("picPath");
+	console.log("照片路徑:"+picPath);
+	$("#form").find("input[name='photoPath']").val(picPath);
+});
+
+</script>
 <jsp:include page="../commons/header.jsp"/>
     <form action="ActivityController.do" id="form" method="post">
     <fieldset><legend>行程總覽</legend>
-    	<input type="text" name="doWhat" value="detail" style="display:none;">
-    	<input type="text" name="photoPath" value="${filePath }" style="display:none;">
-    	<input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
+    	<input  type="hidden" name="doWhat" value="detail">
+    	<input type="hidden" name="photoPath" value="">
+    	<input id="sa" type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
     	<input type="text" name="actRegion" value="${activityBean.actRegion}"><br>
     	<input type="text" name="actTitle" value="${activityBean.actTitle}"><br>
     	<input type="text" name="introduction" value="${activityBean.introduction}"><br>
@@ -79,11 +87,7 @@
       </div>
     </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script>
-   var aa=$.cookie('picPath')
-   console.log("觀察cookie:"+aa);
-    </script>
+    <script src="../js/cookie.js" type="text/javascript"></script>
     
  <jsp:include page="../commons/footer.jsp"/>   
 </body>

@@ -51,8 +51,6 @@ $(function () {
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();            
 	            reader.onload = function (e) {
-	            	console.log("觀察e:"+e);
-	            	console.log("觀察e.target.result:"+e.target.result);
 	            	//會在class="preview" e.target.result為圖片暫存路徑  
 	                $('.preview').attr('src', e.target.result);
 	            }	 
