@@ -19,5 +19,9 @@ public class Event02Service {
 		Event02 result = event01dao.select(eventID);
 		return result;
 	}
+	public List<Event02> selectType(String eventtype) {
+		List<Event02> result = event01dao.selectType(eventtype);
+		return result;
+	}
 	
 }

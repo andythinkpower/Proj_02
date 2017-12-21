@@ -74,5 +74,14 @@ public class Event01DAOjdbc implements Event01DAO {
 		}
 		return false;
 	}
+
+	@Override
+	@Transactional
+	public List<Event02> selectType(String eventtype) {
+		String select=" where eventTypeId='"+eventtype+"'";
+		Query<Event02> query =this.getSession().createQuery("FROM Event02"+select, Event02.class);
+		return query.getResultList();
+		
+	}
 	
 }

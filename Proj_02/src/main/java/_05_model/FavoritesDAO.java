@@ -1,13 +1,11 @@
-package _02_model;
+package _05_model;
 
 import java.util.List;
 
-import _02_model.Bean.FavoritesBean;
-
-
 public interface FavoritesDAO {
-	//查詢該會員所有收藏
 	public List<FavoritesBean> select(String email);
-	
+	public String update(String email,List<FavoritesBean> jsondata);
 	public boolean delete(Integer pk);
+	public Integer insert(FavoritesBean bean);	
+	
 }
