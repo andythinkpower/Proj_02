@@ -37,7 +37,7 @@ create table ActivityDetail(
 
 create table Favorites(
 	pk integer primary key identity not null,
-	targetDate datetime,   --暫時用字串表示 決定要放在行事曆的哪一天
+	targetDate datetime not null ,   --暫時用字串表示 決定要放在行事曆的哪一天
 	--活動過來的資料--
 	EventName	Nvarchar(max),		
 	dtStart	Datetime,
@@ -58,12 +58,12 @@ create table Favorites(
 
 --放入預設資料
 
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2000-2-29','逢甲','逢甲3日遊','今天我要去逢甲',900,'aaa@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2015/1/1','花蓮','觀賞大自然的遼闊','預計從花蓮玩到台東',8452,'aaa@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-12-31','全台','挑戰7天環島!!','腳踏車環島',5,'bbb@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-10-8','新竹','考察竹科','觀察回收業者',77,'aaa@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-9-7','澎湖','來到澎湖灣','挑戰一天玩遍澎湖',135765,'aaa@gmail.com')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email) values('2017-6-6','綠島','浮淺','聽說綠島浮淺世界美',1,'bbb@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2000-2-29','逢甲','逢甲3日遊','今天我要去逢甲',900,'aaa@gmail.com','/uploadFile/nopic.jpg')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2015/1/1','花蓮','觀賞大自然的遼闊','預計從花蓮玩到台東',8452,'aaa@gmail.com','/uploadFile/nopic.jpg')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2017-12-31','全台','挑戰7天環島!!','腳踏車環島',5,'bbb@gmail.com','/uploadFile/nopic.jpg')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2017-10-8','新竹','考察竹科','觀察回收業者',77,'aaa@gmail.com','/uploadFile/nopic.jpg')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2017-9-7','澎湖','來到澎湖灣','挑戰一天玩遍澎湖',135765,'aaa@gmail.com','/uploadFile/nopic.jpg')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2017-6-6','綠島','浮淺','聽說綠島浮淺世界美',1,'bbb@gmail.com','/uploadFile/nopic.jpg')
 
 insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(1,'都會公園','100','戶外','1:20','1')
 insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(1,'台中歌劇廳','2000','音樂','2:20','1')
