@@ -52,15 +52,15 @@ $.getJSON('mapcontroller.controller', {  }, function (data) {
 		 var eventname=event01.EventName;
 		 var address=event01.Address;
          var briefIntroduction=event01.BriefIntroduction;
-         var image=event01.logoimageFile;
+         var image=event01.imageFile;
 		 var dtStart=event01.dtStart;
          var eventtype=event01.EventTypeId;
 		 var type=event01.type;
 		 var point = new google.maps.LatLng(
 	    		 parseFloat(event01.Latitude),
 	    		 parseFloat(event01.Longitude));
-		var img=(image.length>5)?'<img src='+image+'><br>':'';
-        var link="display.html?"+eventid;
+		var img=(image.length>5)?'<img src='+image+' width=50%><br>':'';
+        var link="../_04_EventPage/eventSelf.jsp?eventID="+eventid;
         var contentString = '<div><a href='+link+'><strong>'+eventname+
         					'</strong></a><br>'+img+'<text>日期:'+dtStart+'</text><br>'+
         					'<text>地址:'+address+'</text><br>'+

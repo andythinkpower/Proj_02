@@ -25,32 +25,31 @@ public class Calendar {
 	
 	@RequestMapping(
 			path="/_05_web/savecalendar.controller",
-			method={RequestMethod.POST},
+			method={RequestMethod.POST,RequestMethod.GET},
 			produces= {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public String savecalendar(String getallevent,String email,HttpServletResponse response) throws ParseException {
+	public void savecalendar(String getallevent,String email,HttpServletResponse response) throws ParseException {
 		SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Integer eventID;
 		Date targetDate;
 		if(getallevent.length()!=0) {
-		String event[]=getallevent.split(",");
-		for(int i=0 ;i<event.length;i++) {
-		eventID=Integer.parseInt(event[i].split("=")[1].split(" ")[0]);
-        targetDate=time.parse(event[i].split("=")[2].split(" email")[0]);
-		favoritesService.updateCalendar(email, eventID, targetDate);
-		}
-		return "更新行事曆成功";
+			String event[]=getallevent.split(",");
+			for(int i=0 ;i<event.length;i++) {
+				eventID=Integer.parseInt(event[i].split("=")[1].split(" ")[0]);
+				targetDate=time.parse(event[i].split("=")[2].split(" email")[0]);
+				favoritesService.updateCalendar(email, eventID, targetDate);
+			}
 		}else if(getallevent.length()==0) {
 			List<FavoritesBean> result = favoritesService.select(email);
-			 for(FavoritesBean favoritesBean:result) {
+			for(FavoritesBean favoritesBean:result) {
 				 eventID=favoritesBean.getEventID();
 				 targetDate=new Date(0);
 				 favoritesService.updateCalendar(email, eventID, targetDate);
 			 }
-		return "清空行事曆成功";
+		
 		}
-		return "更新行事曆成功";
-}
+		
+	}
 	
 	
 	@RequestMapping(

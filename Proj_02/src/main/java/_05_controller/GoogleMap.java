@@ -62,6 +62,7 @@ public class GoogleMap {
 				 m1.put("Address",event01.getAddress()); 
 				 m1.put("Latitude", event01.getLatitude());
 				 m1.put("Longitude", event01.getLongitude());
+				 m1.put("imageFile", event01.getimageFile());
 				 m1.put("BriefIntroduction", event01.getBriefIntroduction());
 				 m1.put("logoimageFile", event01.getLogoimageFile());
 				 m1.put("dtStart", event01.getDtStart().toString().split(" ")[0]);

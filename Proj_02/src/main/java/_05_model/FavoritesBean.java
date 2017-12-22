@@ -15,7 +15,7 @@ public class FavoritesBean implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer pk;
-	private Date targetDate; 
+	private Date targetDate=new Date(0); 
 	private String eventName;
 	private Date dtStart;
 	private Date durationEnd;
