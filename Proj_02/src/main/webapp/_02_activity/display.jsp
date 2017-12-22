@@ -33,6 +33,7 @@
         $(function () {
         	//取得會員主key
         	var email=Cookies.get("user");
+        	console.log(email);
         	reflashPage();
         	//進入頁面 會載入資料 !!(目前尚未輸入參數 )
         	function reflashPage(){

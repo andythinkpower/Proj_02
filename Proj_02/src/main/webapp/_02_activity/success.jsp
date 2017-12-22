@@ -23,6 +23,7 @@
 		<script>
 			$('#activity').on('click',function(){
 				 $(location).attr('href',"display.jsp");
+				 
 			});
 			$('#favorite').on('click',function(){
 				$("#disable").attr("action","fav.do");

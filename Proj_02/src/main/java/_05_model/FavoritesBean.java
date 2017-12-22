@@ -15,11 +15,11 @@ public class FavoritesBean implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer pk;
-	private Date targetDate; 
+	private Date targetDate=new Date(0); 
 	private String eventName;
 	private Date dtStart;
 	private Date durationEnd;
-	private String email;
+    private String email;
 	private Integer eventID;
 	private Date timeStart;
 	public Integer getPk() {
@@ -40,6 +40,14 @@ public class FavoritesBean implements Serializable{
 	public void setEventID(Integer eventID) {
 		this.eventID = eventID;
 	}
+
+	public Date getTimeStart() {
+		return timeStart;
+	}
+	public void setTimeStart(Date timeStart) {
+		this.timeStart = timeStart;
+	}
+
 	public Date getTargetDate() {
 		return targetDate;
 	}
@@ -65,12 +73,6 @@ public class FavoritesBean implements Serializable{
 		this.durationEnd = durationEnd;
 	}
 	
-	public Date getTimeStart() {
-		return timeStart;
-	}
-	public void setTimeStart(Date timeStart) {
-		this.timeStart = timeStart;
-	}
 	@Override
 	public String toString() {
 		return "FavoritesBean [pk=" + pk + ", targetDate=" + targetDate + ", eventName=" + eventName + ", dtStart="
@@ -78,6 +80,7 @@ public class FavoritesBean implements Serializable{
 				+ ", timeStart=" + timeStart + "]";
 	}
 	
+
 	
 	
 

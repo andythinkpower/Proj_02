@@ -3,6 +3,9 @@ package _05_controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,31 +13,34 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 
-import org.json.JSONArray;
+import org.json.JSONString;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import _05_model.Event02;
 import _05_model.Event02Service;
 import _05_model.FavoritesBean;
 import _05_model.FavoritesService;
+import _05_model.Savecalendar;
+
 
 @Controller
 public class GoogleMap {
 	@Autowired
 	private Event02Service event01Service;
 	
-	@Autowired
-	private FavoritesService favoritesService;
-	
-	
-	
+
 	@RequestMapping(
 			path="/_05_web/mapcontroller.controller",
 			method={RequestMethod.GET, RequestMethod.POST})
@@ -56,6 +62,7 @@ public class GoogleMap {
 				 m1.put("Address",event01.getAddress()); 
 				 m1.put("Latitude", event01.getLatitude());
 				 m1.put("Longitude", event01.getLongitude());
+				 m1.put("imageFile", event01.getimageFile());
 				 m1.put("BriefIntroduction", event01.getBriefIntroduction());
 				 m1.put("logoimageFile", event01.getLogoimageFile());
 				 m1.put("dtStart", event01.getDtStart().toString().split(" ")[0]);
@@ -176,27 +183,8 @@ public class GoogleMap {
 	} 
 	
 	
-	@RequestMapping(
-			path="/_05_web/savecalendar.controller",
-			method={RequestMethod.POST},
-			produces= {"application/json;charset=UTF-8"})
-	public void savecalendar(JSONArray getallevent,HttpServletResponse response) {
-		
-		FavoritesBean bean=new FavoritesBean();
-		
-		
-		System.out.println(getallevent.toString());
-		
-	}
-	@RequestMapping(
-			path="/_05_web/getFavorites.controller",
-			method={RequestMethod.GET},
-			produces= {"application/json;charset=UTF-8"})
-	@ResponseBody
-	public List<FavoritesBean> getFavorites(String email) {
-		List<FavoritesBean> result = favoritesService.select(email);
-		return result;
-	}
+
+	
 	
 	
 	
