@@ -101,8 +101,8 @@ $(document).ready(function() {
 			};allevent.push(event);
 		 	}else{
 			$('#external-events-listing').append('<div class="fc-event" value='+event01.eventID+
-					'><a href=../_04_EventPage/eventSelf.jsp?eventID='+event01.eventID+'>'+event01.eventName+'</a></div>')
-			
+			'>'+event01.eventName+'</div>')
+			//'><a href=../_04_EventPage/eventSelf.jsp?eventID='+event01.eventID+</a>
 		 	}
 		
 		allevent.push(eventallow)
@@ -176,7 +176,7 @@ $(document).ready(function() {
         eventDragStop: function( event, jsEvent, ui, view ) {
             if(isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
                 $('#calendar').fullCalendar('removeEvents', event.id);
-                var el = $( "<div class='fc-event'>" ).appendTo('#external-events-listing').text( event.title );
+                var el = $( '<div class="fc-event">' ).appendTo('#external-events-listing').text( event.title );
                 el.draggable({
                   zIndex: 999,
                   revert: true, 

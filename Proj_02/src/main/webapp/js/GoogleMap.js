@@ -27,10 +27,27 @@ function CenterControl(controlDiv, map) {
 
      var visible=true;
      controlUI.addEventListener('click', function() {
-    	for (var i = 0; i < markers.length; i++) {
-    	markers[i].setVisible(!visible);}
+    	if(visible){
+    		$("#musicControl").bootstrapToggle('off')
+    		$("#exhibitionControl").bootstrapToggle('off')
+    		$("#performanceControl").bootstrapToggle('off')
+    		$("#studyControl").bootstrapToggle('off')
+    		$("#movieControl").bootstrapToggle('off')
+    		$("#LeisureControl").bootstrapToggle('off')
+    		$("#familyControl").bootstrapToggle('off')
     		visible =!visible;
-    });
+    	}else{
+    		
+    		$("#musicControl").bootstrapToggle('on')
+    		$("#exhibitionControl").bootstrapToggle('on')
+    		$("#performanceControl").bootstrapToggle('on')
+    		$("#studyControl").bootstrapToggle('on')
+    		$("#movieControl").bootstrapToggle('on')
+    		$("#LeisureControl").bootstrapToggle('on')
+    		$("#familyControl").bootstrapToggle('on')
+    		visible =!visible;
+    	}
+   });
 
    }
 //初始化地圖
