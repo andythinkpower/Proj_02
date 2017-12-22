@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
 <style>
 
 #map {
@@ -25,15 +24,17 @@
 
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="../js/jquery-1.12.3.min.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/ButtomController.js"></script>
+<script src="../js/GoogleMap.js">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 </head>
 
 <body>
 	<div id="header"></div>
 	<div id="map"></div>
-	<script src="../js/jquery-1.12.3.min.js"></script>
-	<script src="../js/bootstrap.js"></script>
-	<script src="../js/ButtomController.js"></script>
-	<script src="../js/GoogleMap.js">
+	
 </script>
 <script type="text/javascript">
 $(function(){
@@ -41,11 +42,11 @@ $(function(){
 	  $("#footer").load("../commons/footer.jsp"); 
 	});
 </script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+ 
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK3MRTGkyj0FYu-OExTnVYDLuaNDwBRL8&callback=initMap">
     </script>
-    <div id='controller'>
+    <div style="margin:0 25% ;">
 	<input onclick="musicControl();" type=button value="音樂 顯示/隱藏">
     <input onclick="exhibitionControl();" type=button value="展覽 顯示/隱藏">
     <input onclick="performanceControl();" type=button value="表演 顯示/隱藏">

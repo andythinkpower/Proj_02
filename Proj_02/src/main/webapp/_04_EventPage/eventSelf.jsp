@@ -14,12 +14,12 @@
 <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <!-- DataTables CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <title>活動專屬頁面</title>
 
 </head>
 <body>
-
+<jsp:include page="/commons/header.jsp"></jsp:include>
 	<p id="eventID" style="display: none;"><%= request.getParameter("eventID") %></p>
 	<div id="temp">
 		
@@ -149,6 +149,6 @@
 		}); // 開啟即執行 END
 		
 	</script>
-
+<jsp:include page="/commons/footer.jsp"></jsp:include>
 </body>
 </html>
