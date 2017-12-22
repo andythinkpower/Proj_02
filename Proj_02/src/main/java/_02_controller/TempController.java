@@ -48,6 +48,7 @@ public class TempController {
 		try {
 			java.util.Date date1=sdate.parse(dtStart);
 			bean.setDtStart(date1);
+			bean.setTargetDate(date1);
 			date1=sdate.parse(durationEnd);
 			bean.setDurationEnd(date1);
 			date1=sdate2.parse(timeStart);
