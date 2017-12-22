@@ -6,6 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
 <title>顯示單獨頁面</title>
 <style>
 #section {
@@ -44,13 +48,13 @@ html, body {
 		<div style="border: 2px solid red;">
 			<p>這邊要顯示單一行程 總覽</p>
 			
-			<input type="text" style="display:none" name="email" value="${soloBean.email }">
-			<input type="text" style="display:none" name="activityID" value="${soloBean.activityID }">
+			<input type="hidden"  name="email" value="${soloBean.email }">
+			<input type="hidden"  name="activityID" value="${soloBean.activityID }">
 		標題:<input type="text" name="actTitle" value="${soloBean.actTitle }"><br>
 		起始時間:<input type="text" name="actStartDate" value="${soloBean.actStartDate }"><br>
 		地區:<input type="text" name="actRegion" value="${soloBean.actRegion }"><br>
 		<div>
-			照片:<img src="${pageContext.request.contextPath}${showPic}" style="width:300px"/>
+			照片:<img src="${pageContext.request.contextPath}${soloBean.photoPath}" style="width:300px"/>
 		</div>
 		簡介:<input type="text" name="introduction" value="${soloBean.introduction }"><br>			
 		</div>
@@ -72,7 +76,7 @@ html, body {
 	</div>
 	<input type="submit" value="儲存">
 </form>
-<!-- 	<script> -->
+	<script>
 // 		function initMap() {
 // 			//建立一個 google.maps.DirectionsService class 的物件 Constructor 為 DirectionsService()
 // 			//用來計算多點距離
@@ -162,16 +166,12 @@ html, body {
 // 				}
 // 			});
 // 		}
-<!-- 	</script> -->
+	</script>
 	
 
 <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvWJmCF8PSPLdnBnvQH3tON7LkkFr6HNo&callback=initMap">
     </script>		
 <jsp:include page="../commons/footer.jsp"/>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-
 </body>
 </html>

@@ -24,7 +24,7 @@ $(function () {
 <jsp:include page="../commons/header.jsp"/>
 	<h1>建立行程-1</h1>
 	<!-- 利用JavaScript 先做一些簡易判斷 符合才可送出(未完成)-->
-	<form action="ActivityController.do" method="post" enctype="Multipart/Form-Data">
+	<form id="activity" action="ActivityController.do" method="post" enctype="Multipart/Form-Data">
 	
 	<input type="text" name="doWhat" value="schedule" style="display:none;">
 		起始時間:<input type="text" name="actStartDate" id="date"> <br><!-- 使用jQuery ui Datepicker  -->
@@ -37,12 +37,28 @@ $(function () {
 		<hr>
 		簡介:
 		<textarea rows="20px" cols="40px" name="introduction"></textarea>
-		<br> <input type="submit" value="下一步">
+		<br> <input id='sub' type="button" value="下一步">
 	</form>
 	
 	
 	<script>
 	$(function (){
+		//基本防呆  日期跟標題要輸入表單才能送出
+		$("#sub").on('click',function(){
+			var title=$("input[name=actTitle]").val();
+			var actStartDate=$("input[name=actStartDate]").val();
+			if(title.trim().length==0){
+				alert("請輸入活動標題");
+			}else if(actStartDate.trim().length==0){
+				alert("請輸入活動日期");
+			}else{
+				$("#activity").submit();
+			}			
+		})
+		
+		
+		
+		
 		//當id=file 的欄位做"change"這個動作會觸發 preview(參數)這個方法
 		 $("body").on("change", "#file", function (){
 		        preview(this);

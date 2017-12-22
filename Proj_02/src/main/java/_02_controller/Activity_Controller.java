@@ -61,6 +61,14 @@ public class Activity_Controller {
 		
 		// 代表是從schedule.jsp進來
 		if ("schedule".equals(doWhat)) {
+			
+			if(bean.getActTitle().isEmpty()||bean.getActTitle().trim().length()==0) {
+				System.out.println("標題沒輸入");
+			}else {
+				System.out.println("有輸入標題"+bean.getActTitle());
+			}
+			
+			
 			// 目前行程總覽部分不檢查 把剛輸入的參數存起來(還沒存進資料庫 要等全部都正確 一次一起insert進去) 直接導向細節頁面
 			model.addAttribute("activityBean", bean);
 			
@@ -77,6 +85,7 @@ public class Activity_Controller {
 					System.out.println("有傳檔案");
 					ServletContext context=request.getServletContext();
 					String filename=file.getOriginalFilename();
+					//要存到資料庫的路徑
 					String showPic="/uploadFile/"+filename;
 					Cookie picPath=new Cookie("picPath",showPic);
 					picPath.setMaxAge(60*60);
@@ -94,7 +103,21 @@ public class Activity_Controller {
 			System.out.println("現在在細節 路徑為:"+bean.getPhotoPath());
 			// 呼叫自己寫的方法 把多的細節拆開
 			List<ActivityDetailBean> list = Activity_Controller.Detail_split(detailBean, false);
-
+			
+			Cookie[] cookies=request.getCookies();
+			for(Cookie i:cookies) {
+				if("picPath".equals(i.getName())) {
+					System.out.println("找到cookie");
+					String path=i.getValue();
+					bean.setPhotoPath(path);
+					//刪掉cookie
+					i.setMaxAge(0);
+					response.addCookie(i);
+					break;
+					
+				}		
+			}
+			
 			//
 			// //判斷各項資料有無問題 如果有問題不能進入model部分
 			// //(尚未填寫)
@@ -130,24 +153,7 @@ public class Activity_Controller {
 			// 進入單獨行程頁面
 			return "soloPage";
 		} 
-		//由ajax取代
-//		else if ("delete".equals(doWhat)) {
-//			System.out.println("行程總覽 連同行程細節一起刪除");
-//
-//			// 刪除
-//			boolean result = activityService.Delete_Schedule(detailBean.getActivityID());
-//			System.out.println("刪除結果:" + result);
-//			if (result) {
-//				// 刪除成功 接下來重新select 該member的所有行程
-//				List<ActivityBean> Member_activity = activityService.Schedule(member.getMemberemail());
-//				model.addAttribute("allSchedule", Member_activity);
-//				return "display";
-//			} else {
-//				// 代表刪除失敗
-//				return "login.error";
-//			}
-//
-//		} 
+		
 		else if ("update".equals(doWhat)) {
 			System.out.println("進入修改 儲存資料");
 			System.out.println(detailBean);

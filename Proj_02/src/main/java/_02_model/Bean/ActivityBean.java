@@ -31,8 +31,8 @@ public class ActivityBean implements Serializable {
 	private String introduction;
 	// 預設public
 	private boolean privacy = false;
-	private String photoPath;
-	private Integer clickNumber;
+	private String photoPath="/uploadFile/nopic.jpg";
+	private Integer clickNumber=0;
 	private String email;
 
 	// 一對多關係
