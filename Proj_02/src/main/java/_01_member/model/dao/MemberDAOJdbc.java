@@ -48,6 +48,7 @@ public class MemberDAOJdbc implements MemberDAO {
 		beanexist.setMembergender(bean.getMembergender());
 		beanexist.setMemberbdate(bean.getMemberbdate());
 		beanexist.setMemberepaper(bean.getMemberepaper());
+		beanexist.setMemberphoto(bean.getMemberphoto());
 		this.getSession().update(beanexist);		
 		return null;
 	}
@@ -105,6 +106,14 @@ public class MemberDAOJdbc implements MemberDAO {
 		for(RegionsBean u: regions) {
 			u.getMembers().remove(beanforlikes);
 		}
+		return null;
+	}
+	
+	@Override
+	public Boolean changepsw(MemberBean bean) {
+		MemberBean beanexist= getSession().get(MemberBean.class, bean.getMemberemail());
+		beanexist.setMemberpassword(bean.getMemberpassword());
+		this.getSession().update(beanexist);
 		return null;
 	}
 	

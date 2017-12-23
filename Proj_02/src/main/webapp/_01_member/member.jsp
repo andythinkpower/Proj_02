@@ -18,12 +18,12 @@
 </head>
 <body>
 <jsp:include page="../commons/header.jsp"></jsp:include>
-    <form name="form" action="<c:url value='/member.controller' />" method="post">
+    <form name="form" enctype="Multipart/Form-Data" action="<c:url value='/member.controller' />" method="post">
         <div class="container" style="border:1px red solid">
             <h3><strong>Profile</strong></h3>
             <div class="row p-2" style="border:1px green solid">
                 <div class="col-7  p-2" style="border:1px blue solid">
-                    <img  value="" name="memberphoto" height="160" width="160" id="img" src="" />
+                    <img  value="" name="memberphoto" height="160" width="160" id="img" src="${pageContext.request.contextPath}${member.memberphoto}" />
                     <input accept="image/*" id="uploadImage" name="memberphoto" type="file" />
                     <script>
                         $("#uploadImage").change(function () {
@@ -74,12 +74,12 @@
                             </div>
                             <div class="form-group">
                                 <label>再輸入一次密碼</label>
-                                <input type="password" class="form-control" />
+                                <input type="password" name="memberpassword" class="form-control" />
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-dismiss="modal">送出修改</button>
+                    	<input class="btn btn-primary" type="submit" name="submitbtn" value="修改密碼">
                         <button class="btn btn-secondary" data-dismiss="modal">關閉視窗</button>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                 <!-- 活動類型 -->
                 <div>
                     <label>活動類型：</label>
-<!--                     <input type="checkbox" name="liketype" value="0"> 全選 -->
+					<input class="btn btn-sm mx-2" type="button" value="全選" onclick="CheckAll()">
                     <input id="type表演萬象" type="checkbox" name="liketype" value="表演萬象"> 表演萬象
                     <input id="type展覽廣場" type="checkbox" name="liketype" value="展覽廣場"> 展覽廣場
                     <input id="type音樂現場" type="checkbox" name="liketype" value="音樂現場"> 音樂現場
@@ -126,12 +126,14 @@
                     <input id="type城市萬花筒" type="checkbox" name="liketype" value="城市萬花筒"> 城市萬花筒
                     <input id="type親子活動" type="checkbox" name="liketype" value="親子活動"> 親子活動
                     <input id="type戶外行腳" type="checkbox" name="liketype" value="戶外行腳"> 戶外行腳
+                    <input class="btn btn-sm mx-2" type="button" value="清空" onclick="clearBox()">
                 </div>
                 <!-- 這裡是隱藏接收活動類型回傳值的地方 -->            
             		<input id="liketypes" type="text" style="display:none" value="${member.events}">
                 <!-- 地區 -->
                 <div>
                     <label>活動地區：</label>
+                    <input class="btn btn-sm mx-2" type="button" value="全選" onclick="CheckAll2()">
                     <input id="region中正區" type="checkbox" name="likeregion" value="中正區"> 中正區
                     <input id="region大同區" type="checkbox" name="likeregion" value="大同區"> 大同區
                     <input id="region中山區" type="checkbox" name="likeregion" value="中山區"> 中山區
@@ -144,6 +146,7 @@
                     <input id="region內湖區" type="checkbox" name="likeregion" value="內湖區"> 內湖區
                     <input id="region南港區" type="checkbox" name="likeregion" value="南港區"> 南港區
                     <input id="region文山區" type="checkbox" name="likeregion" value="文山區"> 文山區
+					<input class="btn btn-sm mx-2" type="button" value="清空" onclick="ClearBox2()">
                 </div>
                 <!-- 這裡是隱藏接收活動類型回傳值的地方 -->            
             		<input id="likeregions" type="text" style="display:none" value="${member.regions}">
@@ -159,7 +162,8 @@
             <!-- 這裡是隱藏接收電子報回傳值的地方 -->            
             <input id="epaper" type="text" style="display:none" value="${member.memberepaper}">                     
             <div>
-                <input class="btn btn-primary" type="submit" value="送出修改">
+                <input class="btn btn-primary" type="submit" name="submitbtn" value="送出修改">
+                <span>${message.success}</span>
             </div>
         </div><!-- container end -->
     </form>
@@ -168,9 +172,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
+    <script src="../js/jquery-1.12.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
             integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
             crossorigin="anonymous"></script>
@@ -227,6 +229,39 @@
     if(likeregions.match('南港區')!=null){    	$("#region南港區").attr("checked", "checked");    }
     if(likeregions.match('文山區')!=null){    	$("#region文山區").attr("checked", "checked");    }
 //這裡處理全選/清空
+function CheckAll() {
+	var liketype = document.getElementsByName("liketype");
+	for(var i=0; i<liketype.length; i++) {
+		if(liketype[i].type=="checkbox") {
+			liketype[i].checked=true;
+		}
+	}
+}
+function clearBox(){
+	var liketype = document.getElementsByName("liketype");
+	for(var i=0; i<liketype.length; i++) {
+		if(liketype[i].type=="checkbox") {
+			liketype[i].checked=false;
+		}
+	}
+}
+function CheckAll2(){
+	var likeregion = document.getElementsByName("likeregion");
+	for(var i=0; i<likeregion.length; i++) {
+		if(likeregion[i].type=="checkbox") {
+			likeregion[i].checked=true;
+		}
+	}
+}
+function ClearBox2(){
+	var likeregion = document.getElementsByName("likeregion");
+	for(var i=0; i<likeregion.length; i++) {
+		if(likeregion[i].type=="checkbox") {
+			likeregion[i].checked=false;
+		}
+	}
+}
+
 //$('input[name="liketype"]:checkbox:eq(0)').change(function () {
     // 取得「其他選項」CheckBox
     //var checkboxes = $('input[name="liketype"]:checkbox:gt(0)');

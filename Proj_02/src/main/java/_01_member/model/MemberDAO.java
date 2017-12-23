@@ -24,4 +24,6 @@ public interface MemberDAO {
 	
 	Set<RegionsBean> deleteregions(MemberBean bean);
 	
+	Boolean changepsw(MemberBean bean);
+	
 }
