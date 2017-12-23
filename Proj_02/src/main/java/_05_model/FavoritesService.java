@@ -1,5 +1,6 @@
 package _05_model;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,9 @@ public class FavoritesService {
 		return result;
 	};
 	
-	
-	
+	public void updateCalendar(String email,Integer eventID, Date targetDate) {
+		favoritesDAO.updateCalendar(email, eventID, targetDate);
+	}
 	public boolean deleteFav(Integer pk) {
 		return favoritesDAO.delete(pk);
 	}
@@ -28,6 +30,7 @@ public class FavoritesService {
 			return favoritesDAO.insert(bean);
 		}
 	}
+
 	
 	/*
 	public void update(String email){

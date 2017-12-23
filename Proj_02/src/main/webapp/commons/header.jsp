@@ -3,7 +3,7 @@
 <!--      <img  src="../img/default.jpg" style="width:150px;"/> -->
     <nav class="navbar navbar-expand-sm navbar-light p-4" style="background-color:	#EBD6D6;">
         <div class="container">
-            <a href="" class="navbar-brand">
+            <a href="../index.jsp" class="navbar-brand">
                 <img src="${pageContext.request.contextPath}/img/taipei-logo.jpg" width="30" height="30" class="d-inline-block align-top" />
                 TaipeiTalk
             </a>
@@ -24,10 +24,10 @@
 
                     </li>
                     <li class="nav-item px-2">
-                        <a href="" class="nav-link">Event Map</a>
+                        <a href="/Proj_02/_05_web/map.html" class="nav-link">Event Map</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a href="" class="nav-link">活動誌</a>
+                        <a href="/Proj_02/_05_web/Calendar.html" class="nav-link">活動誌</a>
                     </li>
                     <!--會員下拉式選單-->
                     <li class="nav-item dropdown mr-3">

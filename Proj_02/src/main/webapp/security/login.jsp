@@ -33,15 +33,15 @@ FB.getLoginStatus(function(response) {
 });
 
 
-{
-    status: 'connected',
-    authResponse: {
-        accessToken: '...',
-        expiresIn:'...',
-        signedRequest:'...',
-        userID:'...'
-    }
-}
+// {
+//     status: 'connected',
+//     authResponse: {
+//         accessToken: '...',
+//         expiresIn:'...',
+//         signedRequest:'...',
+//         userID:'...'
+//     }
+// }
 
 
 function checkLoginState() {

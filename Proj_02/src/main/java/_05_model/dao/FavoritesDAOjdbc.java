@@ -1,5 +1,6 @@
 package _05_model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -24,11 +25,10 @@ public class FavoritesDAOjdbc implements FavoritesDAO {
 	@Override
 	@Transactional
 	public List<FavoritesBean> select(String email) {
-		Query<FavoritesBean> query = this.getSession().createQuery("FROM FavoritesBean where email=? order by dtStart ", FavoritesBean.class);
-		List<FavoritesBean> list = query.setParameter(0, email).list();
-		return list;
+		Query<FavoritesBean> query = this.getSession().createQuery("FROM FavoritesBean where email=:email order by dtStart ", FavoritesBean.class);
+		query.setParameter("email", email);
+		return query.getResultList();
 	}
-
 	@Override
 	public String update(String email, List<FavoritesBean> jsondata) {
 		// TODO Auto-generated method stub
@@ -60,16 +60,25 @@ public class FavoritesDAOjdbc implements FavoritesDAO {
 		
 	}
 	
-	/*
 	@Override
 	@Transactional
-	public String update(String email,List<FavoritesBean> jsondata) {
-		List<FavoritesBean> select = this.select(email);
-		if(select!=null) {
-			this.getSession().saveOrUpdate(select);
+	public FavoritesBean selectFavorites(String email,Integer eventID) {
+		Query<FavoritesBean> favorites = this.getSession().createQuery("FROM FavoritesBean where email=:email and eventid=:eventid order by dtStart ", FavoritesBean.class);
+		 favorites.setParameter("email", email);
+		 favorites.setParameter("eventid", eventID);
+		 return favorites.getSingleResult();
+	}
+	
+	@Override
+	@Transactional
+	public String updateCalendar(String email,Integer eventID, Date targetDate) {
+		 FavoritesBean favorite = this.selectFavorites(email, eventID);
+		 if(favorite!=null) {
+			 favorite.setTargetDate(targetDate);
+			this.getSession().update(favorite);
 			return "update calendar success!!";
 		}
 		return "update calendar fail!!";
-	}*/
+	}
 }
 

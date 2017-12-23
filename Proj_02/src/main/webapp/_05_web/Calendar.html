@@ -3,229 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="shortcut icon" href="http://www.google.com/favicon.ico" />
 <script src='../js/fullcalendar/lib/moment.min.js'></script>
 <script src='../js/fullcalendar/lib/jquery.min.js'></script>
 <script src='../js/fullcalendar/lib/jquery-ui.min.js'></script>
 <script src='../js/fullcalendar/fullcalendar.js'></script>
+<script src="../js/cookie.js" type="text/javascript"></script>
 <link rel='stylesheet' type='text/css' href='../css/fullcalendar/fullcalendar.print.css' media='print' />
 <link rel='stylesheet' type='text/css' href='../css/fullcalendar/fullcalendar.css' />
-<style>
-	body {
-		margin-top: 40px;
-		text-align: center;
-		font-size: 14px;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-	}
-		
-	#wrap {
-		width: 1100px;
-		margin: 0 auto;
-	}
-		
-	#external-events {
-		float: left;
-		width: 150px;
-		padding: 0 10px;
-		border: 1px solid #ccc;
-		background: #eee;
-		text-align: left;
-		
-	}
-		
-	#external-events h4 {
-		font-size: 16px;
-		margin-top: 0;
-		padding-top: 1em;
-	}
-		
-	#external-events .fc-event {
-		margin: 10px 0;
-		cursor: pointer;
-	}
-		
-	#external-events p {
-		margin: 1.5em 0;
-		font-size: 11px;
-		color: #666;
-	}
-		
-	#external-events p input {
-		margin: 0;
-		vertical-align: middle;
-	}
-
-	#calendar {
-		float: right;
-		width: 900px;
-	}
-
-
-</style>
+<link rel='stylesheet' type='text/css' href='../css/fullcalendar/calendar.css' >
+<link rel='stylesheet' type='text/css' href='../css/fullcalendar/south-street.css' >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
-<script type="text/javascript">
-
-var everyevent=[{title:'GGG',start:'2017-12-19',end:'2017-12-20'},{title:'XXX',start:'2017-12-22',end:'2017-12-23'}];
-
-$(document).ready(function() {
-	var allevent=[];
-//	$.getJSON('findEventtype.controller', {'selectType':'影視' }, function (data) {
-	$.getJSON('getFavorites.controller', {'email':'bbb@gmail.com' }, function (data) {
-		
-		$.each(data, function (i, event01) {
-		 	var event= {
-		 		id:event01.eventID,
-		 		title: event01.eventName,
-			    start: moment(event01.dtStart).format('YYYY-MM-DD'),
-			    constraint: 'available'+event01.eventID,
-			  //  url:"display.html?"+event01.EventID,
-			    stick: true,
-			};
-		 	//alert(moment(event01.dtStart).format('YYYY-MM-DD'));
-		 	var eventallow={
-		 		id: 'available'+event01.eventID,
-		 	    start: moment(event01.dtStart).format('YYYY-MM-DD'),
-		 	    end: moment(event01.durationEnd+86400000).format('YYYY-MM-DD HH:mm:ss'),
-		 	    allDay:false,
-		 	    rendering: 'background'
-		 	}
-		$('#external-events-listing').append('<div class="fc-event" value='+event01.eventID+'>'+event01.eventName+'</div>')
-	//	allevent.push(event);
-		allevent.push(eventallow)
-		
-		});
-		console.log(allevent)
-	var isEventOverDiv = function(x, y) {
-			var external_events = $( '#external-events' );
-            var offset = external_events.offset();
-            offset.right = external_events.width() + offset.left;
-            offset.bottom = external_events.height() + offset.top;
-
-            // Compare
-            if (x >= offset.left
-                && y >= offset.top
-                && x <= offset.right
-                && y <= offset .bottom) { return true; }
-            return false;
-
-        }
-		
-	/* initialize the external events
-	-----------------------------------------------------------------*/
-
-	$('#external-events .fc-event').each(function() {
-
-		// store data so the calendar knows to render an event upon drop
-		$(this).data('event', {
-			id:$(this).attr('value'),
-			title: $.trim($(this).text()), // use the element's text as the event title
-			constraint: 'available'+($(this).attr('value')),
-			stick: false // maintain when user navigates (see docs on the renderEvent method)
-		});
-
-		// make the event draggable using jQuery UI
-		$(this).draggable({
-			zIndex: 999,
-			revert: true,      // will cause the event to go back to its
-			revertDuration: 0  //  original position after the drag
-		});
-		
-	
-		
-
-	});
-	/* initialize the calendar
-	-----------------------------------------------------------------*/
-	
-	$('#calendar').fullCalendar({
-		events:allevent,
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
-		},
-		defaultDate: moment(),
-		editable: true,
-		droppable: true, // this allows things to be dropped onto the calendar
-		drop: function() {
-			
-			// is the "remove after drop" checkbox checked?
-			if ($('#drop-remove').is(':checked')) {
-				// if so, remove the element from the "Draggable Events" list
-				$(this).remove();
-			}
-		},
-		eventDragStart:function(event){
-			//alert(event.title+"id:"+event.id);
-			var allowplace='available'+event.id;
-			
-			//$(#allowplace).rendering= 'background2';
-		},
-		/*eventDrop: function(event, delta, revertFunc) {
-            //alert(event.title + " was dropped on " + event.start.format());
-            if (!confirm("Are you sure about this change?")) {
-                revertFunc();
-            }
-        },
-        */
-        eventDragStop: function( event, jsEvent, ui, view ) {
-            
-            if(isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
-                $('#calendar').fullCalendar('removeEvents', event.id);
-                var el = $( "<div class='fc-event'>" ).appendTo('#external-events-listing').text( event.title );
-                el.draggable({
-                  zIndex: 999,
-                  revert: true, 
-                  revertDuration: 0 
-                });
-                el.data('event', { title: event.title, id :event.id, stick: true });
-            }
-        },
-        eventClick: function(event, element) { 
-             
-            alert(event.id+event.title);
-            $('#calendar').fullCalendar('updateEvent', event); 
-        } ,
-    	navLinks: true, // can click day/week names to navigate views
-		eventLimit: true // allow "more" link when too many events
-		
-	});
-	
-	
-	});
-	
-
-	$('#GGG').click(function(){
-		var getallevent=$('#calendar').fullCalendar('clientEvents');
-		var datas=[];
-		$.each(getallevent, function (i, event01) {
-			if((event01.id).length<9){
-				var event= {
-					id:event01.id,
-			 		targetdate:moment(event01.start).format('YYYY-MM-DD'),
-				}
-				datas.push(event);
-			}
-			
-		});
-		
-		$.post('savecalendar.controller',{'getallevent':datas},function(){
-		
-		
-		});
-		console.log(datas);
-	});
-	
-		
-
-
-});
-
-
-</script>
+<script src='../js/fullcalendar/calendar.js'></script>
 <body>
-<h1>GGG</h1>
+<div id="header"></div>
 <div id='wrap'>
-
 		<div id='external-events'>
 			<div id='external-events-listing'>
 			<h4 id='favorites'>收藏的活動</h4>
@@ -235,14 +28,14 @@ $(document).ready(function() {
 				<label for='drop-remove'>remove after drop</label>
 			</p>
 		</div>
-
-		<div id='calendar'></div>
-
+		<div id='calendar'>
+		<div id='controller'>
+		<input type="button" id='GGG' value='儲存行事曆' />
+		<input type="button" id='YYY' value='清空行事曆' />
+		</div>
+		</div>
 		<div style='clear:both'></div>
-
 	</div>
-	<div>
-	<input type="button" id='GGG' value='儲存行事曆' />
-	</div>
+	<div id="footer"></div>
 </body>
 </html>

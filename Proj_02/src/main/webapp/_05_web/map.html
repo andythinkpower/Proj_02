@@ -3,38 +3,71 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
 <style>
 
 #map {
 	height: 800px;
 	width: 100%;
 }
-</style>
+#footer {
+    /* 設定footer的高度 */
+     box-sizing: border-box;
+    /* 設定footer絕對位置在底部 */
+    position: absolute;
+    /* 展開footer寬度 */
+    width: 100%;
+}
+#controller{
+	position:absolute; left:25%;
+	
+	}
 
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="../js/jquery-1.12.3.min.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/ButtomController.js"></script>
+<script src="../js/GoogleMap.js">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 </head>
+
 <body>
-	<h3>My Google Maps Demo2</h3>
+	<div id="header"></div>
 	<div id="map"></div>
 	
-	<script src="../js/jquery-1.12.3.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/ButtomController.js"></script>
-	<script src="../js/GoogleMap.js">
-
- </script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+</script>
+<script type="text/javascript">
+$(function(){
+	  $("#header").load("../commons/header.jsp"); 
+	  $("#footer").load("../commons/footer.jsp"); 
+	  $("#musicControl").bootstrapToggle('on')
+	  $("#exhibitionControl").bootstrapToggle('on')
+	  $("#performanceControl").bootstrapToggle('on')
+	  $("#studyControl").bootstrapToggle('on')
+	  $("#movieControl").bootstrapToggle('on')
+	  $("#LeisureControl").bootstrapToggle('on')
+	  $("#familyControl").bootstrapToggle('on')
+	
+	});
+</script>
+ 
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK3MRTGkyj0FYu-OExTnVYDLuaNDwBRL8&callback=initMap">
     </script>
-	<input onclick="musicControl();" type=button value="音樂 顯示/隱藏">
-    <input onclick="exhibitionControl();" type=button value="展覽 顯示/隱藏">
-    <input onclick="performanceControl();" type=button value="表演 顯示/隱藏">
-	<input onclick="studyControl();" type=button value="研習 顯示/隱藏">
-	<input onclick="movieControl();" type=button value="影視 顯示/隱藏">
-	<input onclick="LeisureControl();" type=button value="休閒 顯示/隱藏">
-	<input onclick="familyControl();" type=button value="親子 顯示/隱藏">
+    <div style="margin:0 35% ;">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<input id='musicControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<input id='exhibitionControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<input id='performanceControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<input id='studyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<input id='movieControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<input id='LeisureControl' ata-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<input id='familyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
 
+	</div>
+	
+<div id="footer"></div>
 </body>
 
 

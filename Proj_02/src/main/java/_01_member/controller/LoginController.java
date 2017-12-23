@@ -78,7 +78,7 @@ public class LoginController {
 			cookieRememberMe.setPath(request.getContextPath());
 		} else {
 			cookieUser = new Cookie("user", memberemail);
-			cookieUser.setMaxAge(0);   // MaxAge==0 表示要請瀏覽器刪除此Cookie
+			cookieUser.setMaxAge(30*60*60);   // MaxAge==0 表示要請瀏覽器刪除此Cookie
 			cookieUser.setPath(request.getContextPath());
 			//String encodePassword = DatatypeConverter.printBase64Binary(password.getBytes());
 			String encodePassword = GlobalService.encryptString(memberpassword);

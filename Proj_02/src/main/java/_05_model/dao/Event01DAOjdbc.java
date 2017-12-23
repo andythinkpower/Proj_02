@@ -27,9 +27,7 @@ public class Event01DAOjdbc implements Event01DAO {
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	private static final String SELECT_ALL = "select * from event01 order by datediff ( day , getdate() , DurationEnd )";
-	private static final String SELECT_BY_MUSIC = "select * from event01 where EventTypeID = '音樂'";
-
+	
 	@Override
 	@Transactional
 	public List<Event02> select() {

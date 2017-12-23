@@ -1,11 +1,14 @@
 package _05_model;
 
+import java.util.Date;
 import java.util.List;
 
 public interface FavoritesDAO {
 	public List<FavoritesBean> select(String email);
 	public String update(String email,List<FavoritesBean> jsondata);
 	public boolean delete(Integer pk);
-	public Integer insert(FavoritesBean bean);	
+	public Integer insert(FavoritesBean bean);
+	public String updateCalendar(String email, Integer eventID, Date targetDate);
+	public FavoritesBean selectFavorites(String email, Integer eventID);	
 	
 }
