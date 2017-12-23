@@ -1,22 +1,19 @@
 package _06_blog.model.dao;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
-import _01_member.model.EventsBean;
-import _01_member.model.MemberBean;
-import _01_member.model.dao.MemberDAOJdbc;
 import _06_blog.model.BlogBean;
 import _06_blog.model.BlogDAO;
-import antlr.ParserSharedInputState;
 
 @Repository
 public class BlogDAOJdbc implements BlogDAO {
@@ -71,10 +68,17 @@ public class BlogDAOJdbc implements BlogDAO {
 		newbean.setArticleid(id);
 		this.getSession().delete(newbean);
 	}
+//selectall	
+	@Override
+	public List<BlogBean> selectall(BlogBean bean) {
+		Query<BlogBean> query = this.getSession().createQuery(
+				"FROM BlogBean where memberemail="+"'"+bean.getMemberemail()+"'", BlogBean.class);
+		return query.getResultList();
+	}
 	
 	//test
 		public static void main(String[] args) {
-			ApplicationContext context = new ClassPathXmlApplicationContext("beans.config.xml");
+			ApplicationContext context = new ClassPathXmlApplicationContext("text.xml");
 			SessionFactory sessionFactory = (SessionFactory) context.getBean("sessionFactory");
 
 			Session session = sessionFactory.getCurrentSession();
@@ -82,6 +86,11 @@ public class BlogDAOJdbc implements BlogDAO {
 
 			BlogDAOJdbc dao = (BlogDAOJdbc) context.getBean("blogDAOJdbc");
 			BlogBean bean =new BlogBean();
+			
+			//test 選出某會員的全部文章
+			bean.setMemberemail("aaa@gmail.com");
+			List<BlogBean>result=dao.selectall(bean);
+			System.out.println(result);
 			
 //			bean.setArticlename("好的");
 //			bean.setArticletype("旅遊");
@@ -92,14 +101,16 @@ public class BlogDAOJdbc implements BlogDAO {
 //			
 //			dao.insert(bean);
 			
-			bean.setArticleid(7);
-			dao.addlikenum(bean);
-			dao.addviewnum(bean);
+//			bean.setArticleid(7);
+//			dao.addlikenum(bean);
+//			dao.addviewnum(bean);
 			
 //			dao.delete(2);
 			
 			session.getTransaction().commit();
 			((ConfigurableApplicationContext) context).close();
 		}
+
+
 
 }

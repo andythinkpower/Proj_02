@@ -1,5 +1,7 @@
 package _06_blog.model;
 
+import java.util.List;
+
 public interface BlogDAO {
 
 	Boolean insert(BlogBean bean);	
@@ -11,4 +13,6 @@ public interface BlogDAO {
 	void addlikenum(BlogBean bean);
 	
 	void delete(int id);
+	
+	List<BlogBean> selectall(BlogBean bean);
 }

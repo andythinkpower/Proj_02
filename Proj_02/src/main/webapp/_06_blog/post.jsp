@@ -105,7 +105,7 @@
     	<script>
 
 		$('#buttonPost').click(function(){
-			$.post("${pageContext.request.contextPath}/_06_blog/blog.controller",
+			$.post("${pageContext.request.contextPath}/_06_blog/post.controller",
 					{"articlename": $('#articlename').val(), "articletype": $('#articletype').val(),
 				"articlecontent": $('#editor').val(), "parvicy": $('#setting1').val(), "parvicy": $('#setting2').val()},function(bean){
 // 						if(bean==null){
