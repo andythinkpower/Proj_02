@@ -39,13 +39,12 @@
 
 </head>
 <body>
-
 <jsp:include page="../commons/header.jsp"/>
-    <div id="map" style="display:none"></div>
     <form action="ActivityController.do" id="form" method="post">
         <fieldset>
             <legend>行程總覽</legend>
             <input type="hidden" name="doWhat" value="detail">
+            <input type="hidden" name="photoPath" value="">
             <input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
             <input type="text" name="actRegion" value="${activityBean.actRegion}"><br>
             <input type="text" name="actTitle" value="${activityBean.actTitle}"><br>
@@ -113,16 +112,21 @@
                 $("#pac-input").val("");
             })
 
+            //選擇完停留時間 按下儲存按鈕  要抓到剛調整的時間值 存到input裡面
+            $('body').on('click', ".savePlace", function () {
+                temp.val(simple_name);
+                console.log(lng);
+                temp.nextAll('input[name=longitude_temp]').val(lng);
+                temp.nextAll('input[name=latitude_temp]').val(lat);
+            });
+
+
+
+
         })
 
         //!!!!!!!已了解
         function initAutocomplete() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -33.8688, lng: 151.2195 },
-                zoom: 13,
-                //地圖類型:此為街景模式
-                mapTypeId: 'roadmap'
-            });
 
             // 創造一個searchBox物件
             var input = document.getElementById('pac-input');
@@ -131,22 +135,16 @@
             searchBox.addListener('places_changed', function () {
                 //步驟1 取得searchBox傳回的Place物件陣列 如果沒有直接return
                 var places = searchBox.getPlaces();
-
+                //找不到地點返回
                 if (places.length == 0) {
                     return;
                 }
-
-                //這個要顯示在note 上
+                //取得這個地點我們所要的資訊
                 simple_name = places[0].name;
-                console.log('在map裡面顯示' + simple_name);
-
-                lat = places[0].geometry.location.lat();
                 lng = places[0].geometry.location.lng();
-                temp.attr('value', simple_name);
-                //取得緯度
-               // console.log(places[0].geometry.location.lat());
-                //取得精度
-               // console.log(places[0].geometry.location.lng());
+                lat = places[0].geometry.location.lat();
+                //把地點名稱 經緯度 塞到對應的input中
+                
             });
         }
 

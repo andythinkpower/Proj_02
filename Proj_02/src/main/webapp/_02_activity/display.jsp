@@ -53,12 +53,12 @@
             	})     	
         	}
         	
-            //沒點擊按鈕
+            //導向觀賞頁面
             $("body").on("click",".target",function () {
                     //取得所點選行程的primary key
                     var pk = $(this).find(
                         "tbody tr:first-child>td:first-child").text();
-                    $("#doWhat").attr("value", "single");
+                    $("#doWhat").val("showPage");
                     $("#pk").val(pk);
                     $("#solo").submit();
                 });

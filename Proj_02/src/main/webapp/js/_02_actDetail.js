@@ -12,9 +12,9 @@ $(function () {
         time_value = $(this).nextAll(".time");
     });
 
-   
 
-   
+
+
     //選擇完停留時間 按下儲存按鈕  要抓到剛調整的時間值 存到input裡面
     $('body').on('click', ".saveTime", function () {
         var stay_time = $(this).parents('.modal-content').find(".stayTime").text();
@@ -82,12 +82,14 @@ $(function () {
                 $(this).prev().append($("<input class='note' name='note' placeholder='活動地點' data-toggle='modal' data-target='#searchBox'>"));
             } else if (j == 1) {
                 $(this).prev().append($("<input name='budget' placeholder='預算'>"));
-            } else if(j==2){
-                $(this).prev().append($("<input name='dates' type='hidden'>"));
+            } else if (j == 2) {
+                $(this).prev().append($("<input name='dates' type='hidden' value='" + count + "'>"));
+                var dd = $(this).parents('.father').find("span").text();
+                console.log(dd);
             } else if (j == 3) {
-                $(this).prev().append($("<input name='longitude' type='hidden'>"));
+                $(this).prev().append($("<input name='longitude_temp' type='hidden' value='" + count + "'>"));
             } else if (j == 4) {
-                $(this).prev().append($("<input name='latitude' type='hidden'>"));
+                $(this).prev().append($("<input name='latitude_temp' type='hidden' value='" + count + "'>"));
             }
         }
         $(this).prev().append("<input class='delete' type='button' value='刪除'/><br>")
@@ -102,9 +104,4 @@ $(function () {
         $("#form").append('<div id="days"><div class="father"><fieldset><legend>第<span>' + count + '</span>天</legend>'
             + '<div class="del"><input type="button" class="add_detail" value="新增行程"></div></fieldset></div></div>')
     };
-
-
-
-
-
 });

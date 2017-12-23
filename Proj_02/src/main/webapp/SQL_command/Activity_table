@@ -29,8 +29,8 @@ create table ActivityDetail(
 	Kinds varchar(10) not null,
 	Times varchar(10),			--停留時間  --純粹顯示 不檢查是否合乎邏輯
 	dates varchar(10) ,			--行程第幾天
-	Longitude varchar(20),
-	Latitude varchar(20),
+	Longitude float(53),
+	Latitude float(53),
 	activityID integer not null
 	foreign key(ActivityID) references Activity(ActivityID)
 );
@@ -58,24 +58,28 @@ create table Favorites(
 
 --放入預設資料
 
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2000-2-29','逢甲','逢甲3日遊','今天我要去逢甲',900,'aaa@gmail.com','/uploadFile/nopic.jpg')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2015/1/1','花蓮','觀賞大自然的遼闊','預計從花蓮玩到台東',8452,'aaa@gmail.com','/uploadFile/nopic.jpg')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2017-12-31','全台','挑戰7天環島!!','腳踏車環島',5,'bbb@gmail.com','/uploadFile/nopic.jpg')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2017-10-8','新竹','考察竹科','觀察回收業者',77,'aaa@gmail.com','/uploadFile/nopic.jpg')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2017-9-7','澎湖','來到澎湖灣','挑戰一天玩遍澎湖',135765,'aaa@gmail.com','/uploadFile/nopic.jpg')
-insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,email,photoPath) values('2017-6-6','綠島','浮淺','聽說綠島浮淺世界美',1,'bbb@gmail.com','/uploadFile/nopic.jpg')
 
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(1,'都會公園','100','戶外','1:20','1')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(1,'台中歌劇廳','2000','音樂','2:20','1')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(2,'花防部戰車營','0','戶外','23:59','1')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(3,'鵝鑾鼻','17000','戶外','0:30','2')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(4,'Fridays','300','美食','00:20','3')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'高美濕地','0','戶外','02:30','1')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'都會公園','0','戶外','03:30','1')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'玉山攻頂','500','戶外','12:00','2')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'墾丁大街','1000','美食','1:10','3')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(5,'墾丁音樂祭','900','音樂','5:30','3')
-insert into ActivityDetail (ActivityID,Note,Budget,Kinds,Times,dates) values(6,'墾丁音樂祭','900','音樂','5:30','1')
+
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2000-2-29','逢甲','逢甲3日遊','今天我要去逢甲',900,'/uploadFile/nopic.jpg','aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2015/1/1','花蓮','觀賞大自然的遼闊','預計從花蓮玩到台東',8452,'/uploadFile/nopic.jpg','aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2017-12-31','全台','挑戰7天環島!!','腳踏車環島',5,'/uploadFile/nopic.jpg','bbb@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2017-10-8','新竹','考察竹科','觀察回收業者',77,'/uploadFile/nopic.jpg','aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2017-9-7','澎湖','來到澎湖灣','挑戰一天玩遍澎湖',135765,'/uploadFile/nopic.jpg','aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2017-6-6','綠島','浮淺','聽說綠島浮淺世界美',1,'/uploadFile/nopic.jpg','bbb@gmail.com')
+
+--座標跟景點名稱相符
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.0682258, 121.58854930000007,1,'臺北市立新湖國小','0','戶外','02:30','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.06328299999999, 121.55138299999999,1,'松山機場','0','戶外','03:30','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.0605309,121.54539299999999,1,'市立中山國中','500','戶外','12:00','2')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.024843, 121.542056,1,'資策會','1000','美食','1:10','3')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.0477387, 121.51703959999998,1,'台鐵台北車站','900','音樂','5:30','3')
+--座標跟景點名稱不相符
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.068401,121.588292,5,'都會公園','100','戶外','1:20','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.071586,121.580870,5,'台中歌劇廳','2000','音樂','2:20','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.074239, 121.578820,2,'花防部戰車營','0','戶外','23:59','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.063743, 121.582125,3,'鵝鑾鼻','17000','戶外','0:30','2')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.062373,121.580440,4,'Fridays','300','美食','00:20','3')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.002422, 121.564806,6,'墾丁音樂祭','900','音樂','5:30','1')
 
 
 insert into Favorites values('2017-12-12','唐卡自己畫','2017-03-01 00:00:00.000','2017-12-06 00:00:00.000','00:00:00.0000000','bbb@gmail.com',99900407)
