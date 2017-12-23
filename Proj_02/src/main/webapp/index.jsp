@@ -10,7 +10,7 @@
 </head>
 <body>
 <jsp:include page="/commons/header.jsp"></jsp:include>
-<h3 class="display-1 bg-success text-center">Welcome ${member.memberemail}</h3>
+<h4 class="display-1 bg-success text-center">Welcome ${member.membernickname}</h4>
 <h3 class="bg-warning text-center"><a href="<c:url value="/_01_member/register.jsp"/>">Register</a></h3>
 <h3 class="bg-warning text-center"><a href="<c:url value="/security/login.jsp"/>">Login</a></h3>
 <h3 class="bg-warning text-center"><a href="<c:url value="/_01_member/member.jsp"/>">Member</a></h3>

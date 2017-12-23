@@ -56,7 +56,7 @@ public class MemberBean {
 	private String membernickname;
 	private String membergender;
 	private java.sql.Date memberbdate;
-	private Blob memberphoto;
+	private String memberphoto;
 	private String memberepaper;
 	private String membertype;
 	private String memberrole;
@@ -104,10 +104,10 @@ public class MemberBean {
 	public void setMemberbdate(java.sql.Date memberbdate) {
 		this.memberbdate = memberbdate;
 	}
-	public Blob getMemberphoto() {
+	public String getMemberphoto() {
 		return memberphoto;
 	}
-	public void setMemberphoto(Blob memberphoto) {
+	public void setMemberphoto(String memberphoto) {
 		this.memberphoto = memberphoto;
 	}
 	public String getMemberepaper() {
