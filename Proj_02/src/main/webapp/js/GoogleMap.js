@@ -27,10 +27,27 @@ function CenterControl(controlDiv, map) {
 
      var visible=true;
      controlUI.addEventListener('click', function() {
-    	for (var i = 0; i < markers.length; i++) {
-    	markers[i].setVisible(!visible);}
+    	if(visible){
+    		$("#musicControl").bootstrapToggle('off')
+    		$("#exhibitionControl").bootstrapToggle('off')
+    		$("#performanceControl").bootstrapToggle('off')
+    		$("#studyControl").bootstrapToggle('off')
+    		$("#movieControl").bootstrapToggle('off')
+    		$("#LeisureControl").bootstrapToggle('off')
+    		$("#familyControl").bootstrapToggle('off')
     		visible =!visible;
-    });
+    	}else{
+    		
+    		$("#musicControl").bootstrapToggle('on')
+    		$("#exhibitionControl").bootstrapToggle('on')
+    		$("#performanceControl").bootstrapToggle('on')
+    		$("#studyControl").bootstrapToggle('on')
+    		$("#movieControl").bootstrapToggle('on')
+    		$("#LeisureControl").bootstrapToggle('on')
+    		$("#familyControl").bootstrapToggle('on')
+    		visible =!visible;
+    	}
+   });
 
    }
 //初始化地圖
@@ -52,15 +69,15 @@ $.getJSON('mapcontroller.controller', {  }, function (data) {
 		 var eventname=event01.EventName;
 		 var address=event01.Address;
          var briefIntroduction=event01.BriefIntroduction;
-         var image=event01.logoimageFile;
+         var image=event01.imageFile;
 		 var dtStart=event01.dtStart;
          var eventtype=event01.EventTypeId;
 		 var type=event01.type;
 		 var point = new google.maps.LatLng(
 	    		 parseFloat(event01.Latitude),
 	    		 parseFloat(event01.Longitude));
-		var img=(image.length>5)?'<img src='+image+'><br>':'';
-        var link="display.html?"+eventid;
+		var img=(image.length>5)?'<img src='+image+' width=50%><br>':'';
+        var link="../_04_EventPage/eventSelf.jsp?eventID="+eventid;
         var contentString = '<div><a href='+link+'><strong>'+eventname+
         					'</strong></a><br>'+img+'<text>日期:'+dtStart+'</text><br>'+
         					'<text>地址:'+address+'</text><br>'+

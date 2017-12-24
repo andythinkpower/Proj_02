@@ -23,7 +23,6 @@ MemberRole varchar(10),                           /*會員角色*/
 CONSTRAINT PK_Members_MemberEmail PRIMARY KEY CLUSTERED (MemberEmail) /*Members.MemberEmail為主鍵*/
 );
 
-
 INSERT INTO Members VALUES('aaa@gmail.com', 'abc123', '小小', '女生', '2000-12-22', null, 1, null, null);
 INSERT INTO Members VALUES('bbb@gmail.com', 'abc123', '大大', '女生', '2000-12-22', null, 1, null, null);
 INSERT INTO Members VALUES('ccc@gmail.com', 'abc123', '中中', '女生', '2000-12-22', null, 1, null, null);
@@ -110,6 +109,7 @@ insert into LikeRegions values ('bbb@gmail.com','大安')
 insert into LikeRegions values ('bbb@gmail.com','萬華')
 insert into LikeRegions values ('ccc@gmail.com','大安')
 insert into LikeRegions values ('ccc@gmail.com','中正')
+
 
 
 CREATE TABLE Blogs

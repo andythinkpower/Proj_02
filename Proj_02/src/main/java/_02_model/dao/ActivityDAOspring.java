@@ -56,6 +56,7 @@ public class ActivityDAOspring implements ActivityDAO {
 			insert.setActRegion(bean.getActRegion());
 			insert.setActTitle(bean.getActTitle());
 			insert.setIntroduction(bean.getIntroduction());
+			insert.setPhotoPath(bean.getPhotoPath());
 			insert.setEmail(bean.getEmail());
 			Session session = getSession();
 			Integer pk = (Integer) session.save(insert);
@@ -75,7 +76,7 @@ public class ActivityDAOspring implements ActivityDAO {
 			// 成功從資料庫取得ID 並修改資料
 			System.out.println("現在在DAOspring" + update);
 			if (update != null) {
-				update.setActPhoto(updateBean.getActPhoto());
+				update.setPhotoPath(updateBean.getPhotoPath());
 				update.setActRegion(updateBean.getActRegion());
 				update.setActStartDate(updateBean.getActStartDate());
 				update.setActTitle(updateBean.getActTitle());

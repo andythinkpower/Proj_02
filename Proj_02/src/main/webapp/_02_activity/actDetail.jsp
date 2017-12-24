@@ -4,19 +4,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>細節更新</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
+    <link rel="stylesheet" href="../css/google_search.css" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    
-    <script src="../js/_02_actDetail.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../js/cookie.js"></script>
+    <script src="../js/_02_actDetail.js" ></script>
+    <title>活動細節頁面</title>
     
 
     <style>
@@ -40,44 +39,128 @@
 
 </head>
 <body>
-<jsp:include page="../commons/header.jsp"/>
-    <form action="ActivityController.do" id="form" method="post">
-    <fieldset><legend>行程總覽</legend>
-    	<input type="text" name="doWhat" value="detail" style="display:none;">
-    	<input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
-    	<input type="text" name="actRegion" value="${activityBean.actRegion}"><br>
-    	<input type="text" name="actTitle" value="${activityBean.actTitle}"><br>
-    	<input type="text" name="introduction" value="${activityBean.introduction}"><br>
-    </fieldset>
-    </form>
 
+<jsp:include page="../commons/header.jsp"/>
+    <div id="map" style="display:none"></div>
+    <form action="ActivityController.do" id="form" method="post">
+        <fieldset>
+            <legend>行程總覽</legend>
+            <input type="hidden" name="doWhat" value="detail">
+            <input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
+            <input type="text" name="actRegion" value="${activityBean.actRegion}"><br>
+            <input type="text" name="actTitle" value="${activityBean.actTitle}"><br>
+            <input type="text" name="introduction" value="${activityBean.introduction}"><br>
+        </fieldset>
+    </form>
     <button id="create_Day">新增天數</button> <button id="submit">儲存</button>
-    
-    
-    
-  
-<div class="container">
-    <div class="modal" >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">停留時間</h5>
-            <button class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-              <div class="form-group">
-                  <div class="slider" style="border:1px solid red;"></div>                 
-              </div>               
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" data-dismiss="modal">取消</button>
-            <button id="aa" class="btn btn-primary" data-dismiss="modal">儲存</button>
-              
-          </div>
+
+    <!-- 以下div都是隱藏狀態 按按鈕才會浮出-->
+
+    <!-- 負責連接google map searchBox -->
+
+    <div class="container">
+        <div class="modal" id="searchBox">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title ">搜尋景點</h5>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" id="pac-input" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button id="aa" class="btn btn-primary savePlace" data-dismiss="modal">儲存</button>
+
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+
+    <!-- 負責選取時間 -->
+
+    <div class="container">
+        <div class="modal" id="timeSlider">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title stayTime">停留時間</h5>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="slider" style="border:1px solid red;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button id="aa" class="btn btn-primary saveTime" data-dismiss="modal">儲存</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        $(function () {
+            $("body").on('click', 'input[name=note]', function () {
+                temp = $(this);
+                $("#pac-input").val("");
+            })
+
+        })
+
+        //!!!!!!!已了解
+        function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -33.8688, lng: 151.2195 },
+                zoom: 13,
+                //地圖類型:此為街景模式
+                mapTypeId: 'roadmap'
+            });
+
+            // 創造一個searchBox物件
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+
+            searchBox.addListener('places_changed', function () {
+                //步驟1 取得searchBox傳回的Place物件陣列 如果沒有直接return
+                var places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+
+                //這個要顯示在note 上
+                simple_name = places[0].name;
+                console.log('在map裡面顯示' + simple_name);
+
+                lat = places[0].geometry.location.lat();
+                lng = places[0].geometry.location.lng();
+                temp.attr('value', simple_name);
+                //取得緯度
+               // console.log(places[0].geometry.location.lat());
+                //取得精度
+               // console.log(places[0].geometry.location.lng());
+            });
+        }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAxgzejqCBKYETiCdV-Q9_u7VhfX7BKM0&libraries=places&callback=initAutocomplete"
+            async defer></script>
+    
+    <script>
+$(function(){
+	var picPath=Cookies.get("picPath");
+	console.log("照片路徑:"+picPath);
+	$("#form").find("input[name='photoPath']").val(picPath);
+});
+</script>
     
  <jsp:include page="../commons/footer.jsp"/>   
 </body>

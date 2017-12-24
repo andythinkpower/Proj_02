@@ -13,13 +13,8 @@
 <!-- jQuery-ui -->
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-
-
 <!-- jQuery-ui CSS -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
 
 <!-- Include Required Prerequisites -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
@@ -29,8 +24,7 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 
-
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <title>尋找活動</title>
 
 <style>
@@ -64,7 +58,7 @@
 
 </head>
 <body>
-
+<jsp:include page="/commons/header.jsp"></jsp:include>
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
 	
 	<input type="text" id="areaText" value="" style="width:250px;">
@@ -333,6 +327,6 @@
 		
 		
 	</script>
-
+<jsp:include page="/commons/footer.jsp"></jsp:include>
 </body>
 </html>

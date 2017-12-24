@@ -16,7 +16,7 @@ public class ActivityDetailDAOspring implements ActivityDetailDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Session getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
@@ -45,8 +45,8 @@ public class ActivityDetailDAOspring implements ActivityDetailDAO {
 				return true;
 			} else {
 				return false;
-			}
-
+			}			
+					
 		} else {
 			return false;
 		}

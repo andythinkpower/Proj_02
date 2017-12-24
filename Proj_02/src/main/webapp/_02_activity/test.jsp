@@ -9,7 +9,10 @@
 </head>
 <body>
 	<h1>test</h1>
-	
+	<div>
+		<h2>顯示照片 :${pageContext.request.contextPath}/uploadFile/test.jpg</h2>
+		<img src="${pageContext.request.contextPath}/uploadFile/test.jpg" style="width:200px">
+	</div>
 	<form action="qq.do">
 	
 	 <input type="text" name="doWhat" value="update">

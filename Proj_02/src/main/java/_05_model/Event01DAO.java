@@ -15,4 +15,6 @@ public interface Event01DAO {
 	Event02 update(Event02 event);
 
 	boolean delete(int eventID);
+	
+	List<Event02> selectType(String eventtype);
 }

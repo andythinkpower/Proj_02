@@ -1,10 +1,12 @@
 package _01_member.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -46,6 +48,7 @@ public class MemberDAOJdbc implements MemberDAO {
 		beanexist.setMembergender(bean.getMembergender());
 		beanexist.setMemberbdate(bean.getMemberbdate());
 		beanexist.setMemberepaper(bean.getMemberepaper());
+		beanexist.setMemberphoto(bean.getMemberphoto());
 		this.getSession().update(beanexist);		
 		return null;
 	}
@@ -62,22 +65,55 @@ public class MemberDAOJdbc implements MemberDAO {
 		return regions;
 	}
 //insert events
-	public Set<EventsBean> insertevents(Set<EventsBean> eventsbean){
+	public Set<EventsBean> insertevents(MemberBean bean, String [] type){
+		
+		for(int i=0; i<type.length;i++) {	
+			MemberBean beanforlikes= this.select(bean.getMemberemail());
+			Set<EventsBean> events=beanforlikes.getEvents();
+			EventsBean test = new EventsBean();
+			test.setType(type[i]);
+			events.add(test);
+		}
+		
 		return null;
 	}
 //insert regions	
-	public Set<RegionsBean> insertregions(Set<RegionsBean> regionsbean){
+	public Set<RegionsBean> insertregions(MemberBean bean, String [] region){
+		
+		for(int i=0; i<region.length;i++) {	
+			MemberBean beanforlikes= this.select(bean.getMemberemail());
+			Set<RegionsBean> events=beanforlikes.getRegions();
+			RegionsBean test = new RegionsBean();
+			test.setRegion(region[i]);
+			events.add(test);
+		}
+		
 		return null;
 	}
 //delete events	
-	public Set<EventsBean> deleteevents(MemberBean bean){
+	public Set<EventsBean> deletetypes(MemberBean bean){
 		MemberBean beanforlikes= this.select(bean.getMemberemail());
-
+		Set<EventsBean> events=beanforlikes.getEvents();
+		for(EventsBean u: events) {
+			u.getMembers().remove(beanforlikes);
+		}
 		return null;
 	}
 //delete regions	
 	public Set<RegionsBean> deleteregions(MemberBean bean){
 		MemberBean beanforlikes= this.select(bean.getMemberemail());
+		Set<RegionsBean> regions=beanforlikes.getRegions();
+		for(RegionsBean u: regions) {
+			u.getMembers().remove(beanforlikes);
+		}
+		return null;
+	}
+	
+	@Override
+	public Boolean changepsw(MemberBean bean) {
+		MemberBean beanexist= getSession().get(MemberBean.class, bean.getMemberemail());
+		beanexist.setMemberpassword(bean.getMemberpassword());
+		this.getSession().update(beanexist);
 		return null;
 	}
 	
@@ -91,13 +127,13 @@ public class MemberDAOJdbc implements MemberDAO {
 
 		MemberDAOJdbc dao = (MemberDAOJdbc) context.getBean("memberDAOJdbc");
 		MemberBean bean =new MemberBean();
-		bean.setMemberemail("aaa@gmail.com");
+		bean.setMemberemail("ccc@gmail.com");
 //		bean.setMemberpassword("nnn");
 //		dao.insert(bean);
 		Set<EventsBean> eventslike=dao.showevents(bean);
 		System.out.println(bean);
 		System.out.println(eventslike);
-
+		
 		session.getTransaction().commit();
 		((ConfigurableApplicationContext) context).close();
 	}
