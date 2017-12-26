@@ -1,4 +1,4 @@
-package _04_model;
+package _00_proj02Bean;
 
 import java.util.Date;
 
@@ -39,7 +39,42 @@ public class Event01 {
 	private String address;
 	private String longitude;
 	private String latitude;
+	private Integer collectionCount;
+	private Integer shareCount;
+	private Integer isBlock;
 	
+	public String getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
+	}
+
+	public Integer getCollectionCount() {
+		return collectionCount;
+	}
+
+	public void setCollectionCount(Integer collectionCount) {
+		this.collectionCount = collectionCount;
+	}
+
+	public Integer getShareCount() {
+		return shareCount;
+	}
+
+	public void setShareCount(Integer shareCount) {
+		this.shareCount = shareCount;
+	}
+
+	public Integer getIsBlock() {
+		return isBlock;
+	}
+
+	public void setIsBlock(Integer isBlock) {
+		this.isBlock = isBlock;
+	}
+
 	public Event01() {
 		super();
 	}
@@ -174,14 +209,6 @@ public class Event01 {
 
 	public void setYouTubeUrl(String youTubeUrl) {
 		this.youTubeUrl = youTubeUrl;
-	}
-
-	public String getimageFile() {
-		return imageFile;
-	}
-
-	public void setimageFile(String imageFile) {
-		this.imageFile = imageFile;
 	}
 
 	public String getLogoimageFile() {

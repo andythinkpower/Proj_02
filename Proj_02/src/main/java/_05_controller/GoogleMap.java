@@ -28,9 +28,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import _05_model.Event02;
+import _00_proj02Bean.Event01;
+import _00_proj02Bean.FavoritesBean;
 import _05_model.Event02Service;
-import _05_model.FavoritesBean;
 import _05_model.FavoritesService;
 import _05_model.Savecalendar;
 
@@ -50,10 +50,10 @@ public class GoogleMap {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String jsonString;
-		List<Event02> result = event01Service.select();
+		List<Event01> result = event01Service.select();
 	    List<Map<String, String>>  l1 = new LinkedList<Map<String, String>>();
 	    Map<String, List<Map<String, String>>> m2 = new HashMap<String, List<Map<String, String>>>();
-	    for(Event02 event01:result) {
+	    for(Event01 event01:result) {
 	    	if ( event01.getLongitude() != null && !event01.getLongitude().isEmpty()&&event01.getLongitude().length()>5) {
 				 Map<String, String> m1 = new HashMap<String, String>();       
 				 m1.put("EventID", event01.getEventID().toString());
@@ -62,7 +62,7 @@ public class GoogleMap {
 				 m1.put("Address",event01.getAddress()); 
 				 m1.put("Latitude", event01.getLatitude());
 				 m1.put("Longitude", event01.getLongitude());
-				 m1.put("imageFile", event01.getimageFile());
+				 m1.put("imageFile", event01.getImageFile());
 				 m1.put("BriefIntroduction", event01.getBriefIntroduction());
 				 m1.put("logoimageFile", event01.getLogoimageFile());
 				 m1.put("dtStart", event01.getDtStart().toString().split(" ")[0]);
@@ -93,7 +93,7 @@ public class GoogleMap {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String jsonString;
-		Event02 event01 = event01Service.select(Integer.parseInt(eventid));
+		Event01 event01 = event01Service.select(Integer.parseInt(eventid));
 		Map<String, String> m1 = new HashMap<String, String>();       
 		m1.put("EventID", event01.getEventID().toString());
 		m1.put("EventName",event01.getEventName());   
@@ -111,7 +111,7 @@ public class GoogleMap {
 		m1.put("vcontent",event01.getVcontent());
 		m1.put("eventUrl",event01.getEventUrl());
 		m1.put("youTubeUrl",event01.getYouTubeUrl());
-		m1.put("imageFile",event01.getimageFile());
+		m1.put("imageFile",event01.getImageFile());
 		m1.put("logoimageFile", event01.getLogoimageFile());
 		m1.put("insertTime", event01.getInsertTime().toString().split("\\.")[0]);
 		m1.put("dtStart", event01.getDtStart().toString().split(" ")[0]);
@@ -132,7 +132,7 @@ public class GoogleMap {
 	
 	}
 	
-	
+/*	
 	@RequestMapping(
 			path="/_05_web/findEventtype.controller",
 			method={RequestMethod.GET, RequestMethod.POST})
@@ -181,7 +181,7 @@ public class GoogleMap {
 		 
 		 out.println(jsonString);
 	} 
-	
+	*/
 	
 
 	

@@ -3,6 +3,8 @@ package _05_model;
 import java.util.Date;
 import java.util.List;
 
+import _00_proj02Bean.FavoritesBean;
+
 public interface FavoritesDAO {
 	public List<FavoritesBean> select(String email);
 	public String update(String email,List<FavoritesBean> jsondata);

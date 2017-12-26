@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import _00_proj02Bean.Event01;
+import _00_proj02Bean.FavoritesBean;
 import _01_member.model.MemberBean;
-import _05_model.FavoritesBean;
+import _05_model.Event02Service;
 import _05_model.FavoritesService;
 
 @Controller
@@ -27,7 +29,8 @@ public class TempController {
 	
 	@Autowired
 	private FavoritesService favoritesService;
-	
+	@Autowired
+	private Event02Service event02Service;
 	
 	
 	@RequestMapping(path= {"/_04_EventPage/insert.controller"},method= {RequestMethod.POST,RequestMethod.GET})
@@ -37,8 +40,9 @@ public class TempController {
 		rs.setHeader("content-type", "text/html;charset=UTF-8");
 		rs.setCharacterEncoding("UTF-8");
 		PrintWriter out = rs.getWriter();
-		
-		
+//		Event02 event = event02Service.select(Integer.parseInt(eventID));
+//		event.setCollectionCount(event.getCollectionCount()+1);
+//		event02Service.update(event);
 		FavoritesBean bean=new FavoritesBean();
 		bean.setEventID(Integer.valueOf(eventID));
 		bean.setEventName(eventName);

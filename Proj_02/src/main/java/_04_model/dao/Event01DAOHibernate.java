@@ -8,7 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import _04_model.Event01;
+import _00_proj02Bean.Event01;
 import _04_model.Event01DAO;
 
 @Repository
@@ -22,8 +22,9 @@ public class Event01DAOHibernate implements Event01DAO {
 	}
 	
 	@Override
-	public List<Event01> eventSearch(String newTypes) {
-		Query<Event01> query = this.getSession().createQuery("FROM Event01 where EventTypeID like :types order by datediff ( day , getdate() , DurationEnd )", Event01.class);
+	public List<Event01> eventSearch(String newDate , String newAreas , String newTypes) {
+		Query<Event01> query = this.getSession().createQuery("FROM Event01 " + newDate + " AreaID like :areas and EventTypeID like :types and datediff( day , getdate() , DurationEnd ) >= 0 and CityID = '臺北市'order by datediff ( day , getdate() , DurationEnd )" , Event01.class);
+		query.setParameter("areas", "%["+newAreas+"]%");
 		query.setParameter("types", "%["+newTypes+"]%");
 		return query.getResultList();
 	}

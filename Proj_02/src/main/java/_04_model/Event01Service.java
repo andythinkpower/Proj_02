@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import _00_proj02Bean.Event01;
+
 @Service
 @Transactional
 public class Event01Service {
@@ -14,9 +16,8 @@ public class Event01Service {
 	private Event01DAO event01dao;
 	
 	@Transactional(readOnly=true)
-
-	public List<Event01> eventSearch(String newTypes) {
-		return event01dao.eventSearch(newTypes);
+	public List<Event01> eventSearch(String newDate , String newAreas , String newTypes) {
+		return event01dao.eventSearch(newDate , newAreas , newTypes);
 	}
 	
 	@Transactional(readOnly=true)
