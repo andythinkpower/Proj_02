@@ -15,11 +15,14 @@
 <context:component-scan base-package="_01_member.controller,_02_controller,_04_controller,_05_controller,_06_blog.controller"></context:component-scan>
 	
 	<mvc:annotation-driven></mvc:annotation-driven>
+
 	
+
 
 	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
 		<property name="location" value="/WEB-INF/_01_views.xml"></property>
 	</bean>
+
 
 	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
 		<property name="location" value="/WEB-INF/_04_views.xml"></property>

@@ -37,7 +37,7 @@
 </head>
 <body>
 
-<jsp:include page="../commons/header.jsp"/>
+<jsp:include page="../commons/header_login.jsp"/>
     <div class="row">
         <div class="col"></div>
         <div class="col-5">

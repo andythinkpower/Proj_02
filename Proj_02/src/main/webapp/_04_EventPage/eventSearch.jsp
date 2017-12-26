@@ -59,51 +59,36 @@
 
 </head>
 <body>
-<jsp:include page="/commons/header.jsp"></jsp:include>
+<c:set var='mem' value="${member }" ></c:set>
+	<c:choose>
+		<c:when test="${not empty mem }">
+			<jsp:include page="../commons/header_login.jsp"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="../commons/header.jsp"/>
+		</c:otherwise>
+	</c:choose>
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
 	
-	<input type="text" id="areaText" value="" style="width:250px;">
- 
-	<div id="selectArea" class="selectArea">
-    	<label><input type="checkbox" name="allArea" value="正同中松安萬信士北內南文" checked="checked"><span>全部</span></label>
-    	<br>
-	    <label><input type="checkbox" name="areaID" value="正"><span>中正區</span></label>
-	    <label><input type="checkbox" name="areaID" value="同"><span>大同區</span></label>
-	    <label><input type="checkbox" name="areaID" value="中"><span>中山區</span></label>
-	    <label><input type="checkbox" name="areaID" value="松"><span>松山區</span></label>
-	    <label><input type="checkbox" name="areaID" value="安"><span>大安區</span></label>
-	    <label><input type="checkbox" name="areaID" value="萬"><span>萬華區</span></label>
-	    <label><input type="checkbox" name="areaID" value="信"><span>信義區</span></label>
-	    <label><input type="checkbox" name="areaID" value="士"><span>士林區</span></label>
-	    <label><input type="checkbox" name="areaID" value="北"><span>北投區</span></label>
-	    <label><input type="checkbox" name="areaID" value="內"><span>內湖區</span></label>
-	    <label><input type="checkbox" name="areaID" value="南"><span>南港區</span></label>
-	    <label><input type="checkbox" name="areaID" value="文"><span>文山區</span></label>
-    </div>
-    
-    <div id="selectDate" class="selectDate">
-    	<label><input type="radio" name="pickDate" value="where" checked="checked" id="allDate"><span>不限</span></label>
-	    <label><input type="radio" name="pickDate" value="where datediff ( day , getdate() , dtStart ) <= 0 and datediff ( day , getdate() , DurationEnd) >= 0 and"><span>今日</span></label>
-	    <label><input type="radio" name="pickDate" value="where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart  and"><span>本週</span></label>
-	    <label><input type="radio" name="pickDate" value="where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart and dateadd( week , datediff( week , '' , getdate() ) , 5 ) <= DurationEnd and"><span>本週末</span></label>
-	    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart  and"><span>下週</span></label>
-	    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart and dateadd( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 5 ) ) <= DurationEnd and"><span>下週末</span></label>
-	    <span id="emsp">&emsp;&emsp;</span>
-	    <input type="text" value="自訂日期" id="dateRangePicker">
-	    <input type="radio" name="pickDate" value="" style="display: none;" id="forDateRangePicker">
-    </div>
-    
-	<div id="selectType" class="selectType">		
-		<label><input type="checkbox" name="allType" value="休閒展覽音樂表演研習親子影視" checked="checked"><span>全部</span></label>
-		<label><input type="checkbox" name="eventType" value="休閒"><span>休閒</span></label>
-		<label><input type="checkbox" name="eventType" value="展覽"><span>展覽</span></label>
-		<label><input type="checkbox" name="eventType" value="音樂"><span>音樂</span></label>
-		<label><input type="checkbox" name="eventType" value="表演"><span>表演</span></label>
-		<label><input type="checkbox" name="eventType" value="研習"><span>研習</span></label>
-		<label><input type="checkbox" name="eventType" value="親子"><span>親子</span></label>
-		<label><input type="checkbox" name="eventType" value="影視"><span>影視</span></label>
-		<span id="count" ></span>
-	</div>
+
+	<form name="selectForm">
+		<fieldset>
+			<legend>活動類型</legend>
+
+
+
+				<input type="checkbox" id="全部" name="manyTypes" value="休閒展覽音樂表演研習親子影視" checked="checked" onclick="switchToAll(this.form)">全部
+				<input type="checkbox" id="休閒" name="eventType" value="休閒" onclick="changeTypes(this.form)">休閒
+				<input type="checkbox" id="展覽" name="eventType" value="展覽" onclick="changeTypes(this.form)">展覽
+				<input type="checkbox" id="音樂" name="eventType" value="音樂" onclick="changeTypes(this.form)">音樂
+				<input type="checkbox" id="表演" name="eventType" value="表演" onclick="changeTypes(this.form)">表演
+				<input type="checkbox" id="研習" name="eventType" value="研習" onclick="changeTypes(this.form)">研習
+				<input type="checkbox" id="親子" name="eventType" value="親子" onclick="changeTypes(this.form)">親子
+				<input type="checkbox" id="影視" name="eventType" value="影視" onclick="changeTypes(this.form)">影視
+				<span id="count" ></span>
+		</fieldset>
+	</form>
+
 	
 	<table id="eventTable">
 		<thead>

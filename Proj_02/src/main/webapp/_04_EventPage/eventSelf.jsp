@@ -18,7 +18,15 @@
 
 </head>
 <body>
-<jsp:include page="/commons/header.jsp"></jsp:include>
+<c:set var='mem' value="${member }" ></c:set>
+	<c:choose>
+		<c:when test="${not empty mem }">
+			<jsp:include page="../commons/header_login.jsp"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="../commons/header.jsp"/>
+		</c:otherwise>
+	</c:choose>
 
 	<p id="eventID" style="display: none;"><%= request.getParameter("eventID") %></p>
 	<div id="temp">
@@ -152,7 +160,13 @@
 				});
 			}); // JSON END
 			
+<<<<<<< HEAD
+
 		}); // 開啟即執行 END
+
+=======
+		}); // 開啟即執行 END
+>>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
 		
 	</script>
 <jsp:include page="/commons/footer.jsp"></jsp:include>

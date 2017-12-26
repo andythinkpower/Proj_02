@@ -14,7 +14,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="../commons/header.jsp"/>
+<jsp:include page="../commons/header_login.jsp"/>
 		<h1>成功登入</h1>
 		<h2>哈囉:${member.membernickname }</h2>
 		

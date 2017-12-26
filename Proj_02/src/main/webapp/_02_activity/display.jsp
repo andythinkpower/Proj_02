@@ -12,9 +12,15 @@
  <script src="../js/cookie.js" type="text/javascript"></script>
 <title>顯示頁面</title>
 <style>
-	body{
-		background-color:		#F2E6E6;
-	}
+	body {
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
 	
 </style>
 
@@ -57,7 +63,7 @@
              			}
              			var act=$("<div class='col-4'>").html("<div class='card  target' style='width:300px;border:1px solid #BEBEBE;'><div class='actID' style='display:none;'>"+
                      			+v.activityID+"</div><img class='card-img-top show' src='${pageContext.request.contextPath}"+v.photoPath+"' alt='Card image' width='300' height='250'/>"+
-                     			"<div class='card-body'><h4 class='card-title'>"+title+"</h4><p class='card-text'>出發日期:"+Start+"</p>"+
+                     			"<div class='card-body' style='background-color:#F2E6E6'><h4 class='card-title'>"+title+"</h4><p class='card-text'>出發日期:"+Start+"</p>"+
                      			"<div class='row float-xl-right px-2 '><button class='btn btn-info update'>修改</button><button class='btn btn-danger delete'>刪除</button></div></div></div>");   			
 
              			if(i%3==0){

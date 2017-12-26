@@ -42,7 +42,7 @@ html, body {
 </style>
 </head>
 <body>
-<jsp:include page="../commons/header.jsp"/>
+<jsp:include page="../commons/header_login.jsp"/>
 	<div id="map"></div>
 
 <!-- 這邊要全部改成表格  -->

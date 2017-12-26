@@ -79,7 +79,7 @@
 
 </head>
 <body>
-<jsp:include page="../commons/header.jsp"/>
+<jsp:include page="../commons/header_login.jsp"/>
 	<!-- 這邊要顯示個人行程 並且把路徑顯示出來 -->
 	<input type='hidden' id='pk' value='${pk}'/>
 	
