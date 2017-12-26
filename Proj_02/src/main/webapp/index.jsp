@@ -9,7 +9,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="/commons/header.jsp"></jsp:include>
+<c:set scope="session" value="${member}" var='mem'/>
+<c:choose>
+	<c:when test="${not empty mem }">
+		<jsp:include page="/commons/header_login.jsp"></jsp:include>
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/commons/header.jsp"></jsp:include>
+	</c:otherwise>
+</c:choose>
+
 <h4 class="display-1 bg-success text-center">Welcome ${member.membernickname}</h4>
 <h3 class="bg-warning text-center"><a href="<c:url value="/_01_member/register.jsp"/>">Register</a></h3>
 <h3 class="bg-warning text-center"><a href="<c:url value="/security/login.jsp"/>">Login</a></h3>
