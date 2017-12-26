@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import _00_proj02Bean.Event02;
+import _00_proj02Bean.Event01;
 import _00_proj02Bean.FavoritesBean;
 import _01_member.model.MemberBean;
 import _05_model.Event02Service;

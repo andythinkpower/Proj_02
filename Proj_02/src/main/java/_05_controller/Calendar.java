@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import _00_proj02Bean.Event02;
+import _00_proj02Bean.Event01;
 import _00_proj02Bean.FavoritesBean;
 import _05_model.FavoritesService;
 

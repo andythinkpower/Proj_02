@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="event01")
-public class Event02 {
+public class Event01 {
 	
 	@Id
 	private Integer eventID;
@@ -75,11 +75,11 @@ public class Event02 {
 		this.isBlock = isBlock;
 	}
 
-	public Event02() {
+	public Event01() {
 		super();
 	}
 
-	public Event02(String eventType) {
+	public Event01(String eventType) {
 		super();
 	}
 
@@ -209,14 +209,6 @@ public class Event02 {
 
 	public void setYouTubeUrl(String youTubeUrl) {
 		this.youTubeUrl = youTubeUrl;
-	}
-
-	public String getimageFile() {
-		return imageFile;
-	}
-
-	public void setimageFile(String imageFile) {
-		this.imageFile = imageFile;
 	}
 
 	public String getLogoimageFile() {
