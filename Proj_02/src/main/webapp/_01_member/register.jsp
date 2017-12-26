@@ -14,6 +14,7 @@
 <style>
 body {
 	font-family: Microsoft JhengHei;
+	background-color:	#F2E6E6;
 }
 </style>
 <body>
@@ -24,7 +25,7 @@ body {
 		<div class="row">
 			<div class="col">
 				<div class="card">
-					<div class="card-header" style="background-color: #97CBFF">
+					<div class="card-header" style="background-color:	#B3D9D9">
 						<h4>註冊</h4>
 					</div>
 					<div class="card-body">
@@ -41,13 +42,13 @@ body {
 									name="memberpassword" value="${param.memberpassword}">
 								<span>${errors.errpsw}</span>
 							</div>
-							<div class="form-group">
-								<a href="">用Facebook登入</a> <a href="">用Google登入</a>
-							</div>
-							<input class="btn btn-primary" type="submit" value="送出" />
+<!-- 							<div class="form-group"> -->
+<!-- 								<a href="">用Facebook登入</a> <a href="">用Google登入</a> -->
+<!-- 							</div> -->
+<!-- 							<input class="btn btn-primary" type="submit" value="送出" /> -->
 
 							<!-- start here -->
-							<input type="button" class="btn btn-sm btn-secondary" value="註冊"
+							<input type="button" class="btn btn-primary" value="註冊"
 								id="buttonPost" data-toggle="modal" data-target="#myModal" />
 							<div class="modal" id="myModal">
 								<div class="modal-dialog">

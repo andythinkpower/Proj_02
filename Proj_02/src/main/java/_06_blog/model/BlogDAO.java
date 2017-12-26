@@ -15,4 +15,6 @@ public interface BlogDAO {
 	void delete(int id);
 	
 	List<BlogBean> selectall(BlogBean bean);
+	
+	List<BlogBean> selecthightest();
 }
