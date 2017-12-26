@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import _05_model.Event01DAO;
-import _05_model.Event01;
+import _05_model.Event02;
 
 
 @Repository
@@ -32,21 +32,21 @@ public class Event01DAOjdbc implements Event01DAO {
 
 	@Override
 	@Transactional
-	public List<Event01> select() {
-		Query<Event01> query =this.getSession().createQuery("FROM Event02", Event01.class);
+	public List<Event02> select() {
+		Query<Event02> query =this.getSession().createQuery("FROM Event02", Event02.class);
 		return query.getResultList();
 	}
 
 	@Override
 	@Transactional
-	public Event01 select(int eventID) {
-		return this.getSession().get(Event01.class, eventID);
+	public Event02 select(int eventID) {
+		return this.getSession().get(Event02.class, eventID);
 	}
 
 	@Override
-	public Event01 insert(Event01 event) {
+	public Event02 insert(Event02 event) {
 		if(event!=null) {
-			Event01 select = this.select(event.getEventID());
+			Event02 select = this.select(event.getEventID());
 			if(select==null) {
 				this.getSession().saveOrUpdate(event);
 				return event;
@@ -56,8 +56,8 @@ public class Event01DAOjdbc implements Event01DAO {
 	}
 
 	@Override
-	public Event01 update(Event01 event) {
-		Event01 select = this.select(event.getEventID());
+	public Event02 update(Event02 event) {
+		Event02 select = this.select(event.getEventID());
 		if(select!=null) {
 			this.getSession().save(event);
 			return event;
@@ -67,7 +67,7 @@ public class Event01DAOjdbc implements Event01DAO {
 
 	@Override
 	public boolean delete(int eventID) {
-		Event01 select = this.select(eventID);
+		Event02 select = this.select(eventID);
 		if(select!=null) {
 			this.getSession().delete(select);
 			return true;

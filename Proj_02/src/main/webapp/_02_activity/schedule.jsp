@@ -26,7 +26,7 @@ $(function () {
 <jsp:include page="../commons/header.jsp"/>
 	<h1>建立行程-1</h1>
 	<!-- 利用JavaScript 先做一些簡易判斷 符合才可送出(未完成)-->
-	<form action="ActivityController.do" method="post" >
+	<form action="ActivityController.do" method="post" enctype="Multipart/Form-Data">
 	
 	<input type="text" name="doWhat" value="schedule" style="display:none;">
 		起始時間:<input type="text" name="actStartDate" id="date"> <br><!-- 使用jQuery ui Datepicker  -->
@@ -34,7 +34,7 @@ $(function () {
 		活動標題:<input type="text" name="actTitle">
 		<hr>
 		上傳圖片:
-<!-- 		<input type="file" id="file1"  name="ggggg"> -->
+		<input type="file" id="file"  name="file">
 		<hr>
 		簡介:
 		<textarea rows="20px" cols="40px" name="introduction"></textarea>

@@ -27,7 +27,7 @@ public class ActivityBean implements Serializable{
 	private String introduction;
 	//預設public
 	private boolean privacy=false;
-	private Blob actPhoto;
+	private String photoPath;
 	private Integer clickNumber;
 	private String email;
 	
@@ -131,12 +131,12 @@ public class ActivityBean implements Serializable{
 		this.privacy = privacy;
 	}
 	
-	public Blob getActPhoto() {
-		return actPhoto;
+	public String getActPhoto() {
+		return photoPath;
 	}
 
-	public void setActPhoto(Blob actPhoto) {
-		this.actPhoto = actPhoto;
+	public void setActPhoto(String actPhoto) {
+		this.photoPath = actPhoto;
 	}
 
 	
@@ -158,8 +158,8 @@ public class ActivityBean implements Serializable{
 	@Override
 	public String toString() {
 		return "ActivityBean [activityID=" + activityID + ", actStartDate=" + actStartDate + ", actRegion=" + actRegion
-				+ ", actTitle=" + actTitle + ", introduction=" + introduction + ", privacy=" + privacy + ", actPhoto="
-				+ actPhoto + ", clickNumber=" + clickNumber + ", email=" + email;
+				+ ", actTitle=" + actTitle + ", introduction=" + introduction + ", privacy=" + privacy + ", photoPath="
+				+ photoPath + ", clickNumber=" + clickNumber + ", email=" + email + "]";
 	}
 	
 

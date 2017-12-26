@@ -4,17 +4,16 @@
 <%@ page import="java.util.*"%>
 <%@ page import="_03_backStage.model.*"%>
 <%
-      EventVO eventVO = (EventVO) request.getAttribute("eventVO");
+        EventVO eventVO = (EventVO) request.getAttribute("eventVO");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8/BIG5">
-<title>活動新增</title>
+<title>活動修改</title>
 <link rel="shortcut icon" href="../img/favicon.ico.png"  type="image/x-icon"/>
 
-<!-- <script src="js/cmxforms.js" type="text/javascript"></script> -->
-
+</head>
 
 <style>
 #commentForm {
@@ -121,6 +120,25 @@ table{
 	border-radius: 5px;
 }
 
+/*=======================有修改的部分(背景圖片)==========================*/
+
+.intro {
+  display: table;
+  width: 100%;
+  height: auto;
+  padding: 100px 0;
+  text-align: center;
+  color: white;
+  background: url(../img/eeee.jpg) no-repeat bottom center scroll;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+
+/*==========================================================*/
 #aaa #bbb {
   display: table-cell;
   vertical-align: middle;
@@ -157,7 +175,7 @@ table{
 }
 
 </style>
-</head>
+
 <body>
 <%-- 	<jsp:include page="/fragment/top.jsp" /> --%>
 	<br>
@@ -167,71 +185,73 @@ table{
 	<br>
 	<br>
 	<br>
+	<br>
 <header class="intro">    
- 		<div class="intro-body" >         
+ 		<div class="intro-body"  >         
  				<table border='1' cellpadding='3' cellspacing='0' width='250'>
-		<tr height='5'>
-			<td align="center" valign="middle"><h3>活動新增</h3></td>
+		<tr align='center' valign='middle' height='10'>
+			<td><h3>活動修改</h3></td>
+			<td></td>
 	</table>
-	<%-- 錯誤表列--%>
 	
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do"	name="form1" enctype="multipart/form-data"  id="signupForm">
-
+	<FORM METHOD="post" ACTION="book.do" name="form1" enctype="multipart/form-data" id="signupForm">
 		<fieldset>
 <!-- 			<legend>Validating a complete form</legend> -->
 			<p>
-				<label for="EventID">活動編號<font color=red><b>*</b></font></label>
-				<input id="EventID" name="EventID" type="text" >
+				<label for="EventID">活動編號<font color=red><b>*</b></font>&nbsp&nbsp&nbsp&nbsp<%=eventVO.getEventID()%> </label>
+				
 			</p>
 			<p>
 				<label for="EventName">活動名稱<font color=red><b>*</b></font></label>
-				<input id="EventName" name="EventName" type="text" >
-<%-- 				value="<%=(productListingBookVO == null) ? "XXX字典" : productListingBookVO.getProductListingBook_Name()%>">  --%>
+				<input id=EventName name="EventName" type="text" 
+				value="<%=eventVO.getEventName()%>" >
 			</p>
 			<p>
 				<label for="Fee">票價<font color=red><b>*</b></font></label>
-				<input id="Fee" name="Fee" type="text">
-<%-- 				value="<%=(productListingBookVO == null) ? "2000.0" : productListingBookVO.getProductListingBook_Price()%>"> --%>
-			</p>
-<!-- 			<p> -->
-<!-- 				<label for="IsCharge">是否免費<font color=red><b>*</b></font></label> -->
-<!-- 				<input id="IsCharge" name="IsCharge" type="text"> -->
-<%-- <%-- 				value="<%=(productListingBookVO == null) ? "1.0" : productListingBookVO.getProductListingBook_Discount()%>" > --%> 
-<!-- 			</p> -->
-			<p>
-				<label for="DurationStart">活動開始&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-				<input id="DurationStart" name="DurationStart" type="date">
-<%-- 				value="<%=(productListingBookVO == null) ? "5" : productListingBookVO.getProductListingBook_Quantity()%>"> --%>
+				<input id="Fee" name="Fee" type="text"
+				value="<%=eventVO.getFee()%>" >
 			</p>
 			<p>
-				<label for="DurationEnd">活動結束&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-				<input id="DurationEnd" name="DurationEnd" type="date">
-<%-- 				value="<%=(productListingBookVO == null) ? "1900-01-01" : productListingBookVO.getProductListingBook_Publishedate()%>"> --%>
+				<label for="IsCharge">是否免費<font color=red><b>*</b></font></label>
+				<input id="IsCharge" name="IsCharge" type="text"
+				value="<%=eventVO.getIsCharge()%>" >
+			</p>
+			<p>
+				<label for="DurationStart">活動開始時間<font color=red><b>*</b></font></label>
+				<input id="DurationStart" name="DurationStart" type="text"
+				value="<%=eventVO.getDurationStart()%>">
+			</p>
+			<p>
+				<label for="DurationEnd">活動結束時間&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+				<input id="DurationEnd" name="DurationEnd" type="date"
+				value="<%=eventVO.getDurationEnd()%>">
 			</p>
 			<p>
 				<label for="ShowGroupName">演出單位&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-				<input id="ShowGroupName" name="ShowGroupName" type="text">
-<%-- 				value="<%=(productListingBookVO == null) ? "XXX出版社" : productListingBookVO.getProductListingBook_Publisher()%>"> --%>
+				<input id="ShowGroupName" name="ShowGroupName" type="text"
+				value="<%=eventVO.getShowGroupName()%>">
 			</p>
 			<p>
-				<label for="ContactName">演出連絡人&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-				<input id="ContactName" name="ContactName" type="text">
-<%-- 				value="<%=(productListingBookVO == null) ? "AaaBbb" : productListingBookVO.getProductListingBook_Authors()%>" > --%>
+				<label for="ContactName">活動連絡人&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+				<input id="ContactName" name="ContactName" type="text"
+				value="<%=eventVO.getContactName()%>" >
 			</p>
 			<p>
-				<label for="BriefIntroduction">活動簡介</label>
-				<textarea id="BriefIntroduction" name="BriefIntroduction" cols="40" rows="5" style="resize:none;"></textarea>
+				<label for="BriefIntroduction">簡介</label>
+				<textarea id="BriefIntroduction" name="BriefIntroduction" cols="40" rows="5" style="resize:none;"><%=eventVO.getBriefIntroduction()%></textarea>
 			</p>
 			<p>
-			<label for="ImageFile">選擇上傳圖片<font color=red><b>*</b></font></label>
-			<input type="file" id="ImageFile" name="ImageFile" class="required" accept="image/*">
+			<img height="60" width="50" name="Old_Picture" src="${eventVO.imageFile}" />
+			<label for="ImageFile">選擇上傳圖片</label>
+			<input type="file" id="ImageFile" name=ImageFile class="required" accept="image/*">
 			</p>
 			<p>
-				<input type="hidden" name="action" value="insert" > <input
-				type="submit" value="送出新增" id="submit" >		
+				<input type="hidden" name="action" value="update"> 
+			 <input type="hidden" name="EventID" value="<%=eventVO.getEventID()%>">
+			 <input type="submit" value="送出修改" id="submit">	
 			</p>
 		</fieldset>
-		
+		<br> 
 	</FORM>
         </div>
     </header>
@@ -240,6 +260,19 @@ table{
 <script src="../js/jquery.js"></script>
 <script src="../js/jquery.validate.js"></script>
 <script>
+// $.validator.setDefaults({
+// 	submitHandler: function() {
+// 		alert("submitted!");
+// 		$('signupForm').submit();
+// 		$( "#signupForm" ).submit(function( event ) {
+// 			  alert( "Handler for .submit() called." );
+// 			  event.preventDefault();
+// 			});
+// 		$( "#signupForm" ).click(function() {
+// 			  $( "#signupForm" ).submit();
+// 			});
+// 	}
+// });
 $( "#submit" ).click(function() {
 			  $( "#signupForm" ).submit();
 			});
@@ -256,7 +289,7 @@ $().ready(function() {
 				required: true,
 				number: true
 			},
-			IsCharge:{
+			EventCharge:{
 				required: true,
 				number: true
 			},
@@ -264,6 +297,9 @@ $().ready(function() {
 // 				required: true,
 // 				digits: true
 // 			},
+			ImageFile:{
+				required: false
+			},
 			
 		},
 		messages: {

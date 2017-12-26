@@ -2,17 +2,17 @@ package _05_model;
 
 import java.util.List;
 
-import _05_model.Event01;
+import _05_model.Event02;
 
 public interface Event01DAO {
 
-	List<Event01> select();
+	List<Event02> select();
 	
-	Event01 select(int eventID);
+	Event02 select(int eventID);
     
-	Event01 insert(Event01 event);
+	Event02 insert(Event02 event);
 
-	Event01 update(Event01 event);
+	Event02 update(Event02 event);
 
 	boolean delete(int eventID);
 }

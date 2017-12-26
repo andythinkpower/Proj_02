@@ -1,10 +1,15 @@
 package _02_controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import _01_member.model.MemberBean;
 import _02_model.Bean.ActivityBean;
@@ -47,12 +55,39 @@ public class Activity_Controller {
 			RequestMethod.GET })
 	public String xxx(@SessionAttribute(name = "member") MemberBean member, ActivityBean bean,
 			ActivityDetailBean detailBean, BindingResult bindingResult, Model model, String doWhat,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws IllegalStateException, IOException {
+
 		
 		// 代表是從schedule.jsp進來
 		if ("schedule".equals(doWhat)) {
 			// 目前行程總覽部分不檢查 把剛輸入的參數存起來(還沒存進資料庫 要等全部都正確 一次一起insert進去) 直接導向細節頁面
 			model.addAttribute("activityBean", bean);
+			
+			System.out.println("現在在schedule");
+			CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
+					request.getSession().getServletContext());
+			if(multipartResolver.isMultipart(request)) {
+				MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;	
+				
+				MultipartFile file=multiRequest.getFile("file");
+				if(file.isEmpty()) {
+					System.out.println("檔案是空的");
+				}else {
+					System.out.println("有傳檔案");
+					ServletContext context=request.getServletContext();
+					String filename=file.getOriginalFilename();
+					String path=context.getRealPath("/uploadFile/"+filename);
+					System.out.println("路徑"+path);
+					file.transferTo(new File(path));
+					model.addAttribute("filePath",path);
+					
+				}
+				
+			}
+			
+			
+			
+			
 			return "actDetail";
 		} // 代表從actDetail.jsp進來
 		else if ("detail".equals(doWhat)) {

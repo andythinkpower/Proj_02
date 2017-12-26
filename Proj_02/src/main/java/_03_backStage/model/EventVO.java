@@ -1,7 +1,5 @@
 package _03_backStage.model;
 
-import java.sql.Blob;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class EventVO implements java.io.Serializable {

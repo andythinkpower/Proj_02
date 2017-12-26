@@ -1,4 +1,3 @@
-<%-- <%@ page import="_01_register.model.MembersService"%> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,6 +11,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8/BIG5">
 <title>活動表單</title>
 <link rel="shortcut icon" href="../img/favicon.ico.png"  type="image/x-icon"/>
+
+<script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.tablesorter.js"></script> 
 </head>
 
 <style>
@@ -164,7 +166,7 @@ background-color: #9BC5FD;
 			<th width="5%">活動編號</th>
 			<th width="8%">活動圖片</th>
 			<th width="8%">活動名稱</th>
-			<th width="8%">活動票價</th>
+			<th width="3%">活動票價</th>
 			<th width="8%">是否免費</th>
 			<th width="8%">活動開始日期</th>
 			<th width="8%">活動結束日期</th>
@@ -177,30 +179,30 @@ background-color: #9BC5FD;
 		</thead>
 <%-- 		<%@ include file="page1.file"%> --%>
 	<tbody>
-		<c:forEach var="EventVO" items="${event01.all}">
+		<c:forEach var="eventVO" items="${productListingBookSvc.all}">
 			<tr align='center' align='middle'>
-				<td align="center" >${EventVO.EventID}</td> 				
+				<td align="center" >${eventVO.eventID}</td> 				
 				<td>
-					<img height="60" width="50" src="${pageContext.servletContext.contextPath}/_03_backStage/controller/bookGetImage?EventID=${EventVO.EventID}" />
+					<img height="100" width="100" src="${eventVO.imageFile}" />
 				</td>
-				<td>${EventVO.EventName}</td> 
-				<td>${EventVO.Fee}</td> 
-				<td>${EventVO.IsCharge}</td> 
-				<td>${EventVO.DurationStart}</td> 
-				<td>${EventVO.DurationEnd}</td> 
-				<td>${EventVO.ShowGroupName}</td> 
-				<td>${EventVO.ContactName}</td> 
-				<td align="left">${EventVO.BriefIntroduction}</td> 
+				<td>${eventVO.eventName}</td> 
+				<td>${eventVO.fee}</td> 
+				<td>${eventVO.isCharge}</td> 
+				<td>${eventVO.durationStart}</td> 
+				<td>${eventVO.durationEnd}</td> 
+				<td>${eventVO.showGroupName}</td> 
+				<td>${eventVO.contactName}</td> 
+				<td align="left">${eventVO.briefIntroduction}</td> 
  						<td>
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do">
 							<input type="submit" value="修改">
-							<input type="hidden" name="EventID" value="${EventVO.EventID}">
+							<input type="hidden" name="EventID" value="${eventVO.eventID}">
 							<input type="hidden" name="action" value="getOne_For_Update"></FORM>			
 						</td>
 						<td>
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do">
 							<input type="submit" value="刪除">
-							<input type="hidden" name="EventID" value="${EventVO.EventID}">
+							<input type="hidden" name="EventID" value="${eventVO.eventID}">
 							<input type="hidden" name="action" value="delete"></FORM>			
 						</td>	
 			</tr>
@@ -225,6 +227,4 @@ $(function () {
     
 });
 </script>
-<script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="../js/jquery.tablesorter.js"></script> 
 </html>

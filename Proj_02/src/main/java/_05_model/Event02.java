@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="event01")
-public class Event01 {
+public class Event02 {
 	
 	@Id
 	private Integer eventID;
@@ -40,11 +40,11 @@ public class Event01 {
 	private String longitude;
 	private String latitude;
 	
-	public Event01() {
+	public Event02() {
 		super();
 	}
 
-	public Event01(String eventType) {
+	public Event02(String eventType) {
 		super();
 	}
 

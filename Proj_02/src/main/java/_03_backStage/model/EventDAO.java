@@ -1,6 +1,5 @@
 package _03_backStage.model;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,13 +14,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-
-
 public class EventDAO implements EventDAO_interface
 {
 	private static DataSource ds = null;
-	private static final String insert_stmt = "insert into event01 (EventName, Fee"
-			+ ", IsCharge, DurationStart, DurationEnd, "
+	private static final String insert_stmt = "insert into event01 (EventID, EventName, Fee"
+			+ ", DurationStart, DurationEnd, "
 			+ "ShowGroupName, ImageFile, ContactName, BriefIntroduction) "
 			+ "values (?,?,?,?,?,?,?,?,?)";
 	
@@ -49,9 +46,9 @@ public class EventDAO implements EventDAO_interface
 			e.printStackTrace();
 		}
 	}
-	public static void insert(String EventName, String Fee, String IsCharge,
+	public static void insert(Integer EventID, String EventName, String Fee,
 			Date DurationStart, Date DurationEnd, String ShowGroupName,
-			InputStream ImageFile, String ContactName, String BriefIntroduction)
+			String ImageFile, String ContactName, String BriefIntroduction)
 	{
 		Connection conn = null;
 		PreparedStatement pStmt = null;
@@ -67,13 +64,14 @@ public class EventDAO implements EventDAO_interface
 			conn.setAutoCommit(false); // 關閉自動交易
 
 			pStmt = conn.prepareStatement(insert_stmt);
-			pStmt.setString(1, EventName);
-			pStmt.setString(2, Fee);
-			pStmt.setString(3, IsCharge);
+			pStmt.setInt(1, EventID);
+			pStmt.setString(2, EventName);
+			pStmt.setString(3, Fee);
+//			pStmt.setString(4, IsCharge);
 			pStmt.setDate(4, (java.sql.Date) DurationStart);
 			pStmt.setDate(5, (java.sql.Date) DurationEnd);
 			pStmt.setString(6, ShowGroupName);
-			pStmt.setBinaryStream(7, ImageFile);
+			pStmt.setString(7, ImageFile);
 			pStmt.setString(8, ContactName);
 			pStmt.setString(9, BriefIntroduction);
 
@@ -125,7 +123,7 @@ public class EventDAO implements EventDAO_interface
 
 	public static void update(String EventName, String Fee, String IsCharge,
 			Date DurationStart, Date DurationEnd, String ShowGroupName,
-			InputStream ImageFile, String ContactName, String BriefIntroduction,
+			String imageFile, String ContactName, String BriefIntroduction,
 			Integer EventID){
 		int i = 0;
 		PreparedStatement pStmt = null;
@@ -146,10 +144,10 @@ public class EventDAO implements EventDAO_interface
 			pStmt.setString(6, ShowGroupName);			
 			pStmt.setString(7, ContactName);
 			pStmt.setString(8, BriefIntroduction);
-			pStmt.setBinaryStream(9, ImageFile);
+			pStmt.setString(9, imageFile);
 			pStmt.setInt(10, EventID);
 			
-			System.out.println("ImageFile:"+ImageFile);
+			System.out.println("ImageFile:"+imageFile);
 						
 			i = pStmt.executeUpdate();
 
@@ -265,7 +263,109 @@ public class EventDAO implements EventDAO_interface
 		}
 
 	}
-
+//	
+//	public InputStream test(int id) {
+//		Connection conn = null;
+//		ResultSet rs = null;
+//		OutputStream os = null;
+//		InputStream is = null;
+//		try {
+//			Context context = new InitialContext();
+//			//透過JNDI取得DataSource物件
+//			DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/disland");
+//			conn = ds.getConnection();
+//			PreparedStatement pstmt = null;
+//			
+//			conn = ds.getConnection();
+//			pstmt = conn.prepareStatement("Select productListingBook_Picture from ProductListingBook where productListingBook_ID = ?");
+//			pstmt.setInt(1, id);
+//			rs = pstmt.executeQuery();
+//			if(rs.next()){
+//				//Image欄位可以取出InputStream物件
+//				is = rs.getBinaryStream(1);
+//				//設定輸出資料的型態
+//				
+//				
+//				if(is == null){
+//					is = getServletContext().getResourceAsStream("/images/NoImage.jpg");
+//				}
+//				
+//				int count = 0;
+//				byte[] bytes = new byte[8192];
+//				while((count = is.read(bytes)) != -1){
+//					os.write(bytes, 0,count);
+//				}
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(rs.toString());
+//		return rs;
+//		
+//		
+//	}
+//	@Override
+//	public void updateAll(ProductListingBookVO productListingBookVO)
+//	{
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		int i = 0;
+//
+//		try
+//		{
+//			conn = ds.getConnection();
+//			conn.setAutoCommit(false);
+//			pstmt = conn.prepareStatement(update_ALL_stmt);
+//
+//			pstmt.setString(1, productListingBookVO.getMessageBoard_Content());
+//			pstmt.setBlob(2, productListingBookVO.getMessageBoard_Picture());
+//			pstmt.setString(3, productListingBookVO.getMessageBoard_Name());
+//			pstmt.setInt(4, productListingBookVO.getMessageBoard_Counts());
+//			pstmt.setInt(5, productListingBookVO.getMessageBoard_Status());
+//			pstmt.setInt(6, productListingBookVO.getMessageBoard_Report());
+//			pstmt.setInt(7, productListingBookVO.getMessageBoard_Id());
+//
+//			i = pstmt.executeUpdate();
+//			System.out.println("update success count = " + i);
+//
+//			conn.commit();
+//			conn.setAutoCommit(true);
+//
+//		} catch (SQLException e)
+//		{
+//			try {
+//				conn.rollback();
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//			throw new RuntimeException("A database error occured. " + e.getMessage());
+//		} finally
+//		{
+//			if (pstmt != null)
+//			{
+//				try
+//				{
+//					pstmt.close();
+//				} catch (SQLException se)
+//				{
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//
+//			if (conn != null)
+//			{
+//				try
+//				{
+//					conn.close();
+//				} catch (SQLException se)
+//				{
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//	}
 
 	
 	// 依Interests_ID來刪除單筆記錄
@@ -273,7 +373,7 @@ public class EventDAO implements EventDAO_interface
 		public Integer delete(Integer EventID) throws SQLException
 		{	
 			
-	//		InterestsVO interestsVO = null;
+		//	InterestsVO interestsVO = null;
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			Integer i = 0;
@@ -304,9 +404,9 @@ public class EventDAO implements EventDAO_interface
 		
 		
 	@Override
-	public EventVO findByPrimaryKey(Integer EventID)
+	public EventVO findByPrimaryKey(Integer eventID)
 	{
-		EventVO EventVO = null;
+		EventVO eventVO = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -317,23 +417,23 @@ public class EventDAO implements EventDAO_interface
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(get_one_stmt);
 
-			pstmt.setInt(1, EventID);
+			pstmt.setInt(1, eventID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next())
 			{
-				EventVO = new EventVO();
-				EventVO.setEventID(rs.getInt("EventID"));
-				EventVO.setEventName(rs.getString("EventName"));
-				EventVO.setFee(rs.getString("Fee"));
-				EventVO.setIsCharge(rs.getString("IsCharge"));
-				EventVO.setDurationStart(rs.getDate("DurationStart"));
-				EventVO.setDurationEnd(rs.getDate("DurationEnd"));
-				EventVO.setShowGroupName(rs.getString("ShowGroupName"));
-				EventVO.setImageFile(rs.getString("ImageFile"));
-				EventVO.setContactName(rs.getString("ContactName"));
-				EventVO.setBriefIntroduction(rs.getString("BriefIntroduction"));
+				eventVO = new EventVO();
+				eventVO.setEventID(rs.getInt("EventID"));
+				eventVO.setEventName(rs.getString("EventName"));
+				eventVO.setFee(rs.getString("Fee"));
+				eventVO.setIsCharge(rs.getString("IsCharge"));
+				eventVO.setDurationStart(rs.getDate("DurationStart"));
+				eventVO.setDurationEnd(rs.getDate("DurationEnd"));
+				eventVO.setShowGroupName(rs.getString("ShowGroupName"));
+				eventVO.setImageFile(rs.getString("ImageFile"));
+				eventVO.setContactName(rs.getString("ContactName"));
+				eventVO.setBriefIntroduction(rs.getString("BriefIntroduction"));
 			}
 
 			conn.commit();
@@ -382,13 +482,13 @@ public class EventDAO implements EventDAO_interface
 			}
 		}
 		
-		return EventVO;
+		return eventVO;
 	}
 
 	@Override
 	public List<EventVO> getAll() {
 		List<EventVO> list = new ArrayList<EventVO>();
-		EventVO EventVO = null;
+		EventVO eventVO = null;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -398,21 +498,23 @@ public class EventDAO implements EventDAO_interface
 			conn = ds.getConnection();
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(get_all_stmt);
+			//pstmt.setInt(1, messageBoard_Id);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				EventVO = new EventVO();
-				EventVO.setEventID(rs.getInt("EventID"));
-				EventVO.setEventName(rs.getString("EventName"));
-				EventVO.setFee(rs.getString("Fee"));
-				EventVO.setIsCharge(rs.getString("IsCharge"));
-				EventVO.setDurationStart(rs.getDate("DurationStart"));
-				EventVO.setDurationEnd(rs.getDate("DurationEnd"));
-				EventVO.setShowGroupName(rs.getString("ShowGroupName"));
-				EventVO.setImageFile(rs.getString("ImageFile"));
-				EventVO.setContactName(rs.getString("ContactName"));
-				EventVO.setBriefIntroduction(rs.getString("BriefIntroduction"));
-				list.add(EventVO);
+				//MessageBoardVO 也稱為Domain Objects
+				eventVO = new EventVO();
+				eventVO.setEventID(rs.getInt("EventID"));
+				eventVO.setEventName(rs.getString("EventName"));
+				eventVO.setFee(rs.getString("Fee"));
+				eventVO.setIsCharge(rs.getString("IsCharge"));
+				eventVO.setDurationStart(rs.getDate("DurationStart"));
+				eventVO.setDurationEnd(rs.getDate("DurationEnd"));
+				eventVO.setShowGroupName(rs.getString("ShowGroupName"));
+				eventVO.setImageFile(rs.getString("ImageFile"));
+				eventVO.setContactName(rs.getString("ContactName"));
+				eventVO.setBriefIntroduction(rs.getString("BriefIntroduction"));
+				list.add(eventVO);
 			}
 
 			conn.commit();

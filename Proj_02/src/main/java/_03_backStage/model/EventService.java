@@ -1,6 +1,5 @@
 package _03_backStage.model;
 
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +26,7 @@ public class EventService {
 
 	public EventVO updateevent01(String EventName, String Fee, String IsCharge,
 			Date DurationStart, Date DurationEnd, String ShowGroupName,
-			InputStream ImageFile, String ContactName, String BriefIntroduction) {
+			String ImageFile, String ContactName, String BriefIntroduction) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,4 +1,3 @@
-<%-- <%@ page import="_01_register.model.MembersService"%> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
