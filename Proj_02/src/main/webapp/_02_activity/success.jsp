@@ -7,10 +7,14 @@
 <title>會員頁面</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-
+<style>
+ body{
+		background-color:		#F2E6E6;
+	}
+</style>
 </head>
 <body>
-<jsp:include page="../commons/header.jsp"/>
+<jsp:include page="../commons/header_login.jsp"/>
 		<h1>成功登入</h1>
 		<h2>哈囉:${member.membernickname }</h2>
 		

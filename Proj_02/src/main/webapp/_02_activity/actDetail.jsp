@@ -15,47 +15,98 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../js/cookie.js"></script>
     <script src="../js/_02_actDetail.js" ></script>
-    <title>活動細節頁面</title>
-    
-
+    <title>活動細節頁面</title>  
     <style>
-        .large {
+    body{
+		background-color:		#F2E6E6;
+	}
+    .large {
             border: 1px solid yellow;
         }
-
-        .middle {
+    .middle {
             margin: 10px;
             padding: 10px;
             border: 2px solid red;
         }
-
-        .small {
+    .small {
             margin: 10px;
             padding: 10px;
             border: 1px solid blue;
-        }
+        }   
     </style>
-   
-
 </head>
 <body>
 
-<jsp:include page="../commons/header.jsp"/>
-    <div id="map" style="display:none"></div>
-    <form action="ActivityController.do" id="form" method="post">
-        <fieldset>
-            <legend>行程總覽</legend>
-            <input type="hidden" name="doWhat" value="detail">
-            <input type="text" name="actStartDate" value="${activityBean.actStartDate}"><br>
-            <input type="text" name="actRegion" value="${activityBean.actRegion}"><br>
-            <input type="text" name="actTitle" value="${activityBean.actTitle}"><br>
-            <input type="text" name="introduction" value="${activityBean.introduction}"><br>
-        </fieldset>
-    </form>
-    <button id="create_Day">新增天數</button> <button id="submit">儲存</button>
+<jsp:include page="../commons/header_login.jsp"/>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-5">
 
-    <!-- 以下div都是隱藏狀態 按按鈕才會浮出-->
+            <h1 class="text-center">建立行程-2</h1>
 
+            <form id="activity" action="ActivityController.do" method="post">
+                <div class="container" style="border:2px solid gray;border-radius:5px;background-color: white;">
+                    <div class="form-row pt-4">
+                        <div class="col text-center ">
+                            <input type="hidden" name="doWhat" value="detail">
+                            <div class="form-group  ">
+                                <label for="Title">行程名稱:</label>
+                                <input type="text" id="Title" name="actTitle" value="${activityBean.actTitle}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Region">活動地區:</label>
+                                <input type="text" id="Region" name="actRegion" value="${activityBean.actRegion}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="date">出發日期:</label>
+                                <input type="text" name="actStartDate" id="date" value="${activityBean.actStartDate}" readonly>
+                                <br>
+                            </div>
+
+                            <div class="form-group pl-5 ">
+                                <input type="file" id="file" name="file" class="form-control-file">
+                                <small id="fileHelp" class="form-text text-muted">Max 3mb size</small>
+                            </div>
+                        </div>
+                        <div class="col pr-5">
+                            <figure class="figure">
+                                <img src="${pageContext.request.contextPath}${activityBean.photoPath}" class="figure-img img-fluid rounded preview">
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="form-group px-5">
+                        <label for="exampleFormControlTextarea1">簡介:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" value="${activityBean.introduction}"></textarea>
+                    </div>
+
+                </div>
+
+
+
+                <!-- 總結選項 一開始就有 -->
+                <div class="card mt-3 option" style="border:2px solid red;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col">
+                                <input id="create_Day" class="btn btn-primary ml-4" type="button" value="新增天數">
+                                <input id="submit" class="btn btn-dark ml-3" type="submit" value="儲存" />
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+        <div class="col"></div>
+    </div>
+
+
+
+    <!-- ======================================== 隱藏區域 ======================================== -->
     <!-- 負責連接google map searchBox -->
 
     <div class="container">
@@ -105,24 +156,27 @@
             </div>
         </div>
     </div>
+    <!-- ======================================== 隱藏區域 ======================================== -->
 
     <script>
         $(function () {
             $("body").on('click', 'input[name=note]', function () {
                 temp = $(this);
+                console.log(temp)
                 $("#pac-input").val("");
             })
 
+            //選擇完停留時間 按下儲存按鈕  要抓到剛調整的時間值 存到input裡面
+            $('body').on('click', ".savePlace", function () {
+                temp.val(simple_name);
+                console.log(lng);
+                temp.parent().nextAll('input[name=longitude_temp]').val(lng);
+                temp.parent().nextAll('input[name=latitude_temp]').val(lat);
+            });
         })
 
         //!!!!!!!已了解
         function initAutocomplete() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -33.8688, lng: 151.2195 },
-                zoom: 13,
-                //地圖類型:此為街景模式
-                mapTypeId: 'roadmap'
-            });
 
             // 創造一個searchBox物件
             var input = document.getElementById('pac-input');
@@ -131,36 +185,32 @@
             searchBox.addListener('places_changed', function () {
                 //步驟1 取得searchBox傳回的Place物件陣列 如果沒有直接return
                 var places = searchBox.getPlaces();
-
+                //找不到地點返回
                 if (places.length == 0) {
                     return;
                 }
-
-                //這個要顯示在note 上
+                //取得這個地點我們所要的資訊
                 simple_name = places[0].name;
-                console.log('在map裡面顯示' + simple_name);
-
-                lat = places[0].geometry.location.lat();
                 lng = places[0].geometry.location.lng();
-                temp.attr('value', simple_name);
-                //取得緯度
-               // console.log(places[0].geometry.location.lat());
-                //取得精度
-               // console.log(places[0].geometry.location.lng());
+                lat = places[0].geometry.location.lat();
+                //把地點名稱 經緯度 塞到對應的input中
+
             });
         }
 
     </script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAxgzejqCBKYETiCdV-Q9_u7VhfX7BKM0&libraries=places&callback=initAutocomplete"
             async defer></script>
-    
+
+
     <script>
-$(function(){
-	var picPath=Cookies.get("picPath");
-	console.log("照片路徑:"+picPath);
-	$("#form").find("input[name='photoPath']").val(picPath);
-});
-</script>
+        $(function () {
+            var picPath = Cookies.get("picPath");
+            console.log("照片路徑:" + picPath);
+            $("#form").find("input[name='photoPath']").val(picPath);
+        });
+    </script>
     
  <jsp:include page="../commons/footer.jsp"/>   
 </body>

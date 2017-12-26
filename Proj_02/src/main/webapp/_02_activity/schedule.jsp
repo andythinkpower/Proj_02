@@ -10,6 +10,14 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<style>
+ body{
+		background-color:#F2E6E6;
+	}
+ form{
+ 		background-color:white;
+ }
+</style>
 <script>
 $(function () {
     //預設星期格式為yy-mm-dd
@@ -21,24 +29,53 @@ $(function () {
 <title>create_activity</title>
 </head>
 <body>
-<jsp:include page="../commons/header.jsp"/>
-	<h1>建立行程-1</h1>
-	<!-- 利用JavaScript 先做一些簡易判斷 符合才可送出(未完成)-->
-	<form id="activity" action="ActivityController.do" method="post" enctype="Multipart/Form-Data">
-	
-	<input type="text" name="doWhat" value="schedule" style="display:none;">
-		起始時間:<input type="text" name="actStartDate" id="date"> <br><!-- 使用jQuery ui Datepicker  -->
-		地區:<input type="text" name="actRegion"> <br> 
-		活動標題:<input type="text" name="actTitle">
-		<hr>
-		上傳圖片:
-		<input type="file" id="file"  name="file"><br>
-		<img class="preview" style="max-width: 150px; max-height: 150px;">
-		<hr>
-		簡介:
-		<textarea rows="20px" cols="40px" name="introduction"></textarea>
-		<br> <input id='sub' type="button" value="下一步">
-	</form>
+<jsp:include page="../commons/header_login.jsp"/>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-5">
+            <div class="container">
+                <h1 class="text-center">建立行程-1</h1>
+                <form id="activity" action="ActivityController.do" method="post" enctype="multipart/form-data" style="border:1px solid gray;border-radius:10px">
+                    <div class="form-row pt-4">
+                        <div class="col text-center ">
+                            <input type="hidden" name="doWhat" value="schedule">
+                            <div class="form-group  ">
+                                <label for="Title">行程名稱:</label>
+                                <input type="text" id="Title" name="actTitle" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Region">活動地區:</label>
+                                <input type="text" id="Region" name="actRegion" />
+                            </div>
+                            <div class="form-group">
+                                <label for="date">出發日期:</label>
+                                <input type="text" name="actStartDate" id="date" readonly> <br>
+                            </div>
+								
+                            <div class="form-group pl-5 ">
+                                <input type="file" id="file" name="file" class="form-control-file">
+                                <small id="fileHelp" class="form-text text-muted">Max 3mb size</small>
+                            </div>
+                        </div>
+                        <div class="col pr-5">
+                            <figure class="figure">
+                                <img class="figure-img img-fluid rounded preview">
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="form-group px-5">
+                        <label for="exampleFormControlTextarea1">簡介:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                    </div>
+                    <div class="text-center pb-3">
+                        <input id='sub' type="button" class="btn btn-primary px-5" value="下一步" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="col"></div>
+    </div>
 	
 	
 	<script>
@@ -48,15 +85,13 @@ $(function () {
 			var title=$("input[name=actTitle]").val();
 			var actStartDate=$("input[name=actStartDate]").val();
 			if(title.trim().length==0){
-				alert("請輸入活動標題");
+				alert("請輸入行程名稱");
 			}else if(actStartDate.trim().length==0){
-				alert("請輸入活動日期");
+				alert("請輸入出發日期");
 			}else{
 				$("#activity").submit();
 			}			
 		})
-		
-		
 		
 		
 		//當id=file 的欄位做"change"這個動作會觸發 preview(參數)這個方法

@@ -5,6 +5,9 @@ DROP TABLE LikeRegions;
 DROP TABLE EventTypes;
 DROP TABLE Regions;
 DROP TABLE Blogs;
+drop table ActivityDetail
+drop table activity
+drop table favorites
 DROP TABLE Members;
 
 /*會員*/
@@ -23,13 +26,13 @@ MemberRole varchar(10),                           /*會員角色*/
 CONSTRAINT PK_Members_MemberEmail PRIMARY KEY CLUSTERED (MemberEmail) /*Members.MemberEmail為主鍵*/
 );
 
-/*會員假資料
-INSERT INTO Members VALUES('aaa@gmail.com', 'abc123', '小小', '女生', '2000-12-22', null, 1, null, null);
-INSERT INTO Members VALUES('bbb@gmail.com', 'abc123', '大大', '女生', '2000-12-22', null, 1, null, null);
-INSERT INTO Members VALUES('ccc@gmail.com', 'abc123', '中中', '女生', '2000-12-22', null, 1, null, null);
-INSERT INTO Members VALUES('ddd@gmail.com', 'zzz', null, null, null, null, null, null, null);
-INSERT INTO Members (memberemail, memberpassword) VALUES('eee@gmail.com', 'eee');
-*/
+--會員假資料
+INSERT INTO Members VALUES('aaa@gmail.com', 'abc123', '小小', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
+INSERT INTO Members VALUES('bbb@gmail.com', 'abc123', '大大', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
+INSERT INTO Members VALUES('ccc@gmail.com', 'abc123', '中中', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
+INSERT INTO Members VALUES('ddd@gmail.com', 'zzz', null, null, null, '/uploadFile/default.jpg', null, null, null);
+INSERT INTO Members (memberemail, memberpassword,MemberPhoto) VALUES('eee@gmail.com', 'eee','/uploadFile/default.jpg');
+
 
 /*EventTypes*/
 CREATE TABLE EventTypes
@@ -82,7 +85,7 @@ ON UPDATE CASCADE,
 primary key(MemberEmail,Type)
 );
 
-/*
+
 insert into LikeTypes values ('aaa@gmail.com','表演萬象')
 insert into LikeTypes values ('aaa@gmail.com','展覽廣場')
 insert into LikeTypes values ('aaa@gmail.com','戶外行腳')
@@ -90,7 +93,7 @@ insert into LikeTypes values ('aaa@gmail.com','城市萬花筒')
 insert into LikeTypes values ('bbb@gmail.com','表演萬象')
 insert into LikeTypes values ('bbb@gmail.com','展覽廣場')
 insert into LikeTypes values ('ccc@gmail.com','電影瞭望')
-*/
+
 
 create table LikeRegions
 (
@@ -103,14 +106,14 @@ ON UPDATE CASCADE,
 primary key(MemberEmail,Region)
 );
 
-/*
+
 insert into LikeRegions values ('aaa@gmail.com','大安')
 insert into LikeRegions values ('aaa@gmail.com','萬華')
 insert into LikeRegions values ('bbb@gmail.com','大安')
 insert into LikeRegions values ('bbb@gmail.com','萬華')
 insert into LikeRegions values ('ccc@gmail.com','大安')
 insert into LikeRegions values ('ccc@gmail.com','中正')
-*/
+
 
 CREATE TABLE Blogs
 (
@@ -125,3 +128,95 @@ LikeNum int,
 ViewNum int,
 MemberEmail varchar(50) FOREIGN KEY REFERENCES Members(MemberEmail),
 );
+
+--------------------- 行程相關表格 --------------------------------
+
+--刪除表格
+
+create table Activity(
+	activityID integer primary key identity,
+	actStartDate date not null,
+	actRegion varchar(10),
+	actTitle varchar(50) not null,
+	Introduction varchar(500) ,
+	privacy bit default 1,
+	photoPath varchar(200),
+	clickNumber integer default 0,
+	email varchar(50) not null,
+	foreign key(email) references Members(MemberEmail)
+);
+
+	--dates	天數	varchar(10)
+
+create table ActivityDetail(
+	actDetail integer identity Primary key,	
+	Note varchar(50) not null,
+	Budget varchar(10),
+	Kinds varchar(10) not null,
+	Times varchar(10),			--停留時間  --純粹顯示 不檢查是否合乎邏輯
+	dates varchar(10) ,			--行程第幾天
+	Longitude float(53),
+	Latitude float(53),
+	activityID integer not null
+	foreign key(ActivityID) references Activity(ActivityID)
+);
+
+create table Favorites(
+	pk integer primary key identity not null,
+	targetDate datetime not null ,   --暫時用字串表示 決定要放在行事曆的哪一天
+	--活動過來的資料--
+	EventName	Nvarchar(max),		
+	dtStart	Datetime,
+	DurationEnd datetime,
+	timeStart time,
+	--活動過來的資料--	 
+	email varchar(50) references Members(MemberEmail) not null,
+	eventID Integer references event01(eventID) not null,
+);
+
+
+--select * from Activity
+--select * from ActivityDetail
+--select * from Favorites
+--select * from event01
+
+-- select * from activity order by clickNumber desc 熱門推薦 點閱率由高至低排列
+
+--放入預設資料
+
+
+
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2000-2-29','逢甲','逢甲3日遊','今天我要去逢甲',900,'/uploadFile/nopic.jpg','aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2015/1/1','花蓮','觀賞大自然的遼闊','預計從花蓮玩到台東',8452,'/uploadFile/nopic.jpg','aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2017-12-31','全台','挑戰7天環島!!','腳踏車環島',5,'/uploadFile/nopic.jpg','bbb@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2017-10-8','新竹','考察竹科','觀察回收業者',77,'/uploadFile/nopic.jpg','aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2017-9-7','澎湖','來到澎湖灣','挑戰一天玩遍澎湖',135765,'/uploadFile/nopic.jpg','aaa@gmail.com')
+insert into Activity (actStartDate,actRegion,actTitle,Introduction,clickNumber,photoPath,email) values('2017-6-6','綠島','浮淺','聽說綠島浮淺世界美',1,'/uploadFile/nopic.jpg','bbb@gmail.com')
+
+--座標跟景點名稱相符
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.0682258, 121.58854930000007,1,'臺北市立新湖國小','0','戶外','02:30','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.06328299999999, 121.55138299999999,1,'松山機場','0','戶外','03:30','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.0605309,121.54539299999999,1,'市立中山國中','500','戶外','12:00','2')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.024843, 121.542056,1,'資策會','1000','美食','1:10','3')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.0477387, 121.51703959999998,1,'台鐵台北車站','900','音樂','5:30','3')
+--座標跟景點名稱不相符
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.068401,121.588292,5,'都會公園','100','戶外','1:20','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.071586,121.580870,5,'台中歌劇廳','2000','音樂','2:20','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.074239, 121.578820,2,'花防部戰車營','0','戶外','23:59','1')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.063743, 121.582125,3,'鵝鑾鼻','17000','戶外','0:30','2')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.062373,121.580440,4,'Fridays','300','美食','00:20','3')
+insert into ActivityDetail (Latitude,Longitude,ActivityID,Note,Budget,Kinds,Times,dates) values(25.002422, 121.564806,6,'墾丁音樂祭','900','音樂','5:30','1')
+
+
+insert into Favorites values('2017-12-12','唐卡自己畫','2017-03-01 00:00:00.000','2017-12-06 00:00:00.000','00:00:00.0000000','bbb@gmail.com',99900407)
+insert into Favorites values('2017-12-21','Holidayya二手市集愛心義賣x魔法/塔羅占卜x古著x手作甜點x意想不到..每月1-2場!','2018-02-04 00:00:00.000','2018-02-04 00:00:00.000','00:00:00.0000000','bbb@gmail.com',99901336)
+insert into Favorites values('2017-12-5','【台北市文化基金會】藝文諮詢服務平台','2014-09-17 00:00:00.000','2020-12-31 00:00:00.000','00:00:00.0000000','bbb@gmail.com',99904582)
+insert into Favorites values('2017-12-31','名揚象棋文化藝術研習營~幼兒研習','2017-11-01 00:00:00.000','2020-12-31 00:00:00.000','00:00:00.0000000','bbb@gmail.com',99904584)
+insert into Favorites values('2017-3-21','兒童象棋研習營（台北地區）','2017-11-01 00:00:00.000','2020-12-31 00:00:00.000','19:00:00.0000000','bbb@gmail.com',99904585)
+insert into Favorites values('2017-4-21','2018年第12屆名揚盃象棋錦標賽','2017-11-01 00:00:00.000','2018-03-11 00:00:00.000','00:00:00.0000000','aaa@gmail.com',99904751)
+insert into Favorites values('2017-5-21','居延漢簡──漢帝國的防衛線','2015-10-21 00:00:00.000','2017-12-30 00:00:00.000','09:30:00.0000000','aaa@gmail.com',99906245)
+insert into Favorites values('2017-6-21','藝文學堂-易經世界（九）','2017-10-11 00:00:00.000','2018-01-24 00:00:00.000','09:30:00.0000000','aaa@gmail.com',99906398)
+insert into Favorites values('2017-7-21','老人福利補助說明會','2018-03-16 00:00:00.000','2018-03-16 00:00:00.000','14:00:00.0000000','aaa@gmail.com',99907446)
+insert into Favorites values('2017-8-21','【發現定靜的力量】寒假【兒童書法啟蒙】','2016-01-25 00:00:00.000','2018-02-09 00:00:00.000','08:30:00.0000000','aaa@gmail.com',99907893)
+
+--------------------- 行程相關表格 --------------------------------

@@ -23,8 +23,9 @@
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="../js/jquery.twbsPagination.js"></script>
+<!-- 分頁js -->
 <title>尋找活動</title>
 
 <style>
@@ -42,11 +43,11 @@
 	display : none;
 }
 
-.selectArea span:hover , .selectDate span:hover  , .selectType span:hover{
+.selectArea span:hover , .selectDate span:hover  , .selectType span:hover , #dateRangePicker:hover{
 	background-color : #A6D4DF;
 }
 
-#count{
+#emsp , #count{
 	background-color : transparent;
 }
 
@@ -58,9 +59,40 @@
 
 </head>
 <body>
-<jsp:include page="/commons/header.jsp"></jsp:include>
+<c:set var='mem' value="${member }" ></c:set>
+	<c:choose>
+		<c:when test="${not empty mem }">
+			<jsp:include page="../commons/header_login.jsp"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="../commons/header.jsp"/>
+		</c:otherwise>
+	</c:choose>
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
+<<<<<<< HEAD
 	
+
+	<form name="selectForm">
+		<fieldset>
+			<legend>活動類型</legend>
+=======
+>>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
+
+<<<<<<< HEAD
+
+
+				<input type="checkbox" id="全部" name="manyTypes" value="休閒展覽音樂表演研習親子影視" checked="checked" onclick="switchToAll(this.form)">全部
+				<input type="checkbox" id="休閒" name="eventType" value="休閒" onclick="changeTypes(this.form)">休閒
+				<input type="checkbox" id="展覽" name="eventType" value="展覽" onclick="changeTypes(this.form)">展覽
+				<input type="checkbox" id="音樂" name="eventType" value="音樂" onclick="changeTypes(this.form)">音樂
+				<input type="checkbox" id="表演" name="eventType" value="表演" onclick="changeTypes(this.form)">表演
+				<input type="checkbox" id="研習" name="eventType" value="研習" onclick="changeTypes(this.form)">研習
+				<input type="checkbox" id="親子" name="eventType" value="親子" onclick="changeTypes(this.form)">親子
+				<input type="checkbox" id="影視" name="eventType" value="影視" onclick="changeTypes(this.form)">影視
+				<span id="count" ></span>
+		</fieldset>
+	</form>
+=======
 	<input type="text" id="areaText" value="" style="width:250px;">
  
 	<div id="selectArea" class="selectArea">
@@ -101,6 +133,8 @@
 		<label><input type="checkbox" name="eventType" value="影視"><span>影視</span></label>
 		<span id="count" ></span>
 	</div>
+>>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
+
 	
 	<table id="eventTable">
 		<thead>
@@ -118,29 +152,57 @@
 			<!-- td插入點 -->
 		</tbody>
 	</table>
+	<div class="container">
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id="pagination"></ul>
+        </nav>
+    </div>
 	
 	<script>
 		// --- 開啟即執行 ---------------------------------------------------------------------------
 		$(function(){
-			var timeNow = new Date();
-			// 日期選單
-// 			$('#datePicker').daterangepicker({
-// 		        minDate : timeNow,
-// 				dateFormat : 'yyyy-mm-dd',
-// 		        numberOfMonths : 2,
-// 			});
+			page=1;
+			total_Count=0;
+			doCount(selectDate , selectArea , selectType ,page);
 			
-			$('#datePicker').daterangepicker({
-				"minDate" : timeNow,
-    "showDropdowns": true,
-    "showWeekNumbers": true,
-    "showISOWeekNumbers": true,
-    "minDate": "yyyy-MM-dd",
-    "maxDate": "yyyy-MM-dd"
-});
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			//全域變數 設定要查詢第幾頁
 			
 			
-			// 給全選的checkbox & radio 顏色
+			
+		       
+			
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			
+			
+			
+			// 日期選取器
+			$('#dateRangePicker').daterangepicker({
+				alwaysShowCalendars: true,
+				autoUpdateInput : false,
+				opens: "right",
+				minDate: new Date(),
+				showDropdowns: true,
+				locale: {
+					format: "YYYY-MM-DD",
+					separator: " ~ ",
+					applyLabel: "確定",
+					cancelLabel: "取消",
+					daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
+					monthNames: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+					firstDay: 1,
+				},
+			});
+			// 日期選取器 - 配合autoUpdateInput使用，設定按確定後的動作
+			$('#dateRangePicker').on("apply.daterangepicker", function(ev, picker) {
+				$(this).val(picker.startDate.format("YYYY-MM-DD") + " ~ " + picker.endDate.format("YYYY-MM-DD")).css('color','black');
+				selectRangeDate();
+			});
+			// 日期選取器 - 設定按取消後的動作
+			$('#dateRangePicker').on("cancel.daterangepicker", function(ev, picker) {
+				$(this).val('請選擇日期').css('color','red');
+			});
+			// 給全選的radio & checkbox 顏色
 			$('#allDate').next().addClass('stateChecked');
 			$(':checkbox[name="allArea"]').next().addClass('stateChecked');
 			$(':checkbox[name="allType"]').next().addClass('stateChecked');
@@ -151,16 +213,23 @@
 			$('.selectArea').mouseleave(function(){
 				$(".selectArea").hide();
 			});
-			// radio & checkbox事件binding
+			// radio & dateRangePicker & checkbox 事件binding
 			$(':radio[name="pickDate"]').click(function() {
 				$(':radio').each(function(){
 					if ($(this).prop('checked') == true) {
 						$(this).next().addClass('stateChecked');
+						if ($('#dateRangePicker').val() != '自訂日期') {
+							$('#dateRangePicker').removeClass('stateChecked').val('自訂日期').css('color','black');
+						};
 					} else {
 						$(this).next().removeClass('stateChecked');
 					};
 				});
-				doSearch(selectDate , selectArea , selectType);
+				doSearch(selectDate , selectArea , selectType , page);
+			});
+			$('#dateRangePicker').click(function() {
+				$('input[name="pickDate"]').next().removeClass('stateChecked');
+				$(this).addClass('stateChecked');
 			});
 			$(':checkbox[name="allArea"]').click(function() {
 				switchToAllArea(this.id);
@@ -176,14 +245,23 @@
 				changeType(this.id);
 			});
 			// 撈活動資料 
-			doSearch(selectDate , selectArea , selectType);
-		}); // --- 開啟即執行 END ---
+			doSearch(selectDate , selectArea , selectType , page);
+		
+		
+		// --- 日期選擇結果操作 ---------------------------------------------------------------------------
+		function selectRangeDate() {
+			var partDate = $('#dateRangePicker').val().split(' ~ ');
+			var startDate = partDate[0];
+			var endDate = partDate[1];
+			var rangeDate = "where '" + endDate + "' >= dtStart and '" + startDate + "' <= DurationEnd and";
+			$('#forDateRangePicker').val(rangeDate).prop('checked',true);
+			doSearch(selectDate , selectArea , selectType , page)
+		}; // --- 日期選擇結果操作 END ---
 		
 		// --- 地區類型切換 ---------------------------------------------------------------------------
 		function switchToAllArea(selectArea){
 			$(':checkbox[name="areaID"]').prop('checked',false);
-			doSearch(selectDate , selectArea , selectType);
-			// 切換被選取顏色
+			doSearch(selectDate , selectArea , selectType , page);
 			changeBackgroungColor();
 		};
 		function changeArea(selectArea){
@@ -203,12 +281,11 @@
 			
 			if ( area100 == true || area103 == true || area104 == true || area105 == true || area106 == true || area108 == true || area110 == true || area111 == true  || area112 == true  || area114 == true  || area115 == true  || area116 == true  ) {
 				$(':checkbox[name="allArea"]').prop('checked',false);
-				doSearch(selectDate , selectArea , selectType);
+				doSearch(selectDate , selectArea , selectType , page);
 			} else if ( area100 == false && area103 == false && area104 == false && area105 == false && area106 == false && area108 == false && area110 == false && area111 == false  && area112 == false  && area114 == false  && area115 == false  && area116 == false ) {
 				$(':checkbox[name="allArea"]').prop('checked',true);
-				doSearch(selectDate , selectArea , selectType);
+				doSearch(selectDate , selectArea , selectType , page);
 			};
-			// 切換被選取顏色
 			changeBackgroungColor();
 		}; // --- 地區類型切換 END ---
 		
@@ -216,7 +293,6 @@
 		function switchToAllType(selectType){
 			$(':checkbox[name="eventType"]').prop('checked',false);
 			doSearch(selectDate , selectArea , selectType);
-			// 切換被選取顏色
 			changeBackgroungColor();
 		};
 		function changeType(selectType){
@@ -236,12 +312,12 @@
 				$(':checkbox[name="allType"]').prop('checked',true);
 				doSearch(selectDate , selectArea , selectType);
 			};
-			// 切換被選取顏色
 			changeBackgroungColor();
 		}; // --- 活動類型切換 END ---
 		
 		// --- 送controller撈資料 ---------------------------------------------------------------------------
-		function doSearch(selectDate , selectArea , selectType){
+		function doSearch(selectDate , selectArea , selectType ,page){
+			doCount(selectDate , selectArea , selectType)
 			// 取得date被選擇的值
 			var newDate = $('#selectDate :checked[type="radio"]').val()
 			// 取得area被選擇的值，再轉成字串
@@ -270,7 +346,7 @@
 			
 			$('#eventTable > tbody').empty();
 			
-			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes} , function(data) {
+			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes , 'pageNumber':page} , function(data) {
 				$.each(data, function(index, eventData) {
 					var column1 = $('<td></td>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="' + eventData.imageFile + '" title="' + eventData.briefIntroduction + '"></a>');
 					var column2 = $('<td></td>').text(eventData.eventTypeId);
@@ -307,13 +383,66 @@
 				if ( area104 == true && area100 == false) {
 					$(".中正區").parent().remove();
 				};
-				// 取得搜尋筆數
-				var count = $('.count').length;
-				$('#count').empty().append('&emsp;&emsp;&emsp;共有' + count + '筆活動');
 			}); // JSON END
 		}; // --- controller撈資料 END ---
 		
-		// 切換被選取顏色用的function
+		// --- 送controller跑count數 ---------------------------------------------------------------------------
+		function doCount(selectDate , selectArea , selectType) {
+			// 取得date被選擇的值
+			var newDate = $('#selectDate :checked[type="radio"]').val()
+			// 取得area被選擇的值，再轉成字串
+			var areas = [];
+			var areaText = [];
+			$('#selectArea :checked[type="checkbox"]').each(function(){
+				var areaString = $(this).val();
+				var showArea = $(this).next().text();
+				areas.push(areaString);
+				areaText.push(showArea);
+			});
+			var newAreas = areas.join();
+			// 變換text所顯示area
+			if (newAreas == '正同中松安萬信士北內南文') {
+				$('#areaText').val('全部')
+			} else {
+				$('#areaText').val(areaText)
+			};
+			// 取得type被選擇的值，再轉成字串
+			var types = [];
+			$('#selectType :checked[type="checkbox"]').each(function(){
+				var typeString = $(this).val();
+				types.push(typeString);
+			});
+			var newTypes = types.join();
+			
+			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchCount.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes} , function(data) {
+				total_Count=data;
+				$('#count').empty().append('&emsp;&emsp;&emsp;共有' + data + '筆活動');
+			});
+		}; // --- controller跑count數 END ---
+		var b = total_Count % 10;
+		
+		
+		total_Count = ((total_Count-b) / 10)+1;
+	        console.log("aa:"+total_Count);
+		
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		 var obj = $('#pagination').twbsPagination({
+			 
+	            //總共有幾頁
+	            totalPages: total_Count,
+	            //一個頁面要顯示幾個分頁 
+	            visiblePages: 10,
+	            onPageClick: function (event, page) {
+	            	  console.info(page);
+	            	doSearch(selectDate , selectArea , selectType , page);
+	            }
+	        });
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
+		
+		
+		
+		// 切換被選取顏色
 		function changeBackgroungColor() {
 			$(':checkbox').each(function(){
 				if ($(this).prop('checked') == true) {
@@ -325,6 +454,7 @@
 		};
 		
 		
+	}); // --- 開啟即執行 END ---
 		
 	</script>
 <jsp:include page="/commons/footer.jsp"></jsp:include>

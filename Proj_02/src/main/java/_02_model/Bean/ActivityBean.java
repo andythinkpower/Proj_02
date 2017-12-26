@@ -11,7 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.SortNatural;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,7 +41,10 @@ public class ActivityBean implements Serializable {
 	// 一對多關係
 	@OneToMany(mappedBy = "activityBean", cascade = { CascadeType.REMOVE }, fetch = FetchType.EAGER // 不寫會發生lazily 狀況
 	)
+	//Json不要傳他 目前會超級錯誤
 	@JsonIgnore
+	//Set會排序 目前看起來是用主key排
+	@OrderBy
 	private Set<ActivityDetailBean> activityDetails;
 
 	public Set<ActivityDetailBean> getActivityDetails() {

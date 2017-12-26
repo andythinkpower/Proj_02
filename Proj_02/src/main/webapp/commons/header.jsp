@@ -33,21 +33,20 @@
                     <li class="nav-item dropdown mr-3">
                         <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link drop-toggle" data-toggle="dropdown">會員中心</a>
                         <div class="dropdown-menu">
-                            <a href="${pageContext.request.contextPath}/_02_activity/success.jsp" class="dropdown-item">會員首頁</a>
-                            <a href="${pageContext.request.contextPath}/_01_member/member.jsp" class="dropdown-item">會員資料修改</a>
+                            <a href="${pageContext.request.contextPath}/_05_web/Calendar.html" class="dropdown-item">行事曆</a>
                             <a href="${pageContext.request.contextPath}/_02_activity/display.jsp" class="dropdown-item">行程安排</a>
                             <a href="${pageContext.request.contextPath}/_02_favorite/fav_display.jsp" class="dropdown-item">活動收藏</a>
                             <a href="${pageContext.request.contextPath}/_06_blog/dashboard.jsp" class="dropdown-item">部落格</a>
                         </div>
                     </li><!--會員下拉式選單end here-->
                     <li class="nav-item dropdown mr-3">
-                        <a href="" class="nav-link drop-toggle" data-toggle="dropdown">
-                            <img src="${pageContext.request.contextPath}/img/default.jpg" width="30" height="30" class="d-inline-block align-top" /></a>
+                        <a href="" class="nav-link drop-toggle" data-toggle="dropdown">會員登入</a>
                         <div class="dropdown-menu">
                         	<a href="${pageContext.request.contextPath}/_01_member/register.jsp" class="dropdown-item">註冊</a>
+
                             <a href="${pageContext.request.contextPath}/security/login.jsp" class="dropdown-item">登入</a>
-                            <a href="${pageContext.request.contextPath}/_02_activity/login_out.jsp" class="dropdown-item">登出</a>
-                            <a href="${pageContext.request.contextPath}/index.jsp" class="dropdown-item">管理員</a>
+                            <a href="${pageContext.request.contextPath}/_03_backStage/login2.jsp" class="dropdown-item">管理員</a>
+
                         </div>
                     </li>
                 </ul><!--ul3 end here-->

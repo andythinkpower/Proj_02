@@ -59,13 +59,14 @@ public class Event01DAOjdbc implements Event01DAO {
 	public Event01 update(Event01 event) {
 		Event01 select = this.select(event.getEventID());
 		if(select!=null) {
-			this.getSession().save(event);
+			this.getSession().merge(event);
 			return event;
 		}
 		return null;
 	}
 
 	@Override
+	@Transactional
 	public boolean delete(int eventID) {
 		Event01 select = this.select(eventID);
 		if(select!=null) {
@@ -75,13 +76,6 @@ public class Event01DAOjdbc implements Event01DAO {
 		return false;
 	}
 
-	@Override
-	@Transactional
-	public List<Event01> selectType(String eventtype) {
-		String select=" where eventTypeId='"+eventtype+"'";
-		Query<Event01> query =this.getSession().createQuery("FROM Event02"+select, Event01.class);
-		return query.getResultList();
-		
-	}
+
 	
 }

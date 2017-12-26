@@ -2,12 +2,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>EventMap</title>
 <style>
 
 #map {
 	height: 800px;
-	width: 100%;
+	width: 90%;
+	margin:0 0 0 5%;
+	float:left;
+}
+#header{
 }
 #footer {
     /* 設定footer的高度 */
@@ -16,25 +20,68 @@
     position: absolute;
     /* 展開footer寬度 */
     width: 100%;
+   background-color:pink; 
+}
+#mapbody{
+height: 800px;
+background-color:pink; 
+}
+#buttom{
+    width:5%;
+	padding:0 1% 1px 0;
+	float:left;
+	
 }
 #controller{
 	position:absolute; left:25%;
-	
-	}
+}
+
 
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  
 <script src="../js/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+
+
+
+<!--
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="../js/bootstrap.js"></script>
+-->
+
 <script src="../js/ButtomController.js"></script>
 <script src="../js/GoogleMap.js">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+
 </head>
 
 <body>
 	<div id="header"></div>
+	<div id="mapbody">
 	<div id="map"></div>
-	
+	<div id="buttom">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<input id='musicControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<br>
+	<input id='exhibitionControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<br>
+	<input  id='performanceControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<br>
+	<input  id='studyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<br>
+	<input  id='movieControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<br>
+	<input id='LeisureControl' ata-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<br>
+	<input  id='familyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	<br>
+	</div>
+	</div>
 </script>
 <script type="text/javascript">
 $(function(){
@@ -54,19 +101,11 @@ $(function(){
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK3MRTGkyj0FYu-OExTnVYDLuaNDwBRL8&callback=initMap">
     </script>
-    <div style="margin:0 35% ;">
-	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-	<input id='musicControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<input id='exhibitionControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<input id='performanceControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<input id='studyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<input id='movieControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<input id='LeisureControl' ata-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<input id='familyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-
+    
+<!--	<div style="margin:2px 45% ;">
+	<input id='thismonControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
 	</div>
-	
+	-->
 <div id="footer"></div>
 </body>
 

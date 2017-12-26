@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -56,7 +59,7 @@ public class Activity_Controller {
 			RequestMethod.GET })
 	public String xxx(@SessionAttribute(name = "member") MemberBean member, ActivityBean bean,
 			ActivityDetailBean detailBean, BindingResult bindingResult, Model model, String doWhat,
-			HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException {
+			HttpServletRequest request,HttpServletResponse response,String longitude_temp,String latitude_temp) throws IllegalStateException, IOException {
 
 		
 		// 代表是從schedule.jsp進來
@@ -88,6 +91,7 @@ public class Activity_Controller {
 					//要存到資料庫的路徑
 					String showPic="/uploadFile/"+filename;
 					Cookie picPath=new Cookie("picPath",showPic);
+					bean.setPhotoPath(showPic);
 					picPath.setMaxAge(60*60);
 					
 					response.addCookie(picPath);
@@ -101,23 +105,38 @@ public class Activity_Controller {
 		} // 代表從actDetail.jsp進來
 		else if ("detail".equals(doWhat)) {
 			System.out.println("現在在細節 路徑為:"+bean.getPhotoPath());
+			//測試
+			System.out.println("觀察進來的latlan");
+			System.out.println("lat:"+latitude_temp);
+			System.out.println("lan:"+longitude_temp);
+			
+			
 			// 呼叫自己寫的方法 把多的細節拆開
-			List<ActivityDetailBean> list = Activity_Controller.Detail_split(detailBean, false);
+			List<ActivityDetailBean> list = Activity_Controller.Detail_split(detailBean);
+			//接著處理經緯度
+			String[] lan=longitude_temp.split(",");
+			String[] lat=latitude_temp.split(",");
+			for(int i=0;i<list.size();i++) {
+				//設定緯度 把字串轉換成浮點數
+				list.get(i).setLatitude(Double.valueOf(lat[i]));
+				//設定經度 把字串轉換成浮點數
+				list.get(i).setLongitude((Double.valueOf(lan[i])));
+			}
+			
+			//test
+			System.out.println("觀察是否放進bean中");
+			for(ActivityDetailBean i:list)
+			System.out.println(i);
+			
 			
 			Cookie[] cookies=request.getCookies();
 			for(Cookie i:cookies) {
 				if("picPath".equals(i.getName())) {
-					System.out.println("找到cookie");
 					String path=i.getValue();
 					bean.setPhotoPath(path);
-					//刪掉cookie
-					i.setMaxAge(0);
-					response.addCookie(i);
 					break;
-					
 				}		
 			}
-			
 			//
 			// //判斷各項資料有無問題 如果有問題不能進入model部分
 			// //(尚未填寫)
@@ -151,10 +170,8 @@ public class Activity_Controller {
 			model.addAttribute("soloDetail", soloDetail);
 
 			// 進入單獨行程頁面
-			return "soloPage";
-		} 
-		
-		else if ("update".equals(doWhat)) {
+			return "up_soloPage";
+		}else if ("update".equals(doWhat)) {
 			System.out.println("進入修改 儲存資料");
 			System.out.println(detailBean);
 			HttpSession session = request.getSession();
@@ -163,7 +180,7 @@ public class Activity_Controller {
 			ActivityDetailBean[] array = set.toArray(new ActivityDetailBean[set.size()]);
 
 			// 要把消失的主key 和外部鍵塞回資料中
-			List<ActivityDetailBean> list = Activity_Controller.Detail_split(detailBean, true);
+			List<ActivityDetailBean> list = Activity_Controller.Detail_split(detailBean);
 			for (int i = 0; i < list.size(); i++) {
 				list.get(i).setActivityID(array[i].getActivityID());
 				list.get(i).setActDetail(array[i].getActDetail());
@@ -178,6 +195,13 @@ public class Activity_Controller {
 
 			return "display";
 
+		}else if("showPage".equals(doWhat)) {
+			System.out.println("test");
+			System.out.println("號碼為:"+bean.getActivityID());
+			model.addAttribute("pk",bean.getActivityID());
+			return "sw_soloPage";
+			
+			
 		}
 
 		return "actDetail";
@@ -196,25 +220,53 @@ public class Activity_Controller {
 	@ResponseBody
 	public String delete(@SessionAttribute(name="member")MemberBean member,String ActivityID) {
 		Integer actID=Integer.valueOf(ActivityID);
-		return "刪除結果:"+activityService.Delete_Schedule(actID);
+		return "刪除結果:"+activityService.Delete_Schedule(actID);	
+	}
+	
+	@RequestMapping(path= {"/_02_activity/solopage_show.controller"},method= {RequestMethod.GET},produces = { "application/json;charset=UTF-8" })	
+	@ResponseBody
+	public Map solopage_show(String activityID) {
+		
+		//步驟1 先把pk從字串轉乘Integer
+		if(activityID.isEmpty()||activityID.trim().length()==0) {
+			//代表有錯誤 要跳回原頁面
+		}
+		Integer pk=Integer.valueOf(activityID);
+		ActivityBean test=activityService.solo_select(pk);
+		System.out.println("觀察抓到的行程");
+		System.out.println(test);
+		Set<ActivityDetailBean> detail=test.getActivityDetails();
+		Iterator ite=detail.iterator();
+		System.out.println("測試抓到的細節部分");
+		while(ite.hasNext()) {
+			System.out.println(ite.next());
+		}
+		
+		//步驟2 利用這個pk去資料庫撈資料
+		
+		
+		Map<String,Object> map=new HashMap();
+		
+		map.put("actBean",test);
+		map.put("detailBean",detail);
+		
+		return map;
+
 	
 	}
 	
 	
 	
-	
-	
 
-	public static List<ActivityDetailBean> Detail_split(ActivityDetailBean detailBean, boolean haveID) {
+	public static List<ActivityDetailBean> Detail_split(ActivityDetailBean detailBean) {
 		List<ActivityDetailBean> list = new ArrayList<ActivityDetailBean>();
-		if (haveID) {
-
-		}
+		
 		String[] kinds = detailBean.getKinds().split(",");
 		String[] note = detailBean.getNote().split(",");
 		String[] budgets = detailBean.getBudget().split(",");
 		String[] dates = detailBean.getDates().split(",");
 		String[] times = detailBean.getTimes().split(",");
+		
 
 		for (int i = 0; i < kinds.length; i++) {
 			ActivityDetailBean temp = new ActivityDetailBean();

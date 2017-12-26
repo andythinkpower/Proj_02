@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<jsp:include page="../commons/header.jsp"></jsp:include>
+<jsp:include page="${pageContext.request.contextPath}/commons/header.jsp"></jsp:include>
 <section>
         <div class="container p-5">
             <div class="row">

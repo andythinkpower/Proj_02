@@ -20,8 +20,11 @@ import _01_member.model.MemberBean;
 @WebFilter(
 		urlPatterns = { "/*" }, 
 		initParams = { 
-				@WebInitParam(name = "mustLogin1", value = "/_02_activity/*"), 		
-				@WebInitParam(name = "mustLogin2", value = "/_02_favorite/*")
+				@WebInitParam(name = "mustLogin1", value = "/_01_member/member.jsp"),
+				@WebInitParam(name = "mustLogin2", value = "/_02_activity/*"), 		
+				@WebInitParam(name = "mustLogin3", value = "/_02_favorite/*"),
+				@WebInitParam(name = "mustLogin4", value = "/_05_web/Calendar.html"),
+				@WebInitParam(name = "mustLogin5", value = "/_06_blog/dashboard.jsp")				
 		})
 public class LoginFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();
