@@ -26,25 +26,30 @@ public class MemberService {
 		if (bean != null) {
 			if (memberpassword != null && memberpassword.length() != 0) {				
 				
-//				String decryptedString = "";
-//				try {
+
+				
 //				String key = "kittymickysnoopy"; // 對稱式金鑰
 //				byte[] iv = new byte[128 / 8]; // 初始向量
-////				SecureRandom srnd = new SecureRandom();
-//				SecureRandom srnd= SecureRandom.getInstance("ABC");
-//				srnd.nextBytes(iv);									
+//				SecureRandom srnd = new SecureRandom();
+//				srnd.nextBytes(iv);
 //				
-//				String pass = bean.getMemberpassword();
-//				System.out.println("pass:"+pass);
+//				String plainText = memberpassword;
+//				String cipherText = "";
+//				String decryptedString = "";
+				String pass = bean.getMemberpassword();
+				System.out.println("pass:"+pass);
 //				
-//					decryptedString = CipherUtils.decryptString(key, pass, iv);
+//				try {
+//					cipherText = CipherUtils.encryptString(key, plainText, iv);
+////					decryptedString = CipherUtils.decryptString(key, pass, iv);
 //				} catch (Exception e) {
 //					e.printStackTrace();
 //				}
-//				System.out.println("解密字串: " + decryptedString);
+//				
+//				System.out.println("加密字串: " + cipherText);
 				
 				String temp = memberpassword;
-				if (memberpassword.equals(temp)) {
+				if (temp.equals(pass)) {
 					return bean;
 				}
 			}
@@ -107,7 +112,7 @@ public class MemberService {
 	
 //test	
 	public static void main(String[] args) {
-		ApplicationContext context= new ClassPathXmlApplicationContext("beans.config.xml");
+		ApplicationContext context= new ClassPathXmlApplicationContext("text.xml");
 		MemberService memberService=(MemberService) context.getBean("memberService");
 		
 		MemberBean bean=new MemberBean();

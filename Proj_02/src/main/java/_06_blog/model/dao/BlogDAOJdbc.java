@@ -28,7 +28,7 @@ public class BlogDAOJdbc implements BlogDAO {
 //select one 	
 	@Override
 	public BlogBean select(BlogBean bean) {		
-		return this.getSession().get(BlogBean.class, bean.getMemberemail());
+		return this.getSession().get(BlogBean.class, bean.getArticleid());
 	}
 
 //add view num
@@ -75,6 +75,12 @@ public class BlogDAOJdbc implements BlogDAO {
 				"FROM BlogBean where memberemail="+"'"+bean.getMemberemail()+"'", BlogBean.class);
 		return query.getResultList();
 	}
+//selecthightest
+	public List<BlogBean> selecthightest(){
+		Query<BlogBean> query = this.getSession().createQuery(
+				"FROM BlogBean ORDER BY ViewNum DESC", BlogBean.class);
+		return query.getResultList();
+	}
 	
 	//test
 		public static void main(String[] args) {
@@ -88,8 +94,11 @@ public class BlogDAOJdbc implements BlogDAO {
 			BlogBean bean =new BlogBean();
 			
 			//test 選出某會員的全部文章
-			bean.setMemberemail("aaa@gmail.com");
-			List<BlogBean>result=dao.selectall(bean);
+//			bean.setMemberemail("aaa@gmail.com");
+//			List<BlogBean>result=dao.selectall(bean);
+//			System.out.println(result);
+			
+			List<BlogBean>result=dao.selecthightest();
 			System.out.println(result);
 			
 //			bean.setArticlename("好的");

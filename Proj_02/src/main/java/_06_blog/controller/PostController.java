@@ -16,27 +16,27 @@ import _06_blog.model.BlogService;
 
 @Controller
 @RequestMapping(path = {"/_06_blog/post.controller"})
-@SessionAttributes(names= {"message"})
 public class PostController {
 
 	@Autowired
 	private BlogService blogService;
 	
-	@RequestMapping(method= {RequestMethod.POST, RequestMethod.GET},produces= {"application/jason;charset=UTF-8"})
+	@RequestMapping(method= {RequestMethod.POST, RequestMethod.GET}, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public String post(BlogBean bean, Model model, String memberemail,
-			String articlename, String articletype, String articlecontent, String parvicy) {
+	public BlogBean post(BlogBean bean, Model model, String memberemail,
+			String articlename, String articletype, String editor, String pravicy) {
 		
-		System.out.println("YES");
+		System.out.println("post.controller");
 		
-		bean.setMemberemail("aaa@gmail.com");
-		blogService.post(bean);
+		System.out.println("articlecontent:"+editor);
 		
-		Map<String, String> message = new HashMap<>();
-		model.addAttribute("message", message);
+		bean.setMemberemail(memberemail);
+		bean.setArticlename(articlename);
+		bean.setArticletype(articletype);
+		bean.setArticlecontent(editor);
 		
-		message.put("success", "新增成功");
+		blogService.post(bean);		
 		
-		return "post.success";
+		return blogService.select(bean);
 	}
 }

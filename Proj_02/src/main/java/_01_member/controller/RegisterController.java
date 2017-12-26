@@ -44,25 +44,25 @@ public class RegisterController {
 			return "register.error";
 		}
 		
-		String key = "kittymickysnoopy"; // 對稱式金鑰
-		byte[] iv = new byte[128 / 8]; // 初始向量
-		SecureRandom srnd = new SecureRandom();
-		srnd.nextBytes(iv);
-		
-		String plainText = memberpassword;
-		String cipherText = "";
-//		String decryptedString = "";
-		
-		try {
-			// encryptString(key, plainText, iv) : 將明文轉換為密文
-			cipherText = CipherUtils.encryptString(key, plainText, iv);
-			// decryptString(key, cipherText, iv) : 將密文還原為明文
-//			decryptedString = CipherUtils.decryptString(key, cipherText, iv);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		memberpassword=cipherText;
+//		String key = "kittymickysnoopy"; // 對稱式金鑰
+//		byte[] iv = new byte[128 / 8]; // 初始向量
+//		SecureRandom srnd = new SecureRandom();
+//		srnd.nextBytes(iv);
+//		
+//		String plainText = memberpassword;
+//		String cipherText = "";
+////		String decryptedString = "";
+//		
+//		try {
+//			// encryptString(key, plainText, iv) : 將明文轉換為密文
+//			cipherText = CipherUtils.encryptString(key, plainText, iv);
+//			// decryptString(key, cipherText, iv) : 將密文還原為明文
+////			decryptedString = CipherUtils.decryptString(key, cipherText, iv);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		memberpassword=cipherText;
 		
 		MemberBean bean=memberService.register(memberemail, memberpassword);
 		

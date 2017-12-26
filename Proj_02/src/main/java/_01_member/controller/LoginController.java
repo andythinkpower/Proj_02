@@ -28,7 +28,7 @@ import _01_member.model.RegionsBean;
 
 @Controller
 @RequestMapping(path = { "login.controller" })
-@SessionAttributes(names= {"member","types","regions"})
+@SessionAttributes(names= {"member","types","regions","errors"})
 public class LoginController {
 
 	@Autowired
@@ -107,7 +107,7 @@ public class LoginController {
 			model.addAttribute("member", bean2);
 			model.addAttribute("types", events);
 			model.addAttribute("regions", regions);
-			System.out.println(bean2);
+			System.out.println("bean2:"+bean2);
 		}
 		
 	return "login.success";

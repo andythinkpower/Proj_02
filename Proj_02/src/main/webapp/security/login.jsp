@@ -13,6 +13,7 @@
 	    <style>
         body {
             font-family: Microsoft JhengHei;
+            background-color:	#F2E6E6;
         }
     </style>
 </head>
