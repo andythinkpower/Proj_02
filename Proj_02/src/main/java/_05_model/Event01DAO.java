@@ -2,7 +2,7 @@ package _05_model;
 
 import java.util.List;
 
-import _05_model.Event02;
+import _00_proj02Bean.Event02;
 
 public interface Event01DAO {
 

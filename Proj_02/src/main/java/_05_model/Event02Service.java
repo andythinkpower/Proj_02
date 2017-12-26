@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import _00_proj02Bean.Event02;
+
 @Service
 public class Event02Service {
 
@@ -19,8 +21,8 @@ public class Event02Service {
 		Event02 result = event01dao.select(eventID);
 		return result;
 	}
-	public List<Event02> selectType(String eventtype) {
-		List<Event02> result = event01dao.selectType(eventtype);
+	public Event02  update(Event02 event) {
+		Event02 result = event01dao.update(event);
 		return result;
 	}
 	

@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import _05_model.Event02;
-import _05_model.FavoritesBean;
+import _00_proj02Bean.Event02;
+import _00_proj02Bean.FavoritesBean;
 import _05_model.FavoritesDAO;
 @Repository
 public class FavoritesDAOjdbc implements FavoritesDAO {

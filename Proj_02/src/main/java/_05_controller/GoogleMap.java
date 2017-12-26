@@ -28,9 +28,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import _05_model.Event02;
+import _00_proj02Bean.Event02;
+import _00_proj02Bean.FavoritesBean;
 import _05_model.Event02Service;
-import _05_model.FavoritesBean;
 import _05_model.FavoritesService;
 import _05_model.Savecalendar;
 
@@ -132,7 +132,7 @@ public class GoogleMap {
 	
 	}
 	
-	
+/*	
 	@RequestMapping(
 			path="/_05_web/findEventtype.controller",
 			method={RequestMethod.GET, RequestMethod.POST})
@@ -181,7 +181,7 @@ public class GoogleMap {
 		 
 		 out.println(jsonString);
 	} 
-	
+	*/
 	
 
 	

@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import _00_proj02Bean.Event02;
 import _05_model.Event01DAO;
-import _05_model.Event02;
 
 
 @Repository
@@ -31,7 +31,7 @@ public class Event01DAOjdbc implements Event01DAO {
 	@Override
 	@Transactional
 	public List<Event02> select() {
-		Query<Event02> query =this.getSession().createQuery("FROM Event02", Event02.class);
+		Query<Event02> query =this.getSession().createQuery("FROM Event02 where Cityid='臺北市' and datediff( day , getdate() , DurationEnd ) >= 0", Event02.class);
 		return query.getResultList();
 	}
 
@@ -42,6 +42,7 @@ public class Event01DAOjdbc implements Event01DAO {
 	}
 
 	@Override
+	@Transactional
 	public Event02 insert(Event02 event) {
 		if(event!=null) {
 			Event02 select = this.select(event.getEventID());
@@ -54,6 +55,7 @@ public class Event01DAOjdbc implements Event01DAO {
 	}
 
 	@Override
+	@Transactional
 	public Event02 update(Event02 event) {
 		Event02 select = this.select(event.getEventID());
 		if(select!=null) {
