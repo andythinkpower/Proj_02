@@ -69,12 +69,16 @@
 		</c:otherwise>
 	</c:choose>
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
+<<<<<<< HEAD
 	
 
 	<form name="selectForm">
 		<fieldset>
 			<legend>活動類型</legend>
+=======
+>>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
 
+<<<<<<< HEAD
 
 
 				<input type="checkbox" id="全部" name="manyTypes" value="休閒展覽音樂表演研習親子影視" checked="checked" onclick="switchToAll(this.form)">全部
@@ -88,6 +92,48 @@
 				<span id="count" ></span>
 		</fieldset>
 	</form>
+=======
+	<input type="text" id="areaText" value="" style="width:250px;">
+ 
+	<div id="selectArea" class="selectArea">
+    	<label><input type="checkbox" name="allArea" value="正同中松安萬信士北內南文" checked="checked"><span>全部</span></label>
+    	<br>
+	    <label><input type="checkbox" name="areaID" value="正"><span>中正區</span></label>
+	    <label><input type="checkbox" name="areaID" value="同"><span>大同區</span></label>
+	    <label><input type="checkbox" name="areaID" value="中"><span>中山區</span></label>
+	    <label><input type="checkbox" name="areaID" value="松"><span>松山區</span></label>
+	    <label><input type="checkbox" name="areaID" value="安"><span>大安區</span></label>
+	    <label><input type="checkbox" name="areaID" value="萬"><span>萬華區</span></label>
+	    <label><input type="checkbox" name="areaID" value="信"><span>信義區</span></label>
+	    <label><input type="checkbox" name="areaID" value="士"><span>士林區</span></label>
+	    <label><input type="checkbox" name="areaID" value="北"><span>北投區</span></label>
+	    <label><input type="checkbox" name="areaID" value="內"><span>內湖區</span></label>
+	    <label><input type="checkbox" name="areaID" value="南"><span>南港區</span></label>
+	    <label><input type="checkbox" name="areaID" value="文"><span>文山區</span></label>
+    </div>
+    
+    <div id="selectDate" class="selectDate">
+    	<label><input type="radio" id="allDate" name="pickDate" value="where" checked="checked"><span>不限</span></label>
+	    <label><input type="radio" name="pickDate" value="where datediff ( day , getdate() , dtStart ) <= 0 and datediff ( day , getdate() , DurationEnd) >= 0 and"><span>今日</span></label>
+	    <label><input type="radio" name="pickDate" value="where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart  and"><span>本週</span></label>
+	    <label><input type="radio" name="pickDate" value="where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart and dateadd( week , datediff( week , '' , getdate() ) , 5 ) <= DurationEnd  and"><span>本週末</span></label>
+	    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart  and"><span>下週</span></label>
+	    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart and dateadd( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 5 ) ) <= DurationEnd  and"><span>下週末</span></label>
+	    <input type="text" id="datePicker" value="">
+    </div>
+    
+	<div id="selectType" class="selectType">		
+		<label><input type="checkbox" name="allType" value="休閒展覽音樂表演研習親子影視" checked="checked"><span>全部</span></label>
+		<label><input type="checkbox" name="eventType" value="休閒"><span>休閒</span></label>
+		<label><input type="checkbox" name="eventType" value="展覽"><span>展覽</span></label>
+		<label><input type="checkbox" name="eventType" value="音樂"><span>音樂</span></label>
+		<label><input type="checkbox" name="eventType" value="表演"><span>表演</span></label>
+		<label><input type="checkbox" name="eventType" value="研習"><span>研習</span></label>
+		<label><input type="checkbox" name="eventType" value="親子"><span>親子</span></label>
+		<label><input type="checkbox" name="eventType" value="影視"><span>影視</span></label>
+		<span id="count" ></span>
+	</div>
+>>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
 
 	
 	<table id="eventTable">
