@@ -78,7 +78,7 @@ public class BlogDAOJdbc implements BlogDAO {
 //selecthightest
 	public List<BlogBean> selecthightest(){
 		Query<BlogBean> query = this.getSession().createQuery(
-				"FROM BlogBean ORDER BY ViewNum DESC", BlogBean.class);
+				"FROM BlogBean where pravicy='公開' ORDER BY ViewNum DESC", BlogBean.class);
 		return query.getResultList();
 	}
 	

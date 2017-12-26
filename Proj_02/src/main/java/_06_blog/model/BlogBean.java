@@ -18,8 +18,8 @@ public class BlogBean {
 	private java.util.Date posttime;
 	private String articletype;
 	private String pravicy;
-	private String likenum="1";
-	private String viewnum="0";
+	private String likenum="0";
+	private String viewnum="1";
 	private String memberemail;
 	
 

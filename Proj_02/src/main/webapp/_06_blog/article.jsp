@@ -45,10 +45,9 @@
                                     <label for="title">類型：</label>
                                     <input id="articletype" type="text" readonly class="form-control-plaintext" value="${article.articletype}" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="file">封面照片：</label>
-                                    <input type="file">
-                                </div>
+<!--                                 <div class="form-group"> -->
+<!--                                     <label for="file">封面照片：</label> -->
+<!--                                 </div> -->
                                 <div class="form-group">
                                     <label for="body">內容：</label><br />
                                     <input id="articlecontent" class="form-control-plaintext" style="width:100%" readonly name="content">${article.articlecontent}</textarea>
@@ -60,7 +59,8 @@
                                     <input type="radio" name="setting" id="setting" /><label for="setting">私人</label>-->
                                 </div>
                                 <div>
-                                    <a href="${pageContext.request.contextPath}/_06_blog/dashboard.jsp" class="btn btn-warning">回文章類表</a>
+                                	<input class="btn btn-warning float-right" type ="button" onclick="history.back()" value="回到上一頁"></input>
+<!--                                     <a href="${pageContext.request.contextPath}/_06_blog/dashboard.jsp" class="btn btn-warning">回文章類表</a> -->
                                     <!--<input type="submit" class="btn btn-primary" value="回文章類表" />-->
                                 </div>
                             </form><!-- form end here-->

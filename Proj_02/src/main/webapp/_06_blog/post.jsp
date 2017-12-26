@@ -72,8 +72,8 @@ CKEDITOR.replace( 'content', {});
 </script>
                                 </div>
                                 <div>
-                                    <input type="radio" name="pravicy" id="setting1" value="on"/><label for="setting1">公開</label>
-                                    <input type="radio" name="pravicy" id="setting2" value="off"/><label for="setting2">私人</label>
+                                    <input type="radio" name="pravicy" id="setting1" value="公開"/><label for="setting1">公開</label>
+                                    <input type="radio" name="pravicy" id="setting2" value="私人"/><label for="setting2">私人</label>
 <!--                 	<select id="pravicy" name="pravicy" > 
                     		<option id="pravicyon" value="on">公開</option>
                         	<option id="pravicyoff" value="off">私人</option>

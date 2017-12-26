@@ -27,7 +27,7 @@
                         <a href="/Proj_02/_05_web/map.html" class="nav-link">Event Map</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a href="/Proj_02/_05_web/Calendar.html" class="nav-link">活動誌</a>
+                        <a href="${pageContext.request.contextPath}/_06_blog/blog.jsp" class="nav-link">活動誌</a>
                     </li>
                     <!--會員下拉式選單-->
                     <li class="nav-item dropdown mr-3">
