@@ -23,7 +23,7 @@ public class RegionsBean {
 	@JoinTable(
 			name="LIKEREGIONS",
 			joinColumns= {@JoinColumn(name="REGION")},
-			inverseJoinColumns= {@JoinColumn(name="MEMBEREMSIL")})
+			inverseJoinColumns= {@JoinColumn(name="MEMBEREMAIL")})
 	private Set<MemberBean> members;	
 	public Set<MemberBean> getMembers() {
 		return members;

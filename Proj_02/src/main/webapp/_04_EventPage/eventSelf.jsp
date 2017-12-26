@@ -10,22 +10,49 @@
 <link rel="stylesheet" type="text/css" href="../css/table.css" />
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- DataTables -->
-<script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
-
+<!-- bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <title>活動專屬頁面</title>
 
 </head>
 <body>
-
+<jsp:include page="/commons/header.jsp"></jsp:include>
 	<p id="eventID" style="display: none;"><%= request.getParameter("eventID") %></p>
-	
+	<div id="temp">
+		
+	</div>
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
 	
 
-	<input type="button" value="收藏" style="width:120px;height:40px;font-size:20px;background-color: orange">
+	<input type="button" id="favorite" value="收藏" style="width:120px;height:40px;font-size:20px;background-color: orange">
+	<input type="button" id="del_favorite" value="刪除收藏" style="width:120px;height:40px;font-size:20px;background-color: orange">
+	<script>
+        $('#favorite').click(function () {
+            //取得該欄位的eventID
+            var pk = $("#eventID").text();
+            var durationEnd=$("#durationEnd").text();
+            var dtStart=$("#dtStart").text();
+            var eventName=$("#eventName").text(); 
+            var timeStart=$("#timeStart").text();
+            var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
+            //改變按鈕狀態
+            $("#favorite").text("已收藏");
+            $("#favorite").attr("style", 'style="width:120px;height:40px;font-size:20px;background-color: blue"');      
+            //把此欄位的eventID 存到該會員的收藏表格
+            $.post('insert.controller',data);
+        });
+        $('#del_favorite').click(function () {
+        	//取得該欄位的eventID
+        	 var pk = $("#eventID").text();
+        	 //改變按鈕狀態
+             $("#favorite").text("已收藏");
+             $("#favorite").attr("style", 'style="width:120px;height:40px;font-size:20px;background-color: blue"');      
+             $.post('delete.controller',{"eventID":pk});
+        });
+        
+        
+    </script>
+	
 	
 	<table id="eventTable">
 		<thead>
@@ -57,11 +84,13 @@
 			var eventID = $("#eventID").text();
 			$('#eventTable>tbody').empty();
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
+				console.log(data)
 				$.each(data, function(index, eventData) {
 					var column1 = $("<td></td>").html('<img src="' + eventData.imageFile + '">');
 					var column2 = $("<td></td>").text(eventData.eventTypeId);
 					var column3 = $("<td></td>").text(eventData.eventName);
 					
+
 					// 對毫秒數做轉換，取年月日再組裝 ↓
 					var Start = new Date(eventData.dtStart);
 					var End = new Date(eventData.durationEnd);
@@ -103,15 +132,26 @@
 					var row = $('<tr></tr>').append(
 							[column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, column11, column12, column13]);
 					
+					//--------Favorite使用---------
+					$("#temp").append('<p id="durationEnd" style="display:none">'+durationEnd+'</p>');
+					$("#temp").append('<p id="dtStart" style="display:none">'+dtStart+'</p>');
+					$("#temp").append('<p id="eventName" style="display:none">'+eventData.eventName+'</p>');
+					$("#temp").append('<p id="timeStart" style="display:none">'+timeStart+'</p>');
+					//--------Favorite使用---------
+					
 					$('#eventTable>tbody').append(row);
 				});
 			}); // JSON END
 			
+<<<<<<< HEAD
 
 		}); // 開啟即執行 END
 
+=======
+		}); // 開啟即執行 END
+>>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
 		
 	</script>
-
+<jsp:include page="/commons/footer.jsp"></jsp:include>
 </body>
 </html>

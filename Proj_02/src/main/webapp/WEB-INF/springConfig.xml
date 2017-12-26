@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:annotation-config></context:annotation-config>
-	<context:component-scan base-package="_02_model , _04_model, _05_model,_01_member"></context:component-scan>
+	<context:component-scan base-package="_02_model , _04_model, _05_model,_01_member,_06_blog"></context:component-scan>
 	
 	<!-- 這邊要讓spring(annotation) 管理交易 (還不會用)-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
@@ -35,6 +35,7 @@
 				<!-- 要把交易交給spring管理(未完成) -->
 <!-- 				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.show_sql">true</prop> -->
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
 			</props>
 		</property>
 		<property name="annotatedClasses">
@@ -44,9 +45,11 @@
 				<value>_01_member.model.RegionsBean</value>
 				<value>_02_model.Bean.ActivityBean</value>
 				<value>_02_model.Bean.ActivityDetailBean</value>
-				<value>_02_model.Bean.FavoritesBean</value>
+				
 				<value>_04_model.Event01</value>
 				<value>_05_model.Event02</value>
+				<value>_05_model.FavoritesBean</value>
+				<value>_06_blog.model.BlogBean</value>
 			</list>
 		</property>
 	</bean>

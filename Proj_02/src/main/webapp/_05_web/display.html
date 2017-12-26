@@ -5,24 +5,25 @@
 <title>Insert title here</title>
 	<script src="../js/jquery-1.12.3.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/ButtomController.js"></script>
+	
  <link rel="stylesheet" href="../css/table.css"> 
+
 </head>
 <body>
 <h1>GGG</h1>
 
 <div id="event"><table id='eventTable'><tbody>
 	<script type="text/javascript">
-
+	
 	var id=document.location.search.substring(1)
 	$(function(){ 
-		$.getJSON('display.controller',{'eventid':id},function(data){
+		$.getJSON('display.controller',{'eventid':id},function(event01){
 			var doc=$(document.createDocumentFragment())
 			var tb=$('#eventTable>tbody');	   
-			var pid=$('<td></td>').text(data.data.EventID)
-			var name=$('<td></td>').text(data.data.EventName)
-			var address=$('<td></td>').text(data.data.Address)
-			var type=$('<td></td>').text(data.data.EventTypeId)
+			var pid=$('<td></td>').text(event01.EventID)
+			var name=$('<td></td>').text(event01.EventName)
+			var address=$('<td></td>').text(event01.Address)
+			var type=$('<td></td>').text(event01.EventTypeId)
 			var row=$('<tr></tr>').append([pid,name,address,type])
 			doc.append(row)
 			  tb.html(doc)
@@ -30,6 +31,6 @@
 	});
 
 	</script></tbody></table>
-</div>
+
 </body>
 </html>

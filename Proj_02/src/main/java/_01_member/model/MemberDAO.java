@@ -16,12 +16,14 @@ public interface MemberDAO {
 	
 	Set<RegionsBean> showregions(MemberBean bean);
 	
-	Set<EventsBean> insertevents(Set<EventsBean> eventsbean);
+	Set<EventsBean> insertevents(MemberBean bean, String [] type);
 	
-	Set<RegionsBean> insertregions(Set<RegionsBean> regionsbean);
+	Set<RegionsBean> insertregions(MemberBean bean, String [] region);
 	
-	Set<EventsBean> deleteevents(MemberBean bean);
+	Set<EventsBean> deletetypes(MemberBean bean);
 	
 	Set<RegionsBean> deleteregions(MemberBean bean);
+	
+	Boolean changepsw(MemberBean bean);
 	
 }

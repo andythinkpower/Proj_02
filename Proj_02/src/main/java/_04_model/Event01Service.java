@@ -17,8 +17,8 @@ public class Event01Service {
 	@Transactional(readOnly=true)
 
 
-	public List<Event01> eventSearch(String newTypes) {
-		return event01dao.eventSearch(newTypes);
+	public List<Event01> eventSearch(String newDate , String newAreas , String newTypes) {
+		return event01dao.eventSearch(newDate , newAreas , newTypes);
 	}
 	
 	@Transactional(readOnly=true)

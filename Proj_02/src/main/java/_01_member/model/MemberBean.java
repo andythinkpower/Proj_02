@@ -1,6 +1,7 @@
 package _01_member.model;
 
 import java.sql.Blob;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -47,15 +48,15 @@ public class MemberBean {
 		this.regions = regions;
 	}
 
-	//	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 //	private int memberid;
 	@Id
 	private String memberemail;
 	private String memberpassword;
 	private String membernickname;
 	private String membergender;
-	private java.util.Date memberbdate;
-	private Blob memberphoto;
+	private java.sql.Date memberbdate;
+	private String memberphoto;
 	private String memberepaper;
 	private String membertype;
 	private String memberrole;
@@ -67,7 +68,7 @@ public class MemberBean {
 				+ memberphoto + ", memberepaper=" + memberepaper + ", membertype=" + membertype + ", memberrole="
 				+ memberrole + "]";
 	}
-	//	public int getMemberid() {
+//	public int getMemberid() {
 //		return memberid;
 //	}
 //	public void setMemberid(int memberid) {
@@ -97,16 +98,16 @@ public class MemberBean {
 	public void setMembergender(String membergender) {
 		this.membergender = membergender;
 	}
-	public java.util.Date getMemberbdate() {
+	public java.sql.Date getMemberbdate() {
 		return memberbdate;
 	}
-	public void setMemberbdate(java.util.Date memberbdate) {
+	public void setMemberbdate(java.sql.Date memberbdate) {
 		this.memberbdate = memberbdate;
 	}
-	public Blob getMemberphoto() {
+	public String getMemberphoto() {
 		return memberphoto;
 	}
-	public void setMemberphoto(Blob memberphoto) {
+	public void setMemberphoto(String memberphoto) {
 		this.memberphoto = memberphoto;
 	}
 	public String getMemberepaper() {
@@ -136,17 +137,40 @@ public class MemberBean {
 		Session session=sessionfactory.getCurrentSession();
 		session.beginTransaction();
 		
-		MemberBean bean=session.get(MemberBean.class, "aaa@gmail.com");
-		System.out.println(bean);
 		
-		Set<EventsBean> events=bean.getEvents();
-		for(EventsBean u: events) {
-			u.getMembers().remove(bean);
-		}
-//		System.out.println(events);
+		//刪除資料
+//		MemberBean bean=session.get(MemberBean.class, "nnn@gmail.com");
+//		System.out.println("bean:"+bean);
+//		Set<EventsBean> events=bean.getEvents();
+//		for(EventsBean u: events) {
+//			u.getMembers().remove(bean);
+//		}
+		
+		
+		//新增資料
+//		String [] c= {"城市萬花筒", "戶外行腳", "表演萬象"};
+//		
+//		for(int i=0; i<c.length;i++) {		
+//			MemberBean bean=session.get(MemberBean.class, "bbb@gmail.com");
+//			System.out.println("bean:"+bean);
+//		
+//			Set<EventsBean> events=bean.getEvents();
+//		
+//			EventsBean test = new EventsBean();
+//
+//			test.setType(c[i]);
+//			events.add(test);
+//			
+//			System.out.println("events:"+events);
+//		}	
+
+		//查詢
+//		MemberBean bean=session.get(MemberBean.class, "bbb@gmail.com");
+//		Set<EventsBean> types=bean.getEvents();
+//		System.out.println("types:"+types);
 //		
 //		Set<RegionsBean> regions=bean.getRegions();
-//		System.out.println(regions);
+//		System.out.println("regions:"+regions);	
 		
 		
 		session.getTransaction().commit();

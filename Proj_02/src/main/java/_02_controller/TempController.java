@@ -1,59 +1,82 @@
-//package _02_controller;
-//
-//import java.io.IOException;
-//import java.util.Set;
-//
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpSession;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.SessionAttribute;
-//import org.springframework.web.bind.annotation.SessionAttributes;
-//
-//import _02_model.Bean.ActivityDetailBean;
-//import _02_model.Bean.MexxmberBean;
-//import _02_model.service.ActivityDetailService;
-//import _02_model.service.ActivityService;
-//
-//@Controller
-//@SessionAttributes(names= {"user_member"})
-//public class TempController {
-//	
-//	@Autowired
-//	private ActivityService activityService;
-//	
-//	@Autowired
-//	private ActivityDetailService activityDetailService;
-//	
-//	
-//	
-//	
-//	@RequestMapping(method= {RequestMethod.GET,RequestMethod.POST},path= {"/_02_activity/test.do"})
-//	public String update(@SessionAttribute(name="user_member")MexxmberBean member,
-//			HttpServletRequest request) throws IOException {
-//		System.out.println("這邊專門處理更新問題");
-//		HttpSession session=request.getSession();
-//		
-//		if(session!=null) {
-//			System.out.println("有SESSION");
-//			MexxmberBean hhh=(MexxmberBean)session.getAttribute("user_member");
-//			System.out.println(hhh);
-//			Set<ActivityDetailBean> test=(Set<ActivityDetailBean>)session.getAttribute("soloDetail");
-//			if(test!=null) {
-//				System.out.println("hahaha");
-//			}else {
-//				System.out.println("no search");
-//			}
-//			
-//		}else {
-//			System.out.println("無 session");
-//		}
-//		
-//		return "actDetail";		
-//	}
-//	
-//	
-//}
+package _02_controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import _01_member.model.MemberBean;
+import _05_model.FavoritesBean;
+import _05_model.FavoritesService;
+
+@Controller
+public class TempController {
+	
+	@Autowired
+	private FavoritesService favoritesService;
+	
+	
+	
+	@RequestMapping(path= {"/_04_EventPage/insert.controller"},method= {RequestMethod.POST,RequestMethod.GET})
+	public void insert(String eventName,String eventID,String durationEnd,String dtStart,String timeStart,String doWhat,
+			@SessionAttribute(name="member")MemberBean member,HttpServletResponse rs) throws IOException {
+		rs.setHeader("Access-Control-Allow-Origin", "*");
+		rs.setHeader("content-type", "text/html;charset=UTF-8");
+		rs.setCharacterEncoding("UTF-8");
+		PrintWriter out = rs.getWriter();
+		
+		
+		FavoritesBean bean=new FavoritesBean();
+		bean.setEventID(Integer.valueOf(eventID));
+		bean.setEventName(eventName);
+		bean.setEmail(member.getMemberemail());
+		SimpleDateFormat sdate=new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdate2=new SimpleDateFormat("HH-mm-ss");
+		try {
+			java.util.Date date1=sdate.parse(dtStart);
+			bean.setDtStart(date1);
+			bean.setTargetDate(date1);
+			date1=sdate.parse(durationEnd);
+			bean.setDurationEnd(date1);
+			date1=sdate2.parse(timeStart);
+			bean.setTimeStart(date1);			
+		} catch (ParseException e) {
+			System.out.println("轉換錯誤");
+			e.printStackTrace();
+		}
+		System.out.println("bean"+bean);
+		//資料如果沒問題 新增進資料庫
+		Integer pk=favoritesService.Create_fav(bean);
+		System.out.println("新增主key為:"+pk);
+		
+		out.println(pk);
+	
+	}
+	
+	@RequestMapping(path= {"/_04_EventPage/delete.controller"},method= {RequestMethod.POST,RequestMethod.GET})
+	public String insert(String eventID,@SessionAttribute(name="member")MemberBean member,
+			HttpServletResponse rs) throws IOException {
+		System.out.println("要刪除的主KEY :"+eventID);
+		
+		
+		return "login.error";	
+	}
+	
+
+	
+	
+	
+}
