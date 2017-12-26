@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EventCalendar</title>
 <link rel="shortcut icon" href="http://www.google.com/favicon.ico" />
 <script src='../js/fullcalendar/lib/moment.min.js'></script>
 <script src='../js/fullcalendar/lib/jquery.min.js'></script>
@@ -14,7 +14,17 @@
 <link rel='stylesheet' type='text/css' href='../css/fullcalendar/calendar.css' >
 <link rel='stylesheet' type='text/css' href='../css/fullcalendar/south-street.css' >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+
 </head>
+<script type="text/javascript">
+$(function(){
+	  $("#header").load("../commons/header.jsp"); 
+	  $("#footer").load("../commons/footer.jsp"); 
+	});
+</script>
 <script src='../js/fullcalendar/calendar.js'></script>
 <body>
 <div id="header"></div>

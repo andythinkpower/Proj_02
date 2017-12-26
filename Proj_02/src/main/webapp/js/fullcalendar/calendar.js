@@ -1,6 +1,5 @@
 $(function() {
-	$("#header").load("../commons/header.jsp"); 
-	$("#footer").load("../commons/footer.jsp"); 
+	
 	var allevent=[];
 	var email=Cookies.get('user');
 	var duration;
@@ -123,7 +122,6 @@ $(function() {
 	var data1=[];
 	$('#GGG').click(function(){
 		var getallevent=$('#calendar').fullCalendar('clientEvents');
-		console.log(getallevent)
 		$.each(getallevent, function (i, event01) {
 			event01.id=(event01.id).toString();
 			if((event01.id).length<9){
@@ -132,11 +130,9 @@ $(function() {
 				console.log(event01.id+this)
 				data0=('eventid='+id+' '+'targetdate='+date+' email='+email);
 				data1.push(data0);
-				console.log(data1)
 			}
 		});
 		getallevent=data1.join();
-		console.log('ggg'+getallevent)
 		$.post('savecalendar.controller',{'getallevent':getallevent,'email':email},function(){
 			alert("更新行事曆成功");	
 		});

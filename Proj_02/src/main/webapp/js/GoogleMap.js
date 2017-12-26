@@ -121,10 +121,12 @@ $.getJSON('mapcontroller.controller', {  }, function (data) {
 	            			id:eventid,
 							type:eventtype,
     	  					position:point, 
-	            			map: map,
+	            			now:type,
+    	  					map: map,
 	            			icon: icons[eventtype].icon,
 	            			visible: true
       					});
+		//console.log(marker)
          marker.addListener("click", function() {
             infoWindow.setContent(contentString);
             infoWindow.open(map, marker);
@@ -135,7 +137,7 @@ $.getJSON('mapcontroller.controller', {  }, function (data) {
              infoWindow.close();
              });
          */markers.push(marker);
-      
+         
       });
  });
 

@@ -40,9 +40,10 @@ public class TempController {
 		rs.setHeader("content-type", "text/html;charset=UTF-8");
 		rs.setCharacterEncoding("UTF-8");
 		PrintWriter out = rs.getWriter();
-//		Event02 event = event02Service.select(Integer.parseInt(eventID));
-//		event.setCollectionCount(event.getCollectionCount()+1);
-//		event02Service.update(event);
+		Event01 event = event02Service.select(Integer.parseInt(eventID));
+		event.setCollectionCount(Integer.valueOf((event.getCollectionCount()+1)));
+		event02Service.update(event);
+		System.out.println(event);
 		FavoritesBean bean=new FavoritesBean();
 		bean.setEventID(Integer.valueOf(eventID));
 		bean.setEventName(eventName);
