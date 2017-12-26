@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import _00_proj02Bean.Event01;
 import _05_model.Event01DAO;
-import _05_model.Event02;
 
 
 @Repository
@@ -30,21 +30,22 @@ public class Event01DAOjdbc implements Event01DAO {
 	
 	@Override
 	@Transactional
-	public List<Event02> select() {
-		Query<Event02> query =this.getSession().createQuery("FROM Event02", Event02.class);
+	public List<Event01> select() {
+		Query<Event01> query =this.getSession().createQuery("FROM Event01 where Cityid='臺北市' and datediff( day , getdate() , DurationEnd ) >= 0", Event01.class);
 		return query.getResultList();
 	}
 
 	@Override
 	@Transactional
-	public Event02 select(int eventID) {
-		return this.getSession().get(Event02.class, eventID);
+	public Event01 select(int eventID) {
+		return this.getSession().get(Event01.class, eventID);
 	}
 
 	@Override
-	public Event02 insert(Event02 event) {
+	@Transactional
+	public Event01 insert(Event01 event) {
 		if(event!=null) {
-			Event02 select = this.select(event.getEventID());
+			Event01 select = this.select(event.getEventID());
 			if(select==null) {
 				this.getSession().saveOrUpdate(event);
 				return event;
@@ -54,8 +55,9 @@ public class Event01DAOjdbc implements Event01DAO {
 	}
 
 	@Override
-	public Event02 update(Event02 event) {
-		Event02 select = this.select(event.getEventID());
+	@Transactional
+	public Event01 update(Event01 event) {
+		Event01 select = this.select(event.getEventID());
 		if(select!=null) {
 			this.getSession().save(event);
 			return event;
@@ -65,7 +67,7 @@ public class Event01DAOjdbc implements Event01DAO {
 
 	@Override
 	public boolean delete(int eventID) {
-		Event02 select = this.select(eventID);
+		Event01 select = this.select(eventID);
 		if(select!=null) {
 			this.getSession().delete(select);
 			return true;
@@ -75,9 +77,9 @@ public class Event01DAOjdbc implements Event01DAO {
 
 	@Override
 	@Transactional
-	public List<Event02> selectType(String eventtype) {
+	public List<Event01> selectType(String eventtype) {
 		String select=" where eventTypeId='"+eventtype+"'";
-		Query<Event02> query =this.getSession().createQuery("FROM Event02"+select, Event02.class);
+		Query<Event01> query =this.getSession().createQuery("FROM Event02"+select, Event01.class);
 		return query.getResultList();
 		
 	}

@@ -7,11 +7,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新增文章</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="../js/cookie.js"></script>
+<script src="../js/ckeditor/ckeditor.js"></script>    
     <style>
         body{
             font-family:Microsoft JhengHei;
+/*             background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
         }
     </style>
+    
+  <script>
+   function processData(){
+   // getting data
+   var data = CKEDITOR.instances.content.getData()
+   console.log(data)
+   }
+ </script>
 </head>
 <body>
 <jsp:include page="/commons/header.jsp"></jsp:include>
@@ -20,7 +36,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <div class="card-header" style="background-color:	#97CBFF">
+                        <div class="card-header" style="background-color:	#B8B8DC">
                             <h4>新增文章</h4>
                         </div>
                         <div class="card-body">
@@ -50,27 +66,34 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="body">文章內容</label>
-                                    <textarea class="form-control" name="articlecontent" id="editor" ></textarea>
+                                    <textarea class="form-control" name="content" id="content" ></textarea>
+<script>
+CKEDITOR.replace( 'content', {});
+</script>
                                 </div>
                                 <div>
-                                    <input type="radio" name="pravicy" id="setting1"/><label for="setting1">公開</label>
-                                    <input type="radio" name="pravicy" id="setting2" /><label for="setting2">私人</label>
+                                    <input type="radio" name="pravicy" id="setting1" value="on"/><label for="setting1">公開</label>
+                                    <input type="radio" name="pravicy" id="setting2" value="off"/><label for="setting2">私人</label>
+<!--                 	<select id="pravicy" name="pravicy" > 
+                    		<option id="pravicyon" value="on">公開</option>
+                        	<option id="pravicyoff" value="off">私人</option>
+                    	</select> -->
                                 </div>
                                 <div>
-                                    <input type="submit" class="btn btn-primary" value="送出"/>
-                                    <span>${message.scuess}</span>
+<!--                                     <input type="submit" class="btn btn-primary" value="送出"/> -->
+<%--                                     <span>${message.scuess}</span> --%>
                                     
 <!-- start here -->
-							<input type="button" class="btn btn-sm btn-secondary" value="送出"
+							<input type="button" class="btn btn-sm btn-secondary" value="送出" onclick = 'processData()'
 								id="buttonPost" data-toggle="modal" data-target="#myModal" />
 							<div class="modal" id="myModal">
 								<div class="modal-dialog">
 									<div class="modal-content">
-										<div id="show" class="modal-header">
-											<h5 class='modal-title'>新增成功</h5>										
+										<div id="header" class="modal-header">
+<!-- 											<h5 class='modal-title'>新增成功</h5>										 -->
 											<button class="close" data-dismiss="modal">&times;</button>
 										</div>
-										<div class="modal-body">太棒了！</div>
+										<div id="body" class="modal-body"></div>
 										<div class="modal-footer">
 <!-- 											<button class="btn btn-secondary" data-dismiss="modal">關閉視窗</button> -->
 											<button class="btn btn-warning"><a href="${pageContext.request.contextPath}/_06_blog/dashboard.jsp">回到部落格首頁</a></button>
@@ -90,33 +113,41 @@
         </div><!-- container end here-->
     </section>
     
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="../js/jquery-1.12.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
-    <script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-    </script>
     
-    	<script>
 
-		$('#buttonPost').click(function(){
-			$.post("${pageContext.request.contextPath}/_06_blog/post.controller",
-					{"articlename": $('#articlename').val(), "articletype": $('#articletype').val(),
-				"articlecontent": $('#editor').val(), "parvicy": $('#setting1').val(), "parvicy": $('#setting2').val()},function(bean){
-// 						if(bean==null){
-// 							$('#show').html("<h5 class='modal-title'>註冊失敗</h5>");
-// 							console.log("註冊失敗");
-// 						}else{
-// 							$('#show').html("<h5 class='modal-title'>註冊成功</h5>");
-// 							console.log("註冊成功");
-// 						}
+    
+    <script>
+    
+    	$(function(){
+        	var memberemail=Cookies.get('user');
+        	console.log(memberemail);
+    	
+
+			$('#buttonPost').click(function(){
+				var data = CKEDITOR.instances.content.getData()
+				$.post("post.controller",
+						{"memberemail": memberemail, 
+						 "articlename": $('#articlename').val(), 
+						 "articletype": $('#articletype').val(),
+						 "editor": data, 
+						 "pravicy": $("input[name=pravicy]:checked").val()},function(bean){
+						console.log($("input[name=pravicy]:checked").val())
+						if(bean==null){
+							$('#header').html("<h5 class='modal-title'>新增失敗</h5>");
+							$('#body').html("QQ");
+							console.log("新增失敗");
+						}else{
+							$('#header').html("<h5 class='modal-title'>新增成功</h5>");
+							$('#body').html("太棒了");
+							console.log("新增成功");
+						}
 					})			
-		});
+			});
+		
+    	});
 
 	</script>
 <jsp:include page="/commons/footer.jsp"></jsp:include>

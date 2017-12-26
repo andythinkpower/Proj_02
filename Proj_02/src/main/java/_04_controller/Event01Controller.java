@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import _04_model.Event01;
+import _00_proj02Bean.Event01;
 import _04_model.Event01Service;
 
 @Controller

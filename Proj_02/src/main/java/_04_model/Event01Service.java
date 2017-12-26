@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import _00_proj02Bean.Event01;
+
 @Service
 @Transactional
 public class Event01Service {

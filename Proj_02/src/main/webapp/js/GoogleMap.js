@@ -24,7 +24,7 @@ function CenterControl(controlDiv, map) {
      controlText.style.paddingRight = '5px';
      controlText.innerHTML = '圖標顯示隱藏';
      controlUI.appendChild(controlText);
-
+     //設定全圖標顯示/隱藏
      var visible=true;
      controlUI.addEventListener('click', function() {
     	if(visible){
