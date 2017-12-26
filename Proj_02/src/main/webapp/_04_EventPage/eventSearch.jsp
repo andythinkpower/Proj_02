@@ -60,26 +60,7 @@
 <body>
 <jsp:include page="/commons/header.jsp"></jsp:include>
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
-	
-<<<<<<< HEAD
-	<form name="selectForm">
-		<fieldset>
-			<legend>活動類型</legend>
 
-
-
-				<input type="checkbox" id="全部" name="manyTypes" value="休閒展覽音樂表演研習親子影視" checked="checked" onclick="switchToAll(this.form)">全部
-				<input type="checkbox" id="休閒" name="eventType" value="休閒" onclick="changeTypes(this.form)">休閒
-				<input type="checkbox" id="展覽" name="eventType" value="展覽" onclick="changeTypes(this.form)">展覽
-				<input type="checkbox" id="音樂" name="eventType" value="音樂" onclick="changeTypes(this.form)">音樂
-				<input type="checkbox" id="表演" name="eventType" value="表演" onclick="changeTypes(this.form)">表演
-				<input type="checkbox" id="研習" name="eventType" value="研習" onclick="changeTypes(this.form)">研習
-				<input type="checkbox" id="親子" name="eventType" value="親子" onclick="changeTypes(this.form)">親子
-				<input type="checkbox" id="影視" name="eventType" value="影視" onclick="changeTypes(this.form)">影視
-				<span id="count" ></span>
-		</fieldset>
-	</form>
-=======
 	<input type="text" id="areaText" value="" style="width:250px;">
  
 	<div id="selectArea" class="selectArea">
@@ -120,7 +101,7 @@
 		<label><input type="checkbox" name="eventType" value="影視"><span>影視</span></label>
 		<span id="count" ></span>
 	</div>
->>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
+
 	
 	<table id="eventTable">
 		<thead>
