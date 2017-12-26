@@ -12,13 +12,13 @@ public class BlogBean {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer articleid;
+	private int articleid;
 	private String articlename;
 	private String articlecontent;
 	private java.util.Date posttime;
 	private String articletype;
 	private String pravicy;
-	private String likenum="0";
+	private String likenum="1";
 	private String viewnum="0";
 	private String memberemail;
 	
@@ -29,10 +29,10 @@ public class BlogBean {
 				+ articlecontent + ", posttime=" + posttime + ", articletype=" + articletype + ", pravicy=" + pravicy
 				+ ", likenum=" + likenum + ", viewnum=" + viewnum + ", memberemail=" + memberemail + "]";
 	}
-	public Integer getArticleid() {
+	public int getArticleid() {
 		return articleid;
 	}
-	public void setArticleid(Integer articleid) {
+	public void setArticleid(int articleid) {
 		this.articleid = articleid;
 	}
 	public String getArticlename() {

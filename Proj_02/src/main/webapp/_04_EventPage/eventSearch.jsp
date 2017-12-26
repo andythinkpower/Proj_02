@@ -60,7 +60,7 @@
 <body>
 <jsp:include page="/commons/header.jsp"></jsp:include>
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
-	
+
 	<input type="text" id="areaText" value="" style="width:250px;">
  
 	<div id="selectArea" class="selectArea">
@@ -101,6 +101,7 @@
 		<label><input type="checkbox" name="eventType" value="影視"><span>影視</span></label>
 		<span id="count" ></span>
 	</div>
+
 	
 	<table id="eventTable">
 		<thead>

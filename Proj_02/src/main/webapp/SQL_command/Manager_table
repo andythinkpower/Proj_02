@@ -1,0 +1,12 @@
+/*--MANAGER--管理者--*/
+
+CREATE TABLE Manager
+(
+    Manager_ID					INT IDENTITY NOT NULL,
+	Manager_Account				VARCHAR(20),
+	Manager_Password			VARCHAR(20),
+	Manager_Level				TINYINT,
+	CONSTRAINT Manager_PK PRIMARY KEY (Manager_ID)
+);
+
+INSERT INTO Manager VALUES ('456','456',1);

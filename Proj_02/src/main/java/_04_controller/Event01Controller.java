@@ -20,11 +20,16 @@ public class Event01Controller {
 	@Autowired
 	private Event01Service event01Service;
 
+
+
 	@RequestMapping(path = { "/_04_EventPage/searchEvent.controller" }, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
+
 	public List<Event01> eventSearch(String newDate , String newAreas , String newTypes) {
 		return event01Service.eventSearch(newDate , newAreas , newTypes);
 	}
+
+
 
 	@RequestMapping(path = { "/_04_EventPage/oneEvent.controller" }, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody

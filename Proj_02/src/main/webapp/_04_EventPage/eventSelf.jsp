@@ -143,7 +143,13 @@
 				});
 			}); // JSON END
 			
+<<<<<<< HEAD
+
 		}); // 開啟即執行 END
+
+=======
+		}); // 開啟即執行 END
+>>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
 		
 	</script>
 <jsp:include page="/commons/footer.jsp"></jsp:include>
