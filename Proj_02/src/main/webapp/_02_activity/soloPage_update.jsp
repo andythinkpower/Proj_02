@@ -12,6 +12,10 @@
 
 <title>顯示單獨頁面</title>
 <style>
+ body{
+		background-color:		#F2E6E6;
+	}
+
 #section {
 	margin: 5%;
 	width: 30%;

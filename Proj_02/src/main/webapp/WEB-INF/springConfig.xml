@@ -36,6 +36,8 @@
 <!-- 				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.show_sql">true</prop> -->
 				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+				<!-- 限制搜尋條件 -->
+				<prop key="hibernate.legacy_limit_handler">true</prop>
 			</props>
 		</property>
 		<property name="annotatedClasses">

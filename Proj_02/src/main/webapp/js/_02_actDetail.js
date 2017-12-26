@@ -1,107 +1,99 @@
-$(function () {
-    ///////////一進畫面執行/////////////
-    //計算目前天數 全域變數
-    count = 0;
-    //畫面一進入先自動新增一天
-    $("#form").append(addDay());
+ $(function () {
 
-    ///////////事件/////////////
-    //按下停留時間按鈕 記住當下位置 方便等等儲存時間
-    $('body').on('click', '.setTime', function () {
-        //前面沒var 是全域變數
-        time_value = $(this).nextAll(".time");
-    });
+            var count = 0;
+            addDay();
+            //增加單天活動項目
+            $('body').on('click', ".add_detail", create_detail);
+            //增加新的一天
+            $('#create_Day').on('click', addDay);
+
+            //刪除單一活動項目 如果全刪光 會自動把當天也砍掉  !!天數還沒能全部動態更新!!
+            $('body').on('click', '.delete', function () {
+                var length = $(this).parents(".card-body").children(".form-row").length;
+                if (length == 1) {
+                    console.log("length=0");
+                    $(this).parents(".card").remove();
+                    count--;
+                } else {
+                    $(this).parents(".form-row").remove();
+                }
+            });
+
+            //按下停留時間按鈕 記住當下位置 方便等等儲存時間
+            $('body').on('click', '.setTime', function () {
+                //前面沒var 是全域變數
+                time_value = $(this);
+            });
+
+            //選擇完停留時間 按下儲存按鈕  要抓到剛調整的時間值 存到input裡面
+            $('body').on('click', ".saveTime", function () {
+                var stay_time = $(this).parents('.modal-content').find(".stayTime").text();
+                console.log(stay_time);
+                time_value.attr("value", stay_time);
+            });
+
+            //拉軸拉停留時間
+            $("body").on('click', '.add_detail', function () {
+                $(".slider").slider({
+                    min: 0,
+                    max: 1440,
+                    step: 15,
+                    slide: function (e, ui) {
+                        var hours = Math.floor(ui.value / 60);
+                        var minutes = ui.value - (hours * 60);
+                        console.log(hours);
+                        if (hours < 10)   hours = '0' + hours;
+                        if (minutes == 0) minutes = '0' + minutes;
+                        $('.modal-title').html(hours + ':' + minutes);
+                    }
+                });
+            })
 
 
-
-
-    //選擇完停留時間 按下儲存按鈕  要抓到剛調整的時間值 存到input裡面
-    $('body').on('click', ".saveTime", function () {
-        var stay_time = $(this).parents('.modal-content').find(".stayTime").text();
-        console.log("ans:" + stay_time);
-        time_value.attr("value", stay_time);
-    });
-
-
-    $("body").on('click', '.add_detail', function () {
-        $(".slider").slider({
-            min: 0,
-            max: 1440,
-            step: 15,
-            slide: function (e, ui) {
-                var hours = Math.floor(ui.value / 60);
-                var minutes = ui.value - (hours * 60);
-                if (hours.length == 1) hours = '0' + hours;
-                if (minutes.length == 1) minutes = '0' + minutes;
-                $('.modal-title').html(hours + ':' + minutes);
+            function create_detail() {
+                var row = $("<div class='form-row my-2'>").html("<div class='col-2'>" +
+                     "<input class='form-control setTime time' data-toggle='modal' data-target='#timeSlider' type='text' name='times' placeholder='停留時間' readonly />" +
+                     "</div><div class='col'><select class='custom-select mb-2 mr-sm-2 mb-sm-0 id='inlineFormCustomSelect' name='kinds'>" +
+                     "<option value='' selected>選擇類型</option><option value='景點'>景點</option><option value='餐廳'>餐廳</option><option value='飯店'>飯店" +
+                     "</option><option value='活動'>活動</option><option value='其他'>其他</option></select></div> <div class='col-5'>" +
+                     "<input class='form-control note' name='note' placeholder='輸入所要搜尋的資料' data-toggle='modal' data-target='#searchBox' readonly />" +
+                     "</div> <div class='col'><input class='form-control' name='budget' placeholder='預算' /></div>" +
+                     "<div class='col'><img src='img/trash-3x.png' class='mt-1 pl-2 delete'/></div><input name='dates' type='hidden' value='"+count+"'/>" +
+                     "<input name='longitude_temp' type='hidden' value=''/><input name='latitude_temp' type='hidden' value=''/>");
+                $(this).before(row);
             }
-        });
 
-    })
-
-    //送出資料
-    $("#submit").on('click', function () {
-        $("#form").submit();
-    });
-
-    //刪除單一活動項目 如果全刪光 會自動把當天也砍掉  !!天數還沒能動態更新!!
-    $('body').on('click', '.delete', function () {
-        console.log($(this).parents('.del').children().length);
-        if ($(this).parents('.del').children().length == 2) {
-            $(this).parents('.father').remove();
-            count--;
-        } else {
-            $(this).parents('.single').remove();
-        }
-
-    });
-
-    //增加單天活動項目
-    $('body').on('click', ".add_detail", create_detail);
-    function create_detail() {
-        $(this).before('<div class="single"></div>');
-        $(this).prev().append('<input type="button" class="btn btn-info setTime" data-toggle="modal" data-target="#timeSlider" value="停留時間"/>'
-                + '<input class="time" type="text"  name="times" value="" />');
+            function addDay() {
+                //檢查天數
+                count++;
+                //新增天數框架
+                var card = $("<div class='card mt-3' style='border:2px solid gray;'>");
+                var head = $("<div class='card-head'><h2 class='pt-2 px-3'>第<span>" + count + "</span>天</h2></div>")
+                var body = $("<div class='card-body'>");
+                body.append("<input class='btn btn-info col-3 mt-3 add_detail' type='button' value='新增活動' />");
+                card.append(head);
+                card.append(body);
+                $(".option").before(card);
+            };
 
 
-        var activity = ['表演', '展覽', '音樂', '研習', '影視', '休閒', '親子'];
-        var select = $("<select name='kinds'>");
-        for (i = 0; i <= activity.length; i++) {
-            if (i == 0) {
-                var op = $("<option>").text('種類');
-            } else {
-                var op = $("<option>").text(activity[i - 1]);
+            $("body").on("change", "#file", function () {
+                preview(this);
+            })
+            function preview(input) {
+
+                //取得檔名
+                $(".cap").text(input.files[0].name);
+
+
+                if (input.files && input.files[0]) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        //會在class="preview" e.target.result為圖片暫存路徑
+                        $('.preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
-            select.append(op);
-        }
-        $(this).prev().append(select);
-
-        //活動名稱 預算 動態更新
-        for (j = 0; j < 5; j++) {
-            if (j == 0) {
-                $(this).prev().append($("<input class='note' name='note' placeholder='活動地點' data-toggle='modal' data-target='#searchBox'>"));
-            } else if (j == 1) {
-                $(this).prev().append($("<input name='budget' placeholder='預算'>"));
-            } else if (j == 2) {
-                $(this).prev().append($("<input name='dates' type='hidden' value='" + count + "'>"));
-                var dd = $(this).parents('.father').find("span").text();
-                console.log(dd);
-            } else if (j == 3) {
-                $(this).prev().append($("<input name='longitude_temp' type='hidden' value='" + count + "'>"));
-            } else if (j == 4) {
-                $(this).prev().append($("<input name='latitude_temp' type='hidden' value='" + count + "'>"));
-            }
-        }
-        $(this).prev().append("<input class='delete' type='button' value='刪除'/><br>")
-    }
-    //新增新的一天
-    $('#create_Day').on('click', addDay);
-
-    function addDay() {
-        //檢查天數  
-        count++;
-        //新增天數框架
-        $("#form").append('<div id="days"><div class="father"><fieldset><legend>第<span>' + count + '</span>天</legend>'
-            + '<div class="del"><input type="button" class="add_detail" value="新增行程"></div></fieldset></div></div>')
-    };
-});
+        })

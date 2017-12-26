@@ -91,6 +91,7 @@ public class Activity_Controller {
 					//要存到資料庫的路徑
 					String showPic="/uploadFile/"+filename;
 					Cookie picPath=new Cookie("picPath",showPic);
+					bean.setPhotoPath(showPic);
 					picPath.setMaxAge(60*60);
 					
 					response.addCookie(picPath);

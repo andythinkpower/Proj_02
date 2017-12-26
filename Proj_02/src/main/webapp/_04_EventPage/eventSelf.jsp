@@ -10,16 +10,16 @@
 <link rel="stylesheet" type="text/css" href="../css/table.css" />
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- DataTables -->
-<script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<!-- bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<!-- Cookie js -->
+<script src="../js/cookie.js"></script>
 <title>活動專屬頁面</title>
 
 </head>
 <body>
 <jsp:include page="/commons/header.jsp"></jsp:include>
+
 	<p id="eventID" style="display: none;"><%= request.getParameter("eventID") %></p>
 	<div id="temp">
 		
@@ -31,18 +31,24 @@
 	<input type="button" id="del_favorite" value="刪除收藏" style="width:120px;height:40px;font-size:20px;background-color: orange">
 	<script>
         $('#favorite').click(function () {
-            //取得該欄位的eventID
-            var pk = $("#eventID").text();
-            var durationEnd=$("#durationEnd").text();
-            var dtStart=$("#dtStart").text();
-            var eventName=$("#eventName").text(); 
-            var timeStart=$("#timeStart").text();
-            var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
-            //改變按鈕狀態
-            $("#favorite").text("已收藏");
-            $("#favorite").attr("style", 'style="width:120px;height:40px;font-size:20px;background-color: blue"');      
-            //把此欄位的eventID 存到該會員的收藏表格
-            $.post('insert.controller',data);
+        	//!!!!! 登入要把cookie 刪除 這個驗證才能成立
+        	var user=Cookies.get("user");
+        	if(user==undefined){
+        		alert("請先登入");
+        	}else{
+        		//取得該欄位的eventID
+                var pk = $("#eventID").text();
+                var durationEnd=$("#durationEnd").text();
+                var dtStart=$("#dtStart").text();
+                var eventName=$("#eventName").text(); 
+                var timeStart=$("#timeStart").text();
+                var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
+                //改變按鈕狀態
+                $("#favorite").text("已收藏");
+                $("#favorite").attr("style", 'style="width:120px;height:40px;font-size:20px;background-color: blue"');      
+                //把此欄位的eventID 存到該會員的收藏表格
+                $.post('insert.controller',data);
+        	}
         });
         $('#del_favorite').click(function () {
         	//取得該欄位的eventID
