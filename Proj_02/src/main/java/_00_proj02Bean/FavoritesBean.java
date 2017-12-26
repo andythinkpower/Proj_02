@@ -1,4 +1,4 @@
-package _05_model;
+package _00_proj02Bean;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -8,7 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import _04_model.Event01;
+import _00_proj02Bean.Event01;
 import _04_model.Event01DAO;
 
 @Repository

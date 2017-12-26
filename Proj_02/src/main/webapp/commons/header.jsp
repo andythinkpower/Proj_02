@@ -3,7 +3,7 @@
 <!--      <img  src="../img/default.jpg" style="width:150px;"/> -->
     <nav class="navbar navbar-expand-sm navbar-light p-4" style="background-color:	#EBD6D6;">
         <div class="container">
-            <a href="../index.jsp" class="navbar-brand">
+            <a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand">
                 <img src="${pageContext.request.contextPath}/img/taipei-logo.jpg" width="30" height="30" class="d-inline-block align-top" />
                 TaipeiTalk
             </a>
