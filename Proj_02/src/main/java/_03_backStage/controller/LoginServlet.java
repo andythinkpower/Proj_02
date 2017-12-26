@@ -18,7 +18,7 @@ import _03_backStage.model.BackStageLoginService;
 import _03_backStage.model.ManagerVO;
 
 
-@WebServlet("/_01_register/login2.do")
+@WebServlet("/_03_backStage/login2.aa")
 public class LoginServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -94,7 +94,7 @@ public class LoginServlet extends HttpServlet
 			{
 				requestURI = (requestURI.length() == 0 ? request.getContextPath() : requestURI);
 //				response.sendRedirect(response.encodeRedirectURL(requestURI));
-				response.sendRedirect(request.getContextPath() + "/_06_backStage/BackStage.jsp");
+				response.sendRedirect(request.getContextPath() + "/_03_backStage/BackStage.jsp");
 				return;
 			} else
 			{
@@ -105,7 +105,7 @@ public class LoginServlet extends HttpServlet
 		} else
 		{
 			// 如果errorMsgMap不是空的，表示有錯誤，交棒給login.jsp
-			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("_03_backStage/BackStage.jsp");
 			rd.forward(request, response);
 			return;
 		}

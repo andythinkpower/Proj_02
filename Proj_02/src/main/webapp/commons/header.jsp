@@ -47,7 +47,7 @@
                         	<a href="${pageContext.request.contextPath}/_01_member/register.jsp" class="dropdown-item">註冊</a>
                             <a href="${pageContext.request.contextPath}/security/login.jsp" class="dropdown-item">登入</a>
                             <a href="${pageContext.request.contextPath}/_02_activity/login_out.jsp" class="dropdown-item">登出</a>
-                            <a href="${pageContext.request.contextPath}/index.jsp" class="dropdown-item">管理員</a>
+                            <a href="${pageContext.request.contextPath}/_03_backStage/login2.jsp" class="dropdown-item">管理員</a>
                         </div>
                     </li>
                 </ul><!--ul3 end here-->

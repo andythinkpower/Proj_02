@@ -49,7 +49,7 @@ input[type="submit"] {
 <body>
 <%-- <jsp:include page="/fragment/top.jsp"/> --%>
 <center>  
-<form Action="<c:url value='login2.do' />" method="POST">
+<form Action="<c:url value='login2.aa' />" method="POST">
 	<table width='330'  >
          <tr>
          	<th colspan='3'>
