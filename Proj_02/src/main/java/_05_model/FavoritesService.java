@@ -34,10 +34,11 @@ public class FavoritesService {
 	}
 
 	
-	/*
-	public void update(String email){
-		favoritesDAO.update(email);
+	
+	public FavoritesBean selectFavorite(String email,Integer eventID){
+		FavoritesBean result = favoritesDAO.selectFavorites(email, eventID);
+		return result;
 	};
-	*/
+	
 	
 }

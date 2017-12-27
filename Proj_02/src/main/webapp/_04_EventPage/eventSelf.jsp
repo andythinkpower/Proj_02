@@ -97,8 +97,30 @@
 	<script>
 		// 開啟即執行
 		$(function(){
-			
+			var user=Cookies.get("user");
 			var eventID = $("#eventID").text();
+			if(user!==undefined){
+			$.getJSON('checkFavorites.controller',{'eventid':eventID,'email':user},function(data){
+				console.log(data)	
+			});
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			$('#eventTable>tbody').empty();
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
 				console.log(data)
