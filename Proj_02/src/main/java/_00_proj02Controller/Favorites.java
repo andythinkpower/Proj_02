@@ -125,7 +125,7 @@ public class Favorites {
 		List<FavoritesBean> result = favoritesService.select(email);
 		return result;
 	}
-	
+	//單一會員單一收藏活動細節
 	@RequestMapping(
 			path="/_02_favorite/getallFavoritesevent.controller",
 			method={RequestMethod.GET},
@@ -137,7 +137,7 @@ public class Favorites {
 		return result;
 	}
 	
-	
+	//單一會員全部收藏活動細節
 	@RequestMapping(
 			path="/_02_favorite/getallFavoritesevent02.controller",
 			method={RequestMethod.GET},

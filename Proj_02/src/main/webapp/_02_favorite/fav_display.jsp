@@ -74,7 +74,9 @@
 			});
 			*/
 			$.getJSON('getallFavoritesevent02.controller', {'email':email }, function (data) {
-				console.log(data)
+				$.each(data, function (i, event01) {
+				console.log(event01)
+				});
 			});
 			
 			
