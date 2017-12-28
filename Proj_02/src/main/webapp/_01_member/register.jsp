@@ -11,12 +11,16 @@
 	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
 	crossorigin="anonymous">
 </head>
-<style>
-body {
-	font-family: Microsoft JhengHei;
-	background-color:	#F2E6E6;
-}
-</style>
+    <style>
+        body {
+			font-family: Microsoft JhengHei;
+			background-image:url('${pageContext.request.contextPath}/img/997.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
+    </style>
 <body>
 	<jsp:include page="../commons/header.jsp"></jsp:include>
 
@@ -32,15 +36,16 @@ body {
 						<form action="<c:url value='/register.controller' />"
 							method="post">
 							<div class="form-group">
-								<label for="username">帳號：</label> <input type="text" id="email"
-									placeholder="請輸入E-mail" class="" name="memberemail"
-									value="${param.memberemail}"> <span>${errors.erremail}</span>
+								<label for="username">帳號：</label>
+								<input type="text" id="email" placeholder="請輸入E-mail" 
+									name="memberemail" onblur="checkName()">
+									<span id="idsp"></span>
 							</div>
 							<div class="form-group">
-								<label for="password">密碼：</label> <input type="password"
-									id="password" placeholder="請輸入密碼" class=""
-									name="memberpassword" value="${param.memberpassword}">
-								<span>${errors.errpsw}</span>
+								<label for="password">密碼：</label>
+								<input type="password" id="password" placeholder="請輸入密碼" 
+									onblur="checkPwd()" name="memberpassword">
+									<span id="idsp2"></span>								
 							</div>
 <!-- 							<div class="form-group"> -->
 <!-- 								<a href="">用Facebook登入</a> <a href="">用Google登入</a> -->
@@ -48,15 +53,15 @@ body {
 <!-- 							<input class="btn btn-primary" type="submit" value="送出" /> -->
 
 							<!-- start here -->
-							<input type="button" class="btn btn-primary" value="註冊"
-								id="buttonPost" data-toggle="modal" data-target="#myModal" />
+							<input type="button" class="btn btn-primary" value="註冊" onclick="checkValid()"
+								id="buttonPost" data-toggle="modal" data-target="#myModal" /> <span id="idsp3"></span>
 							<div class="modal" id="myModal">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div id="show" class="modal-header">											
 											<button class="close" data-dismiss="modal">&times;</button>
 										</div>
-										<div class="modal-body">Welcome</div>
+<!-- 										<div class="modal-body">Welcome</div> -->
 										<div class="modal-footer">
 <!-- 											<button class="btn btn-secondary" data-dismiss="modal">關閉視窗</button> -->
 											<button class="btn btn-warning"><a href="${pageContext.request.contextPath}/index.jsp">回到首頁</a></button>
@@ -81,28 +86,82 @@ body {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 	
 	<script>
-// 	$('#buttonPost').click(function() {
-// 		//練習二使用post()
-// 		//1. 呼叫FirstServlet
-// 		//2. 傳 name=Mary及age=的25資料給Parameter.jsp
-// 		//3. 將Server端回傳的結果加上h2的標籤,顯示在show的div中
-
-// 		$.post("FirstServlet",{'name':'Jack','age':25},function(data){
-// 			$("#show").html("<h2>"+data+"</h2>");
-// 		})
-// 	});
+	　
+	document.getElementById('buttonPost').disabled=true;
+	var checkflag1 =true;
+	var checkflag2 =true;	
+	
+		//檢查帳號
+		function checkName(){
+	        var theName = document.getElementById("email").value;
+	        var nameLen = theName.length;
+	        var flag = true;        
+	        var emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+	        
+	        if (theName == "") {
+	            document.getElementById("idsp").innerHTML = "<img src='../img/error.png' />請輸入帳號";
+	            flag = false;
+	            checkflag1 =true;
+	        }else if(theName.search(emailRule)!= -1){
+	        	flag = true;
+	        }else{
+	        	document.getElementById("idsp").innerHTML = "<img src='../img/error.png' />請輸入正確email";
+	        	flag = false;
+	        	checkflag1 =true;
+	        	
+	        }
+	        if (flag) {
+	            document.getElementById("idsp").innerHTML = "<img src='../img/check.png' /> OK"
+	            //document.getElementById("idsp").style.color = "green";
+	            checkflag1 =false;
+	           
+	        } //if end
+	        checkValid();
+		} //checkName() end
+		
+	    //檢查密碼
+	    function checkPwd() {
+	        var thePwd = document.getElementById("password").value;
+	        var pwdLen = thePwd.length;
+	        var re = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
+	        if (thePwd == "") {
+	            document.getElementById("idsp2").innerHTML = "<img src='../img/error.png' />請輸入密碼";
+	            checkflag2 =true;
+	        } //if end
+	        else if (re.test(thePwd)) {
+	            document.getElementById("idsp2").innerHTML = "<img src='../img/check.png' /> OK";
+	            //document.getElementById("idsp2").style.color = "green";
+	            checkflag2 =false;	            
+	        } //else if end
+	        else {
+	            document.getElementById("idsp2").innerHTML = "<img src='../img/error.png' />至少6個字且必須包含英文字母、數字";
+	            checkflag2 =true;
+	        } //else end
+	        checkValid();	        
+	    } //checkPwd() end	
+	    
+		function checkValid(){
+			if(checkflag1==false && checkflag2==false){
+				document.getElementById('buttonPost').disabled=false;
+				document.getElementById("idsp3").innerHTML = "";
+			}else{	
+				document.getElementById('buttonPost').disabled=true;
+				document.getElementById("idsp3").innerHTML = "<img src='../img/error.png' />別想偷跑";
+			}
+	    }	
 
 		$('#buttonPost').click(function(){
 			$.post("${pageContext.request.contextPath}/_01_member/register.controller",
-					{"memberemail": $('#email').val(), "memberpassword": $('#password').val()},function(bean){
-						if(bean==null){
-							$('#show').html("<h5 class='modal-title'>註冊失敗</h5>");
+					{"memberemail": $('#email').val(), "memberpassword": $('#password').val()},function(x){
+						console.log(x);
+						if(x==false){
+							$('#show').html("<h5 class='modal-title'>帳號重複</h5>");
 							console.log("註冊失敗");
 						}else{
 							$('#show').html("<h5 class='modal-title'>註冊成功</h5>");
 							console.log("註冊成功");
 						}
-					})			
+					},"json")			
 		});
 
 	</script>

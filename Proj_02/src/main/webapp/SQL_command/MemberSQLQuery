@@ -107,12 +107,12 @@ primary key(MemberEmail,Region)
 );
 
 
-insert into LikeRegions values ('aaa@gmail.com','大安')
-insert into LikeRegions values ('aaa@gmail.com','萬華')
-insert into LikeRegions values ('bbb@gmail.com','大安')
-insert into LikeRegions values ('bbb@gmail.com','萬華')
-insert into LikeRegions values ('ccc@gmail.com','大安')
-insert into LikeRegions values ('ccc@gmail.com','中正')
+insert into LikeRegions values ('aaa@gmail.com','大安區')
+insert into LikeRegions values ('aaa@gmail.com','萬華區')
+insert into LikeRegions values ('bbb@gmail.com','大安區')
+insert into LikeRegions values ('bbb@gmail.com','萬華區')
+insert into LikeRegions values ('ccc@gmail.com','大安區')
+insert into LikeRegions values ('ccc@gmail.com','中正區')
 
 
 CREATE TABLE Blogs

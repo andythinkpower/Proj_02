@@ -8,9 +8,9 @@ import _00_proj02Bean.FavoritesBean;
 public interface FavoritesDAO {
 	public List<FavoritesBean> select(String email);
 	public String update(String email,List<FavoritesBean> jsondata);
-	public boolean delete(Integer pk);
 	public Integer insert(FavoritesBean bean);
 	public String updateCalendar(String email, Integer eventID, Date targetDate);
-	public FavoritesBean selectFavorites(String email, Integer eventID);	
+	public FavoritesBean selectFavorites(String email, Integer eventID);
+	public boolean delete(String email, Integer eventID);	
 	
 }

@@ -5,33 +5,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login</title>
+<title>登入</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
 	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
 	crossorigin="anonymous">
-	    <style>
+    <style>
         body {
-            font-family: Microsoft JhengHei;
-            background-color:	#F2E6E6;
-        }
+			font-family: Microsoft JhengHei;
+			background-image:url('${pageContext.request.contextPath}/img/997.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
     </style>
 </head>
 <body>
 <jsp:include page="../commons/header.jsp"></jsp:include>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=1964367790442563';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+// (function(d, s, id) {
+//   var js, fjs = d.getElementsByTagName(s)[0];
+//   if (d.getElementById(id)) return;
+//   js = d.createElement(s); js.id = id;
+//   js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=1964367790442563';
+//   fjs.parentNode.insertBefore(js, fjs);
+// }(document, 'script', 'facebook-jssdk'));
+</script>
 <script>
 
-FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-});
+// FB.getLoginStatus(function(response) {
+//     statusChangeCallback(response);
+// });
 
 
 // {
@@ -45,32 +51,32 @@ FB.getLoginStatus(function(response) {
 // }
 
 
-function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-}
+// function checkLoginState() {
+//   FB.getLoginStatus(function(response) {
+//     statusChangeCallback(response);
+//   });
+// }
 
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{1964367790442563}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{v2.11}'
-    });
+//   window.fbAsyncInit = function() {
+//     FB.init({
+//       appId      : '{1964367790442563}',
+//       cookie     : true,
+//       xfbml      : true,
+//       version    : '{v2.11}'
+//     });
       
-    FB.AppEvents.logPageView();   
+//     FB.AppEvents.logPageView();   
       
-  };
+//   };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+//   (function(d, s, id){
+//      var js, fjs = d.getElementsByTagName(s)[0];
+//      if (d.getElementById(id)) {return;}
+//      js = d.createElement(s); js.id = id;
+//      js.src = "https://connect.facebook.net/en_US/sdk.js";
+//      fjs.parentNode.insertBefore(js, fjs);
+//    }(document, 'script', 'facebook-jssdk'));
 </script>
 
 <section>
@@ -85,14 +91,13 @@ function checkLoginState() {
                             <form action="<c:url value='/login.controller' />" method="post">
                                 <div class="form-group">
                                     <label for="username">帳號：</label>
-                                    <input type="text" id="email" placeholder="請輸入E-mail"
-                                           class="" name="memberemail" value="${sessionScope.memberemail}">
+                                    <input type="text" id="email" placeholder="請輸入E-mail" name="memberemail"
+                                    	value="${errors.account}">
                                     <span>${errors.erremail}</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">密碼：</label>
-                                    <input type="password" id="password" placeholder="請輸入密碼"
-                                           class="" name="memberpassword" value="${sessionScope.memberpassword}">
+                                    <input type="password" id="password" placeholder="請輸入密碼" name="memberpassword">
                                     <span>${errors.errpsw}</span>
                                 </div>
                                 <div class="checkbox">
@@ -105,7 +110,7 @@ function checkLoginState() {
                                 </div>
                                 <div class="form-group">
                                     <a href="">忘記密碼？</a>
-                                    <a href="">建立新會員</a>
+                                    <a href="${pageContext.request.contextPath}/_01_member/register.jsp">建立新會員</a>
                                 </div>
                                 <input class="btn btn-primary" type="submit" value="登入" />
                             </form>

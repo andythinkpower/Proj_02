@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新增文章</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="../js/cookie.js"></script>
 <script src="../js/ckeditor/ckeditor.js"></script>    
     <style>
@@ -19,6 +21,11 @@
             background-position: center;
             background-size: cover;
         }
+        .img{
+			width:500px;
+			height:200px;
+			overflow:hidden;
+		}
     </style>
     
   <script>
@@ -40,7 +47,7 @@
                             <h4>新增文章</h4>
                         </div>
                         <div class="card-body">
-                            <form name="form" action="<c:url value='/blog.controller' />" method="post">
+                            <form name="form" enctype="Multipart/Form-Data" action="<c:url value='/blog.controller' />" method="post">
                                 <div class="form-group">
                                     <label for="title">文章標題</label>
                                     <input type="text" class="form-control" name="articlename" id="articlename" value="" />
@@ -58,10 +65,26 @@
                                         <option value="戶外行腳">戶外行腳</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="file">封面照片</label>
-                                    <img /><!--上傳後的照片顯示在這裡-->
-                                    <input type="file" class="form-control-file" />
+                                <div class="form-group img">
+                                    <label for="uploadImage">封面照片<br>
+                                    	<img name="blogphoto" width="250" id="img" src="${pageContext.request.contextPath}/img/default.jpg" />
+                                    	<input type="file" style="display:none" accept="image/*" id="uploadImage" name="blogphoto"/>
+                                    </label>
+                                    <script>
+                                            $("#uploadImage").change(function () {
+                                                readImage(this);
+                                            });
+                                            function readImage(input) {
+                                                if (input.files && input.files[0]) {
+                                                    var FR = new FileReader();
+                                                    FR.onload = function (e) {
+                                                        //e.target.result = base64 format picture
+                                                        $('#img').attr("src", e.target.result);
+                                                    };
+                                                    FR.readAsDataURL(input.files[0]);
+                                                }
+                                            }
+                                        </script>
                                     <small class="form-text text-muted">Max Size QQ</small>
                                 </div>
                                 <div class="form-group">
@@ -72,8 +95,8 @@ CKEDITOR.replace( 'content', {});
 </script>
                                 </div>
                                 <div>
-                                    <input type="radio" name="pravicy" id="setting1" value="on"/><label for="setting1">公開</label>
-                                    <input type="radio" name="pravicy" id="setting2" value="off"/><label for="setting2">私人</label>
+                                    <input type="radio" name="pravicy" id="setting1" value="公開"/><label for="setting1">公開</label>
+                                    <input type="radio" name="pravicy" id="setting2" value="私人"/><label for="setting2">私人</label>
 <!--                 	<select id="pravicy" name="pravicy" > 
                     		<option id="pravicyon" value="on">公開</option>
                         	<option id="pravicyoff" value="off">私人</option>
@@ -132,10 +155,11 @@ CKEDITOR.replace( 'content', {});
 						{"memberemail": memberemail, 
 						 "articlename": $('#articlename').val(), 
 						 "articletype": $('#articletype').val(),
+						 "uploadImage":$('#uploadImage').val(),
 						 "editor": data, 
-						 "pravicy": $("input[name=pravicy]:checked").val()},function(bean){
+						 "pravicy": $("input[name=pravicy]:checked").val()},function(x){
 						console.log($("input[name=pravicy]:checked").val())
-						if(bean==null){
+						if(x==false){
 							$('#header').html("<h5 class='modal-title'>新增失敗</h5>");
 							$('#body').html("QQ");
 							console.log("新增失敗");

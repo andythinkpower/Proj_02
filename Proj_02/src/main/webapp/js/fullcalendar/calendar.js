@@ -1,7 +1,11 @@
 $(function() {
-	
 	var allevent=[];
-	var email=Cookies.get('user');
+	var email;
+	$.get('checkMemSession.controller',{},function(data){
+		email=data;
+		if(email!='null'){
+			$("#header").load("../commons/header_login.jsp"); 
+		  
 	var duration;
 	$.getJSON('getFavorites.controller', {'email':email }, function (data) {
 		$.each(data, function (i, event01) {
@@ -161,7 +165,13 @@ $(function() {
 			}
 		});
 	});
-	
+	} else{
+			$("#header").load("../commons/header.jsp"); 
+			alert('請先登入會員')
+		}
+		
+	});
+	$("#footer").load("../commons/footer.jsp"); 
 
 });
 
