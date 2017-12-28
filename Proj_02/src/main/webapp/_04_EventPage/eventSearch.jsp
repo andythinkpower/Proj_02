@@ -30,7 +30,7 @@
 
 <style>
 #eventSelector {
-	width: 860px;
+	width: 900px;
 	height:190px;
 	margin: auto;
 	background : #EBD6D6;
@@ -45,8 +45,8 @@
 	float: left;
 }
 
-#dateMark , #typeMark , #sortMark {
-	margin-top: 4px;
+#dateMark , #typeMark , #orderMark {
+	margin-top: 8px;
 	float: left;
 }
 
@@ -58,15 +58,15 @@
 .selectArea {
 	position : absolute;
 	top : 140px;
-	width : 285px;
-	height : 132px;
+	width : 345px;
+	height : 160px;
 	border : 1px solid blue;
 	background : #E9E2E2;
 	display : none;
 }
 
-#selectDate , #selectType , #selectSort {
-	width: 700px;
+#selectDate , #selectType , #selectOrder {
+	width: 740px;
 	float: left;
 }
 
@@ -74,7 +74,7 @@
 	padding-left: 5px;
 }
 
-.selectArea span:hover , .selectDate span:hover  , .selectType span:hover , .selectSort span:hover , #dateRangePicker:hover {
+.selectArea span:hover , .selectDate span:hover  , .selectType span:hover , .selectOrder span:hover , #dateRangePicker:hover {
 	background-color : #A6D4DF;
 }
 
@@ -131,7 +131,7 @@
 			    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart  and"><span>下週</span></label>
 			    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart and dateadd( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 5 ) ) <= DurationEnd and"><span>下週末</span></label>
 			    <span id="emsp">&emsp;&emsp;</span>
-			    <i class="fa fa-calendar-check-o" aria-hidden="true"></i><input type="text" style="width: 200px" value="自訂日期" id="dateRangePicker">
+			    <i class="fa fa-calendar-check-o" aria-hidden="true"></i><input type="text" style="width: 240px" value="自訂日期" id="dateRangePicker">
 			    <input type="radio" name="pickDate" value="" style="display: none;" id="forDateRangePicker">
 		    </div>
 		</div>
@@ -152,13 +152,13 @@
 		</div>
 		
 		<div class="subRegion">
-		    <i class="fa fa-sort-amount-desc fa-lg" id="sortMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;排序依照&emsp;</span>
-			<div id="selectSort" class="selectSort">		
-				<label><input type="radio" name="" value="" checked=""><span>即將結束</span></label>
-				<label><input type="radio" name="" value=""><span>最新刊登</span></label>
-				<label><input type="radio" name="" value=""><span>收藏數</span></label>
-				<label><input type="radio" name="" value=""><span>熱門分享</span></label>
-				<label><input type="radio" name="" value=""><span>是否免費</span></label>
+		    <i class="fa fa-sort-amount-desc fa-lg" id="orderMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;排序依照&emsp;</span>
+			<div id="selectOrder" class="selectOrder">		
+				<label><input type="radio" name="pickOrder" value="datediff ( day , getdate() , DurationEnd )" checked="checked" id="toBeClose"><span>即將結束</span></label>
+				<label><input type="radio" name="pickOrder" value="InsertTime desc"><span>最新刊登</span></label>
+				<label><input type="radio" name="pickOrder" value="collectionCount desc"><span>收藏數</span></label>
+				<label><input type="radio" name="pickOrder" value="shareCount desc"><span>熱門分享</span></label>
+				<label><input type="radio" name="pickOrder" value="IsCharge desc"><span>是否免費</span></label>
 			</div>
 		</div>
 		
@@ -203,14 +203,19 @@
 				$(this).val(picker.startDate.format("YYYY-MM-DD") + " ~ " + picker.endDate.format("YYYY-MM-DD")).css('color','black');
 				selectRangeDate();
 			});
-			// 日期選取器 - 設定按取消後的動作
+			// 日期選取器 - 點擊 &按取消後的動作
 			$('#dateRangePicker').on("cancel.daterangepicker", function(ev, picker) {
 				$(this).val('請選擇日期').css('color','red');
+			});
+			$('#dateRangePicker').on('click', function(ev, picker) {
+				$('input[name="pickDate"]').next().removeClass('stateChecked');
+				$(this).addClass('stateChecked').val('請選擇日期').css('color','red');;
 			});
 			// 給全選的radio & checkbox 顏色
 			$('#allDate').next().addClass('stateChecked');
 			$(':checkbox[name="allArea"]').next().addClass('stateChecked');
 			$(':checkbox[name="allType"]').next().addClass('stateChecked');
+			$('#toBeClose').next().addClass('stateChecked');
 			// 地區選單懸浮效果binding
 			$("#areaText").mouseover(function(){
 				$(".selectArea").show();
@@ -232,10 +237,6 @@
 				});
 				doCount(selectDate , selectArea , selectType);
 			});
-			$('#dateRangePicker').click(function() {
-				$('input[name="pickDate"]').next().removeClass('stateChecked');
-				$(this).addClass('stateChecked');
-			});
 			$(':checkbox[name="allArea"]').click(function() {
 				switchToAllArea(this.id);
 			});
@@ -248,6 +249,16 @@
 			});
 			$(':checkbox[name="eventType"]').click(function() {
 				changeType(this.id);
+			});
+			$(':radio[name="pickOrder"]').click(function() {
+				$(':radio').each(function(){
+					if ($(this).prop('checked') == true) {
+						$(this).next().addClass('stateChecked');
+					} else {
+						$(this).next().removeClass('stateChecked');
+					};
+				});
+				doCount(selectDate , selectArea , selectType);
 			});
 		}); // --- 開啟即執行 END ---
 		
@@ -319,7 +330,7 @@
 		}; // --- 活動類型切換 END ---
 		
 		// --- 送controller撈資料 ---------------------------------------------------------------------------
-		function doSearch(selectDate , selectArea , selectType ,page,收藏){
+		function doSearch(selectDate , selectArea , selectType , selectOrder , page){
 			// 取得date被選擇的值
 			var newDate = $('#selectDate :checked[type="radio"]').val()
 			// 取得area被選擇的值，再轉成字串
@@ -346,9 +357,12 @@
 			});
 			var newTypes = types.join();
 			
+			// 取得ordar被選擇的值
+			var newOrder = $('#selectOrder :checked[type="radio"]').val()
+			
 			$('#showEvent').empty();
 			
-			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes , 'pageNumber':page} , function(data) {
+			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes , 'newOrder':newOrder , 'pageNumber':page} , function(data) {
 				$.each(data, function(index, eventData) {
 					// 對沒有提供圖片的活動給予圖片，else對圖片失效的連結做處理
 					if (eventData.imageFile == 'null') {
@@ -377,7 +391,7 @@
 						var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
 						var D2 = End.getDate() + ' ';
 						var durationEnd = Y2 + M2 + D2;
-					var rs3 = $('<span></span>').html('<i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;活動時間：' + dtStart + ' ~ ' + durationEnd);
+					var rs3 = $('<span></span>').html('<i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbsp;&nbsp;活動時間：' + dtStart + ' ~ ' + durationEnd);
 					var row1 = $('<div class="row"></div>').append([ rs1 , rs2 , rs3 ]);
 					var rs4 = $('<span style="width: 65%"></span>').html('<i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;主辦單位：' + eventData.showGroupName);
 					var rs5 = $('<span id="collectCount"></span>').html('<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;' + eventData.collectionCount + '&nbsp;人');
@@ -430,7 +444,7 @@
 			
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchCount.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes} , function(data) {
 				total_Count = data;
-				$('#count').empty().append('&emsp;&emsp;共有' + data + '筆活動').css('color','blue');
+				$('#count').empty().append('&emsp;&emsp;共有&nbsp;' + data + '&nbsp;筆活動').css('color','blue');
 				// 把活動數除10再無條件進位  Ex:342筆 -> 34.2 -> 35  ->顯示35筆分頁
 				total_Count = ((total_Count - (total_Count%10)) / 10+1);
 				// destory把現有分頁remove再重新初始化 ，初始化會觸發一次onPageClick，所以會順便做doSearch，代表只要做doCount，也會順便做doSearch
@@ -448,7 +462,7 @@
 	            	last: '最後頁',
 					// 點擊分頁會觸發的事件
 					onPageClick: function (event, page) {
-						doSearch(selectDate , selectArea , selectType , page);
+						doSearch(selectDate , selectArea , selectType , selectOrder , page);
 					}
 				});
 			});

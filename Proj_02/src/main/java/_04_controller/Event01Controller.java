@@ -25,10 +25,10 @@ public class Event01Controller {
 	@RequestMapping(path = { "/_04_EventPage/searchEvent.controller" }, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 
-	public List<Event01> eventSearch(String newDate , String newAreas , String newTypes,String pageNumber) {
+	public List<Event01> eventSearch(String newDate , String newAreas , String newTypes , String newOrder , String pageNumber) {
 		//把字串轉成整數
 		Integer Pagination=Integer.valueOf(pageNumber);	
-		return event01Service.eventSearch(newDate , newAreas , newTypes,Pagination);
+		return event01Service.eventSearch(newDate , newAreas , newTypes , newOrder , Pagination);
 	}
 	
 	@RequestMapping(path = { "/_04_EventPage/searchCount.controller" }, produces = { "application/json;charset=UTF-8" })

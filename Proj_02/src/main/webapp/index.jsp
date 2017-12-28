@@ -95,7 +95,6 @@ body {
 				</div>
 			</div>
 		</div>
-	</div>
 	<div class="test"></div>
 
 	<script>
@@ -120,8 +119,13 @@ body {
 	$.ajaxSettings.async = false;
         $(function () {
           
-        	 var date_count = -1;
              var selectDate = "where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart  and";
+             var selectDate2='where';
+             var selectOrder="datediff ( day , getdate() , DurationEnd )"
+             var selectOrder2='collectionCount desc';
+             var selectOrder3="InsertTime desc";
+             var selectOrder4="shareCount desc";
+             
              var selectArea = "正同埔松安萬信士北內南文";
              var page = 1;
              var type = ["休閒展覽音樂表演研習親子影視", "休閒", "展覽", "音樂", "表演", "研習", "親子", "影視"]
@@ -129,14 +133,19 @@ body {
              tempfile=[];
              tempID=[];
              temp=[];
-             dynamicCard('本周活動');
-             dynamicCard('本周活動');dynamicCard('本周活動');
+             dynamicCard('本周活動',selectDate,selectOrder);
              
+             dynamicCard('熱門收藏',selectDate2,selectOrder2);
              
-             function dynamicCard(id_name){
+             dynamicCard('最新刊登',selectDate2,selectOrder3);
+             
+             dynamicCard('熱門分享',selectDate2,selectOrder4);
+             
+             function dynamicCard(id_name,Date,Order){
             	 var ul = $('<ul class="nav nav-pills red mb-3">');
                  var tab_content = $("<div class='tab-content'>");
                  var container = $("<div class='container mt-3'>"); 
+                 date_count = -1;
              $.each(type, function (index, value) {
             	 tempID=[];
             	 tempfile=[];
@@ -150,23 +159,23 @@ body {
                  }
                  if (index == 0) {
                      tab_content.append($('<div class="tab-pane fade show active" id="'+id_name + date_count + '" ><div class="card bg-info"><div class="row">' +
-                  '<div class="col m-2 pl-3"><p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/dog.jpg" style="width:450px;height:250px" /></div> <div class="col m-2"><div class="row">' +
-                  '<div class="col"><p style="display:none;"></p><img class="img'+id_name+date_count+'" src="" style="width:200px;height:115px" /></div><div class="col"><p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/test.jpg" style="width:200px;height:115px" />' +
-                  '</div></div><div class="row mt-2 pt-2"><div class="col"><p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col">' +
-                  '<p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/test.jpg" style="width:200px;height:115px" /></div></div></div></div></div></div>'));
+                  '<div class="col m-2 pl-3"><p style="display:none;"></p><img class="img" src="img/dog.jpg" style="width:450px;height:250px" /></div> <div class="col m-2"><div class="row">' +
+                  '<div class="col"><p style="display:none;"></p><img class="img" src="" style="width:200px;height:115px" /></div><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" />' +
+                  '</div></div><div class="row mt-2 pt-2"><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col">' +
+                  '<p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div></div></div></div></div></div>'));
                  } else {
                      tab_content.append($('<div class="tab-pane fade show" id="'+id_name + date_count + '" ><div class="card bg-info"><div class="row">' +
-                 '<div class="col m-2 pl-3"><p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/dog.jpg" style="width:450px;height:250px" /></div> <div class="col m-2"><div class="row">' +
-                 '<div class="col"><p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col"><p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/test.jpg" style="width:200px;height:115px" />' +
-                 '</div></div><div class="row mt-2 pt-2"><div class="col"><p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col">' +
-                 '<p style="display:none;"></p><img class="img'+id_name+date_count+'" src="img/test.jpg" style="width:200px;height:115px" /></div></div></div></div></div></div>'));
+                 '<div class="col m-2 pl-3"><p style="display:none;"></p><img class="img" src="img/dog.jpg" style="width:450px;height:250px" /></div> <div class="col m-2"><div class="row">' +
+                 '<div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" />' +
+                 '</div></div><div class="row mt-2 pt-2"><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col">' +
+                 '<p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div></div></div></div></div></div>'));
                  }
-                 doSearch(selectDate, selectArea, value, page);
+                 doSearch(Date, selectArea, value, Order, page);
             
                  
                  temp.push(tempfile);
                  temp.push(tempID);
-                 
+                 console.log(temp);
                  container.append(ul);
                  container.append(tab_content);
                 
@@ -177,6 +186,7 @@ body {
                 	 $.each(val,function(i,v){
                 		 if(ind==0){
                 			 if(i==0){
+                				 console.log("#"+id_name+index);
                         		 $("#"+id_name+index).find(".pl-3 img").attr("src",v);	 
                         	 }else if(i==1){
                         		$("#"+id_name+index).find(".row .col .row:first-child .col:first-child img").attr("src",v);	
@@ -209,52 +219,25 @@ body {
              
              
            //綁定事件 應該可以用迴圈合併
-             $("body").on('click','.img本周活動0',function(){
+             $("body").on('click','.img',function(){
             		var pk=$(this).prev().text();
             		console.log(pk);
             		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
              })
-              $("body").on('click','.img本周活動1',function(){
-            		var pk=$(this).prev().text();
-            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
-             })
-              $("body").on('click','.img本周活動2',function(){
-            		var pk=$(this).prev().text();
-            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
-             })
-              $("body").on('click','.img本周活動3',function(){
-            		var pk=$(this).prev().text();
-            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
-             })
-              $("body").on('click','.img本周活動4',function(){
-            		var pk=$(this).prev().text();
-            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
-             })
-              $("body").on('click','.img本周活動5',function(){
-            		var pk=$(this).prev().text();
-            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
-             })
-              $("body").on('click','.img本周活動6',function(){
-            		var pk=$(this).prev().text();
-            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
-             })
-              $("body").on('click','.img本周活動7',function(){
-            		var pk=$(this).prev().text();
-            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
-             })
+              
              
           
             
             
            
 		
-        function doSearch(newDate, newAreas, newTypes, page) {
-        	
+        function doSearch(newDate, newAreas, newTypes,newOrder, page) {
             var count = 0;
             $.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller',{
 				  'newDate': newDate,
 				  'newAreas': newAreas,
 			      'newTypes': newTypes,
+			      'newOrder':newOrder, 
 				  'pageNumber': page
 			}, function (data) {
 							    $.each(data, function (i, v) {
