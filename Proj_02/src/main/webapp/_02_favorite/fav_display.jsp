@@ -7,53 +7,63 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <title>收藏顯示頁面</title>
+<style type="text/css">
+	body {
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
+div[name="event"]{
+ width:300px;
+ height:300px;
+ border:1px solid #BEBEBE;
+ float:left;
+}	
+
+
+div[name="eventname"]{
+ width:100
+ 
+
+}
+div[name="eventimg"]{
+width:100;
+height:200;
+
+
+}
+#allevent{
+width:80%;
+margin:0 10%;
+
+
+}
+img[name="eventimg"]{
+width:10%;
+height:10%;
+}
+#footer {
+    /* 設定footer的高度 */
+     box-sizing: border-box;
+    /* 設定footer絕對位置在底部 */
+    position: absolute;
+    /* 展開footer寬度 */
+    width: 100%;
+   
+}
+
+</style>
+
+
 </head>
 <body>
 <jsp:include page="../commons/header.jsp"/>
-	<h1>收藏顯示頁面</h1>
 	<p id="member" style="display: none;" >${member.memberemail }</p>
-	<c:forEach items="${event_list }" var="event">
-		<table class="event" >
-			<thead>
-				<tr>
-					<th>標題:${event.eventName}</th>
-				</tr>
-			</thead>
-			<tbody >
-				<tr>
-				<td hidden class="eventID">${event.eventID }</td>
-				</tr>
-				<tr>
-					<td>起時時間:${event.dtStart }</td>
-					<td>結束時間:${event.durationEnd }</td>
-				</tr>
-				<tr>
-					<td><img src="${ event.imageFile}" style="width:150px;" /></td>
-				</tr>
-			</tbody>
-		</table>
-		<br>
-
-	</c:forEach>
-	
-	
-	<table id="eventTable">
-		<thead>
-			<tr>
-				<th>ImageFile</th> <!-- column1 -->
-				<th>EventType</th> <!-- column2 -->
-				<th>EventName</th> <!-- column3 -->
-				<th>地區</th> <!-- column4 -->
-				<th>IsCharge</th> <!-- column5 -->
-				<th>活動時間</th> <!-- column6 -->
-				<th>ShowGroupName</th> <!-- column7 -->
-			</tr>
-		</thead>
-		<tbody>
-			<!-- td插入點 -->
-		</tbody>
-	</table>
-	
+<div id='allevent'>	</div>
 
 <jsp:include page="../commons/footer.jsp"/>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -75,7 +85,15 @@
 			*/
 			$.getJSON('getallFavoritesevent02.controller', {'email':email }, function (data) {
 				$.each(data, function (i, event01) {
-				console.log(event01)
+				//console.log(event01)
+				var title = (event01.eventName.length>12)?(event01.eventName.substring(0,13)+"...""):event01.eventName;
+				console.log(title)
+				var id=event01.eventID; 
+				var img=(event01.imageFile.length>5)?event01.imageFile:'../img/taipei_culture.png';
+                var event=$('<div name="event">').html('<div name="eventname"><h5>'+title+'</h5></div><div name="eventimg"><img name="eventimg" src="'+
+                										img+'"/></div></div>')
+				console.log(event)
+				$('#allevent').append(event)
 				});
 			});
 			
