@@ -21,8 +21,8 @@ public class FavoritesService {
 	public void updateCalendar(String email,Integer eventID, Date targetDate) {
 		favoritesDAO.updateCalendar(email, eventID, targetDate);
 	}
-	public boolean deleteFav(Integer pk) {
-		return favoritesDAO.delete(pk);
+	public boolean deleteFav(String email,Integer eventID) {
+		return favoritesDAO.delete(email,eventID);
 	}
 	
 	public Integer Create_fav(FavoritesBean bean) {
