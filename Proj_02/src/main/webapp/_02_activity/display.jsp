@@ -11,10 +11,23 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
  <script src="../js/cookie.js" type="text/javascript"></script>
 <title>顯示頁面</title>
+<style>
+	body {
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
+	
+</style>
+
 </head>
 <body>
-<jsp:include page="../commons/header.jsp"/>
-	<a href="../_02_activity/schedule.jsp">建立行程</a>
+<jsp:include page="../commons/header_login.jsp"/>
+	
 	<h2>你好:${member.membernickname }</h2>
 	<!-- 暫時這樣取得會員email 之後要用cookie取才對 -->
 
@@ -28,6 +41,9 @@
 	</form>	
 	<div id="wholePage">
 	</div>
+	<div class='fixed-bottom  float-sm-right'>
+	<a href="../_02_activity/schedule.jsp"><img src="../img/add2.png" class='float-sm-right m-5' width="75"/></a>
+	</div>
 	<script>
 	
         $(function () {
@@ -37,37 +53,47 @@
         	reflashPage();
         	//進入頁面 會載入資料 !!(目前尚未輸入參數 )
         	function reflashPage(){
-        		$.getJSON("${pageContext.request.contextPath}/_02_activity/show.controller",{"email":email},function(data){        		
+        		$.getJSON("${pageContext.request.contextPath}/_02_activity/show.controller",{"email":email},function(data){  
              		$.each(data,function(i,v){    
              			var Start=new Date(v.actStartDate);
-             			var Start = Start.getFullYear() + '-'+(Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-'+Start.getDate();
-    					
-             			var act=$("<div style='border:2px solid red;'>").html("<div class='target'><table class='table'>"+
-             					"<thead><tr><th colspan='2'>活動名稱:"+v.actTitle+"</th></tr></thead>"+
-             					"<tbody><tr><td style='display:none;'>"+v.activityID+"</td><td>起始時間"+Start+"</td>"+
-             					"<td>點閱率"+v.clickNumber+"</td></tr><tr><td colspan='2'>地區"+v.actRegion+"</td></tr>"+
-             					"<tr><td colspan='2'>活動簡介"+v.introduction+"</td></tr></tbody></table></div>"+
-             					"<button class='update'>修改</button>&nbsp;&nbsp;&nbsp;<button class='delete'>刪除</button>");    		
-    					$("#wholePage").append(act);
+             			var Start = Start.getFullYear() +'-'+(Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-'+Start.getDate();
+						var title=v.actTitle;
+             			if(title.length>10){
+             				title=title.substr(0,10)+'...';
+             			}
+             			var act=$("<div class='col-4'>").html("<div class='card  target' style='width:300px;border:1px solid #BEBEBE;'><div class='actID' style='display:none;'>"+
+                     			+v.activityID+"</div><img class='card-img-top show' src='${pageContext.request.contextPath}"+v.photoPath+"' alt='Card image' width='300' height='250'/>"+
+                     			"<div class='card-body' style='background-color:#F2E6E6'><h4 class='card-title'>"+title+"</h4><p class='card-text'>出發日期:"+Start+"</p>"+
+                     			"<div class='row float-xl-right px-2 '><button class='btn btn-info update'>修改</button><button class='btn btn-danger delete'>刪除</button></div></div></div>");   			
+
+             			if(i%3==0){
+             				container_temp=$("<div class='container'></div>");
+                 			row_temp=$("<div class='row'></div>");
+                 			row_temp.append(act);
+                 			container_temp.append(row_temp);
+                 			container_temp.append("<br>");
+                 			$("#wholePage").append(container_temp);
+             			}else{
+             				row_temp.append(act);
+             			}
+           
              		});        		
             	})     	
         	}
         	
-            //沒點擊按鈕
-            $("body").on("click",".target",function () {
+            //導向觀賞頁面
+            $("body").on("click",".show",function () {
                     //取得所點選行程的primary key
-                    var pk = $(this).find(
-                        "tbody tr:first-child>td:first-child").text();
-                    $("#doWhat").attr("value", "single");
+                    var pk = $(this).prev().text();
+                    console.log("tagert:"+pk);
+                    $("#doWhat").val("showPage");
                     $("#pk").val(pk);
                     $("#solo").submit();
                 });
             //點擊修改按鈕
             $("body").on("click",".update",function () {
                     //取得所點選行程的primary key
-                    var pk = $(this).prev(".target").find(
-                        "tbody tr:first-child>td:first-child").text();
-                    console.log("找到pk:"+pk);
+                    var pk = $(this).parents(".target").find(".actID").text();
                     $("#doWhat").attr("value", "single");
                     $("#pk").val(pk);
                     console.log("update : " + pk);
@@ -75,8 +101,7 @@
                 });
             //點擊刪除按鈕 (要使用ajax來做)
             $('body').on('click',".delete",function () {
-                    var pk = $(this).parent().find(
-                        "tr:first-child>td:first-child").text();
+                    var pk = $(this).parents(".target").find(".actID").text();
                     $.ajax("${pageContext.request.contextPath}/_02_activity/delete.controller",{
                     	data:{"ActivityID":pk},
                     	dataType:"html",

@@ -1,8 +1,11 @@
 $(function() {
-	$("#header").load("../commons/header.jsp"); 
-	$("#footer").load("../commons/footer.jsp"); 
 	var allevent=[];
-	var email=Cookies.get('user');
+	var email;
+	$.get('checkMemSession.controller',{},function(data){
+		email=data;
+		if(email!='null'){
+			$("#header").load("../commons/header_login.jsp"); 
+		  
 	var duration;
 	$.getJSON('getFavorites.controller', {'email':email }, function (data) {
 		$.each(data, function (i, event01) {
@@ -123,7 +126,6 @@ $(function() {
 	var data1=[];
 	$('#GGG').click(function(){
 		var getallevent=$('#calendar').fullCalendar('clientEvents');
-		console.log(getallevent)
 		$.each(getallevent, function (i, event01) {
 			event01.id=(event01.id).toString();
 			if((event01.id).length<9){
@@ -132,11 +134,9 @@ $(function() {
 				console.log(event01.id+this)
 				data0=('eventid='+id+' '+'targetdate='+date+' email='+email);
 				data1.push(data0);
-				console.log(data1)
 			}
 		});
 		getallevent=data1.join();
-		console.log('ggg'+getallevent)
 		$.post('savecalendar.controller',{'getallevent':getallevent,'email':email},function(){
 			alert("更新行事曆成功");	
 		});
@@ -165,7 +165,13 @@ $(function() {
 			}
 		});
 	});
-	
+	} else{
+			$("#header").load("../commons/header.jsp"); 
+			alert('請先登入會員')
+		}
+		
+	});
+	$("#footer").load("../commons/footer.jsp"); 
 
 });
 

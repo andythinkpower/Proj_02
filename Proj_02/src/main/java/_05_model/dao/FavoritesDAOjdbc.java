@@ -3,6 +3,8 @@ package _05_model.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -34,18 +36,21 @@ public class FavoritesDAOjdbc implements FavoritesDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	@Transactional
-	public boolean delete(Integer pk) {
-		if (pk != null) {
-			Session session = getSession();
-			FavoritesBean delete = session.get(FavoritesBean.class, pk);
-			session.delete(delete);
-			return true;
-		} else {
+	public boolean delete(String email,Integer eventID) {
+		FavoritesBean result;
+		try {
+			Query<FavoritesBean> favorites = this.getSession().createQuery("FROM FavoritesBean where email=:email and eventid=:eventid ", FavoritesBean.class);
+			 favorites.setParameter("email", email);
+			 favorites.setParameter("eventid", eventID);
+			 result = favorites.getSingleResult();
+			 this.getSession().delete(result);
+		} catch (NoResultException e) {
 			return false;
 		}
+		return true;
 	}
 
 	@Override
@@ -63,10 +68,18 @@ public class FavoritesDAOjdbc implements FavoritesDAO {
 	@Override
 	@Transactional
 	public FavoritesBean selectFavorites(String email,Integer eventID) {
-		Query<FavoritesBean> favorites = this.getSession().createQuery("FROM FavoritesBean where email=:email and eventid=:eventid order by dtStart ", FavoritesBean.class);
-		 favorites.setParameter("email", email);
-		 favorites.setParameter("eventid", eventID);
-		 return favorites.getSingleResult();
+		FavoritesBean result;
+		try {
+			Query<FavoritesBean> favorites = this.getSession().createQuery("FROM FavoritesBean where email=:email and eventid=:eventid order by dtStart ", FavoritesBean.class);
+			 favorites.setParameter("email", email);
+			 favorites.setParameter("eventid", eventID);
+			 result = favorites.getSingleResult();
+		} catch (NoResultException e) {
+//			System.out.println("NO RESULT");
+			return null;
+			
+		}
+		return result;
 	}
 	
 	@Override

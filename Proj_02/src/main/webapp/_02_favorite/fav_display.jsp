@@ -11,6 +11,7 @@
 <body>
 <jsp:include page="../commons/header.jsp"/>
 	<h1>收藏顯示頁面</h1>
+	<p id="member" style="display: none;" >${member.memberemail }</p>
 	<c:forEach items="${event_list }" var="event">
 		<table class="event" >
 			<thead>
@@ -61,6 +62,34 @@
 
 <script>
 		$(function(){
+			var email =$("#member").text();
+			console.log(email)
+			/*$.getJSON('getallFavorites.controller', {'email':email }, function (data) {
+				$.each(data, function (i, event01) {
+					console.log(event01.eventID)
+					$.getJSON('getallFavoritesevent.controller', {'eventid':event01.eventID }, function (data) {
+						console.log(data)
+					});
+				});
+			});
+			*/
+			$.getJSON('getallFavoritesevent02.controller', {'email':email }, function (data) {
+				console.log(data)
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			/*
 			$(".event").on('click',function(){
 				pk=$(this).find(".eventID").text();				
 				console.log(pk);
@@ -94,7 +123,7 @@
 						$('#eventTable>tbody').append(row);
 					});
 				}); // JSON END
-				}); 
+				}); */
 			});
 		
 	</script>

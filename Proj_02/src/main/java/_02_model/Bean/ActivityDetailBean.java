@@ -21,8 +21,8 @@ public class ActivityDetailBean implements Serializable {
 	private String budget="0";
 	private String kinds;
 	private String dates;
-	private String longitude;
-	private String latitude;
+	private Double longitude;
+	private Double latitude;
 	private Integer activityID;
 	
 	@ManyToOne()
@@ -130,18 +130,23 @@ public class ActivityDetailBean implements Serializable {
 	public void setDates(String dates) {
 		this.dates = dates;
 	}
-	public String getLongitude() {
+	
+	public Double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(String longitude) {
+
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	public String getLatitude() {
+
+	public Double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(String latitude) {
+
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
+
 	@Override
 	public String toString() {
 		return "ActivityDetailBean [actDetail=" + actDetail + ", note=" + note + ", times=" + times + ", budget="

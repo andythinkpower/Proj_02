@@ -5,55 +5,46 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
 
-<!-- 馬老師 CSS -->
-<link rel="stylesheet" type="text/css" href="../css/table.css" />
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<!-- Cookie js -->
+<script src="../js/cookie.js"></script>
+<!-- 馬老師 CSS -->
+<link rel="stylesheet" type="text/css" href="../css/table.css" />
 <title>活動專屬頁面</title>
 
 </head>
 <body>
-<jsp:include page="/commons/header.jsp"></jsp:include>
+<c:set var='mem' value="${member }" ></c:set>
+	<c:choose>
+		<c:when test="${not empty mem }">
+			<jsp:include page="../commons/header_login.jsp"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="../commons/header.jsp"/>
+		</c:otherwise>
+	</c:choose>
+	<p id="member" style="display: none;" >${member.memberemail }</p>
 	<p id="eventID" style="display: none;"><%= request.getParameter("eventID") %></p>
 	<div id="temp">
 		
 	</div>
 	<h2><a href="<c:url value="/_04_EventPage/eventSearch.jsp" />">找活動</a></h2>
-	
-
-	<input type="button" id="favorite" value="收藏" style="width:120px;height:40px;font-size:20px;background-color: orange">
-	<input type="button" id="del_favorite" value="刪除收藏" style="width:120px;height:40px;font-size:20px;background-color: orange">
+	<div>
+   
+    <button type="button"  id="favorite"  class="btn btn-success">收藏</button>
+	<button type="button"  id="del_favorite"  class="btn btn-secondary disabled">取消收藏</button>
 	<script>
-        $('#favorite').click(function () {
-            //取得該欄位的eventID
-            var pk = $("#eventID").text();
-            var durationEnd=$("#durationEnd").text();
-            var dtStart=$("#dtStart").text();
-            var eventName=$("#eventName").text(); 
-            var timeStart=$("#timeStart").text();
-            var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
-            //改變按鈕狀態
-            $("#favorite").text("已收藏");
-            $("#favorite").attr("style", 'style="width:120px;height:40px;font-size:20px;background-color: blue"');      
-            //把此欄位的eventID 存到該會員的收藏表格
-            $.post('insert.controller',data);
-        });
-        $('#del_favorite').click(function () {
-        	//取得該欄位的eventID
-        	 var pk = $("#eventID").text();
-        	 //改變按鈕狀態
-             $("#favorite").text("已收藏");
-             $("#favorite").attr("style", 'style="width:120px;height:40px;font-size:20px;background-color: blue"');      
-             $.post('delete.controller',{"eventID":pk});
-        });
+     
         
-        
+      
     </script>
 	
-	
+	</div>
 	<table id="eventTable">
 		<thead>
 			<tr>
@@ -80,11 +71,48 @@
 	<script>
 		// 開啟即執行
 		$(function(){
-			
+			var user =$("#member").text();
 			var eventID = $("#eventID").text();
+			var collection=true;
+			if(user.length!=0){
+			$.get('checkFavorites.controller',{'eventid':eventID,'email':user},function(data){
+				if(data.toString() == ("collectioned")){
+				collection=false;
+				$('#favorite').text("已收藏")
+				$('#favorite').attr("class","btn btn-warning disabled")
+				$('#del_favorite').attr("class","btn btn-danger active")
+				};
+			});
+			}
+		   $('#favorite').click(function () {
+			        if(user.length!=0){
+		        	if(collection==true){
+		        	var pk = $("#eventID").text();
+		            var durationEnd=$("#durationEnd").text();
+		            var dtStart=$("#dtStart").text();
+		            var eventName=$("#eventName").text(); 
+		            var timeStart=$("#timeStart").text();
+		            var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
+		            $.post('insert.controller',data);  
+		            $('#favorite').text("已收藏")
+					$('#favorite').attr("class","btn btn-warning disabled")
+					$('#del_favorite').attr("class","btn btn-danger active")
+		            collection=false;
+		        	}}else{alert("請先登入會員!!")}
+		        	
+		    });
+		    $('#del_favorite').click(function () {
+		    		 if(collection==false){
+		    			 $.post('disFavorite.controller',{'eventid':eventID,'email':user},function(data){
+		    			 $('#favorite').text("收藏")
+		    			 $('#favorite').attr("class","btn btn-success active")	 
+		    			 $('#del_favorite').attr("class","btn btn-danger disabled")
+		    			 collection=true;
+		    			 });
+		    		 }
+		    });
 			$('#eventTable>tbody').empty();
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
-				console.log(data)
 				$.each(data, function(index, eventData) {
 					var column1 = $("<td></td>").html('<img src="' + eventData.imageFile + '">');
 					var column2 = $("<td></td>").text(eventData.eventTypeId);
@@ -143,13 +171,8 @@
 				});
 			}); // JSON END
 			
-<<<<<<< HEAD
-
 		}); // 開啟即執行 END
 
-=======
-		}); // 開啟即執行 END
->>>>>>> branch 'master' of https://github.com/EEIT98Team02/Proj_02.git
 		
 	</script>
 <jsp:include page="/commons/footer.jsp"></jsp:include>

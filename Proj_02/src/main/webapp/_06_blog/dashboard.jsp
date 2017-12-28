@@ -22,7 +22,15 @@
     </style>
 </head>
 <body>
-<jsp:include page="/commons/header.jsp"></jsp:include>
+<c:set scope="session" value="${member}" var='mem'/>
+<c:choose>
+	<c:when test="${not empty mem }">
+		<jsp:include page="/commons/header_login.jsp"></jsp:include>
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/commons/header.jsp"></jsp:include>
+	</c:otherwise>
+</c:choose>
     <section id="posts">
         <div class="container p-5">
             <div class="row">

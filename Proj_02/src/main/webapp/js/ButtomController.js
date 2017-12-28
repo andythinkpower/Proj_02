@@ -7,7 +7,20 @@
 	<input onclick="familyControl();" type=button value="親子 顯示/隱藏">
 */ 
 $(function() {
-    $('#musicControl').bootstrapToggle({
+	$('#thismonControl').bootstrapToggle({
+	      on: '本月',
+	      off: '非本月'
+	});
+	$('#thismonControl').change(function() {
+	    	for (var i = 0; i < markers.length; i++) {
+	   		 	if(markers[i].now=='thismonth'){
+		   			if($("#thismonControl").prop("checked")){
+	   				 markers[i].setVisible(true);
+	   			 }else{markers[i].setVisible(false);}
+	   		 	}
+	    	}
+	})
+	$('#musicControl').bootstrapToggle({
       on: '音樂',
       off: '音樂'
     });

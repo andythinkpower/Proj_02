@@ -14,13 +14,16 @@ public class Event01Service {
 
 	@Autowired
 	private Event01DAO event01dao;
-	
 
 	@Transactional(readOnly=true)
+	public List<Event01> eventSearch(String newDate, String newAreas, String newTypes, String newOrder, Integer pageNumber) {
+		return event01dao.eventSearch(newDate, newAreas, newTypes, newOrder, pageNumber);
+	}
+	
+	@Transactional(readOnly=true)
+	public Long eventCount(String newDate, String newAreas, String newTypes) {
+		return event01dao.eventCount(newDate, newAreas, newTypes);
 
-
-	public List<Event01> eventSearch(String newDate , String newAreas , String newTypes) {
-		return event01dao.eventSearch(newDate , newAreas , newTypes);
 	}
 	
 	@Transactional(readOnly=true)
