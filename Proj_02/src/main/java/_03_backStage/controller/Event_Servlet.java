@@ -151,7 +151,7 @@ public class Event_Servlet extends HttpServlet {
 				response.sendRedirect("../_03_backStage/BookList.jsp");
 			}
 		}
-		
+//		
 		if ("getOne_For_Update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
