@@ -30,26 +30,51 @@
 
 <style>
 #eventSelector {
-	width: 700px;
+	width: 900px;
+	height:190px;
 	margin: auto;
 	background : #EBD6D6;
 }
 
-.text {
+.subRegion {
+	float: left;
+	margin: 5px 0px 0px 15px;
+}
+
+#areaMark {
+	float: left;
+}
+
+#dateMark , #typeMark , #orderMark {
+	margin-top: 8px;
+	float: left;
+}
+
+#areaText {
+	width:200px;
 	position : relative;
 }
 
 .selectArea {
 	position : absolute;
 	top : 140px;
-	width : 320px;
+	width : 345px;
 	height : 160px;
 	border : 1px solid blue;
 	background : #E9E2E2;
 	display : none;
 }
 
-.selectArea span:hover , .selectDate span:hover  , .selectType span:hover , #dateRangePicker:hover {
+#selectDate , #selectType , #selectOrder {
+	width: 740px;
+	float: left;
+}
+
+#eventSelector label {
+	padding-left: 5px;
+}
+
+.selectArea span:hover , .selectDate span:hover  , .selectType span:hover , .selectOrder span:hover , #dateRangePicker:hover {
 	background-color : #A6D4DF;
 }
 
@@ -75,58 +100,78 @@
 </c:choose>
 	<br>
 	<div id="eventSelector">
-		<input type="text" id="areaText" value="" style="width:250px;">
-	 
-		<div id="selectArea" class="selectArea">
-	    	<label><input type="checkbox" name="allArea" value="正同中松安萬信士北內南文" checked="checked"><span>全部</span></label>
-	    	<br>
-		    <label><input type="checkbox" name="areaID" value="正"><span>中正區</span></label>
-		    <label><input type="checkbox" name="areaID" value="同"><span>大同區</span></label>
-		    <label><input type="checkbox" name="areaID" value="中"><span>中山區</span></label>
-		    <label><input type="checkbox" name="areaID" value="松"><span>松山區</span></label>
-		    <label><input type="checkbox" name="areaID" value="安"><span>大安區</span></label>
-		    <label><input type="checkbox" name="areaID" value="萬"><span>萬華區</span></label>
-		    <label><input type="checkbox" name="areaID" value="信"><span>信義區</span></label>
-		    <label><input type="checkbox" name="areaID" value="士"><span>士林區</span></label>
-		    <label><input type="checkbox" name="areaID" value="北"><span>北投區</span></label>
-		    <label><input type="checkbox" name="areaID" value="內"><span>內湖區</span></label>
-		    <label><input type="checkbox" name="areaID" value="南"><span>南港區</span></label>
-		    <label><input type="checkbox" name="areaID" value="文"><span>文山區</span></label>
+	
+		<div style="float: left; margin: 10px 0px 0px 15px">
+			<i class="fa fa-map-marker fa-2x" id="areaMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;去哪裡玩&nbsp;&emsp;</span><input type="text" id="areaText" value="">
+				<div id="selectArea" class="selectArea">
+			    	<label><input type="checkbox" name="allArea" value="正同埔松安萬信士北內南文" checked="checked"><span>全部</span></label>
+			    	<br>
+				    <label><input type="checkbox" name="areaID" value="正"><span>中正區</span></label>
+				    <label><input type="checkbox" name="areaID" value="同"><span>大同區</span></label>
+				    <label><input type="checkbox" name="areaID" value="埔"><span>中山區</span></label>
+				    <label><input type="checkbox" name="areaID" value="松"><span>松山區</span></label>
+				    <label><input type="checkbox" name="areaID" value="安"><span>大安區</span></label>
+				    <label><input type="checkbox" name="areaID" value="萬"><span>萬華區</span></label>
+				    <label><input type="checkbox" name="areaID" value="信"><span>信義區</span></label>
+				    <label><input type="checkbox" name="areaID" value="士"><span>士林區</span></label>
+				    <label><input type="checkbox" name="areaID" value="北"><span>北投區</span></label>
+				    <label><input type="checkbox" name="areaID" value="內"><span>內湖區</span></label>
+				    <label><input type="checkbox" name="areaID" value="南"><span>南港區</span></label>
+				    <label><input type="checkbox" name="areaID" value="文"><span>文山區</span></label>
+			    </div>
 	    </div>
 	    
-	    <div id="selectDate" class="selectDate">
-	    	<label><input type="radio" name="pickDate" value="where" checked="checked" id="allDate"><span>不限</span></label>
-		    <label><input type="radio" name="pickDate" value="where datediff ( day , getdate() , dtStart ) <= 0 and datediff ( day , getdate() , DurationEnd) >= 0 and"><span>今日</span></label>
-		    <label><input type="radio" name="pickDate" value="where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart  and"><span>本週</span></label>
-		    <label><input type="radio" name="pickDate" value="where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart and dateadd( week , datediff( week , '' , getdate() ) , 5 ) <= DurationEnd and"><span>本週末</span></label>
-		    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart  and"><span>下週</span></label>
-		    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart and dateadd( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 5 ) ) <= DurationEnd and"><span>下週末</span></label>
-		    <span id="emsp">&emsp;&emsp;</span>
-		    <i class="fa fa-calendar-check-o" aria-hidden="true"></i><input type="text" style="width: 240px" value="自訂日期" id="dateRangePicker">
-		    <input type="radio" name="pickDate" value="" style="display: none;" id="forDateRangePicker">
-	    </div>
-	    
-		<div id="selectType" class="selectType">		
-			<label><input type="checkbox" name="allType" value="休閒展覽音樂表演研習親子影視" checked="checked"><span>全部</span></label>
-			<label><input type="checkbox" name="eventType" value="休閒"><span>休閒</span></label>
-			<label><input type="checkbox" name="eventType" value="展覽"><span>展覽</span></label>
-			<label><input type="checkbox" name="eventType" value="音樂"><span>音樂</span></label>
-			<label><input type="checkbox" name="eventType" value="表演"><span>表演</span></label>
-			<label><input type="checkbox" name="eventType" value="研習"><span>研習</span></label>
-			<label><input type="checkbox" name="eventType" value="親子"><span>親子</span></label>
-			<label><input type="checkbox" name="eventType" value="影視"><span>影視</span></label>
-			&emsp;&nbsp;<span id="count" ></span>
+	    <div class="subRegion">
+		    <i class="fa fa-clock-o fa-lg" id="dateMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;何時去玩&emsp;</span>
+		    <div id="selectDate" class="selectDate">
+		    	<label><input type="radio" name="pickDate" value="where" checked="checked" id="allDate"><span>不限</span></label>
+			    <label><input type="radio" name="pickDate" value="where datediff ( day , getdate() , dtStart ) <= 0 and datediff ( day , getdate() , DurationEnd) >= 0 and"><span>今日</span></label>
+			    <label><input type="radio" name="pickDate" value="where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart  and"><span>本週</span></label>
+			    <label><input type="radio" name="pickDate" value="where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart and dateadd( week , datediff( week , '' , getdate() ) , 5 ) <= DurationEnd and"><span>本週末</span></label>
+			    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart  and"><span>下週</span></label>
+			    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart and dateadd( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 5 ) ) <= DurationEnd and"><span>下週末</span></label>
+			    <span id="emsp">&emsp;&emsp;</span>
+			    <i class="fa fa-calendar-check-o" aria-hidden="true"></i><input type="text" style="width: 240px" value="自訂日期" id="dateRangePicker">
+			    <input type="radio" name="pickDate" value="" style="display: none;" id="forDateRangePicker">
+		    </div>
 		</div>
-	</div>
+		
+		<div class="subRegion">
+		    <i class="fa fa-star fa-lg" id="typeMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;活動類型&emsp;</span>
+			<div id="selectType" class="selectType">		
+				<label><input type="checkbox" name="allType" value="休閒展覽音樂表演研習親子影視" checked="checked"><span>全部</span></label>
+				<label><input type="checkbox" name="eventType" value="休閒"><span>休閒</span></label>
+				<label><input type="checkbox" name="eventType" value="展覽"><span>展覽</span></label>
+				<label><input type="checkbox" name="eventType" value="音樂"><span>音樂</span></label>
+				<label><input type="checkbox" name="eventType" value="表演"><span>表演</span></label>
+				<label><input type="checkbox" name="eventType" value="研習"><span>研習</span></label>
+				<label><input type="checkbox" name="eventType" value="親子"><span>親子</span></label>
+				<label><input type="checkbox" name="eventType" value="影視"><span>影視</span></label>
+				<span id="count" ></span>
+			</div>
+		</div>
+		
+		<div class="subRegion">
+		    <i class="fa fa-sort-amount-desc fa-lg" id="orderMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;排序依照&emsp;</span>
+			<div id="selectOrder" class="selectOrder">		
+				<label><input type="radio" name="pickOrder" value="datediff ( day , getdate() , DurationEnd )" checked="checked" id="toBeClose"><span>即將結束</span></label>
+				<label><input type="radio" name="pickOrder" value="InsertTime desc"><span>最新刊登</span></label>
+				<label><input type="radio" name="pickOrder" value="collectionCount desc"><span>收藏數</span></label>
+				<label><input type="radio" name="pickOrder" value="shareCount desc"><span>熱門分享</span></label>
+				<label><input type="radio" name="pickOrder" value="IsCharge desc"><span>是否免費</span></label>
+			</div>
+		</div>
+		
+	</div> <!-- eventSelector END -->
 	
 	<div id="showEvent">
 		<!-- event插入點 -->
 	</div>
 	
-	<div class="container">
-        <nav aria-label="Page navigation">
-            <ul class="pagination" id="pagination" style="padding-left: 150px"></ul>
-        </nav>
+	<div class="container" style="width: 920px; margin: auto;">
+<!--         <nav aria-label="Page navigation"> -->
+            <ul class="pagination" id="pagination" style="margin: auto;"></ul>
+<!--         </nav> -->
     </div>
 	
 	<script>
@@ -158,14 +203,19 @@
 				$(this).val(picker.startDate.format("YYYY-MM-DD") + " ~ " + picker.endDate.format("YYYY-MM-DD")).css('color','black');
 				selectRangeDate();
 			});
-			// 日期選取器 - 設定按取消後的動作
+			// 日期選取器 - 點擊 &按取消後的動作
 			$('#dateRangePicker').on("cancel.daterangepicker", function(ev, picker) {
 				$(this).val('請選擇日期').css('color','red');
+			});
+			$('#dateRangePicker').on('click', function(ev, picker) {
+				$('input[name="pickDate"]').next().removeClass('stateChecked');
+				$(this).addClass('stateChecked').val('請選擇日期').css('color','red');;
 			});
 			// 給全選的radio & checkbox 顏色
 			$('#allDate').next().addClass('stateChecked');
 			$(':checkbox[name="allArea"]').next().addClass('stateChecked');
 			$(':checkbox[name="allType"]').next().addClass('stateChecked');
+			$('#toBeClose').next().addClass('stateChecked');
 			// 地區選單懸浮效果binding
 			$("#areaText").mouseover(function(){
 				$(".selectArea").show();
@@ -187,10 +237,6 @@
 				});
 				doCount(selectDate , selectArea , selectType);
 			});
-			$('#dateRangePicker').click(function() {
-				$('input[name="pickDate"]').next().removeClass('stateChecked');
-				$(this).addClass('stateChecked');
-			});
 			$(':checkbox[name="allArea"]').click(function() {
 				switchToAllArea(this.id);
 			});
@@ -204,6 +250,17 @@
 			$(':checkbox[name="eventType"]').click(function() {
 				changeType(this.id);
 			});
+			$(':radio[name="pickOrder"]').click(function() {
+				$(':radio').each(function(){
+					if ($(this).prop('checked') == true) {
+						$(this).next().addClass('stateChecked');
+					} else {
+						$(this).next().removeClass('stateChecked');
+					};
+				});
+				doCount(selectDate , selectArea , selectType);
+			});
+		}); // --- 開啟即執行 END ---
 		
 		// --- 日期選擇結果操作 ---------------------------------------------------------------------------
 		function selectRangeDate() {
@@ -225,7 +282,7 @@
 			
 			var area100 = $(':checkbox[value="正"]').prop('checked');
 			var area103 = $(':checkbox[value="同"]').prop('checked');
-			var area104 = $(':checkbox[value="中"]').prop('checked');
+			var area104 = $(':checkbox[value="埔"]').prop('checked');
 			var area105 = $(':checkbox[value="松"]').prop('checked');
 			var area106 = $(':checkbox[value="安"]').prop('checked');
 			var area108 = $(':checkbox[value="萬"]').prop('checked');
@@ -273,8 +330,7 @@
 		}; // --- 活動類型切換 END ---
 		
 		// --- 送controller撈資料 ---------------------------------------------------------------------------
-		function doSearch(selectDate , selectArea , selectType ,page){
-			
+		function doSearch(selectDate , selectArea , selectType , selectOrder , page){
 			// 取得date被選擇的值
 			var newDate = $('#selectDate :checked[type="radio"]').val()
 			// 取得area被選擇的值，再轉成字串
@@ -288,7 +344,7 @@
 			});
 			var newAreas = areas.join();
 			// 變換text所顯示area
-			if (newAreas == '正同中松安萬信士北內南文') {
+			if (newAreas == '正同埔松安萬信士北內南文') {
 				$('#areaText').val('全部')
 			} else {
 				$('#areaText').val(areaText)
@@ -301,25 +357,25 @@
 			});
 			var newTypes = types.join();
 			
+			// 取得ordar被選擇的值
+			var newOrder = $('#selectOrder :checked[type="radio"]').val()
+			
 			$('#showEvent').empty();
 			
-			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes , 'pageNumber':page} , function(data) {
+			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes , 'newOrder':newOrder , 'pageNumber':page} , function(data) {
 				$.each(data, function(index, eventData) {
-					// 對沒有提供圖片的活動給予圖片
+					// 對沒有提供圖片的活動給予圖片，else對圖片失效的連結做處理
 					if (eventData.imageFile == 'null') {
-						var picBox = $('<div class="picBox"></div>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="../img/taipei_culture.png" onerror="javascript:this.src="../img/taipei_culture.png" title="' + eventData.briefIntroduction + '"></a>');
+						var picBox = $('<div class="picBox"></div>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="../img/taipei_culture.png" title="' + eventData.briefIntroduction + '"></a>');
 					} else {
-						var picBox = $('<div class="picBox"></div>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="' + eventData.imageFile + '" title="' + eventData.briefIntroduction + '"></a>');
+						var picBox = $('<div class="picBox"></div>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="' + eventData.imageFile + '" onerror="javascript:this.src=&apos;../img/taipei_culture.png&apos;" title="' + eventData.briefIntroduction + '"></a>');
 					};
-					
-// 					<img src="http://cant.load/x.jpg" onerror="javascript:this.src='/images/blank.gif'"/>
-					
 					var typeTag = $('<span id="type"></span>').html('[&nbsp;' + eventData.eventTypeId + '&nbsp;]');
 					var aTag = $('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"></a>').html('<span id="title">' + eventData.eventName + '</span>');
 					var titleBox = $('<div id="titleBox"></div>').append([ typeTag , aTag ]);
-					// 對字元衝突的中正區給予class
-					if( eventData.areaId == '中正區' ){
-						var rs1 = $('<span class="中正區"></span>').html('<i class="fa fa-map-marker" aria-hidden="true" style="width: 17px"></i>&nbsp;&nbsp;' + eventData.areaId);
+					// 將牛埔改顯示為中山區
+					if( eventData.areaId == '牛埔' ){
+						var rs1 = $('<span></span>').html('<i class="fa fa-map-marker" aria-hidden="true" style="width: 17px"></i>&nbsp;&nbsp;中山區');
 					} else {
 						var rs1 = $('<span></span>').html('<i class="fa fa-map-marker" aria-hidden="true" style="width: 17px"></i>&nbsp;&nbsp;' + eventData.areaId)
 					};
@@ -335,17 +391,19 @@
 						var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
 						var D2 = End.getDate() + ' ';
 						var durationEnd = Y2 + M2 + D2;
-					var rs3 = $('<span></span>').html('<i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;活動時間：' + dtStart + ' ~ ' + durationEnd);
+					var rs3 = $('<span></span>').html('<i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbsp;&nbsp;活動時間：' + dtStart + ' ~ ' + durationEnd);
 					var row1 = $('<div class="row"></div>').append([ rs1 , rs2 , rs3 ]);
 					var rs4 = $('<span style="width: 65%"></span>').html('<i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;主辦單位：' + eventData.showGroupName);
-// 					var rs5 = $('<span id="collectCount"></span>').html('<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;' + eventData.collectionCount + '&nbsp;人');
-					var rs5 = $('<span id="collectCount"></span>').html('<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;800&nbsp;人');
+					var rs5 = $('<span id="collectCount"></span>').html('<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;' + eventData.collectionCount + '&nbsp;人');
 					var row2 = $('<div class="row"></div>').append([ rs4 , rs5 ]);
-// 						var today = new Date();
-// 						var todayday = End - today;
-// 						var todaydayday = todayday.getDate();
-// 					var days = $('<div id="days"></div>').html('還剩&nbsp;' + todaydayday + '&nbsp;天');
-					var days = $('<div id="days"></div>').html('還剩&nbsp;87&nbsp;天');
+						// 計算天數差
+						var daysdiff = (eventData.durationEnd - new Date().getTime())/86400000;
+						if ( daysdiff < 0 ) {
+							var daysdiff = 0;
+						} else {
+							var daysdiff = Math.floor(daysdiff) + 1;
+						};
+					var days = $('<div id="days"></div>').html('還剩&nbsp;' + daysdiff + '&nbsp;天');
 					var collect = $('<div id="collect"></div>').text('加入收藏');
 					
 					var mainBox = $('<div class="mainBox"></div>').append([ titleBox , row1 , row2 ]);
@@ -353,12 +411,6 @@
 					
 					$('#showEvent').append(box);
 				});
-				// 對字元衝突的中正區做remove判別
-				var area100 = $('#selectArea :checkbox[value="正"]').prop('checked');
-				var area104 = $('#selectArea :checkbox[value="中"]').prop('checked');
-				if ( area104 == true && area100 == false) {
-					$(".中正區").parent().remove();
-				};
 			}); // JSON END
 		}; // --- controller撈資料 END ---
 		
@@ -377,7 +429,7 @@
 			});
 			var newAreas = areas.join();
 			// 變換text所顯示area
-			if (newAreas == '正同中松安萬信士北內南文') {
+			if (newAreas == '正同埔松安萬信士北內南文') {
 				$('#areaText').val('全部')
 			} else {
 				$('#areaText').val(areaText)
@@ -392,7 +444,7 @@
 			
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchCount.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes} , function(data) {
 				total_Count = data;
-				$('#count').empty().append('&emsp;&emsp;&emsp;共有' + data + '筆活動').css('color','blue');
+				$('#count').empty().append('&emsp;&emsp;共有&nbsp;' + data + '&nbsp;筆活動').css('color','blue');
 				// 把活動數除10再無條件進位  Ex:342筆 -> 34.2 -> 35  ->顯示35筆分頁
 				total_Count = ((total_Count - (total_Count%10)) / 10+1);
 				// destory把現有分頁remove再重新初始化 ，初始化會觸發一次onPageClick，所以會順便做doSearch，代表只要做doCount，也會順便做doSearch
@@ -410,7 +462,7 @@
 	            	last: '最後頁',
 					// 點擊分頁會觸發的事件
 					onPageClick: function (event, page) {
-						doSearch(selectDate , selectArea , selectType , page);
+						doSearch(selectDate , selectArea , selectType , selectOrder , page);
 					}
 				});
 			});
@@ -426,8 +478,6 @@
 				};
 			});
 		};
-		
-	}); // --- 開啟即執行 END ---
 		
 	</script>
 <jsp:include page="/commons/footer.jsp"></jsp:include>

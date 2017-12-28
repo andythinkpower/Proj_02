@@ -63,6 +63,10 @@
     white-space: nowrap;
 }
 
+#title:hover {
+	color: blue;
+}
+
 .row {
 	font-size: 23px;
     width: 100%;
@@ -91,9 +95,9 @@
 #days , #collect {
     font-size: 20px;
     font-weight: bolder;
-    width: 10%;
+    width: 11%;
     float: right;
-    margin: 25px 40px 20px 0px;
+    margin: 25px 25px 20px 0px;
     padding: 8px;
     text-align: center;
     box-sizing: border-box;
@@ -109,7 +113,7 @@
 #collect {
     color: #00E3E3;
     background-color: #CCFF80;
-    margin: 5px 40px 0px 0px;
+    margin: 5px 25px 0px 0px;
     box-sizing: border-box;
     border: 1.5px solid #8CEA00;
 }
