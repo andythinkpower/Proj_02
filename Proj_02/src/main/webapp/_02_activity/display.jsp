@@ -42,7 +42,7 @@
 	<div id="wholePage">
 	</div>
 	<div class='fixed-bottom  float-sm-right'>
-	<a href="../_02_activity/schedule.jsp"><img src="../img/add.png" class='float-sm-right m-5' width="75"/></a>
+	<a href="../_02_activity/schedule.jsp"><img src="../img/add2.png" class='float-sm-right m-5' width="75"/></a>
 	</div>
 	<script>
 	
