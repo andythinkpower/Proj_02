@@ -36,10 +36,11 @@ public class BlogDAOJdbc implements BlogDAO {
 	public void addviewnum(BlogBean bean) {
 		int id=bean.getArticleid();
 		BlogBean beanexist=this.getSession().get(BlogBean.class, id);
-		String nums=beanexist.getViewnum();
-		int x=Integer.parseInt(nums);
-		x=x+1;
-		nums=String.valueOf(x);
+		int nums=beanexist.getViewnum();
+//		int x=Integer.parseInt(nums);
+//		x=x+1;
+//		nums=String.valueOf(x);
+		nums=nums+1;
 		getSession().get(BlogBean.class, id).setViewnum(nums);
 	}
 //add like num	
@@ -47,10 +48,11 @@ public class BlogDAOJdbc implements BlogDAO {
 	public void addlikenum(BlogBean bean) {
 		int id=bean.getArticleid();
 		BlogBean beanexist=this.getSession().get(BlogBean.class, id);
-		String nums=beanexist.getLikenum();
-		int x=Integer.parseInt(nums);
-		x=x+1;
-		nums=String.valueOf(x);
+		int nums=beanexist.getLikenum();
+//		int x=Integer.parseInt(nums);
+//		x=x+1;
+//		nums=String.valueOf(x);
+		nums=nums+1;
 		getSession().get(BlogBean.class, id).setLikenum(nums);
 	}	
 
@@ -78,7 +80,7 @@ public class BlogDAOJdbc implements BlogDAO {
 //selecthightest
 	public List<BlogBean> selecthightest(){
 		Query<BlogBean> query = this.getSession().createQuery(
-				"FROM BlogBean ORDER BY ViewNum DESC", BlogBean.class);
+				"FROM BlogBean where pravicy='公開' ORDER BY ViewNum DESC", BlogBean.class);
 		return query.getResultList();
 	}
 	

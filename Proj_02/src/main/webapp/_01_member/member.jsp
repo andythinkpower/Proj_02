@@ -10,17 +10,24 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
     <style>
         body {
-            font-family: Microsoft JhengHei;
-            background-color:	#F2E6E6;
-        }
+			font-family: Microsoft JhengHei;
+			background-image:url('${pageContext.request.contextPath}/img/997.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
+		.img{
+			width:200px;
+			height:200px;
+			overflow:hidden;
+		}
     </style>
-
 </head>
 <body>
-<jsp:include page="${pageContext.request.contextPath}/commons/header.jsp"></jsp:include>
+<jsp:include page="../commons/header_login.jsp"></jsp:include>
 <section>
         <div class="container p-5">
             <div class="row">
@@ -34,9 +41,11 @@
                             <!--row照片和會員資料-->    
                             <div class="row p-2">
                                     <!--col照片-->
-                                    <div class="col-4  p-2">
-                                        <img value="" name="memberphoto" height="160" width="160" id="img" src="${pageContext.request.contextPath}${member.memberphoto}" /><br />
-                                        <input class="btn btn-sm" accept="image/*" id="uploadImage" name="memberphoto" type="file" />
+                                    <div class="col-4  p-2 img">
+                                    	<label for="uploadImage">
+                                    	<img name="memberphoto" width="250" id="img" src="${pageContext.request.contextPath}${member.memberphoto}" />
+                                        <input style="display:none" accept="image/*" id="uploadImage" name="memberphoto" type="file" />
+                                        </label>
                                         <script>
                                             $("#uploadImage").change(function () {
                                                 readImage(this);
@@ -65,7 +74,8 @@
                                         <div>
                                             <label>密碼：</label>
                                             <!--修改密碼按鈕點下去跳出變更密碼視窗-->
-                                            <input type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#changepasswordModal" value="修改密碼">
+                                            <input type="button" class="btn btn-sm btn-info" data-toggle="modal" 
+                                            	data-target="#changepasswordModal" value="修改密碼">
                                             <div class="modal" id="changepasswordModal">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -77,20 +87,21 @@
                                                             
                                                                 <div class="form-group">
                                                                     <label>舊密碼</label>
-                                                                    <input type="password" class="form-control" />
+                                                                    <input id="oldpassword" type="password" class="form-control" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>新密碼</label>
-                                                                    <input type="password" class="form-control" />
+                                                                    <input id="pwd1" type="password" class="form-control"/>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>再輸入一次密碼</label>
-                                                                    <input type="password" name="memberpassword" class="form-control" />
+                                                                    <input id="pwd2" type="password" name="memberpassword" class="form-control"  onblur="validate()"/>
+                                                                    <span id="tishi"></span>
                                                                 </div>
                                                             
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <input class="btn btn-primary" type="submit" name="submitbtn" value="修改密碼">
+                                                            <input id="cpwdbutton" class="btn btn-primary" type="submit" name="submitbtn" value="修改密碼">
                                                             <button class="btn btn-secondary" data-dismiss="modal">關閉視窗</button>
                                                         </div>
                                                     </div>
@@ -188,7 +199,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../js/jquery-1.12.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
             integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
             crossorigin="anonymous"></script>
@@ -197,6 +208,24 @@
             crossorigin="anonymous"></script>
             
     <script>
+    
+
+  	//這裡是驗證新密碼的地方
+    function validate() {         
+        var pwd1 = $("#pwd1").val();
+        var pwd2 = $("#pwd2").val();
+
+        if(pwd2 == pwd1) {
+            $("#tishi").html("兩次密碼相同");
+            $("#tishi").css("color","green");
+        	$("#cpwdbutton").removeAttr("disabled");
+        } else {
+            $("#tishi").html("兩次密碼不相同");
+            $("#tishi").css("color","red")
+            $("#cpwdbutton").attr("disabled","disabled");   
+        }
+    }
+
     
 
 //這裡是處理電子報回傳值的地方
@@ -279,21 +308,6 @@ function ClearBox2(){
 		}
 	}
 }
-
-//$('input[name="liketype"]:checkbox:eq(0)').change(function () {
-    // 取得「其他選項」CheckBox
-    //var checkboxes = $('input[name="liketype"]:checkbox:gt(0)');
-    // 「其他選項」CheckBox 會依據「全部」CheckBox 的 Checked 狀態改變
-    //$(this).is(':checked') ? checkboxes.prop('checked', 'checked') : checkboxes.removeAttr('checked');
-//});
-//$('input[name="liketype"]:checkbox:gt(0)').change(function () {
-	// 判斷「其他選項」CheckBox 的 Checked 狀態是否全勾選, 如果全勾選即將「全部」Checkbox 勾選
-	//if ($('input[name="liketype"]:gt(0):checked').length == ($('input[name="liketype"]:checkbox:gt(0)').length)) {
-	//	$('input[name="liketype"]:checkbox:eq(0)').prop("checked", "checked");
-	//} else {
-	//	$('input[name="liketype"]:checkbox:eq(0)').removeAttr("checked");
-	//}
-//});
 
     </script>
 <jsp:include page="../commons/footer.jsp"></jsp:include>

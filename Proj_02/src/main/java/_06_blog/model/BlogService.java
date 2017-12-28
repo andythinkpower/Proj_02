@@ -20,9 +20,13 @@ public class BlogService {
 	private BlogDAO blogDao;
 	
 	//發布一篇文章
-	public BlogBean post(BlogBean bean) {
+	public boolean post(BlogBean bean) {		
 		blogDao.insert(bean);
-		return null;
+		BlogBean beanexist=blogDao.select(bean);
+		if(beanexist !=null) {
+			return true;
+		}		
+		return false;
 	}
 	//選出該會員的所有文章
 	public List<BlogBean> selectall(BlogBean bean){

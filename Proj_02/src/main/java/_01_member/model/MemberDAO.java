@@ -8,7 +8,7 @@ public interface MemberDAO {
 
 	MemberBean select(String memberemail);
 	
-	MemberBean insert(MemberBean bean);
+	boolean insert(MemberBean bean);
 	
 	MemberBean update(MemberBean bean);
 	
