@@ -27,7 +27,7 @@
                         <a href="/Proj_02/_05_web/map.html" class="nav-link">Event Map</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a href="/Proj_02/_05_web/Calendar.html" class="nav-link">活動誌</a>
+                        <a href="${pageContext.request.contextPath}/_06_blog/blog.jsp" class="nav-link">活動誌</a>
                     </li>
                     <!--會員下拉式選單-->
                     <li class="nav-item dropdown mr-3">
@@ -41,7 +41,7 @@
                     </li><!--會員下拉式選單end here-->
                     <li class="nav-item dropdown mr-3">
                         <a href="" class="nav-link drop-toggle" data-toggle="dropdown">
-                        	<img src='${pageContext.request.contextPath}${member.memberphoto}' width='30px'/></a>
+                        	<img src='${pageContext.request.contextPath}${member.memberphoto}' width='30px'/>${member.membernickname}</a>
                         <div class="dropdown-menu">
                         <a href="${pageContext.request.contextPath}/_01_member/member.jsp" class="dropdown-item">會員資料修改</a>
                         <a href="${pageContext.request.contextPath}/security/login_out.jsp" class="dropdown-item">登出</a>

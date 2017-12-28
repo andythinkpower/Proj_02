@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <form>
                                 <div class="form-group float-right" style="border:solid 1px groove">
-                                    <img style="width:200px;height:200px"/><!--上傳後的照片顯示在這裡-->
+                                    <img style="width:200px;height:200px" src="${pageContext.request.contextPath}${article.blogphoto}"/><!--上傳後的照片顯示在這裡-->
                                 </div>
                                 <div class="form-group">
                                     <label for="title">新增時間：</label>

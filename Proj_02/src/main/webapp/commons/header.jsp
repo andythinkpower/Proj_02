@@ -40,10 +40,9 @@
                         </div>
                     </li><!--會員下拉式選單end here-->
                     <li class="nav-item dropdown mr-3">
-                        <a href="" class="nav-link drop-toggle" data-toggle="dropdown">會員登入</a>
+                        <a href="" class="nav-link drop-toggle" data-toggle="dropdown">會員</a>
                         <div class="dropdown-menu">
                         	<a href="${pageContext.request.contextPath}/_01_member/register.jsp" class="dropdown-item">註冊</a>
-
                             <a href="${pageContext.request.contextPath}/security/login.jsp" class="dropdown-item">登入</a>
                             <a href="${pageContext.request.contextPath}/_03_backStage/login2.jsp" class="dropdown-item">管理員</a>
 

@@ -20,40 +20,30 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO memberDao;
+	
+//checkAccount
+	public boolean checkAccount(String memberemail) {
+		MemberBean bean= memberDao.select(memberemail);
+		if(bean !=null) {
+			return true;
+		}
+		return false;
+	}
 //login	
 	public MemberBean login(String memberemail, String memberpassword) {
 		MemberBean bean= memberDao.select(memberemail);
 		if (bean != null) {
 			if (memberpassword != null && memberpassword.length() != 0) {				
-				
 
-				
-//				String key = "kittymickysnoopy"; // 對稱式金鑰
-//				byte[] iv = new byte[128 / 8]; // 初始向量
-//				SecureRandom srnd = new SecureRandom();
-//				srnd.nextBytes(iv);
-//				
-//				String plainText = memberpassword;
-//				String cipherText = "";
-//				String decryptedString = "";
 				String pass = bean.getMemberpassword();
 				System.out.println("pass:"+pass);
-//				
-//				try {
-//					cipherText = CipherUtils.encryptString(key, plainText, iv);
-////					decryptedString = CipherUtils.decryptString(key, pass, iv);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				
-//				System.out.println("加密字串: " + cipherText);
 				
 				String temp = memberpassword;
 				if (temp.equals(pass)) {
 					return bean;
 				}
 			}
-		}		
+		} 
 		return null;
 	}
 //register	
@@ -61,14 +51,16 @@ public class MemberService {
 		MemberBean bean =new MemberBean();
 		bean.setMemberemail(memberemail);
 		bean.setMemberpassword(memberpassword);
-		memberDao.insert(bean);
-		bean=memberDao.select(memberemail);
-//		if(bean!=null) {			
-//			String result = EmailUtil.sendEmail(memberemail, "註冊成功",
-//					 "<h1>註冊成功</h1><br><a href='#'>重新登入<a/>",null);
-//			System.out.println(".sendEmail:"+result);
-//		}
-		return bean;
+		boolean result=memberDao.insert(bean);
+		if(result) {
+//			String sendEmail = EmailUtil.sendEmail(memberemail, "註冊成功",
+//			 "<h1>註冊成功</h1><br><a href='#'>重新登入<a/>",null);
+//			System.out.println(".sendEmail:"+sendEmail);			
+			
+			bean=memberDao.select(memberemail);
+			return bean;	
+		}
+		return null;
 	}
 	
 //update
@@ -117,7 +109,7 @@ public class MemberService {
 		
 		MemberBean bean=new MemberBean();
 		bean.setMemberemail("nnn@gmail.com");
-		System.out.println(memberService.showevents(bean));
+		System.out.println(memberService.checkAccount("nnn@gmail.com"));
 				
 		((ConfigurableApplicationContext)context).close();
 	}

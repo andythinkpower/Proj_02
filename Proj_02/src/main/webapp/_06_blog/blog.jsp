@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,7 +19,15 @@
     </style>
 </head>
 <body>
-<jsp:include page="/commons/header.jsp"></jsp:include>
+<c:set scope="session" value="${member}" var='mem'/>
+<c:choose>
+	<c:when test="${not empty mem }">
+		<jsp:include page="/commons/header_login.jsp"></jsp:include>
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/commons/header.jsp"></jsp:include>
+	</c:otherwise>
+</c:choose>
     <section id="section">
         <div class="container p-5">
             <div class="row">
@@ -29,7 +38,7 @@
                         </div>
                         <div class="card-body">
 
-                            <div id="body" class="row">
+                            <div id="body" class="card-columns">
 <!--                                 <div class="col"> -->
 <!--                                     <div class="card" style="width: 20rem"> -->
 <!--                                         <img class="card-img-top" src="" alt="card image cap" /> -->
@@ -68,14 +77,14 @@
     	    if(list.length==0){
     	    	$('#table>tbody').html("<tr><td>#</td><td>您還沒有任何文章^_^</td><td></td><td></td><td></td></tr>")
     	    }
+			var i=0;
 			$.each(list,function(index,anarticle){
 				
 				console.log('articleid:'+anarticle.articleid);
-				
-				var card=$('<div class="col"></div>').html('<div class="card p-2" style="width: 16rem">'+
-						'<img class="card-img-top" src="${pageContext.request.contextPath}/img/default.jpg" alt="card image cap" />'+
-						'<div class="card-body" style="background-color:#F2E6E6"><h6 class="card-title">'+anarticle.articlename+'</h6>'+
-						'<p class="card-text" style="display:none">'+anarticle.articleid+'</p><a class="btn btn-warning float-right more">閱讀更多</a></div>');
+				i=i+1;
+				var card=$('<div class="card p-2" style="width: 20rem">').html('<img class="card-img-top" src="${pageContext.request.contextPath}'+anarticle.blogphoto+'" alt="card image cap" />'+
+						'<div class="card-body" style="background-color:#F2E6E6"><h4>#'+i+'</h4><h6 class="card-title">'+anarticle.articlename+'</h6>'+
+						'<p class="card-text" style="display:none">'+anarticle.articleid+'</p><a class="btn btn-warning float-right more">閱讀更多</a>');
 				 							
 				$('#body').append(card);
 				
