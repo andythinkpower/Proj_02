@@ -11,11 +11,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <style>
- body{
-		background-color:#F2E6E6;
-	}
+ body {
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/tttt.jpeg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
  form{
  		background-color:white;
+ }
+ .img{
+ overflow:hidden;
+ 	
  }
 </style>
 <script>
@@ -30,37 +40,33 @@ $(function () {
 </head>
 <body>
 <jsp:include page="../commons/header_login.jsp"/>
-    <div class="row">
+    <div class="row">sss
         <div class="col"></div>
         <div class="col-5">
             <div class="container">
                 <h1 class="text-center">建立行程-1</h1>
                 <form id="activity" action="ActivityController.do" method="post" enctype="multipart/form-data" style="border:1px solid gray;border-radius:10px">
                     <div class="form-row pt-4">
-                        <div class="col text-center ">
+                        <div class="col text-center pt-4">
                             <input type="hidden" name="doWhat" value="schedule">
-                            <div class="form-group  ">
+                            <div class="form-group  pt-2">
                                 <label for="Title">行程名稱:</label>
                                 <input type="text" id="Title" name="actTitle" />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group pt-4">
                                 <label for="Region">活動地區:</label>
                                 <input type="text" id="Region" name="actRegion" />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group pt-4">
                                 <label for="date">出發日期:</label>
-                                <input type="text" name="actStartDate" id="date" readonly> <br>
-                            </div>
-								
-                            <div class="form-group pl-5 ">
-                                <input type="file" id="file" name="file" class="form-control-file">
-                                <small id="fileHelp" class="form-text text-muted">Max 3mb size</small>
-                            </div>
+                                <input type="text" name="actStartDate"  id="date" readonly> <br>
+                            </div>			
                         </div>
-                        <div class="col pr-5">
-                            <figure class="figure">
-                                <img class="figure-img img-fluid rounded preview">
-                            </figure>
+                        <div class="col pr-5 img" >
+                        <label for='file'>
+                            <input type="file" id="file" name="file" accept="image/*" class="form-control-file" style='display:none'>
+                                <img class="figure-img img-fluid rounded preview" src='../uploadFile/nopic.jpg' width='300' style='height:250px' >                       
+                            </label>
                         </div>
                     </div>
                     <div class="form-group px-5">

@@ -58,7 +58,7 @@
                      "</option><option value='活動'>活動</option><option value='其他'>其他</option></select></div> <div class='col-5'>" +
                      "<input class='form-control note' name='note' placeholder='輸入所要搜尋的資料' data-toggle='modal' data-target='#searchBox' readonly />" +
                      "</div> <div class='col'><input class='form-control' name='budget' placeholder='預算' /></div>" +
-                     "<div class='col'><img src='img/trash-3x.png' class='mt-1 pl-2 delete'/></div><input name='dates' type='hidden' value='"+count+"'/>" +
+                     "<div class='col'><img src='../img/trash-3x.png' class='mt-1 pl-2 delete'/></div><input name='dates' type='hidden' value='"+count+"'/>" +
                      "<input name='longitude_temp' type='hidden' value=''/><input name='latitude_temp' type='hidden' value=''/>");
                 $(this).before(row);
             }
