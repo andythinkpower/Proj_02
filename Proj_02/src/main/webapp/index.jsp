@@ -28,6 +28,8 @@
 body {
 	font-family: Microsoft JhengHei;
 }
+
+
 </style>
 </head>
 <body>
@@ -94,7 +96,6 @@ body {
 			</div>
 		</div>
 	</div>
-	<h2></h2>
 	<div class="test"></div>
 
 	<script>
@@ -133,7 +134,7 @@ body {
              
              
              function dynamicCard(id_name){
-            	 var ul = $('<ul class="nav nav-pills mb-3">');
+            	 var ul = $('<ul class="nav nav-pills red mb-3">');
                  var tab_content = $("<div class='tab-content'>");
                  var container = $("<div class='container mt-3'>"); 
              $.each(type, function (index, value) {
@@ -142,6 +143,7 @@ body {
             	 temp=[];
                  date_count++;
                  if (index == 0) {
+                	 $(".test").append("<h2 class='text-center mt-2'>"+id_name+"</h2>");
                      ul.append('<li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#'+id_name + date_count + '" >全部</a></li>');               
                  } else {
                      ul.append('<li class="nav-item"><a class="nav-link " data-toggle="pill" href="#'+ id_name+ date_count + '">' + value + '</a></li>');            
@@ -167,6 +169,7 @@ body {
                  
                  container.append(ul);
                  container.append(tab_content);
+                
                  $(".test").append(container); 
                  
                   //放圖片             
@@ -205,13 +208,42 @@ body {
              
              
              
-           //綁定事件
+           //綁定事件 應該可以用迴圈合併
              $("body").on('click','.img本周活動0',function(){
-            		var a=$(this).prev().text();
-            		console.log(a);
+            		var pk=$(this).prev().text();
+            		console.log(pk);
+            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
+             })
+              $("body").on('click','.img本周活動1',function(){
+            		var pk=$(this).prev().text();
+            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
+             })
+              $("body").on('click','.img本周活動2',function(){
+            		var pk=$(this).prev().text();
+            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
+             })
+              $("body").on('click','.img本周活動3',function(){
+            		var pk=$(this).prev().text();
+            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
+             })
+              $("body").on('click','.img本周活動4',function(){
+            		var pk=$(this).prev().text();
+            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
+             })
+              $("body").on('click','.img本周活動5',function(){
+            		var pk=$(this).prev().text();
+            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
+             })
+              $("body").on('click','.img本周活動6',function(){
+            		var pk=$(this).prev().text();
+            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
+             })
+              $("body").on('click','.img本周活動7',function(){
+            		var pk=$(this).prev().text();
+            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
              })
              
-             
+          
             
             
            

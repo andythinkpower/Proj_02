@@ -18,16 +18,25 @@ public class BlogBean {
 	private java.util.Date posttime;
 	private String articletype;
 	private String pravicy;
-	private String likenum="1";
-	private String viewnum="0";
+	private int likenum=0;
+	private int viewnum=1;
 	private String memberemail;
+	private String blogphoto="/uploadFile/default.jpg";
 	
 
+	
 	@Override
 	public String toString() {
 		return "BlogBean [articleid=" + articleid + ", articlename=" + articlename + ", articlecontent="
 				+ articlecontent + ", posttime=" + posttime + ", articletype=" + articletype + ", pravicy=" + pravicy
-				+ ", likenum=" + likenum + ", viewnum=" + viewnum + ", memberemail=" + memberemail + "]";
+				+ ", likenum=" + likenum + ", viewnum=" + viewnum + ", memberemail=" + memberemail + ", blogphoto="
+				+ blogphoto + "]";
+	}
+	public String getBlogphoto() {
+		return blogphoto;
+	}
+	public void setBlogphoto(String blogphoto) {
+		this.blogphoto = blogphoto;
 	}
 	public int getArticleid() {
 		return articleid;
@@ -59,16 +68,16 @@ public class BlogBean {
 	public void setArticletype(String articletype) {
 		this.articletype = articletype;
 	}	
-	public String getLikenum() {
+	public int getLikenum() {
 		return likenum;
 	}
-	public void setLikenum(String likenum) {
+	public void setLikenum(int likenum) {
 		this.likenum = likenum;
 	}
-	public String getViewnum() {
+	public int getViewnum() {
 		return viewnum;
 	}
-	public void setViewnum(String viewnum) {
+	public void setViewnum(int viewnum) {
 		this.viewnum = viewnum;
 	}
 	public String getPravicy() {

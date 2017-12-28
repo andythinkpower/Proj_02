@@ -52,10 +52,20 @@ public class MemberController {
 		System.out.println(liketype);
 		System.out.println(likeregion);		
 		System.out.println(bean);
+		String type[];
+		String region[];
 		
-		String type[] = liketype.split(",");
-
-		String region[] =likeregion.split(",");
+		if(liketype==null) {
+			type=new String[]{"表演萬象","展覽廣場","音樂現場","講座研習","電影瞭望","城市萬花筒","親子活動","戶外行腳"};
+		}else {
+			type= liketype.split(",");
+		}
+		
+		if(likeregion==null) {
+			region=new String[]{"中正區","大同區","中山區","松山區","大安區","萬華區","信義區","士林區","北投區","內湖區","南港區","文山區"};
+		}else {
+			region=likeregion.split(",");
+		}
 		
 		
 		CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(

@@ -32,14 +32,15 @@ public class MemberDAOJdbc implements MemberDAO {
 		return this.getSession().get(MemberBean.class, memberemail);
 	}
 //insert
-	public MemberBean insert(MemberBean bean) {
+	public boolean insert(MemberBean bean) {
 		if(bean!=null) {
 			MemberBean select =this.select(bean.getMemberemail());
 			if(select==null) {
 				this.getSession().save(bean);
+				return true;
 			}					
 		}
-		return null;
+		return false;
 	}
 //update
 	public MemberBean update(MemberBean bean) {
@@ -119,7 +120,7 @@ public class MemberDAOJdbc implements MemberDAO {
 	
 //test
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.config.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("text.xml");
 		SessionFactory sessionFactory = (SessionFactory) context.getBean("sessionFactory");
 
 		Session session = sessionFactory.getCurrentSession();
@@ -127,12 +128,15 @@ public class MemberDAOJdbc implements MemberDAO {
 
 		MemberDAOJdbc dao = (MemberDAOJdbc) context.getBean("memberDAOJdbc");
 		MemberBean bean =new MemberBean();
-		bean.setMemberemail("ccc@gmail.com");
+//		bean.setMemberemail("ccc@gmail.com");
+		
+//		bean=dao.select("asd@gmail.com");
+		
 //		bean.setMemberpassword("nnn");
 //		dao.insert(bean);
-		Set<EventsBean> eventslike=dao.showevents(bean);
-		System.out.println(bean);
-		System.out.println(eventslike);
+//		Set<EventsBean> eventslike=dao.showevents(bean);
+//		System.out.println(bean);
+//		System.out.println(eventslike);
 		
 		session.getTransaction().commit();
 		((ConfigurableApplicationContext) context).close();

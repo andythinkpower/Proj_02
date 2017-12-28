@@ -94,6 +94,11 @@ public class LoginController {
 		response.addCookie(cookiePassword);
 		response.addCookie(cookieRememberMe);
 		
+		boolean bean3=memberService.checkAccount(memberemail);
+		if(bean3==false) {
+			errors.put("erremail", "帳號輸入有誤");
+			return "login.error";
+		}
 		MemberBean bean2=memberService.login(memberemail, memberpassword);
 		Set<EventsBean> events=memberService.showevents(bean);
 		Set<RegionsBean> regions=memberService.showregions(bean);
@@ -102,6 +107,7 @@ public class LoginController {
 		
 		if(bean2==null) {
 			errors.put("errpsw", "登入失敗");
+			errors.put("account", memberemail);
 			return "login.error";
 		} else {
 			model.addAttribute("member", bean2);
