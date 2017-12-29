@@ -19,10 +19,23 @@
             background-position: center;
             background-size: cover;
 		}
+		.img{
+			width:500px;
+			height:200px;
+			overflow:hidden;
+		}
     </style>
 </head>
 <body>
-<jsp:include page="/commons/header.jsp"></jsp:include>
+<c:set scope="session" value="${member}" var='mem'/>
+<c:choose>
+	<c:when test="${not empty mem }">
+		<jsp:include page="/commons/header_login.jsp"></jsp:include>
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/commons/header.jsp"></jsp:include>
+	</c:otherwise>
+</c:choose>
     <section>
         <div class="container p-5">
             <div class="row">
@@ -30,12 +43,13 @@
                     <div class="card">
                         <div id="articlename" class="card-header" style="background-color:	#B8B8DC">
                             <h4>${article.articlename}</h4>
+                            <p>作者：${article.memberemail}</p>
                             <p id="nums" class="float-right">瀏覽數：${article.viewnum} / 按讚數：${article.likenum}</p>
                         </div>
                         <div class="card-body">
                             <form>
-                                <div class="form-group float-right" style="border:solid 1px groove">
-                                    <img style="width:200px;height:200px" src="${pageContext.request.contextPath}${article.blogphoto}"/><!--上傳後的照片顯示在這裡-->
+                                <div class="form-group float-right img" style="border:solid 1px groove">
+                                    <img style="width:300px" src="${pageContext.request.contextPath}${article.blogphoto}"/><!--上傳後的照片顯示在這裡-->
                                 </div>
                                 <div class="form-group">
                                     <label for="title">新增時間：</label>

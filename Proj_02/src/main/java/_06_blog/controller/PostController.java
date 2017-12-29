@@ -23,21 +23,21 @@ import _06_blog.model.BlogBean;
 import _06_blog.model.BlogService;
 
 @Controller
-@RequestMapping(path = {"/_06_blog/post.controller"})
+@RequestMapping(path = {"post.controller"})
+@SessionAttributes(names= {"message"})
 public class PostController {
 
 	@Autowired
 	private BlogService blogService;
 	
-	@RequestMapping(method= {RequestMethod.POST, RequestMethod.GET}, produces = { "application/json;charset=UTF-8" })
-	@ResponseBody
-	public boolean post(BlogBean bean, Model model, String memberemail,
-			String articlename, String articletype, String editor, String pravicy, 
-			String uploadImage,
+	@RequestMapping(method= {RequestMethod.POST})
+	public String post(BlogBean bean, Model model, 
+//			String memberemail,
+//			String articlename, String articletype, String editor, String pravicy, String uploadImage,
 			HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		System.out.println("post.controller");		
-		System.out.println("articlecontent:"+editor);
+		System.out.println("articlecontent:"+bean.getArticlecontent());
 		
 		CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
 				request.getSession().getServletContext());
@@ -60,17 +60,17 @@ public class PostController {
 			}			
 		}		
 		
-		bean.setMemberemail(memberemail);
-		bean.setArticlename(articlename);
-		bean.setArticletype(articletype);
-		bean.setArticlecontent(editor);
-		
+//		bean.setMemberemail(memberemail);		
 		boolean result=blogService.post(bean);
 		
-		if(result) {
-			return true;
-		}
+		Map<String, String> message = new HashMap<>();
+		model.addAttribute("message", message);
 		
-		return false;
+		if(result) {
+			message.put("post", "新增成功");
+			return "post.success";
+		}
+		message.put("post", "新增失敗");
+		return "post.error";
 	}
 }

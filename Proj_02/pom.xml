@@ -15,14 +15,21 @@
 	</properties>
 
 	<dependencies>
-	
+
+		<!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.3m</version>
+		</dependency>
+
 		<!-- javax.mail -->
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>1.5.1</version>
 		</dependency>
-	
+
 
 		<!-- File Upload -->
 		<dependency>

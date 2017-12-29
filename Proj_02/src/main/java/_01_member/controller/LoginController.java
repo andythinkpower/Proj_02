@@ -43,7 +43,7 @@ public class LoginController {
 	@RequestMapping(method = { RequestMethod.POST })
 	public String login(String memberemail, String memberpassword, 
 			MemberBean bean, BindingResult bindingResult, Model model, HttpServletRequest request,
-			HttpServletResponse response, String rememberme) {
+			HttpServletResponse response, String rememberme, String fb) {
 		
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
@@ -69,7 +69,7 @@ public class LoginController {
 			// 稍微編碼(不算是加密)
 			//String encodePassword = DatatypeConverter.printBase64Binary(password.getBytes());
 			String encodePassword = GlobalService.encryptString(memberpassword);
-			System.out.println("--->" + encodePassword + "<---");
+//			System.out.println("--->" + encodePassword + "<---");
 			cookiePassword = new Cookie("password", encodePassword);
 			cookiePassword.setMaxAge(30*60*60);
 			cookiePassword.setPath(request.getContextPath());
@@ -82,7 +82,7 @@ public class LoginController {
 			cookieUser.setPath(request.getContextPath());
 			//String encodePassword = DatatypeConverter.printBase64Binary(password.getBytes());
 			String encodePassword = GlobalService.encryptString(memberpassword);
-			System.out.println("--->" + encodePassword + "<---");
+//			System.out.println("--->" + encodePassword + "<---");
 			cookiePassword = new Cookie("password", encodePassword);
 			cookiePassword.setMaxAge(0);
 			cookiePassword.setPath(request.getContextPath());

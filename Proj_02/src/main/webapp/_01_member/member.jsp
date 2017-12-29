@@ -91,7 +91,8 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>新密碼</label>
-                                                                    <input id="pwd1" type="password" class="form-control"/>
+                                                                    <input onblur="checkPwd()" id="pwd1" type="password" class="form-control"/>
+                                                                    <span id="idsp2"></span>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>再輸入一次密碼</label>
@@ -210,17 +211,38 @@
     <script>
     
 
+    //檢查密碼
+    function checkPwd() {
+        var thePwd = document.getElementById("pwd1").value;
+        var pwdLen = thePwd.length;
+        var re = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
+        if (thePwd == "") {
+            document.getElementById("idsp2").innerHTML = "<img src='../img/error.png' />請輸入密碼";
+            checkflag2 =true;
+        } //if end
+        else if (re.test(thePwd)) {
+            document.getElementById("idsp2").innerHTML = "<img src='../img/check.png' /> OK";
+            //document.getElementById("idsp2").style.color = "green";
+            checkflag2 =false;	            
+        } //else if end
+        else {
+            document.getElementById("idsp2").innerHTML = "<img src='../img/error.png' />至少6個字且必須包含英文字母、數字";
+            checkflag2 =true;
+        } //else end
+        checkValid();	        
+    } //checkPwd() end
+    
   	//這裡是驗證新密碼的地方
     function validate() {         
         var pwd1 = $("#pwd1").val();
         var pwd2 = $("#pwd2").val();
 
         if(pwd2 == pwd1) {
-            $("#tishi").html("兩次密碼相同");
+            $("#tishi").html("<img src='../img/check.png' /> 兩次密碼相同");
             $("#tishi").css("color","green");
         	$("#cpwdbutton").removeAttr("disabled");
         } else {
-            $("#tishi").html("兩次密碼不相同");
+            $("#tishi").html("<img src='../img/error.png' /> 兩次密碼不相同");
             $("#tishi").css("color","red")
             $("#cpwdbutton").attr("disabled","disabled");   
         }
