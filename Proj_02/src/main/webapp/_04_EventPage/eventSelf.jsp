@@ -71,6 +71,7 @@
 	<script>
 		// 開啟即執行
 		$(function(){
+			
 			var user =$("#member").text();
 			var eventID = $("#eventID").text();
 			var collection=true;
