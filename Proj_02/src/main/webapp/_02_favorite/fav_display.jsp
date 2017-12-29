@@ -104,7 +104,7 @@ color: blue;
 				var img=(event01.imageFile.length>5)?event01.imageFile:'../img/taipei_culture.png';
 				var link="../_04_EventPage/eventSelf.jsp?eventID="+id;
 				var button='<button type="button"  name="del_favorite" eventid='+id+'  class="btn btn-danger">取消</button>';
-				var event=$('<div name="event" title="'+event01.eventName+'">').html('<div name="eventname">'+button+'<h6><b>'+title+
+				var event=$('<div class="pt-3 px-2"  name="event" title="'+event01.eventName+'">').html('<div name="eventname">'+button+'<h6><b>'+title+
                 										'</b></h6></div><div name="eventimg"><a href="'+link+
                 										'"><img name="eventimg" src="'+img+'"/></a></div>'+
                 				                        '</div>')
