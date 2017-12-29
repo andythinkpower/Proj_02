@@ -19,8 +19,10 @@ public interface ActivityDAO {
 	// 修改行程
 	public boolean update(ActivityBean pdateBean);
 	
-	
 	// 刪除行程  
 	public boolean delete(Integer ActivityID);
+	
+	//測試用
+	public List<ActivityBean> order(String email);
 
 }

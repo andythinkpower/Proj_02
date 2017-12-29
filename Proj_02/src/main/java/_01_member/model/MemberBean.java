@@ -56,7 +56,7 @@ public class MemberBean {
 	private String membernickname;
 	private String membergender;
 	private java.sql.Date memberbdate;
-	private String memberphoto="/uploadFile/default.jpg";
+	private String memberphoto;
 	private String memberepaper;
 	private String membertype;
 	private String memberrole;
