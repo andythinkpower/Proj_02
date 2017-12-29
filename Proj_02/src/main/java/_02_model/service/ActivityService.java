@@ -42,5 +42,11 @@ public class ActivityService {
 	public boolean Delete_Schedule(Integer ActivityID) {
 		return activityDAO.delete(ActivityID);
 	}
+	//test
+	@Transactional
+	public List<ActivityBean> aaa(String email) {
+		List<ActivityBean> b=activityDAO.order(email);
+		return b;
+	}
 
 }

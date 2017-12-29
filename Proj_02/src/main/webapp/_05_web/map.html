@@ -4,7 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EventMap</title>
 <style>
+	body {
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('../img/101-5.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            height: 100%;
+			margin: 0;
 
+		}
 #map {
 	height: 800px;
 	width: 90%;
@@ -20,11 +31,11 @@
     position: absolute;
     /* 展開footer寬度 */
     width: 100%;
-   background-color:pink; 
+   
 }
 #mapbody{
 height: 800px;
-background-color:pink; 
+ 
 }
 #buttom{
     width:5%;
@@ -43,50 +54,52 @@ background-color:pink;
 <script src="../js/jquery-1.12.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
-
-
-
-<!--
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="../js/bootstrap.js"></script>
--->
-
+<script src="../js/cookie.js" type="text/javascript"></script>
 <script src="../js/ButtomController.js"></script>
 <script src="../js/GoogleMap.js">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 
 </head>
 
-<body>
+<body >
 	<div id="header"></div>
-	<div id="mapbody">
+	<div id="mapbody" class="container py-3" style='margin-right:407px;'>
 	<div id="map"></div>
-	<div id="buttom">
+	<div id="buttom" >
 	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<input id='thismonControl' data-toggle="toggle" data-onstyle="info" data-offstyle="warning"  type="checkbox" checked />
+	<p></p>
 	<input id='musicControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input id='exhibitionControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input  id='performanceControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input  id='studyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input  id='movieControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input id='LeisureControl' ata-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input  id='familyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	</div>
 	</div>
 </script>
 <script type="text/javascript">
 $(function(){
-	  $("#header").load("../commons/header.jsp"); 
-	  $("#footer").load("../commons/footer.jsp"); 
+	var email;
+	$.get('checkMemSession.controller',{},function(data){
+		email=data;
+		if(email!='null'){
+			$("#header").load("../commons/header_login.jsp"); 
+		} else{
+			$("#header").load("../commons/header.jsp"); 
+		}
+	});
+	
+	  $("#footer").load("../commons/footer.jsp");
 	  $("#musicControl").bootstrapToggle('on')
 	  $("#exhibitionControl").bootstrapToggle('on')
 	  $("#performanceControl").bootstrapToggle('on')
@@ -103,7 +116,7 @@ $(function(){
     </script>
     
 <!--	<div style="margin:2px 45% ;">
-	<input id='thismonControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	
 	</div>
 	-->
 <div id="footer"></div>

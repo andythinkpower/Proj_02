@@ -33,6 +33,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import _01_member.model.MemberBean;
+
+import _02_model.ActivityDAO;
+import _02_model.ActivityDetailDAO;
 import _02_model.Bean.ActivityBean;
 import _02_model.Bean.ActivityDetailBean;
 import _02_model.service.ActivityDetailService;
@@ -64,7 +67,6 @@ public class Activity_Controller {
 		
 		// 代表是從schedule.jsp進來
 		if ("schedule".equals(doWhat)) {
-			
 			if(bean.getActTitle().isEmpty()||bean.getActTitle().trim().length()==0) {
 				System.out.println("標題沒輸入");
 			}else {
@@ -161,8 +163,6 @@ public class Activity_Controller {
 		}
 		else if ("single".equals(doWhat)) {
 			// 尚未檢查錯誤
-			System.out.println("顯示單人頁面");
-			System.out.println(bean);
 			ActivityBean soloBean = activityService.solo_select(bean.getActivityID());
 			model.addAttribute("soloBean", soloBean);
 			Set<ActivityDetailBean> soloDetail = soloBean.getActivityDetails();
@@ -243,17 +243,50 @@ public class Activity_Controller {
 		}
 		
 		//步驟2 利用這個pk去資料庫撈資料
-		
-		
+	
 		Map<String,Object> map=new HashMap();
-		
+	
 		map.put("actBean",test);
-		map.put("detailBean",detail);
-		
+		map.put("detailBean",detail);	
 		return map;
 
-	
 	}
+	
+	@RequestMapping(path= {"/_02_activity/update_page.do"},method= {RequestMethod.GET},produces = { "application/json;charset=UTF-8" })	
+	@ResponseBody
+	public Map<String,Object> update_page(String activityID) {
+		System.out.println(activityID);
+		
+		ActivityBean actBean=activityService.solo_select(new Integer(activityID));
+		System.out.println("行程 "+actBean);
+		List<ActivityDetailBean> detailBean=activityDetailService.showALL(new Integer(activityID));
+		System.out.println("行程細節用日期排序");
+		
+		//第一步驟 先取得最大天數
+		Integer maxDay=new Integer(detailBean.get((detailBean.size()-1)).getDates());
+		System.out.println("最大天數為:"+maxDay);
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("maxDay",maxDay);
+		//int count=1;
+		List<List<ActivityDetailBean>> superList=new ArrayList<List<ActivityDetailBean>>();
+		while(maxDay>=1) {
+			List<ActivityDetailBean> templist=new ArrayList<ActivityDetailBean>();
+			for(ActivityDetailBean i:detailBean) {
+				if(maxDay.equals(new Integer(i.getDates()))) {
+					templist.add(i);
+				}			
+			}
+			superList.add(0,templist);;	
+			maxDay--;
+		}
+		map.put("superList",superList);
+		//這邊要做兩個部分一個是取出activityBean (easy)
+		//另一個是要取出此ID的所有行程細節 並且用date排序
+		return map;
+
+	}
+	
 	
 	
 	
@@ -283,5 +316,6 @@ public class Activity_Controller {
 		return list;
 
 	}
+
 
 }

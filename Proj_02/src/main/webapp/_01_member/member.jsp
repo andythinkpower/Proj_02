@@ -27,6 +27,7 @@
     </style>
 </head>
 <body>
+
 <jsp:include page="../commons/header_login.jsp"></jsp:include>
 <section>
         <div class="container p-5">

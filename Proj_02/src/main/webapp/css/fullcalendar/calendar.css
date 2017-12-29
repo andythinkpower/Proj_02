@@ -4,6 +4,7 @@ body {
 		text-align: center;
 		font-size: 14px;
 		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		
 	}
 		
 	#wrap {
@@ -16,7 +17,7 @@ body {
 		width: 150px;
 		padding: 0 10px;
 		border: 1px solid #ccc;
-		background: #eee;
+		background: ##BBFFEE;
 		text-align: left;
 		
 	}
@@ -25,6 +26,7 @@ body {
 		font-size: 16px;
 		margin-top: 0;
 		padding-top: 1em;
+		text-align:center
 	}
 		
 	#external-events .fc-event {
@@ -41,6 +43,7 @@ body {
 	#external-events p input {
 		margin: 0;
 		vertical-align: middle;
+		
 	}
 
 	#calendar {

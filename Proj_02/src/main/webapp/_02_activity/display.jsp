@@ -42,7 +42,7 @@
 	<div id="wholePage">
 	</div>
 	<div class='fixed-bottom  float-sm-right'>
-	<a href="../_02_activity/schedule.jsp"><img src="../img/add.png" class='float-sm-right m-5' width="75"/></a>
+	<a href="../_02_activity/schedule.jsp"><img src="../img/add2.png" class='float-sm-right m-5' width="75"/></a>
 	</div>
 	<script>
 	
@@ -85,10 +85,7 @@
             $("body").on("click",".show",function () {
                     //取得所點選行程的primary key
                     var pk = $(this).prev().text();
-                    console.log("tagert:"+pk);
-                    $("#doWhat").val("showPage");
-                    $("#pk").val(pk);
-                    $("#solo").submit();
+                    window.location.href = '<c:url value="/_02_activity/soloPage_update.jsp?activityID='+pk+'"/>' ;
                 });
             //點擊修改按鈕
             $("body").on("click",".update",function () {

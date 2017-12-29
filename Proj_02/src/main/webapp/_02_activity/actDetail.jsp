@@ -17,9 +17,15 @@
     <script src="../js/_02_actDetail.js" ></script>
     <title>活動細節頁面</title>  
     <style>
-    body{
-		background-color:		#F2E6E6;
-	}
+   body {
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
     .large {
             border: 1px solid yellow;
         }
@@ -49,39 +55,35 @@
                     <div class="form-row pt-4">
                         <div class="col text-center ">
                             <input type="hidden" name="doWhat" value="detail">
-                            <div class="form-group  ">
+                            <div class="form-group pt-2">
                                 <label for="Title">行程名稱:</label>
                                 <input type="text" id="Title" name="actTitle" value="${activityBean.actTitle}" />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group pt-4">
                                 <label for="Region">活動地區:</label>
                                 <input type="text" id="Region" name="actRegion" value="${activityBean.actRegion}" />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group pt-4">
                                 <label for="date">出發日期:</label>
                                 <input type="text" name="actStartDate" id="date" value="${activityBean.actStartDate}" readonly>
                                 <br>
                             </div>
-
                             <div class="form-group pl-5 ">
-                                <input type="file" id="file" name="file" class="form-control-file">
-                                <small id="fileHelp" class="form-text text-muted">Max 3mb size</small>
+                                <input type="file" id="file" name="file" class="form-control-file" accept="image/*" style='display:none'>
                             </div>
                         </div>
                         <div class="col pr-5">
-                            <figure class="figure">
-                                <img src="${pageContext.request.contextPath}${activityBean.photoPath}" class="figure-img img-fluid rounded preview">
-                            </figure>
+                         <label for='file'>
+                                <img src="${pageContext.request.contextPath}${activityBean.photoPath}" class="figure-img img-fluid rounded preview" width='300' style='height:250px'>
+                           </label>
                         </div>
                     </div>
                     <div class="form-group px-5">
-                        <label for="exampleFormControlTextarea1">簡介:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" value="${activityBean.introduction}"></textarea>
+                        <label for="introduction">簡介:</label>
+                        <textarea class="form-control" id="introduction" rows="5" ></textarea>
                     </div>
 
                 </div>
-
-
 
                 <!-- 總結選項 一開始就有 -->
                 <div class="card mt-3 option" style="border:2px solid red;">
@@ -103,8 +105,6 @@
         </div>
         <div class="col"></div>
     </div>
-
-
 
     <!-- ======================================== 隱藏區域 ======================================== -->
     <!-- 負責連接google map searchBox -->
@@ -160,6 +160,12 @@
 
     <script>
         $(function () {
+        	
+        	$("#introduction").val('${activityBean.introduction}');
+        	
+        	
+        	
+        	
             $("body").on('click', 'input[name=note]', function () {
                 temp = $(this);
                 console.log(temp)
