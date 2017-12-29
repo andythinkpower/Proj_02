@@ -219,7 +219,7 @@
 				var Start = Start.getFullYear() + '-'+(Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-'+Start.getDate();
 				//顯示畫面
 				var activity=$("<div>").html("<div>活動標題:"+data.actBean.actTitle+"</div><div>出發時間:"+
-				Start+"</div><div>活動地區:"+data.actBean.actRegion+"<div><img src='${pageContext.request.contextPath}"+data.actBean.photoPath+"'</div>"+
+				Start+"</div><div>活動地區:"+data.actBean.actRegion+"<div><img width='300' height='250' src='${pageContext.request.contextPath}"+data.actBean.photoPath+"'</div>"+
 				"</div><div>行程描述:"+data.actBean.introduction+"</div>"
 				);
 				$("#section").append(activity);

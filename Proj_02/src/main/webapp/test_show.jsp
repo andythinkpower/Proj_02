@@ -9,6 +9,69 @@
 	src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : '1952637041657654',
+				autoLogAppEvents : true,
+				xfbml : true,
+				version : 'v2.11'
+			});
+
+			FB
+					.getLoginStatus(function(response) {
+
+						if (response.status === 'connected') {
+							document.getElementById("status").innerHTML = "we are connected !";
+							document.getElementById('login').style.visibility = 'hidden';
+						} else if (response.status === 'not_authorized') {
+							document.getElementById("status").innerHTML = "we fail";
+						} else {
+							document.getElementById("status").innerHTML = "you are not login facebook";
+						}
+					})
+		};
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		function login() {
+			FB.login(function(response) {
+				console.log(response)
+						if (response.status === 'connected') {
+							document.getElementById("status").innerHTML = "we are connected !";
+							document.getElementById('login').style.visibility = 'hidden';
+						} else if (response.status === 'not_authorized') {
+							document.getElementById("status").innerHTML = "we fail";
+						} else {
+							document.getElementById("status").innerHTML = "you are not login facebook";
+						}
+					}, {scope:'public_profile,email'});
+		}
+		
+		
+		function getInfo() {
+			FB.api('/me', 'GET', {fields: 'name,email'}, function(response) {
+				console.log(response)
+				document.getElementById('status').innerHTML = "email "+response.email+"name "+response.name;
+			});
+		}
+		
+	</script>
+
+
+	<div id="status"></div>
+	<button onclick="getInfo()">Get Info</button>
+	<button onclick="login()" id='login'>Login</button>
+
 	<h1>測試顯示頁面</h1>
 
 
@@ -20,23 +83,21 @@
 		// 			console.log("fin");
 		// 		})
 
-		
-			$(function(){
-				$.getJSON('${pageContext.request.contextPath}/show.controller',function(data){
-					$.each(data,function(i,v){
-						console.log("value :"+v.actTitle);
-						
-					})
-					
-				});
-				
+		$(function() {
+			$.getJSON('${pageContext.request.contextPath}/show.controller',
+					function(data) {
+						$.each(data, function(i, v) {
+							console.log("value :" + v.actTitle);
 
-// 				$.getJSON('${pageContext.request.contextPath}/show.controller',function(data){
-// 				console.log(data);
-// 				})
+						})
 
-			})
-		
+					});
+
+			// 				$.getJSON('${pageContext.request.contextPath}/show.controller',function(data){
+			// 				console.log(data);
+			// 				})
+
+		})
 	</script>
 </body>
 </html>

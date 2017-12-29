@@ -8,20 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:set var='mem' value="${member }" ></c:set>
-	<c:choose>
-		<c:when test="${not empty mem }">
-			<jsp:include page="../commons/header_login.jsp"/>
-		</c:when>
-		<c:otherwise>
-			<jsp:include page="../commons/header.jsp"/>
-		</c:otherwise>
-	</c:choose>
+	
 	
 		
 	<h1>test</h1>
-	<form action="qq.controller">
-	
+	<form action="hahaha.controller">
+	<input name='email'>
 	<input type='submit' value='ss'>
 	</form>
 	

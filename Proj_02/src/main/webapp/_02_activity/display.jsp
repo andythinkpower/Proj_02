@@ -85,10 +85,7 @@
             $("body").on("click",".show",function () {
                     //取得所點選行程的primary key
                     var pk = $(this).prev().text();
-                    console.log("tagert:"+pk);
-                    $("#doWhat").val("showPage");
-                    $("#pk").val(pk);
-                    $("#solo").submit();
+                    window.location.href = '<c:url value="/_02_activity/soloPage_update.jsp?activityID='+pk+'"/>' ;
                 });
             //點擊修改按鈕
             $("body").on("click",".update",function () {

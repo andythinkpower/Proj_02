@@ -23,7 +23,7 @@ public class ActivityDetailDAOspring implements ActivityDetailDAO {
 	// 利用行程ID 取得此行程全部細節
 	@Override
 	public List<ActivityDetailBean> select(Integer activityID) {
-		Query<ActivityDetailBean> query = getSession().createQuery("from ActivityDetailBean where activityID=?",
+		Query<ActivityDetailBean> query = getSession().createQuery("from ActivityDetailBean where activityID=? order by dates",
 				ActivityDetailBean.class);
 		query.setParameter(0, activityID);
 		return query.list();

@@ -79,8 +79,8 @@
                         </div>
                     </div>
                     <div class="form-group px-5">
-                        <label for="exampleFormControlTextarea1">簡介:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" value="${activityBean.introduction}"></textarea>
+                        <label for="introduction">簡介:</label>
+                        <textarea class="form-control" id="introduction" rows="5" ></textarea>
                     </div>
 
                 </div>
@@ -160,6 +160,12 @@
 
     <script>
         $(function () {
+        	
+        	$("#introduction").val('${activityBean.introduction}');
+        	
+        	
+        	
+        	
             $("body").on('click', 'input[name=note]', function () {
                 temp = $(this);
                 console.log(temp)
