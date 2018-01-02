@@ -52,20 +52,5 @@ public class RegionsBean {
 	public void setRegioncode(int regioncode) {
 		this.regioncode = regioncode;
 	}
-
-	public static void main(String[] args) {
-
-		ApplicationContext context= new ClassPathXmlApplicationContext("beans.config.xml");
-		SessionFactory sessionfactory = (SessionFactory) context.getBean("sessionFactory");
-		
-		Session session=sessionfactory.getCurrentSession();
-		session.beginTransaction();
-		
-		RegionsBean bean=session.get(RegionsBean.class, "中正");
-		System.out.println(bean);
-		
-		session.getTransaction().commit();
-		((ConfigurableApplicationContext)context).close();
-	}
 	
 }

@@ -41,6 +41,7 @@
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
       testAPI();
+      
     } else {
       // The person is not logged into your app or we are unable to tell.
       document.getElementById('status').innerHTML = 'Please log ' +
@@ -59,7 +60,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '{518919515157014}',
+    appId      : '{1964367790442563}',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page

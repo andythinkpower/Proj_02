@@ -134,17 +134,5 @@ public class MemberService {
 	    }
 	    return sb.toString();
 	  }
-	
-//test	
-	public static void main(String[] args) {
-		ApplicationContext context= new ClassPathXmlApplicationContext("text.xml");
-		MemberService memberService=(MemberService) context.getBean("memberService");
-		
-		MemberBean bean=new MemberBean();
-		bean.setMemberemail("nnn@gmail.com");
-		System.out.println(memberService.checkAccount("nnn@gmail.com"));
-				
-		((ConfigurableApplicationContext)context).close();
-	}
 
 }
