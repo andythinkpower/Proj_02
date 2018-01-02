@@ -142,14 +142,14 @@
                                     <div>
                                         <label>活動類型：</label><br>
                                         <input class="btn btn-sm mx-2" type="button" value="全選" onclick="CheckAll()">
-                                        <input id="type表演萬象" type="checkbox" name="liketype" value="表演萬象"> 表演萬象
-                                        <input id="type展覽廣場" type="checkbox" name="liketype" value="展覽廣場"> 展覽廣場
-                                        <input id="type音樂現場" type="checkbox" name="liketype" value="音樂現場"> 音樂現場
-                                        <input id="type講座研習" type="checkbox" name="liketype" value="講座研習"> 講座研習
-                                        <input id="type電影瞭望" type="checkbox" name="liketype" value="電影瞭望"> 電影瞭望
-                                        <input id="type城市萬花筒" type="checkbox" name="liketype" value="城市萬花筒"> 城市萬花筒
-                                        <input id="type親子活動" type="checkbox" name="liketype" value="親子活動"> 親子活動
-                                        <input id="type戶外行腳" type="checkbox" name="liketype" value="戶外行腳"> 戶外行腳
+                                        <input id="type表演萬象" type="checkbox" name="liketype" value="表演萬象"> 表演
+                                        <input id="type展覽廣場" type="checkbox" name="liketype" value="展覽廣場"> 展覽
+                                        <input id="type音樂現場" type="checkbox" name="liketype" value="音樂現場"> 音樂
+                                        <input id="type講座研習" type="checkbox" name="liketype" value="講座研習"> 研習
+                                        <input id="type電影瞭望" type="checkbox" name="liketype" value="電影瞭望"> 影視
+                                        <input id="type城市萬花筒" type="checkbox" name="liketype" value="城市萬花筒"> 休閒
+                                        <input id="type親子活動" type="checkbox" name="liketype" value="親子活動"> 親子
+                                        <input id="type戶外行腳" type="checkbox" name="liketype" value="戶外行腳" style="display:none"> 
                                         <input class="btn btn-sm mx-2" type="button" value="清空" onclick="clearBox()">
                                     </div>
                                     <!-- 這裡是隱藏接收活動類型回傳值的地方 -->
