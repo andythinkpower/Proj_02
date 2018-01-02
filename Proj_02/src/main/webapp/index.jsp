@@ -122,10 +122,9 @@
 		});
 	</script>
 
-hgfhgf
 
 	<script>
-	$.ajaxSettings.async = false;
+	//$.ajaxSettings.async = false;
         $(function () {
         	
         	$("body").on('click','.hot',function(){
@@ -154,10 +153,10 @@ hgfhgf
              
             dynamicCard('最新刊登',selectDate2,selectOrder3);
            
-            dynamicCard('熱門分享',selectDate2,selectOrder4);
+             dynamicCard('熱門分享',selectDate2,selectOrder4);
              
              function dynamicCard(id_name,Date,Order){
-            	 var ul = $('<ul class="nav nav-pills red mb-3">');
+            	 var ul = $('<ul class="nav nav-pills red mb-3 " style="background-color:rgb(227, 215, 188)">');
                  var tab_content = $("<div class='tab-content'>");
                  var container = $("<div class='container mt-3'>"); 
                  date_count = -1;
@@ -173,13 +172,13 @@ hgfhgf
                      ul.append('<li class="nav-item"><a class="nav-link " data-toggle="pill" href="#'+ id_name+ date_count + '">' + value + '</a></li>');            
                  }
                  if (index == 0) {
-                     tab_content.append($('<div class="tab-pane fade show active" id="'+id_name + date_count + '" ><div class="card bg-info"><div class="row">' +
+                     tab_content.append($('<div class="tab-pane fade show active" id="'+id_name + date_count + '" ><div class="card " style="background-color:rgb(227, 215, 188)"><div class="row">' +
                   '<div class="col m-2 pl-3"><p style="display:none;"></p><img class="img" src="img/dog.jpg" style="width:450px;height:250px" /></div> <div class="col m-2"><div class="row">' +
                   '<div class="col"><p style="display:none;"></p><img class="img" src="" style="width:200px;height:115px" /></div><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" />' +
                   '</div></div><div class="row mt-2 pt-2"><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col">' +
                   '<p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div></div></div></div></div></div>'));
                  } else {
-                     tab_content.append($('<div class="tab-pane fade show" id="'+id_name + date_count + '" ><div class="card bg-info"><div class="row">' +
+                     tab_content.append($('<div class="tab-pane fade show" id="'+id_name + date_count + '" ><div class="card  " style="background-color:rgb(227, 215, 188)"><div class="row">' +
                  '<div class="col m-2 pl-3"><p style="display:none;"></p><img class="img" src="img/dog.jpg" style="width:450px;height:250px" /></div> <div class="col m-2"><div class="row">' +
                  '<div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" />' +
                  '</div></div><div class="row mt-2 pt-2"><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col">' +
@@ -267,12 +266,6 @@ hgfhgf
         
         });
     </script>
-
-
-
-
-
-
 
 </div>
 

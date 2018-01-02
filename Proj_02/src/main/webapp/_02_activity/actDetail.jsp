@@ -161,8 +161,6 @@
 
     <script>
         $(function () {
-        	
-
         	$("#introduction").val('${activityBean.introduction}');
             $("body").on('click', 'input[name=note]', function () {
                 temp = $(this);

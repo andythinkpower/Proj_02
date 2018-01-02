@@ -187,7 +187,7 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" 
+<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" 
 data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="test()"></div>
 <!-- onlogin="refresh()" -->
 
@@ -240,7 +240,7 @@ data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="fals
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<!--     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
             integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
             crossorigin="anonymous"></script>
