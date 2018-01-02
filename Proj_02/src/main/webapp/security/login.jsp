@@ -56,7 +56,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '{1964367790442563}',
+    appId      : '{518919515157014}',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -76,6 +76,7 @@
   // These three cases are handled in the callback function.
 
   FB.getLoginStatus(function(response) {
+	  console.log(response);
     statusChangeCallback(response);
   });
 
@@ -86,7 +87,7 @@
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=1964367790442563';
+  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=518919515157014';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
@@ -105,10 +106,10 @@
 					if(x==false){
 						  $.get("${pageContext.request.contextPath}/_01_member/fblogin.controller",
 									{"memberemail": response.email})						
-							$('#status').html("<h5 class='modal-title'>登入成功</h5>");
+// 							$('#status').html("<h5 class='modal-title'>登入成功</h5>");
 							console.log("登入成功");
 							
-							setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",2000)
+							setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",1000)
 
 					}else{
 						$('#status').html("<h5 class='modal-title'>註冊成功</h5>");
@@ -119,6 +120,8 @@
     });
   }
 
+  
+  
 </script>
 <div id="fb-root"></div>
 
@@ -149,11 +152,13 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" 
-data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div>
+<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" 
+data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="test()"></div>
 <!-- onlogin="refresh()" -->
+
+
 <!--                                 <input type="button" class="btn" id="fbbutton" value="FB"> -->
-								<div id="status">
+								<div style="display:none" id="status">
 								</div>
                                 </div>
 
@@ -209,6 +214,20 @@ data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false
             crossorigin="anonymous"></script>
             
     <script>
+    
+    function test(){
+		console.log("access")
+		FB.login(function(response){
+			if(response.status==="connected"){
+				testAPI();
+				setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",1000)		
+			}
+		  
+		  console.log(response)
+		  // Handle the response object, like in statusChangeCallback() in our demo
+		  // code.
+		});  
+	}
     
 	$('#forgot').click(function(){
 		console.log($('#forgotemail').val());

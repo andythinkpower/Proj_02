@@ -25,11 +25,15 @@
 <title>台北通首頁</title>
 
 <style>
-body {
-	font-family: Microsoft JhengHei;
-}
-
-
+        body {
+            font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/event_background.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
 </style>
 </head>
 <body>
