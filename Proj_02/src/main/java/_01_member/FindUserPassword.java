@@ -51,7 +51,6 @@ public class FindUserPassword implements Filter {
 					} else if (cookieName.equals("password")) {
 						//找到password這個Cookie						
 						String tmp  = cookies[i].getValue();
-						System.out.println("tmp-->" + tmp + "<---");
 						if (tmp!= null){
 							//byte[] ba = Base64.decode(tmp);
 							password = 	GlobalService.decryptString(

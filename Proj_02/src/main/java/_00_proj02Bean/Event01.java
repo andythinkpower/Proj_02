@@ -10,6 +10,48 @@ import javax.persistence.Table;
 @Table(name="event01")
 public class Event01 {
 	
+	
+	public Event01(Integer eventID, String eventName, String showGroupName, String eventTypeId,
+			Date durationStart, Date durationEnd, String isCharge, String fee, String shoppingUrl,
+			String contactName, String contactTel, String contactFax, String briefIntroduction,
+			String vcontent, String eventUrl, String youTubeUrl, String imageFile,
+			String logoimageFile, Date insertTime, Date dtStart, Date dtEnd, Date timeStart, Integer overTime,
+			String location, String cityId, String areaId, String address, String longitude,
+			String latitude) {
+		super();
+		this.eventID = eventID;
+		this.eventName = eventName;
+		this.showGroupName = showGroupName;
+		this.eventTypeId = eventTypeId;
+		this.durationStart = durationStart;
+		this.durationEnd = durationEnd;
+		this.isCharge = isCharge;
+		this.fee = fee;
+		this.shoppingUrl = shoppingUrl;
+		this.contactName = contactName;
+		this.contactTel = contactTel;
+		this.contactFax = contactFax;
+		this.briefIntroduction = briefIntroduction;
+		this.vcontent = vcontent;
+		this.eventUrl = eventUrl;
+		this.youTubeUrl = youTubeUrl;
+		this.imageFile = imageFile;
+		this.logoimageFile = logoimageFile;
+		this.insertTime = insertTime;
+		this.dtStart = dtStart;
+		this.dtEnd = dtEnd;
+		this.timeStart = timeStart;
+		
+		this.location = location;
+		this.cityId = cityId;
+		this.areaId = areaId;
+		this.address = address;
+		this.longitude = longitude;
+		this.latitude = latitude;
+	}
+	
+	
+	
 	@Id
 	private Integer eventID;
 	private String eventName;

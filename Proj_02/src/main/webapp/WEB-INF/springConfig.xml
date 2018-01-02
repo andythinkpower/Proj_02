@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:annotation-config></context:annotation-config>
-	<context:component-scan base-package="_02_model , _04_model, _05_model,_01_member,_06_blog"></context:component-scan>
+	<context:component-scan base-package="_02_model,_04_model,_05_model,_01_member,_06_blog"></context:component-scan>
 	
 	<!-- 這邊要讓spring(annotation) 管理交易 (還不會用)-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
@@ -47,8 +47,6 @@
 				<value>_01_member.model.RegionsBean</value>
 				<value>_02_model.Bean.ActivityBean</value>
 				<value>_02_model.Bean.ActivityDetailBean</value>
-				
-				
 				<value>_00_proj02Bean.Event01</value>
 				<value>_00_proj02Bean.FavoritesBean</value>
 				<value>_06_blog.model.BlogBean</value>

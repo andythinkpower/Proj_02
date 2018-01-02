@@ -54,24 +54,28 @@ public class ActivityDetailDAOspring implements ActivityDetailDAO {
 
 	@Override
 	public boolean update(List<ActivityDetailBean> beans) {
-		if (beans.isEmpty()) {
-			return false;
-		} else {
+		
 			Session session = getSession();
-			// 使用迴圈把list裡面的資料一筆一筆取出並覆蓋上去
-			for (int i = 0; i < beans.size(); i++) {
-				// 從資料庫取出資料 !!初版 只能修改同樣數量 刪除 新增資料會有問題			
-				ActivityDetailBean temp=session.get(ActivityDetailBean.class, beans.get(i).getActDetail());				
-				temp.setBudget(beans.get(i).getBudget());
-				temp.setDates(beans.get(i).getDates());
-				temp.setKinds(beans.get(i).getKinds());
-				temp.setLatitude(beans.get(i).getLatitude());
-				temp.setLongitude(beans.get(i).getLongitude());
-				temp.setNote(beans.get(i).getNote());
-				temp.setTimes(beans.get(i).getTimes());
+			try {
+				// 使用迴圈把list裡面的資料一筆一筆取出並覆蓋上去
+				for (int i = 0; i < beans.size(); i++) {
+					// 從資料庫取出資料 !!初版 只能修改同樣數量 刪除 新增資料會有問題			
+					ActivityDetailBean temp=session.get(ActivityDetailBean.class, beans.get(i).getActDetail());				
+					temp.setBudget(beans.get(i).getBudget());
+					temp.setDates(beans.get(i).getDates());
+					temp.setKinds(beans.get(i).getKinds());
+					temp.setLatitude(beans.get(i).getLatitude());
+					temp.setLongitude(beans.get(i).getLongitude());
+					temp.setNote(beans.get(i).getNote());
+					temp.setTimes(beans.get(i).getTimes());
+				}
+				return true;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return false;
 			}
-			return true;
-		}
+			
+		
 	}
 
 }

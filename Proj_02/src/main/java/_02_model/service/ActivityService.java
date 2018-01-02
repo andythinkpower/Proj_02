@@ -1,6 +1,7 @@
 package _02_model.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import _02_model.ActivityDAO;
 import _02_model.Bean.ActivityBean;
+import _02_model.Bean.ActivityDetailBean;
 
 @Service
 public class ActivityService {
@@ -42,11 +44,6 @@ public class ActivityService {
 	public boolean Delete_Schedule(Integer ActivityID) {
 		return activityDAO.delete(ActivityID);
 	}
-	//test
-	@Transactional
-	public List<ActivityBean> aaa(String email) {
-		List<ActivityBean> b=activityDAO.order(email);
-		return b;
-	}
+
 
 }

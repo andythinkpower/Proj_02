@@ -5,65 +5,32 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+	integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+	integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+	crossorigin="anonymous"></script>
+
 <title>收藏顯示頁面</title>
 <style type="text/css">
-	body {
-			font-family: Microsoft JhengHei;
-/* 			background-color:	#F2E6E6; */
-			background-image:url('${pageContext.request.contextPath}/img/101-3.jpg');
-			background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            background-size: cover;
-            height: 100%;
-			margin: 0;
-
-		}
-div[name="event"]{
- width:350px;
- height:320px;
- border:1px solid #BEBEBE;
- float:left;
-}	
-#allevent{
-margin:0 10%;
-min-height:100%;;
-padding:0 45px;
-margin-bottom: -190px;
-
-}
-
-div[name="eventname"]{
-
-}
-div[name="eventimg"]{
-width:350;
-height:250;
-
-}
-
-#footer {
-    /* 設定footer的高度 */
-     box-sizing: border-box;
-    /* 設定footer絕對位置在底部 */
-     float:right;
-     bottom:0;
-    /* 展開footer寬度 */
-    width: 100%;
-   
-   
-}
-.push {
-
-}
-
-img[name="eventimg"]{
-width:350px;
-height:250px;
-}
-h6{
-color: blue;
+body {
+	font-family: Microsoft JhengHei;
+	/* 			background-color:	#F2E6E6; */
+	background-image:
+		url('${pageContext.request.contextPath}/img/101-3.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	height: 100%;
+	margin: 0;
 }
 
 </style>
@@ -71,27 +38,27 @@ color: blue;
 
 </head>
 <body background="">
-<div id='header' class='navbar-fixed-top'>
-	<c:set var='mem' value="${member }" ></c:set>
-	<c:choose>
-		<c:when test="${not empty mem }">
-			<jsp:include page="../commons/header_login.jsp"/>
-		</c:when>
-		<c:otherwise>
-			<jsp:include page="../commons/header.jsp"/>
-		</c:otherwise>
-	</c:choose>
+	<div id='header' class='navbar-fixed-top'>
+		<c:set var='mem' value="${member }"></c:set>
+		<c:choose>
+			<c:when test="${not empty mem }">
+				<jsp:include page="../commons/header_login.jsp" />
+			</c:when>
+			<c:otherwise>
+				<jsp:include page="../commons/header.jsp" />
+			</c:otherwise>
+		</c:choose>
 	</div>
-	<p id="member" style="display: none;" >${member.memberemail }</p>
-<div id='allevent'></div>
-<div class="push"></div>
-<div id='footer' >
-<jsp:include page="../commons/footer.jsp"/></div>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+	<p id="member" style="display: none;">${member.memberemail }</p>
 
-<script>
+	<div id="wholePage"></div>
+
+	<div id='allevent'></div>
+	<div class="push"></div>
+	<div id='footer'>
+		<jsp:include page="../commons/footer.jsp" /></div>
+
+	<script>
 		$(function(){
 			var email =$("#member").text();
 			loadevent();
@@ -103,24 +70,26 @@ color: blue;
 				var id=event01.eventID; 
 				var img=(event01.imageFile.length>5)?event01.imageFile:'../img/taipei_culture.png';
 				var link="../_04_EventPage/eventSelf.jsp?eventID="+id;
-				var button='<button type="button"  name="del_favorite" eventid='+id+'  class="btn btn-danger">取消</button>';
-				var event=$('<div class="pt-3 px-2"  name="event" title="'+event01.eventName+'">').html('<div name="eventname">'+button+'<h6><b>'+title+
-                										'</b></h6></div><div name="eventimg"><a href="'+link+
-                										'"><img name="eventimg" src="'+img+'"/></a></div>'+
-                				                        '</div>')
-				$('#allevent').append(event)
+				
+				var act=$("<div class='col-4'>").html("<div class='card  target' style='width:300px;border:1px solid #BEBEBE;'><div class='actID' style='display:none;'>"+
+             			+id+"</div><img class='card-img-top show' src='"+img+"' alt='Card image' width='300' height='250'/>"+
+             			"<div class='card-body' style='background-color:#F2E6E6'><h4 class='card-title'>"+title+"</h4><p class='card-text'>出發日期:</p>"+
+             			"<div class='row float-xl-right px-2 '><button class='btn btn-danger delete'>刪除</button></div></div></div>");   			
+
+     							if(i%3==0){
+     								container_temp=$("<div class='container'></div>");
+         							row_temp=$("<div class='row mt-3'></div>");
+         							row_temp.append(act);
+         							container_temp.append(row_temp);
+         							container_temp.append("<br>");
+         							$("#wholePage").append(container_temp);
+     							}else{
+     								row_temp.append(act);
+     							}
 				});
-				$('button[name="del_favorite"]').click(function () {
-	    		 	var eventID =$(this).attr("eventid");
-	    		 	$.post('disFavorite.controller',{'eventid':eventID,'email':email},function(data){
-	    		 		window.location.reload()
-	    			 });
-	    		 	
-	       		 });
-			});
+				});
 			}
-			
-			});
+		});
 		
 	</script>
 

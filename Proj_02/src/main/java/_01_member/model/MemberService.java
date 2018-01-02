@@ -1,7 +1,6 @@
 package _01_member.model;
 
-import java.security.SecureRandom;
-import java.sql.Blob;
+
 import java.util.Set;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -12,8 +11,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import _01_member.CipherUtils;
-import _01_member.EmailUtil;
 
 @Service
 @Transactional
