@@ -47,7 +47,7 @@ input[type="submit"] {
 </style>
 </head>
 <body>
-<%-- <jsp:include page="/fragment/top.jsp"/> --%>
+
 <center>  
 <form Action="<c:url value='login2.aa' />" method="POST">
 	<table width='330'  >

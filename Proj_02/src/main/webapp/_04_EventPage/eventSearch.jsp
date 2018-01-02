@@ -29,6 +29,13 @@
 <title>尋找活動</title>
 
 <style>
+
+body {
+	background-image: url('../img/event_background.png');
+	background-attachment:fixed;
+	background-size: cover;
+}
+
 #eventSelector {
 	width: 900px;
 	height:190px;
@@ -99,7 +106,7 @@
 	</c:otherwise>
 </c:choose>
 	<br>
-	<div id="eventSelector">
+	<div id="eventSelector">qwerqewr
 	
 		<div style="float: left; margin: 10px 0px 0px 15px">
 			<i class="fa fa-map-marker fa-2x" id="areaMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;去哪裡玩&nbsp;&emsp;</span><input type="text" id="areaText" value="">
@@ -168,10 +175,12 @@
 		<!-- event插入點 -->
 	</div>
 	
-	<div class="container" style="width: 920px; margin: auto;">
-<!--         <nav aria-label="Page navigation"> -->
-            <ul class="pagination" id="pagination" style="margin: auto;"></ul>
-<!--         </nav> -->
+	<div class="container" style="width: 100%; height: 50px; margin: auto;">
+		<div style="width: 900px; height: 30px; margin: auto;">
+	        <nav aria-label="Page navigation">
+    	        <ul class="pagination" id="pagination" style="width: 900px; height: 30px; margin: auto;"></ul>
+        	</nav>
+        </div>
     </div>
 	
 	<script>
