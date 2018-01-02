@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.sql.Blob;
 import java.util.Set;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -20,6 +21,20 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO memberDao;
+	
+	//Encrypt
+	private String hashPassword(String plainTextPassword){
+		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+	}
+	
+	//check password
+	private boolean checkPass(String plainPassword, String hashedPassword) {
+		if (BCrypt.checkpw(plainPassword, hashedPassword))
+			return true;
+		else
+			System.out.println("The password does not match.");
+		return false;
+	}
 	
 //checkAccount
 	public boolean checkAccount(String memberemail) {
@@ -39,7 +54,8 @@ public class MemberService {
 				System.out.println("pass:"+pass);
 				
 				String temp = memberpassword;
-				if (temp.equals(pass)) {
+				if (checkPass(temp,pass)) {
+					System.out.println(checkPass(temp,pass));
 					return bean;
 				}
 			}
@@ -50,7 +66,8 @@ public class MemberService {
 	public MemberBean register(String memberemail, String memberpassword) {
 		MemberBean bean =new MemberBean();
 		bean.setMemberemail(memberemail);
-		bean.setMemberpassword(memberpassword);
+		bean.setMemberpassword(hashPassword(memberpassword));
+		bean.setMemberphoto("/uploadFile/default.jpg");
 		boolean result=memberDao.insert(bean);
 		if(result) {
 //			String sendEmail = EmailUtil.sendEmail(memberemail, "註冊成功",
@@ -98,6 +115,7 @@ public class MemberService {
 	}
 	
 	public MemberBean changepsw(MemberBean bean) {
+		bean.setMemberpassword(hashPassword(bean.getMemberpassword()));
 		memberDao.changepsw(bean);
 		return null;
 	}

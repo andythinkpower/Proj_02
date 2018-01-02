@@ -30,6 +30,30 @@ public class BlogsBack_Servlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		String action = request.getParameter("action");
 		System.out.println(action);
+		
+		if ("delete".equals(action)) {
+System.out.println("1");
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			System.out.println("2");
+			try {
+				System.out.println("3");
+				Integer articleId = new Integer(request.getParameter("ArticleId").trim());
+				//System.out.println(ArticleId);
+				System.out.println("4");
+				BlogsBackService bookSvc = new BlogsBackService();
+				bookSvc.deleteBlogs(articleId);
+				String url = "/_03_backStage/MessageList.jsp";
+				System.out.println("4");
+				RequestDispatcher sucessView = request.getRequestDispatcher(url);
+				sucessView.forward(request, response);
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = request.getRequestDispatcher("/_06_backStage/BookList.jsp");
+//				failureView.forward(request, response);
+				response.sendRedirect("../_03_backStage/MessageList.jsp");
+			}
+		}
 
 		if ("hide".equals(action)) {
 

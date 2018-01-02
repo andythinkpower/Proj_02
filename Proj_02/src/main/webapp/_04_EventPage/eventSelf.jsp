@@ -34,6 +34,12 @@ body {
 	background-size: cover;
 }
 
+#bigBox{
+	width: 1450px;
+    height: 1095px;
+    margin: 0px auto 20px auto;
+}
+
 #eventInfo {
 	width: 1450px;
     height: 750px;
@@ -75,9 +81,9 @@ body {
 }
 
 .collectBox {
-    width: 200px;
+    width: 225px;
     height: 100px;
-    margin: 15px 10px 0px 0px;
+    margin: 15px 0px 0px 0px;
     float: right;
     box-sizing: border-box;
     /*border: 3px solid #46A3FF;*/
@@ -92,7 +98,7 @@ body {
     /*border: 3px solid #46A3FF;*/
 }
 
-#collect , #days {
+.collect , .nonCollect , #days {
     font-size: 20px;
     font-weight: bolder;
     width: 80%;
@@ -105,10 +111,18 @@ body {
     border-radius: 5px;
 }
 
-#collect {
+.collect {
     color: #00E3E3;
     margin: 10px 25px 0px 0px;
     background-color: #CCFF80;
+    box-sizing: border-box;
+    border: 1.5px solid #8CEA00;
+}
+
+.nonCollect {
+    color: #00E3E3;
+    margin: 10px 25px 0px 0px;
+    background-color: gray;
     box-sizing: border-box;
     border: 1.5px solid #8CEA00;
 }
@@ -133,7 +147,8 @@ body {
 }
 
 #ownImg {
-    width: 100%;
+    width: 500px;
+    height: 500px;
     float: left;
 }
 
@@ -207,13 +222,16 @@ body {
 
 #contextBox {
     width: 1450px;
-    height: 500px;
+    height: 400px;
 	margin: 60px auto 20px auto;
     float: left;
+    background-color: navajowhite;
     border: 5px solid red;
 }
 
 #contextText {
+	font-size: 30px;
+	font-weight: bolder;
     width: 1400px;
     height: 50px;
 	margin: 0px 0px 0px 20px;
@@ -225,6 +243,7 @@ body {
 }
 
 #context {
+	font-size: 25px;
     width: 1400px;
     height: 400px;
 	margin: 0px 0px 0px 20px;
@@ -247,10 +266,9 @@ body {
 	<p id="member" style="display: none;" >${member.memberemail }</p>
 	<p id="eventID" style="display: none;"><%= request.getParameter("eventID") %></p>
 	<div id="temp">
-	    <button type="button"  id="favorite"  class="btn btn-success">收藏</button>
-		<button type="button"  id="del_favorite"  class="btn btn-secondary disabled">取消收藏</button>
+	    
 	</div>
-	
+	<div id="bigBox">
 	<div id="eventInfo">
 
 		<div class="titleBox">
@@ -259,8 +277,12 @@ body {
 		</div>
 		
 		<div class="collectBox">
-			<div id="collect" class="btn btn-success">加入收藏</div>
-			<i class="fa fa-heart" aria-hidden="true"></i><span></span>
+<!-- 			<div class="collect" id="favorite">加入收藏</div> -->
+<!-- 			<button class="collect" id="favorite">加入收藏</button> -->
+<!-- 			<input type="button" class="collect" id="favorite" value="加入收藏"> -->
+			<button type="button"  id="favorite"  class="btn btn-success">收藏</button>
+			<button type="button"  id="del_favorite"  class="btn btn-secondary disabled">取消收藏</button><br>
+			<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;<span></span>&nbsp;人
 		</div>
 		
 		<div class="dayBox">
@@ -311,7 +333,6 @@ body {
 		
 		<div class="buttonBox">
 			<div id="report">檢舉 / 報錯</div>
-<!-- 			 <button type="button"  id="report"  class="btn btn-success">檢舉</button> -->
 		</div>
 		
 		<div id="contextBox">
@@ -320,76 +341,60 @@ body {
 		</div>
 	
 	</div>
-	
+	</div>
 	
 	
 	
 	<script>
-// 	$(function(){
-// 		var user =$("#member").text();
-// 		var eventID = $("#eventID").text();
-// 		var report=true;
-// 		$('#report').click(function () {
-// 	        if(user.length!=0){
-// 	        	if(collection==true){
-// 	        	var pk = $("#eventID").text();
-// 	        	var data={"eventID":pk};
-// 	            $.post('insert.controller',data);  
-// // 	            $('#report').text("取消檢舉");
-// // 				$('#report').attr("class","btn btn-warning disabled");
-// // 				$('#del_report').attr("class","btn btn-danger active");
-// 				report=false;
-//         	}} else {
-//         		alert("請先登入會員!!")
-// 			};
-// 		});
-// 	});
 		// 開啟即執行
 		$(function(){
+			
 			var user =$("#member").text();
 			var eventID = $("#eventID").text();
 			var collection=true;
 			if(user.length!=0){
-				$.get('checkFavorites.controller',{'eventid':eventID,'email':user},function(data){
-					if(data.toString() == ("collectioned")){
-					collection=false;
-					$('#favorite').text("取消收藏")
-					$('#favorite').attr("class","btn btn-warning disabled")
-					$('#del_favorite').attr("class","btn btn-danger active")
-					};
-				});
-			};
-			$('#favorite').click(function () {
-		        if(user.length!=0){
-		        	if(collection==true){
-		        	var pk = $("#eventID").text();
-		            var durationEnd=$("#durationEnd").text();
-		            var dtStart=$("#dtStart").text();
-		            var eventName=$("#eventName").text(); 
-		            var timeStart=$("#timeStart").text();
-		            var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
-		            $.post('insert.controller',data);  
-		            $('#favorite').text("取消收藏");
-					$('#favorite').attr("class","btn btn-warning disabled");
-					$('#del_favorite').attr("class","btn btn-danger active");
-		            collection=false;
-	        	}} else {
-	        		alert("請先登入會員!!")
+			$.get('checkFavorites.controller',{'eventid':eventID,'email':user},function(data){
+				if(data.toString() == ("collectioned")){
+				collection=false;
+				$('#favorite').text("已收藏")
+				$('#favorite').attr("class","btn btn-warning disabled")
+				$('#del_favorite').attr("class","btn btn-danger active")
 				};
 			});
-		    $('#del_favorite').click(function () {
-				if(collection==false){
-					$.post('disFavorite.controller',{'eventid':eventID,'email':user},function(data){
-						$('#favorite').text("加入收藏")
-						$('#favorite').attr("class","btn btn-success active")	 
-						$('#del_favorite').attr("class","btn btn-danger disabled")
-						collection=true;
-					});
-				};
+			}
+		   $('#favorite').click(function () {
+		        if(user.length!=0){
+		        	if(collection==true){
+			        	var pk = $("#eventID").text();
+			            var durationEnd=$("#durationEnd").text();
+			            var dtStart=$("#dtStart").text();
+			            var eventName=$("#eventName").text(); 
+			            var timeStart=$("#timeStart").text();
+			            var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
+			            $.post('insert.controller',data);  
+			            $('#favorite').text("已收藏")
+						$('#favorite').attr("class","btn btn-warning disabled")
+						$('#del_favorite').attr("class","btn btn-danger active")
+			            collection=false;
+			            var nowCount = $('.collectBox span').text();
+			            $('.collectBox span').text(parseInt(nowCount)+1);
+		        	}
+	        	} else {
+	        		alert("請先登入會員!!")
+	        	}
 		    });
-		    
-		    
-		    
+		    $('#del_favorite').click(function () {
+	    		 if(collection==false){
+	    			 $.post('disFavorite.controller',{'eventid':eventID,'email':user},function(data){
+		    			$('#favorite').text("收藏")
+		    			$('#favorite').attr("class","btn btn-success active")	 
+		    			$('#del_favorite').attr("class","btn btn-danger disabled")
+		    			collection=true;
+		    			var nowCount = $('.collectBox span').text();
+			            $('.collectBox span').text(parseInt(nowCount)-1);
+	    			 });
+	    		 }
+		    });
 		    
 			
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
@@ -397,7 +402,7 @@ body {
 					
 					$('#type').append('[&nbsp;' + eventData.eventTypeId + '&nbsp;]');
 					$('#title').append(eventData.eventName);
-					$('.collectBox span').append('&nbsp;&nbsp;收藏人數：&nbsp;' + eventData.collectionCount + '&nbsp;人')
+					$('.collectBox span').append(eventData.collectionCount)
 						// 計算天數差
 						var daysdiff = (eventData.durationEnd - new Date().getTime())/86400000;
 						if ( daysdiff < 0 ) {
@@ -426,17 +431,21 @@ body {
 						var ts = new Date(eventData.timeStart);
 						var tsH = ts.getHours() + ':';
 						var tsM = ts.getMinutes();
-						var timeStart = tsH + tsM;
+						var timeStartHM = tsH + tsM;
+						var Y3 = ts.getFullYear() + '-';
+						var M3 = (ts.getMonth()+1 < 10 ? '0'+(ts.getMonth()+1) : ts.getMonth()+1) + '-';
+						var D3 = ts.getDate() + ' ';
+						var timeStart = Y3 + M3 + D3;
 						var Insert = new Date(eventData.insertTime);
-						var Y3 = Insert.getFullYear() + '-';
-						var M3 = (Insert.getMonth()+1 < 10 ? '0'+(Insert.getMonth()+1) : Insert.getMonth()+1) + '-';
-						var D3 = Insert.getDate() + ' ';
-						var insertTime = Y3 + M3 + D3;
+						var Y4 = Insert.getFullYear() + '-';
+						var M4 = (Insert.getMonth()+1 < 10 ? '0'+(Insert.getMonth()+1) : Insert.getMonth()+1) + '-';
+						var D4 = Insert.getDate() + ' ';
+						var insertTime = Y4 + M4 + D4;
 					$('.date span').append('&nbsp;&nbsp;活動時間：' + dtStart + ' ~ ' + durationEnd);
-					if (timeStart == '0:0') {
+					if (timeStartHM == '0:0') {
 						$('#startTime').append('&nbsp;&nbsp;場次時間：');
 					} else {
-						$('#startTime').append('&nbsp;&nbsp;場次時間：' + timeStart);
+						$('#startTime').append('&nbsp;&nbsp;場次時間：' + timeStartHM);
 					};
 				if (eventData.isCharge == '免費') {
 					$('#charge').append('&nbsp;&nbsp;活動費用：免費');
@@ -464,49 +473,20 @@ body {
 				
 				$('.insertTime span').append('更新時間：' + insertTime);
 				$('#context').append(eventData.vcontent);
+				
+				//--------Favorite使用---------
+				$("#temp").append('<p id="durationEnd" style="display:none">'+durationEnd+'</p>');
+				$("#temp").append('<p id="dtStart" style="display:none">'+dtStart+'</p>');
+				$("#temp").append('<p id="eventName" style="display:none">'+eventData.eventName+'</p>');
+				$("#temp").append('<p id="timeStart" style="display:none">'+timeStart+'</p>');
+				//--------Favorite使用---------
 					
 				});
 			}); // JSON END
 		}); // 開啟即執行 END
 		
-// 		function doFavorite() {
-// 			var user =$("#member").text();
-// 			var eventID = $("#eventID").text();
-// 			var collection=true;
-// 			if(user.length!=0){
-// 	        	if(collection==true){
-// 		        	var pk = $("#eventID").text();
-// 		            var durationEnd=$("#durationEnd").text();
-// 		            var dtStart=$("#dtStart").text();
-// 		            var eventName=$("#eventName").text(); 
-// 		            var timeStart=$("#timeStart").text();
-// 		            var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
-// 		            $.post('insert.controller',data);
-// 		            $('#favorite').text("取消收藏");
-// 	//					$('#favorite').attr("class","btn btn-warning disabled");
-// 	//					$('#del_favorite').attr("class","btn btn-danger active");
-// 		            $('#favorite').attr("id","del_favorite").attr("class","btn btn-danger active") // 04 new
-// 		            collection=false;
-// 	        	} else {
-// 	        		alert("請先登入會員!!")
-// 				};
-// 			};
-// 		};
 		
-// 		function doDelFavorite() {
-// 			var user =$("#member").text();
-// 			var eventID = $("#eventID").text();
-// // 			if(collection==false){
-// 				$.post('disFavorite.controller',{'eventid':eventID,'email':user},function(data){
-// //						$('#favorite').text("加入收藏")
-// //						$('#favorite').attr("class","btn btn-success active")	 
-// //						$('#del_favorite').attr("class","btn btn-danger disabled")
-// 	            	$('#del_favorite').attr("id","favorite").attr("class","btn btn-success active").text("加入收藏") // 04 new
-// 					collection=true;
-// 				});
-// // 			};
-// 		};
-		
+
 		
 		
 		

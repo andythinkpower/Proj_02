@@ -76,7 +76,7 @@ $.getJSON('mapcontroller.controller', {  }, function (data) {
 		 var point = new google.maps.LatLng(
 	    		 parseFloat(event01.Latitude),
 	    		 parseFloat(event01.Longitude));
-		var img=(image.length>5)?'<img src='+image+' width=50%><br>':'';
+		var img=(image.length>5)?'<img src='+image+' width=50%><br>':'../img/taipei_culture.png';
         var link="../_04_EventPage/eventSelf.jsp?eventID="+eventid;
         var contentString = '<div><a href='+link+'><strong>'+eventname+
         					'</strong></a><br>'+img+'<text>日期:'+dtStart+'</text><br>'+

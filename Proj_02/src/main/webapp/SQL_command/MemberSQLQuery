@@ -15,7 +15,7 @@ CREATE TABLE Members
 (
 /*MemberId int identity (1,1) not null,             會員ID*/
 MemberEmail varchar(50),                          /*會員帳號email*/
-MemberPassword varchar(50),                       /*會員密碼*/
+MemberPassword varchar(100),                       /*會員密碼*/
 MemberNickname varchar(50),                       /*會員暱稱*/
 MemberGender varchar(10),                          /*性別*/	
 MemberBdate date,                                 /*會員生日*/

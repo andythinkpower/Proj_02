@@ -4,7 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EventMap</title>
 <style>
+	body {
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('../img/101-5.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            height: 100%;
+			margin: 0;
 
+		}
 #map {
 	height: 800px;
 	width: 90%;
@@ -50,27 +61,29 @@ height: 800px;
 
 </head>
 
-<body background="../img/OGA1IU0.jpg">
+<body >
 	<div id="header"></div>
-	<div id="mapbody">
+	<div id="mapbody" class="container py-3" style='margin-right:407px;'>
 	<div id="map"></div>
-	<div id="buttom">
+	<div id="buttom" >
 	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<input id='thismonControl' data-toggle="toggle" data-onstyle="info" data-offstyle="warning"  type="checkbox" checked />
+	<p></p>
 	<input id='musicControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input id='exhibitionControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input  id='performanceControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input  id='studyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input  id='movieControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input id='LeisureControl' ata-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	<input  id='familyControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
-	<br>
+	<p></p>
 	</div>
 	</div>
 </script>
@@ -103,7 +116,7 @@ $(function(){
     </script>
     
 <!--	<div style="margin:2px 45% ;">
-	<input id='thismonControl' data-toggle="toggle" data-onstyle="success" data-offstyle="danger"  type="checkbox" checked />
+	
 	</div>
 	-->
 <div id="footer"></div>

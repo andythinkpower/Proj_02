@@ -47,9 +47,11 @@ public class MemberDAOJdbc implements MemberDAO {
 		MemberBean beanexist= getSession().get(MemberBean.class, bean.getMemberemail());
 		beanexist.setMembernickname(bean.getMembernickname());
 		beanexist.setMembergender(bean.getMembergender());
+		if(bean.getMemberphoto()!=null) {
+			beanexist.setMemberphoto(bean.getMemberphoto());			
+		}
 		beanexist.setMemberbdate(bean.getMemberbdate());
 		beanexist.setMemberepaper(bean.getMemberepaper());
-		beanexist.setMemberphoto(bean.getMemberphoto());
 		this.getSession().update(beanexist);		
 		return null;
 	}

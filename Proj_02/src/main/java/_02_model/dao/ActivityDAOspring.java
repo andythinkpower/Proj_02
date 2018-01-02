@@ -103,4 +103,19 @@ public class ActivityDAOspring implements ActivityDAO {
 		}
 	}
 
+	@Override
+	public List<ActivityBean> order(String email) {
+		System.out.println("aaa");
+		Session session=getSession();
+		Query<ActivityBean> query = session.createQuery("from ActivityBean where email=? order by clickNumber desc", ActivityBean.class);
+		query.setParameter(0, email);
+		List<ActivityBean> list=query.list();
+		for(ActivityBean i:list)
+			System.out.println(i);
+		System.out.println("結束"+list.size());
+		return list;
+	}
+	
+	
+
 }

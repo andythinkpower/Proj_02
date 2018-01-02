@@ -369,39 +369,39 @@ public class EventDAO implements EventDAO_interface
 
 	
 	// 依Interests_ID來刪除單筆記錄
-		@Override
-		public Integer delete(Integer EventID) throws SQLException
-		{	
-			
-		//	InterestsVO interestsVO = null;
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			Integer i = 0;
-			
-			try {
-				conn = ds.getConnection();
-				pstmt = conn.prepareStatement(delete_stmt);
-				pstmt.setInt(1, EventID);
-				i = pstmt.executeUpdate();
-			} finally {
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch(SQLException e){
-					   e.printStackTrace();
-					}
-				}
-				if (conn != null) {
-					try {
-						conn.close();
-					} catch(SQLException e){
-						e.printStackTrace();
-					}
-				}
-			}
-			return i;
-		}
-		
+//		@Override
+//		public Integer delete(Integer EventID) throws SQLException
+//		{	
+//			
+//			ReportVO interestsVO = null;
+//			Connection conn = null;
+//			PreparedStatement pstmt = null;
+//			Integer i = 0;
+//			
+//			try {
+//				conn = ds.getConnection();
+//				pstmt = conn.prepareStatement(delete_stmt);
+//				pstmt.setInt(1, EventID);
+//				i = pstmt.executeUpdate();
+//			} finally {
+//				if (pstmt != null) {
+//					try {
+//						pstmt.close();
+//					} catch(SQLException e){
+//					   e.printStackTrace();
+//					}
+//				}
+//				if (conn != null) {
+//					try {
+//						conn.close();
+//					} catch(SQLException e){
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+//			return i;
+//		}
+//		
 		
 	@Override
 	public EventVO findByPrimaryKey(Integer eventID)
@@ -564,6 +564,12 @@ public class EventDAO implements EventDAO_interface
 		}
 		
 		return list;
+	}
+
+	@Override
+	public Integer delete(Integer EventID) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

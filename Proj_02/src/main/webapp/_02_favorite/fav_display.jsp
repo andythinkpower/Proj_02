@@ -7,55 +7,86 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <title>收藏顯示頁面</title>
+<style type="text/css">
+	body {
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/101-3.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            height: 100%;
+			margin: 0;
+
+		}
+div[name="event"]{
+ width:350px;
+ height:320px;
+ border:1px solid #BEBEBE;
+ float:left;
+}	
+#allevent{
+margin:0 10%;
+min-height:100%;;
+padding:0 45px;
+margin-bottom: -190px;
+
+}
+
+div[name="eventname"]{
+
+}
+div[name="eventimg"]{
+width:350;
+height:250;
+
+}
+
+#footer {
+    /* 設定footer的高度 */
+     box-sizing: border-box;
+    /* 設定footer絕對位置在底部 */
+     float:right;
+     bottom:0;
+    /* 展開footer寬度 */
+    width: 100%;
+   
+   
+}
+.push {
+
+}
+
+img[name="eventimg"]{
+width:350px;
+height:250px;
+}
+h6{
+color: blue;
+}
+
+</style>
+
+
 </head>
-<body>
-<jsp:include page="../commons/header.jsp"/>
-	<h1>收藏顯示頁面</h1>
+<body background="">
+<div id='header' class='navbar-fixed-top'>
+	<c:set var='mem' value="${member }" ></c:set>
+	<c:choose>
+		<c:when test="${not empty mem }">
+			<jsp:include page="../commons/header_login.jsp"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="../commons/header.jsp"/>
+		</c:otherwise>
+	</c:choose>
+	</div>
 	<p id="member" style="display: none;" >${member.memberemail }</p>
-	<c:forEach items="${event_list }" var="event">
-		<table class="event" >
-			<thead>
-				<tr>
-					<th>標題:${event.eventName}</th>
-				</tr>
-			</thead>
-			<tbody >
-				<tr>
-				<td hidden class="eventID">${event.eventID }</td>
-				</tr>
-				<tr>
-					<td>起時時間:${event.dtStart }</td>
-					<td>結束時間:${event.durationEnd }</td>
-				</tr>
-				<tr>
-					<td><img src="${ event.imageFile}" style="width:150px;" /></td>
-				</tr>
-			</tbody>
-		</table>
-		<br>
-
-	</c:forEach>
-	
-	
-	<table id="eventTable">
-		<thead>
-			<tr>
-				<th>ImageFile</th> <!-- column1 -->
-				<th>EventType</th> <!-- column2 -->
-				<th>EventName</th> <!-- column3 -->
-				<th>地區</th> <!-- column4 -->
-				<th>IsCharge</th> <!-- column5 -->
-				<th>活動時間</th> <!-- column6 -->
-				<th>ShowGroupName</th> <!-- column7 -->
-			</tr>
-		</thead>
-		<tbody>
-			<!-- td插入點 -->
-		</tbody>
-	</table>
-	
-
-<jsp:include page="../commons/footer.jsp"/>
+<div id='allevent'></div>
+<div class="push"></div>
+<div id='footer' >
+<jsp:include page="../commons/footer.jsp"/></div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
@@ -63,67 +94,32 @@
 <script>
 		$(function(){
 			var email =$("#member").text();
-			console.log(email)
-			/*$.getJSON('getallFavorites.controller', {'email':email }, function (data) {
+			loadevent();
+			function loadevent(){
+				$.getJSON('getallFavoritesevent02.controller', {'email':email }, function (data) {
 				$.each(data, function (i, event01) {
-					console.log(event01.eventID)
-					$.getJSON('getallFavoritesevent.controller', {'eventid':event01.eventID }, function (data) {
-						console.log(data)
-					});
+				//console.log(event01)
+				var title = (event01.eventName.length>12)?(event01.eventName.substring(0,13)+"..."):event01.eventName;
+				var id=event01.eventID; 
+				var img=(event01.imageFile.length>5)?event01.imageFile:'../img/taipei_culture.png';
+				var link="../_04_EventPage/eventSelf.jsp?eventID="+id;
+				var button='<button type="button"  name="del_favorite" eventid='+id+'  class="btn btn-danger">取消</button>';
+				var event=$('<div class="pt-3 px-2"  name="event" title="'+event01.eventName+'">').html('<div name="eventname">'+button+'<h6><b>'+title+
+                										'</b></h6></div><div name="eventimg"><a href="'+link+
+                										'"><img name="eventimg" src="'+img+'"/></a></div>'+
+                				                        '</div>')
+				$('#allevent').append(event)
 				});
+				$('button[name="del_favorite"]').click(function () {
+	    		 	var eventID =$(this).attr("eventid");
+	    		 	$.post('disFavorite.controller',{'eventid':eventID,'email':email},function(data){
+	    		 		window.location.reload()
+	    			 });
+	    		 	
+	       		 });
 			});
-			*/
-			$.getJSON('getallFavoritesevent02.controller', {'email':email }, function (data) {
-				console.log(data)
-			});
+			}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/*
-			$(".event").on('click',function(){
-				pk=$(this).find(".eventID").text();				
-				console.log(pk);
-				$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+pk , function(data) {
-					console.log(data);
-					$.each(data, function(index, eventData) {
-						var column1 = $("<td></td>").html(
-							'<a href="' + eventData.eventUrl + '"><img src="' + eventData.imageFile + '"></a>');
-						var column2 = $("<td></td>").text(eventData.eventTypeId);
-						var column3 = $("<td></td>").text(eventData.eventName);
-						var column4 = $("<td></td>").text(eventData.areaId);
-						var column5 = $("<td></td>").text(eventData.isCharge);
-						// 對毫秒數做轉換 ↓
-						var Start = new Date(eventData.dtStart);
-						var End = new Date(eventData.durationEnd);
-						var Y1 = Start.getFullYear() + '-';
-						var M1 = (Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-';
-						var D1 = Start.getDate() + ' ';
-						var dtStart = Y1 + M1 + D1;
-						var Y2 = End.getFullYear() + '-';
-						var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
-						var D2 = End.getDate() + ' ';
-						var durationEnd = Y2 + M2 + D2;
-						
-						var column6 = $("<td></td>").text(dtStart + " ~ " + durationEnd);
-						var column7 = $("<td></td>").text(eventData.showGroupName);
-
-						var row = $('<tr></tr>').append(
-								[column1, column2, column3, column4, column5, column6, column7]);
-						
-						$('#eventTable>tbody').append(row);
-					});
-				}); // JSON END
-				}); */
 			});
 		
 	</script>

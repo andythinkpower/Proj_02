@@ -71,7 +71,7 @@ $(function () {
                     </div>
                     <div class="form-group px-5">
                         <label for="exampleFormControlTextarea1">簡介:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name='introduction' rows="5"></textarea>
                     </div>
                     <div class="text-center pb-3">
                         <input id='sub' type="button" class="btn btn-primary px-5" value="下一步" />

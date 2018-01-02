@@ -175,7 +175,7 @@ body {
                  
                  temp.push(tempfile);
                  temp.push(tempID);
-                 console.log(temp);
+                 //console.log(temp);
                  container.append(ul);
                  container.append(tab_content);
                 
@@ -186,7 +186,7 @@ body {
                 	 $.each(val,function(i,v){
                 		 if(ind==0){
                 			 if(i==0){
-                				 console.log("#"+id_name+index);
+                				 //console.log("#"+id_name+index);
                         		 $("#"+id_name+index).find(".pl-3 img").attr("src",v);	 
                         	 }else if(i==1){
                         		$("#"+id_name+index).find(".row .col .row:first-child .col:first-child img").attr("src",v);	
@@ -221,7 +221,7 @@ body {
            //綁定事件 應該可以用迴圈合併
              $("body").on('click','.img',function(){
             		var pk=$(this).prev().text();
-            		console.log(pk);
+            		//console.log(pk);
             		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
              })
               

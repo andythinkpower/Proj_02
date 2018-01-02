@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import _03_backStage.model.BlogsBackVO;
 import _03_backStage.model.EventDAO;
 import _03_backStage.model.EventService;
 import _03_backStage.model.EventVO;
@@ -95,7 +96,6 @@ public class Event_Servlet extends HttpServlet {
 				eventVO.setContactName(ContactName);
 				eventVO.setBriefIntroduction(BriefIntroduction);
 				eventVO.setImageFile(ImageFile);
-                
 				for (Part part : parts) {
 					if (getFileNameFromPart(part) != null && part.getContentType() != null) {
 						
@@ -133,17 +133,11 @@ public class Event_Servlet extends HttpServlet {
 			try {
 				Integer eventID = new Integer(request.getParameter("EventID"));
 //				System.out.println(interests_ID);
-				System.out.println("1");
 				EventService bookSvc = new EventService();
-				System.out.println("2");
 				bookSvc.deleteevent01(eventID);
-				System.out.println("3");
 				String url = "/_03_backStage/BookList.jsp";
-				System.out.println("4");
 				RequestDispatcher sucessView = request.getRequestDispatcher(url);
-				System.out.println("5");
 				sucessView.forward(request, response);
-				System.out.println("6");
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:" + e.getMessage());
 //				RequestDispatcher failureView = request.getRequestDispatcher("/_06_backStage/BookList.jsp");
@@ -151,7 +145,7 @@ public class Event_Servlet extends HttpServlet {
 				response.sendRedirect("../_03_backStage/BookList.jsp");
 			}
 		}
-//		
+		
 		if ("getOne_For_Update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);

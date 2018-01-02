@@ -31,7 +31,7 @@
   <script>
    function processData(){
    // getting data
-   var data = CKEDITOR.instances.content.getData()
+   var data = CKEDITOR.instances.articlecontent.getData()
    console.log(data)
    }
  </script>
@@ -47,7 +47,7 @@
                             <h4>新增文章</h4>
                         </div>
                         <div class="card-body">
-                            <form name="form" enctype="Multipart/Form-Data" action="<c:url value='/blog.controller' />" method="post">
+                            <form name="form" enctype="Multipart/Form-Data" action="<c:url value='/post.controller' />" method="post">
                                 <div class="form-group">
                                     <label for="title">文章標題</label>
                                     <input type="text" class="form-control" name="articlename" id="articlename" value="" />
@@ -68,7 +68,7 @@
                                 <div class="form-group img">
                                     <label for="uploadImage">封面照片<br>
                                     	<img name="blogphoto" width="250" id="img" src="${pageContext.request.contextPath}/img/default.jpg" />
-                                    	<input type="file" style="display:none" accept="image/*" id="uploadImage" name="blogphoto"/>
+                                    	<input type="file" style="display:none" accept="image/*" id="uploadImage" name="uploadImage"/>
                                     </label>
                                     <script>
                                             $("#uploadImage").change(function () {
@@ -89,9 +89,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="body">文章內容</label>
-                                    <textarea class="form-control" name="content" id="content" ></textarea>
+                                    <textarea class="form-control" name="articlecontent" id="articlecontent" ></textarea>
 <script>
-CKEDITOR.replace( 'content', {});
+CKEDITOR.replace( 'articlecontent', {});
 </script>
                                 </div>
                                 <div>
@@ -103,29 +103,31 @@ CKEDITOR.replace( 'content', {});
                     	</select> -->
                                 </div>
                                 <div>
-<!--                                     <input type="submit" class="btn btn-primary" value="送出"/> -->
-<%--                                     <span>${message.scuess}</span> --%>
+                                    <input type="submit" class="btn btn-primary" value="送出"/>
+                                    <span>${message.post}</span>
                                     
 <!-- start here -->
-							<input type="button" class="btn btn-sm btn-secondary" value="送出" onclick = 'processData()'
-								id="buttonPost" data-toggle="modal" data-target="#myModal" />
-							<div class="modal" id="myModal">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div id="header" class="modal-header">
-<!-- 											<h5 class='modal-title'>新增成功</h5>										 -->
-											<button class="close" data-dismiss="modal">&times;</button>
-										</div>
-										<div id="body" class="modal-body"></div>
-										<div class="modal-footer">
+<!-- 							<input type="button" class="btn btn-sm btn-secondary" value="送出" onclick = 'processData()' -->
+<!-- 								id="buttonPost" data-toggle="modal" data-target="#myModal" /> -->
+<!-- 							<div class="modal" id="myModal"> -->
+<!-- 								<div class="modal-dialog"> -->
+<!-- 									<div class="modal-content"> -->
+<!-- 										<div id="header" class="modal-header"> -->
+<!--											<h5 class='modal-title'>新增成功</h5>										 -->
+<!-- 											<button class="close" data-dismiss="modal">&times;</button> -->
+<!-- 										</div> -->
+<!-- 										<div id="body" class="modal-body"></div> -->
+<!-- 										<div class="modal-footer"> -->
 <!-- 											<button class="btn btn-secondary" data-dismiss="modal">關閉視窗</button> -->
-											<button class="btn btn-warning"><a href="${pageContext.request.contextPath}/_06_blog/dashboard.jsp">回到部落格首頁</a></button>
-										</div>
-									</div>
-								</div>
-							</div>
+<%-- 											<button class="btn btn-warning"><a href="${pageContext.request.contextPath}/_06_blog/dashboard.jsp">回到部落格首頁</a></button> --%>
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 
 <!-- end here -->
+<!-- 這裡是隱藏接收memberemail回傳值的地方 -->
+<input id="memberemail" type="text" style="display:none" name="memberemail">
                                     
                                 </div>
                             </form><!-- form end here-->
@@ -147,29 +149,30 @@ CKEDITOR.replace( 'content', {});
     	$(function(){
         	var memberemail=Cookies.get('user');
         	console.log(memberemail);
+        	$('#memberemail').attr("value",memberemail);
     	
 
-			$('#buttonPost').click(function(){
-				var data = CKEDITOR.instances.content.getData()
-				$.post("post.controller",
-						{"memberemail": memberemail, 
-						 "articlename": $('#articlename').val(), 
-						 "articletype": $('#articletype').val(),
-						 "uploadImage":$('#uploadImage').val(),
-						 "editor": data, 
-						 "pravicy": $("input[name=pravicy]:checked").val()},function(x){
-						console.log($("input[name=pravicy]:checked").val())
-						if(x==false){
-							$('#header').html("<h5 class='modal-title'>新增失敗</h5>");
-							$('#body').html("QQ");
-							console.log("新增失敗");
-						}else{
-							$('#header').html("<h5 class='modal-title'>新增成功</h5>");
-							$('#body').html("太棒了");
-							console.log("新增成功");
-						}
-					})			
-			});
+// 			$('#buttonPost').click(function(){
+// 				var data = CKEDITOR.instances.content.getData()
+// 				$.post("post.controller",
+// 						{"memberemail": memberemail, 
+// 						 "articlename": $('#articlename').val(), 
+// 						 "articletype": $('#articletype').val(),
+// 						 "uploadImage":$('#uploadImage').val(),
+// 						 "editor": data, 
+// 						 "pravicy": $("input[name=pravicy]:checked").val()},function(x){
+// 						console.log($("input[name=pravicy]:checked").val())
+// 						if(x==false){
+// 							$('#header').html("<h5 class='modal-title'>新增失敗</h5>");
+// 							$('#body').html("QQ");
+// 							console.log("新增失敗");
+// 						}else{
+// 							$('#header').html("<h5 class='modal-title'>新增成功</h5>");
+// 							$('#body').html("太棒了");
+// 							console.log("新增成功");
+// 						}
+// 					})			
+// 			});
 		
     	});
 

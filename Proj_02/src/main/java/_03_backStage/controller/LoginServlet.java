@@ -18,9 +18,10 @@ import _03_backStage.model.BackStageLoginService;
 import _03_backStage.model.ManagerVO;
 
 
-@WebServlet("/_03_backStage/login2.aa")
+@WebServlet("/_03_backStage/login2.dd")
 public class LoginServlet extends HttpServlet
 {
+	
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -68,8 +69,9 @@ public class LoginServlet extends HttpServlet
 			
 			
 			if (mg != null)
-			{
+			{System.out.println("1");
 				session.setAttribute("MLoginOK", mg);
+				
 			} else
 			{
 				
@@ -104,7 +106,8 @@ public class LoginServlet extends HttpServlet
 			}
 		} else
 		{
-			RequestDispatcher rd = request.getRequestDispatcher("/_03_backStage/BackStage.jsp");
+			// 如果errorMsgMap不是空的，表示有錯誤，交棒給login.jsp
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 			rd.forward(request, response);
 			return;
 		}
