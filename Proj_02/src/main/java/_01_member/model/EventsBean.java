@@ -33,44 +33,21 @@ public class EventsBean {
 	}
 	public void setMembers(Set<MemberBean> members) {
 		this.members = members;
-	}
+	}	
 
-	
-//	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	private int typeid;
 	@Id
 	private String type;
 	
 
-@Override
+	@Override
 	public String toString() {
 		return "EventsBean [type=" + type + "]";
 	}
-//	public int getTypeid() {
-//		return typeid;
-//	}
-//	public void setTypeid(int typeid) {
-//		this.typeid = typeid;
-//	}
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
-	}
-	
-	public static void main(String[] args) {
+	}	
 
-		ApplicationContext context= new ClassPathXmlApplicationContext("beans.config.xml");
-		SessionFactory sessionfactory = (SessionFactory) context.getBean("sessionFactory");
-		
-		Session session=sessionfactory.getCurrentSession();
-		session.beginTransaction();
-		
-		EventsBean bean=session.get(EventsBean.class, 1);
-		System.out.println(bean);
-	
-		session.getTransaction().commit();
-		((ConfigurableApplicationContext)context).close();
-	}
 }

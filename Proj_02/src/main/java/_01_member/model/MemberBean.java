@@ -48,8 +48,6 @@ public class MemberBean {
 		this.regions = regions;
 	}
 
-//	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	private int memberid;
 	@Id
 	private String memberemail;
 	private String memberpassword;
@@ -68,12 +66,7 @@ public class MemberBean {
 				+ memberphoto + ", memberepaper=" + memberepaper + ", membertype=" + membertype + ", memberrole="
 				+ memberrole + "]";
 	}
-//	public int getMemberid() {
-//		return memberid;
-//	}
-//	public void setMemberid(int memberid) {
-//		this.memberid = memberid;
-//	}
+
 	public String getMemberemail() {
 		return memberemail;
 	}
@@ -127,55 +120,6 @@ public class MemberBean {
 	}
 	public void setMemberrole(String memberrole) {
 		this.memberrole = memberrole;
-	}
-	
-	public static void main(String[] args) {
-
-		ApplicationContext context= new ClassPathXmlApplicationContext("beans.config.xml");
-		SessionFactory sessionfactory = (SessionFactory) context.getBean("sessionFactory");
-		
-		Session session=sessionfactory.getCurrentSession();
-		session.beginTransaction();
-		
-		
-		//刪除資料
-//		MemberBean bean=session.get(MemberBean.class, "nnn@gmail.com");
-//		System.out.println("bean:"+bean);
-//		Set<EventsBean> events=bean.getEvents();
-//		for(EventsBean u: events) {
-//			u.getMembers().remove(bean);
-//		}
-		
-		
-		//新增資料
-//		String [] c= {"城市萬花筒", "戶外行腳", "表演萬象"};
-//		
-//		for(int i=0; i<c.length;i++) {		
-//			MemberBean bean=session.get(MemberBean.class, "bbb@gmail.com");
-//			System.out.println("bean:"+bean);
-//		
-//			Set<EventsBean> events=bean.getEvents();
-//		
-//			EventsBean test = new EventsBean();
-//
-//			test.setType(c[i]);
-//			events.add(test);
-//			
-//			System.out.println("events:"+events);
-//		}	
-
-		//查詢
-//		MemberBean bean=session.get(MemberBean.class, "bbb@gmail.com");
-//		Set<EventsBean> types=bean.getEvents();
-//		System.out.println("types:"+types);
-//		
-//		Set<RegionsBean> regions=bean.getRegions();
-//		System.out.println("regions:"+regions);	
-		
-		
-		session.getTransaction().commit();
-		((ConfigurableApplicationContext)context).close();
-		
 	}
 	
 }
