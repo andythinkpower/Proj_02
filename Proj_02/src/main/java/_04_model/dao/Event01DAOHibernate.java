@@ -51,5 +51,12 @@ public class Event01DAOHibernate implements Event01DAO {
 
 		return query.getResultList();
 	}
+	
+	@Override
+	public void addShareCount(String eventID) {
+		Query query = this.getSession().createQuery("update Event01 set shareCount=shareCount+1 where EventID=?0");
+		query.setParameter("0", eventID);
+		query.executeUpdate();
+	}
 
 }

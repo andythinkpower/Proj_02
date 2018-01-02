@@ -60,7 +60,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '{1964367790442563}',
+    appId      : '{1952637041657654}',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -80,6 +80,7 @@
   // These three cases are handled in the callback function.
 
   FB.getLoginStatus(function(response) {
+	  
     statusChangeCallback(response);
   });
 
@@ -90,7 +91,7 @@
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=1964367790442563';
+  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=1952637041657654';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
@@ -112,19 +113,48 @@
 							$('#status').html("<h5 class='modal-title'>登入成功</h5>");
 							console.log("登入成功");
 							
-							setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",2000)
+						//	
 
 					}else{
 						$('#status').html("<h5 class='modal-title'>註冊成功</h5>");
 						console.log("註冊成功");
 					}
 				},"json")
-      
+				console.log("turn index")
+//       
     });
   }
+  
+ 
+	  
+	
+	    
+
+  
+
+  
+  
+  
+</script>
+
+
+
+
+
+<script>
+
+	
+	  
+
 
 </script>
+
+
 <div id="fb-root"></div>
+
+<div class="fb-login-button" onlogin="test()" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+
+
 
 <section>
         <div class="container p-5">

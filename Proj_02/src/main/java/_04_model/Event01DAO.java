@@ -11,5 +11,7 @@ public interface Event01DAO {
 	Long eventCount(String newDate, String newAreas, String newTypes);
 
 	List<Event01> eventSelf(String eventID);
+	
+	void addShareCount(String eventID);
 
 }

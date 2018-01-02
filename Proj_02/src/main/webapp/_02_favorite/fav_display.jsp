@@ -60,6 +60,22 @@ body {
 
 	<script>
 		$(function(){
+			
+			$('body').on("click",".delete",function(){
+				
+				var pk=$(this).parents(".target").find(".actID").text();
+				var email=$("#member").text();
+				console.log("pk:"+email);
+				$.get("disFavorite.controller",{"eventid":pk,"email":email},function(){
+					$("#wholePage").empty();
+					loadevent();
+				})
+				
+				
+			})
+			
+			
+			
 			var email =$("#member").text();
 			loadevent();
 			function loadevent(){
