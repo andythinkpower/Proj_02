@@ -47,7 +47,12 @@ public class Event01Controller {
 	}
 	
 	
-	
+	@RequestMapping(path = { "/_04_EventPage/addShareCount.controller" }, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public void shareCount(String eventID) {
+		event01Service.addShareCount(eventID);
+
+	}
 	
 	
 	

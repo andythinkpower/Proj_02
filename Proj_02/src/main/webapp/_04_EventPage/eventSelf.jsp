@@ -4,12 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta property="og:url"           content="http://localhost:8080/Proj_02/_04_EventPage/eventSelf.jsp?eventID=<%= request.getParameter("eventID") %>"/>
-<meta property="og:type"          content="website" />
-<meta property="og:title"         content="Your Website Title" />
-<meta property="og:description"   content="Your description" />
-
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- jQuery-ui -->
@@ -17,9 +11,20 @@
 <!-- jQuery-ui CSS -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- bootstrap -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+	integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+	integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+	crossorigin="anonymous"></script>
+
+
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-<!-- showEvent CSS -->
-<!-- <link rel="stylesheet" href="../css/showEvent.css"> -->
+<!-- eventSelf CSS -->
+<link rel="stylesheet" href="../css/eventSelf.css">
 <!-- 圖標 -->
 <script src="https://use.fontawesome.com/8af200eebc.js"></script>
 <!-- 分頁 -->
@@ -27,233 +32,10 @@
 <!-- Cookie js -->
 <script src="../js/cookie.js"></script>
 
-<title>活動專屬頁面</title>
-
-<style>
-
-body {
-	background-image: url('../img/event_background.jpg');
-	background-attachment:fixed;
-	background-size: cover;
-}
-
-#bigBox{
-	width: 1450px;
-    height: 1210px;
-    margin: 0px auto 20px auto;
-}
-
-#eventInfo {
-	width: 1450px;
-    height: 750px;
-	margin: 0px auto 0px auto;
-    background-color: navajowhite;
-    border: 5px solid red;
-}
-
-.titleBox {
-    width: 1200px;
-    height: 100px;
-    margin: 15px 0px 0px 0px;
-    float: left;
-    box-sizing: border-box;
-}
-
-#type {
-    font-size: 20px;
-	color: blue;
-    text-align: center;
-    width: 80px;
-    margin: 20px;
-    float: left;
-}
-
-#title {
-    font-size: 30px;
-    font-weight: bolder;
-	color: red;
-    width: 85%;
-    height: 90px;
-    margin: 15px;
-    float: left;
-    text-align: center;
-    text-overflow: ellipsis;
-    overflow: hidden;
-	white-space: nowrap;
-}
-
-.collectBox {
-    width: 200px;
-    height: 100px;
-    margin: 15px 10px 0px 0px;
-    float: right;
-    box-sizing: border-box;
-}
-
-.dayBox {
-    width: 200px;
-    height: 60px;
-    margin: 0px 10px 0px 0px;
-    float: right;
-    box-sizing: border-box;
-}
-
-.collect , .nonCollect , #days {
-    font-size: 20px;
-    font-weight: bolder;
-    width: 80%;
-    height: 50px;
-    float: right;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-}
-
-.collect {
-    color: #00E3E3;
-    margin: 10px 25px 0px 0px;
-    background-color: #CCFF80;
-    box-sizing: border-box;
-    border: 1.5px solid #8CEA00;
-}
-
-.nonCollect {
-    color: #00E3E3;
-    margin: 10px 25px 0px 0px;
-    background-color: gray;
-    box-sizing: border-box;
-    border: 1.5px solid #8CEA00;
-}
-
-#days {
-    color: white;
-    margin: 0px 25px 0px 0px;
-    background-color: #FF5151;
-}
-
-.picBox {
-    width: 40%;
-    height: 75%;
-    margin: 20px 0px 0px 20px;
-    float: left;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
-#ownImg {
-	width: 500px;
-	height: 500px;
-    float: left;
-}
-
-.mark {
-    width: 30px;
-    float: left;
-    background-color: navajowhite;
-}
-
-.date , .detail {
-    font-size: 22px;
-    height: 35px;
-    float: left;
-    box-sizing: border-box;
-}
-
-.date {
-    width: 595px;
-    margin: 20px 0px 5px 25px;
-}
-
-.detail {
-    width: 800px;
-    margin: 5px 0px 0px 25px;
-}
-
-.mapBox {
-    width: 350px;
-    height: 258px;
-    margin: 15px 0px 0px 25px;
-    float: left;
-    box-sizing: border-box;
-}
-
-.hollowArea {
-    width: 400px;
-    height: 160px;
-    margin: 15px 25px 0px 0px;
-    float: right;
-    box-sizing: border-box;
-}
-
-.insertTime , .buttonBox {
-    width: 400px;
-    height: 40px;
-    margin: 0px 25px 0px 0px;
-    float: right;
-    box-sizing: border-box;
-}
-
-#report {
-    color: white;
-    font-size: 20px;
-    width: 30%;
-    height: 50px;
-    margin: 0px 0px 0px 0px;
-    float: right;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    background-color: darkgray;
-}
-
-#contextBox {
-    width: 1450px;
-    height: 500px;
-	margin: 10px auto 0px auto;
-    float: left;
-    background-color: navajowhite;
-    border: 5px solid red;
-}
-
-#contextText {
-	font-size: 30px;
-	font-weight: bolder;
-    width: 1400px;
-    height: 50px;
-	margin: 0px 0px 0px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-}
-
-#context {
-	font-size: 25px;
-    width: 1400px;
-    height: 400px;
-	margin: 0px 0px 0px 20px;
-}
-
-</style>
+<title></title>
 
 </head>
 <body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
 <c:set var='mem' value="${member }" ></c:set>
 <c:choose>
 	<c:when test="${not empty mem }">
@@ -327,12 +109,16 @@ body {
 			
 			
 			<div class="buttonBox">
-				
-<!-- 				<div id="shaerCount"><span style="background-color: green;">分享</span></div> -->
-				<div id="idforFBdiv" class="fb-share-button" data-href="http://localhost:8080/Proj_02/_04_EventPage/eventSelf.jsp?eventID=<%= request.getParameter("eventID") %>" data-layout="button_count" data-size="small" data-mobile-iframe="true" style="margin: 10px 0px 0px 170px;">
-					<a id="idforFBa" class="fb-xfbml-parse-ignore" target="_blank" href='https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FProj_02%2F_04_EventPage%2FeventSelf.jsp%3FeventID%3D<%= request.getParameter("eventID") %>&amp;src=sdkpreparse'>分享</a>
+			
+				<div style="width: 270px; height: 50px; float: left;">
+					<div style="width: 100px; float: left;">
+						<a class="btn btn-success clearfix" href="javascript:fbshareCurrentPage()" target="_blank" alt="Share on Facebook">FB分享</a>
+					</div>
+					<div style="width: 150px; float: left; margin-top: 8px;">
+						&nbsp;&nbsp;分享數：&nbsp;<span id="shareCount"></span>
+					</div>
 				</div>
-				
+
 				<div id="report">檢舉 / 報錯</div>
 				
 			</div>
@@ -347,28 +133,8 @@ body {
 	</div>
 	
 	<script>
-	
-	
-	
-	
 		// 開啟即執行
 		$(function(){
-			
-			//*******檢舉功能******//
-			$("#report").on('click',function(){
-				var eventID=$("#eventID").text();
-				
-				$.post('aaaa.controller',{"eventID":eventID},function(data){
-					console.log(data);
-				})
-				
-			})
-			
-			
-			//*******檢舉功能******//
-			
-			
-			
 			var user = $("#member").text();
 			var eventID = $("#eventID").text();
 			var collection = true;
@@ -410,10 +176,11 @@ body {
     			};
 		    });
 			
-			$('body').one('click' , '#_49vh _2pi7' , function(){
+			$('body').on('click' , '.btn' , function(){
 				var eventID = $("#eventID").text();
-				alert(typeof eventID);
 				$.post('${pageContext.request.contextPath}/_04_EventPage/addShareCount.controller',{'eventID':eventID});
+				var nowShare = $('#shareCount').text();
+	            $('#shareCount').text(parseInt(nowShare) + 1);
 			});
 			
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
@@ -421,7 +188,17 @@ body {
 					
 					$('#type').append('[&nbsp;' + eventData.eventTypeId + '&nbsp;]');
 					$('#title').append(eventData.eventName);
+					
+					
+					
+					$(document).ready(function() {
+				        document.title = $('#title').text();
+				    });
+					
+					
+					
 					$('.collectBox span').append(eventData.collectionCount)
+					$('#shareCount').append(eventData.shareCount)
 						// 計算天數差
 						var daysdiff = (eventData.durationEnd - new Date().getTime())/86400000;
 						if ( daysdiff < 0 ) {
@@ -437,35 +214,29 @@ body {
 						$('#ownImg').attr('src' , eventData.imageFile).attr('onerror' , 'javascript:this.src="../img/taipei_culture.png"');
 					};
 						// 對毫秒數做轉換，取年月日再組裝 ↓
-						
 						var Start = new Date(eventData.dtStart);
 						var End = new Date(eventData.durationEnd);
 						var Y1 = Start.getFullYear() + '-';
 						var M1 = (Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-';
 						var D1 = (Start.getDate()+1 <= 10 ? '0'+Start.getDate() : Start.getDate());
 						var dtStart = Y1 + M1 + D1;
-						
 						var Y2 = End.getFullYear() + '-';
 						var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
 						var D2 = (End.getDate()+1 <= 10 ? '0'+End.getDate() : End.getDate());
 						var durationEnd = Y2 + M2 + D2;
-						
 						var ts = new Date(eventData.timeStart);
 						var tsH = ts.getHours() + ':';
 						var tsM = ts.getMinutes();
 						var timeStartHM = tsH + tsM;
-						
 						var Y3 = ts.getFullYear() + '-';
 						var M3 = (ts.getMonth()+1 < 10 ? '0'+(ts.getMonth()+1) : ts.getMonth()+1) + '-';
 						var D3 = (ts.getDate()+1 <= 10 ? '0'+ts.getDate() : ts.getDate());
 						var timeStart = Y3 + M3 + D3;
-						
 						var Insert = new Date(eventData.insertTime);
 						var Y4 = Insert.getFullYear() + '-';
 						var M4 = (Insert.getMonth()+1 < 10 ? '0'+(Insert.getMonth()+1) : Insert.getMonth()+1) + '-';
 						var D4 = (Insert.getDate()+1 <= 10 ? '0'+Insert.getDate() : Insert.getDate());
 						var insertTime = Y4 + M4 + D4;
-						
 					$('.date span').append('&nbsp;&nbsp;活動時間：' + dtStart + ' ~ ' + durationEnd);
 					if (timeStartHM == '0:0') {
 						$('#startTime').append('&nbsp;&nbsp;場次時間：');
@@ -508,6 +279,10 @@ body {
 				});
 			}); // JSON END
 		}); // 開啟即執行 END
+		
+		function fbshareCurrentPage()
+		    {window.open("https://www.facebook.com/sharer/sharer.php?u="+escape(window.location.href)+"&t="+document.title, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+	    return false; }
 		
 	</script>
 	

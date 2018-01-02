@@ -26,8 +26,14 @@
 <!-- https://developers.google.com/maps/documentation/javascript/reference?hl=zh-tw#DirectionsService google map api 涵式庫-->
 <style>
 body {
-	background-color: #F2E6E6;
-}
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/05.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
 
 #right-panel {
 	font-family: 'Roboto', 'sans-serif';
@@ -100,9 +106,12 @@ html, body {
 	<!-- 這邊要顯示個人行程 並且把路徑顯示出來 -->
 	<!-- 修改,刪除列 -->
 	<div class="row my-2 bg-white">
-		<button class="btn btn-sm option update ml-5">修改資料</button>
-		<button class="btn btn-sm option delete bg-white ml-5">刪除</button>
-		<br>
+	<div class='col-2'></div>
+	<div class='col-10'>
+		<button class="btn btn-sm option updatemy-2">修改資料</button>
+		<button class="btn btn-sm option delete bg-white my-2">刪除</button>
+		</div>
+		
 	</div>
 	<!-- 內文 -->
 	<div class="row mt-2" style="width: 100%; height: 100%;">
@@ -152,10 +161,6 @@ html, body {
                      		
                      	}
                      })
-		
-		
-		
-		
 		
 	})
 	

@@ -60,6 +60,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
+
     appId      : '{518919515157014}',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
@@ -80,6 +81,7 @@
   // These three cases are handled in the callback function.
 
   FB.getLoginStatus(function(response) {
+
 	  console.log(response);
     statusChangeCallback(response);
   });
@@ -91,7 +93,9 @@
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
+
   js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=518919515157014';
+
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
@@ -120,14 +124,41 @@
 						console.log("註冊成功");
 					}
 				},"json")
-      
+				console.log("turn index")
+//       
     });
   }
+  
+ 
+	  
+	
+	    
+
+  
+
+  
+  
+  
+</script>
+
+
+
+
+
+<script>
+
+	
+	  
+
 
   
   
 </script>
+
+
 <div id="fb-root"></div>
+
+
 
 <section>
         <div class="container p-5">

@@ -15,7 +15,6 @@ public interface EventDAO_interface {
 			String ImageFileURL, String ContactName, String BriefIntroduction ) {
 	}
 
-//	public void updateAll(ProductListingBookVO productListingBookVO);
 
 	public Integer delete(Integer EventID) throws SQLException;
 
@@ -23,5 +22,4 @@ public interface EventDAO_interface {
 
 	public List<EventVO> getAll();
 
-//	public Integer update(ProductListingBookVO productListingBookVO) throws SQLException;
 }

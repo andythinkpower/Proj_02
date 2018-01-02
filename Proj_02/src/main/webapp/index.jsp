@@ -62,28 +62,33 @@
 					<div class="carousel-inner" role="listbox">
 						<!-- 輪播牆的各個項目 -->
 						<div class="carousel-item active">
-							<img class="d-block img-fluid" id="img1" src="img/test.jpg"
+						<div style='display:none'>99916308</div>
+							<img class="d-block img-fluid hot" id="img1" src="http://cultureexpress.taipei/Files/Event/LogoTemp/7cc106bb9e484cc3b8acd30da3bcfdf2.jpg"
 								alt="First Slide" style="height: 400px; width: 800px">
 
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" id="img2" src="img/dog.jpg"
+						<div style='display:none'>99916488</div>
+							<img class="d-block img-fluid hot" id="img2" src="http://cultureexpress.taipei/Files/Event/LogoTemp/126ac848561e44988bdb376338c92fe5.jpg"
 								alt="Second Slide" style="height: 400px; width: 800px">
 
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" id="img3" src="img/nopic.jpg"
+						<div style='display:none'>99916321</div>
+							<img class="d-block img-fluid hot" id="img3" src="http://cultureexpress.taipei/Files/Event/LogoTemp/c0ae963354f14f20997fd852137bd9e7.jpg"
 								alt="Third Slide" style="height: 400px; width: 800px">
 
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" id="img4" src="img/default.jpg"
+						<div style='display:none'>99916667</div>
+							<img class="d-block img-fluid hot" id="img4" src="http://cultureexpress.taipei/Files/Event/LogoTemp/c244b29cc97040a3b113fd75aff83293.jpg"
 								alt="Third Slide" style="height: 400px; width: 800px">
 
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" id="img5"
-								src="img/taipei-logo.jpg" alt="Third Slide"
+						<div style='display:none'>99916042</div>
+							<img class="d-block img-fluid hot" id="img5"
+								src="http://cultureexpress.taipei/Files/Event/LogoTemp/a2213621f90c4d0e81a0d73b27a05873.jpg" alt="Third Slide"
 								style="height: 400px; width: 800px">
 
 						</div>
@@ -117,11 +122,17 @@
 		});
 	</script>
 
-
+hgfhgf
 
 	<script>
 	$.ajaxSettings.async = false;
         $(function () {
+        	
+        	$("body").on('click','.hot',function(){
+        		var pk=$(this).prev().text();
+        		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + pk +'"/>' ;
+        	})
+        	
           
              var selectDate = "where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart  and";
              var selectDate2='where';
@@ -139,11 +150,11 @@
              temp=[];
              dynamicCard('本周活動',selectDate,selectOrder);
              
-             dynamicCard('熱門收藏',selectDate2,selectOrder2);
+            dynamicCard('熱門收藏',selectDate2,selectOrder2);
              
-             dynamicCard('最新刊登',selectDate2,selectOrder3);
-             
-             dynamicCard('熱門分享',selectDate2,selectOrder4);
+            dynamicCard('最新刊登',selectDate2,selectOrder3);
+           
+            dynamicCard('熱門分享',selectDate2,selectOrder4);
              
              function dynamicCard(id_name,Date,Order){
             	 var ul = $('<ul class="nav nav-pills red mb-3">');
@@ -263,8 +274,9 @@
 
 
 
-
+</div>
 
 	<jsp:include page="/commons/footer.jsp"></jsp:include>
+
 </body>
 </html>

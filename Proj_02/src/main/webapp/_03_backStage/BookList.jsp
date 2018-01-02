@@ -10,13 +10,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8/BIG5">
 <title>活動表單</title>
-<link rel="shortcut icon" href="../img/favicon.ico.png"  type="image/x-icon"/>
+<!-- <link rel="shortcut icon" href="../img/favicon.ico.png"  type="image/x-icon"/> -->
 
 <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="../js/jquery.tablesorter.js"></script> 
+<!-- <script type="text/javascript" src="../js/jquery.tablesorter.js"></script>  -->
 </head>
 
-<style>
+ <!-- <style> 
 .peoplePic {
 	background: #1e90ff;
 	-webkit-clip-path: circle(50% at 50% 50%);
@@ -137,7 +137,7 @@ background-color: #9BC5FD;
 	border-radius: 5px;
 }
 
-</style>
+</style> -->
 
 <body>
 
@@ -160,19 +160,19 @@ background-color: #9BC5FD;
 		</font>
 	</c:if>
 
-	<table border='1' bordercolor='#CCCCFF' width='2500' id="myTable" class="tablesorter">
+	<table border='1' bordercolor='#CCCCFF' width='1200px' id="myTable" class="tablesorter">
 	<thead>
 		<tr>
-			<th width="5%">活動編號</th>
-			<th width="8%">活動圖片</th>
-			<th width="8%">活動名稱</th>
-			<th width="3%">活動票價</th>
-			<th width="8%">是否免費</th>
-			<th width="8%">活動開始日期</th>
-			<th width="8%">活動結束日期</th>
-			<th width="6%">演出單位</th>
-			<th>活動連絡人</th>
-			<th>活動簡介</th>
+			<th width="100px">活動編號</th>
+			<th width="100px">活動圖片</th>
+			<th width="100px">活動名稱</th>
+			<th width="100px">活動票價</th>
+			<th width="100px">是否免費</th>
+			<th width="100px">活動開始日期</th>
+			<th width="100px">活動結束日期</th>
+			<th width="100px">演出單位</th>
+			<th width="100px">活動連絡人</th>
+			<th width="100px" height="100px" style="text-overflow:ellipsis;overflow: hidden; white-space: nowrap;">活動簡介</th>
 			<th></th>
 			<th></th>
 		</tr>
@@ -183,15 +183,34 @@ background-color: #9BC5FD;
 			<tr align='center' align='middle'>
 				<td align="center" >${eventVO.eventID}</td> 				
 				<td>
-					<img height="100" width="100" src="${eventVO.imageFile}" />
-				</td>
+				<c:if test="${eventVO.imageFile == 'null'}">
+					<img height="100" width="100" src="../img/taipei_culture.png"/>
+                </c:if> 
+                <c:if test="${eventVO.imageFile != 'null'}">
+					<img height="100" width="100" src="${eventVO.imageFile}" onerror="javascript:this.src='../img/taipei_culture.png'"/>
+                </c:if> 
+                   
 				<td>${eventVO.eventName}</td> 
-				<td>${eventVO.fee}</td> 
+				<td>
+				<c:if test="${eventVO.fee == 'null'}">
+					${eventVO.isCharge}
+                </c:if> 
+                <c:if test="${eventVO.fee != 'null'}">
+					${eventVO.fee}
+                </c:if> 
+                </td>
 				<td>${eventVO.isCharge}</td> 
 				<td>${eventVO.durationStart}</td> 
 				<td>${eventVO.durationEnd}</td> 
 				<td>${eventVO.showGroupName}</td> 
-				<td>${eventVO.contactName}</td> 
+								<td>
+				<c:if test="${eventVO.contactName == 'null'}">
+					${"電洽"}
+                </c:if> 
+                <c:if test="${eventVO.contactName != 'null'}">
+					${eventVO.contactName}
+                </c:if> 
+                </td>
 				<td align="left">${eventVO.briefIntroduction}</td> 
  						<td>
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do">
@@ -227,4 +246,6 @@ $(function () {
     
 });
 </script>
+<!-- <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script> -->
+<!-- <script type="text/javascript" src="../js/jquery.tablesorter.js"></script>  -->
 </html>

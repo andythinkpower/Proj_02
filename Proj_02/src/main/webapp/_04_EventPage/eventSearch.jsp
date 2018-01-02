@@ -20,7 +20,6 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <!-- showEvent CSS -->
-<link rel="stylesheet" href="../css/showEvent.css">
 <!-- 圖標 -->
 <script src="https://use.fontawesome.com/8af200eebc.js"></script>
 <!-- 分頁 -->
@@ -28,8 +27,9 @@
 
 <title>尋找活動</title>
 
-<style>
 
+
+<style>
 body {
 	background-image: url('../img/event_background.jpg');
 	background-attachment:fixed;
@@ -41,6 +41,7 @@ body {
 	height:190px;
 	margin: auto;
 	background : #EBD6D6;
+	border-radius: 10px;
 }
 
 .subRegion {
@@ -65,7 +66,7 @@ body {
 .selectArea {
 	position : absolute;
 	top : 150px;
-	left: 890px;
+	left: 655px;
 	width : 345px;
 	height : 170px;
 	border : 1px solid blue;
@@ -93,6 +94,129 @@ body {
 .stateChecked {
 	background-color : yellow;
 }
+
+/* 下面每一個活動區塊 */
+#showEvent {
+	width: 1450px;
+	margin: auto;
+    border: 5px solid transparent;
+}
+
+.box {
+    width: 1400px;
+    height: 180px;
+    margin: auto;
+    margin-bottom: 5px;
+    background-color: #FFFFCC;
+    border: 4px solid #46A3FF;
+    border-radius: 10px;
+}
+
+.picBox {
+    width: 20%;
+    height: 100%;
+    float: left;
+    padding: 0px 0px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 5px solid transparent;
+}
+
+#showEvent img {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    border: 5px solid transparent;
+}
+
+.mainBox {
+    width: 67%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    box-sizing: border-box;
+    border: 5px solid transparent;
+}
+
+#type {
+    font-size: 20px;
+	color: blue;
+    float: left;
+    margin-top: 22px;
+    padding-left: 15px;
+    text-align: left;
+}
+
+#title {
+    font-size: 25px;
+    font-weight: bolder;
+	color: red;
+    width: 75%;
+    float: left;
+    padding: 0px 20px;
+    margin-top: 15px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#title:hover {
+	color: blue;
+}
+
+.row {
+	font-size: 23px;
+    width: 100%;
+    height: 24%;
+    float: left;
+	padding: 0px 20px;
+	margin-top: 6px;
+    box-sizing: border-box;
+    border: 5px solid transparent;
+}
+
+.row span {
+	padding: 0px 0px 0px 30px;
+	text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#collectCount {
+    float: right;
+	padding: 0px;
+    margin-left: 70px;
+}
+
+#days , #collect {
+    font-size: 20px;
+    font-weight: bolder;
+    width: 11%;
+    float: right;
+    margin: 25px 25px 20px 0px;
+    padding: 8px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 5px solid transparent;
+    border-radius: 5px;
+}
+
+#days {
+    color: white;
+    background-color: #FF5151;
+}
+
+#collect {
+    color: #00E3E3;
+    background-color: #CCFF80;
+    margin: 5px 25px 0px 0px;
+    box-sizing: border-box;
+    border: 1.5px solid #8CEA00;
+}
+
 </style>
 
 </head>

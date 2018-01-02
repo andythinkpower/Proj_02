@@ -30,5 +30,12 @@ public class Event01Service {
 	public List<Event01> eventSelf(String eventID){
 		return event01dao.eventSelf(eventID);
 	}
+	
+	@Transactional
+	public void addShareCount(String eventID){
+		event01dao.addShareCount(eventID);
+	}
+
+
 
 }
