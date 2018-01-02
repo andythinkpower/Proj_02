@@ -18,7 +18,7 @@ import _03_backStage.model.BackStageLoginService;
 import _03_backStage.model.ManagerVO;
 
 
-@WebServlet("/login2.aa")
+@WebServlet("/_03_backStage/login2.aa")
 public class LoginServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
