@@ -27,11 +27,11 @@ CONSTRAINT PK_Members_MemberEmail PRIMARY KEY CLUSTERED (MemberEmail) /*Members.
 );
 
 --會員假資料
-INSERT INTO Members VALUES('aaa@gmail.com', 'abc123', '小小', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
-INSERT INTO Members VALUES('bbb@gmail.com', 'abc123', '大大', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
-INSERT INTO Members VALUES('ccc@gmail.com', 'abc123', '中中', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
-INSERT INTO Members VALUES('ddd@gmail.com', 'zzz', null, null, null, '/uploadFile/default.jpg', null, null, null);
-INSERT INTO Members (memberemail, memberpassword,MemberPhoto) VALUES('eee@gmail.com', 'eee','/uploadFile/default.jpg');
+--INSERT INTO Members VALUES('aaa@gmail.com', 'abc123', '小小', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
+--INSERT INTO Members VALUES('bbb@gmail.com', 'abc123', '大大', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
+--INSERT INTO Members VALUES('ccc@gmail.com', 'abc123', '中中', '女生', '2000-12-22', '/uploadFile/default.jpg', 1, null, null);
+--INSERT INTO Members VALUES('ddd@gmail.com', 'zzz', null, null, null, '/uploadFile/default.jpg', null, null, null);
+--INSERT INTO Members (memberemail, memberpassword,MemberPhoto) VALUES('eee@gmail.com', 'eee','/uploadFile/default.jpg');
 
 
 /*EventTypes*/
@@ -86,13 +86,13 @@ primary key(MemberEmail,Type)
 );
 
 
-insert into LikeTypes values ('aaa@gmail.com','表演萬象')
-insert into LikeTypes values ('aaa@gmail.com','展覽廣場')
-insert into LikeTypes values ('aaa@gmail.com','戶外行腳')
-insert into LikeTypes values ('aaa@gmail.com','城市萬花筒')
-insert into LikeTypes values ('bbb@gmail.com','表演萬象')
-insert into LikeTypes values ('bbb@gmail.com','展覽廣場')
-insert into LikeTypes values ('ccc@gmail.com','電影瞭望')
+--insert into LikeTypes values ('aaa@gmail.com','表演萬象')
+--insert into LikeTypes values ('aaa@gmail.com','展覽廣場')
+--insert into LikeTypes values ('aaa@gmail.com','戶外行腳')
+--insert into LikeTypes values ('aaa@gmail.com','城市萬花筒')
+--insert into LikeTypes values ('bbb@gmail.com','表演萬象')
+--insert into LikeTypes values ('bbb@gmail.com','展覽廣場')
+--insert into LikeTypes values ('ccc@gmail.com','電影瞭望')
 
 
 create table LikeRegions
@@ -107,18 +107,18 @@ primary key(MemberEmail,Region)
 );
 
 
-insert into LikeRegions values ('aaa@gmail.com','大安區')
-insert into LikeRegions values ('aaa@gmail.com','萬華區')
-insert into LikeRegions values ('bbb@gmail.com','大安區')
-insert into LikeRegions values ('bbb@gmail.com','萬華區')
-insert into LikeRegions values ('ccc@gmail.com','大安區')
-insert into LikeRegions values ('ccc@gmail.com','中正區')
+--insert into LikeRegions values ('aaa@gmail.com','大安區')
+--insert into LikeRegions values ('aaa@gmail.com','萬華區')
+--insert into LikeRegions values ('bbb@gmail.com','大安區')
+--insert into LikeRegions values ('bbb@gmail.com','萬華區')
+--insert into LikeRegions values ('ccc@gmail.com','大安區')
+--insert into LikeRegions values ('ccc@gmail.com','中正區')
 
 
 CREATE TABLE Blogs
 (
 ArticleId int identity(1,1) PRIMARY KEY,
-ArticleName varchar(20),
+ArticleName varchar(50),
 ArticleContent varchar(max),
 PostTime smalldatetime,
 ArticleType varchar(20),
