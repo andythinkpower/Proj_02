@@ -20,7 +20,7 @@
    body {
 			font-family: Microsoft JhengHei;
 /* 			background-color:	#F2E6E6; */
-			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-image:url('${pageContext.request.contextPath}/img/05.jpg');
 			background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;

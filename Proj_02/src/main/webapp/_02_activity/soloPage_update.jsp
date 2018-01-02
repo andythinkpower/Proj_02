@@ -21,8 +21,14 @@
 <title>顯示單獨頁面</title>
 <style>
 body {
-	background-color: #F2E6E6;
-}
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/05.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
 
 #section {
 	margin: 5%;

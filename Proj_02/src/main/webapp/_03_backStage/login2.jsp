@@ -1,4 +1,5 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//Dtd HTML 4.01 transitional//EN">
+﻿
+<!DOCTYPE HTML PUBLIC "-//W3C//Dtd HTML 4.01 transitional//EN">
 <html>
 <head>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -49,7 +50,7 @@ input[type="submit"] {
 <body>
 <%-- <jsp:include page="/fragment/top.jsp"/> --%>
 <center>  
-<form Action="<c:url value='login2.aa' />" method="POST">
+<form Action="<c:url value='login2.dd' />" method="POST">
 	<table width='330'  >
          <tr>
          	<th colspan='3'>
