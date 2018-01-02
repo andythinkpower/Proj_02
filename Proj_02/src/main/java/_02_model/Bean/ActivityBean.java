@@ -39,7 +39,7 @@ public class ActivityBean implements Serializable {
 	private String email;
 
 	// 一對多關係
-	@OneToMany(mappedBy = "activityBean", cascade = { CascadeType.REMOVE }, fetch = FetchType.EAGER // 不寫會發生lazily 狀況
+	@OneToMany(mappedBy = "activityBean", cascade = { CascadeType.REMOVE,CascadeType.PERSIST,CascadeType.MERGE }, fetch = FetchType.EAGER // 不寫會發生lazily 狀況
 	)
 	//Json不要傳他 目前會超級錯誤
 	@JsonIgnore

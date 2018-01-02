@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
 	
 		
 	<h1>test</h1>
-	<form action="hahaha.controller">
+	<form action="test.do">
 	<input name='email'>
 	<input type='submit' value='ss'>
 	</form>

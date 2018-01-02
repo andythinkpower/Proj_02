@@ -79,8 +79,9 @@
                         </div>
                     </div>
                     <div class="form-group px-5">
+
                         <label for="introduction">簡介:</label>
-                        <textarea class="form-control" id="introduction" rows="5" ></textarea>
+                        <textarea class="form-control" id="introduction" name="introduction" rows="5" ></textarea>
                     </div>
 
                 </div>
@@ -161,11 +162,8 @@
     <script>
         $(function () {
         	
+
         	$("#introduction").val('${activityBean.introduction}');
-        	
-        	
-        	
-        	
             $("body").on('click', 'input[name=note]', function () {
                 temp = $(this);
                 console.log(temp)
@@ -175,7 +173,7 @@
             //選擇完停留時間 按下儲存按鈕  要抓到剛調整的時間值 存到input裡面
             $('body').on('click', ".savePlace", function () {
                 temp.val(simple_name);
-                console.log(lng);
+                console.log(lng); 
                 temp.parent().nextAll('input[name=longitude_temp]').val(lng);
                 temp.parent().nextAll('input[name=latitude_temp]').val(lat);
             });

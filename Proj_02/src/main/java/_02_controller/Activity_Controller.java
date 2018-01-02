@@ -2,6 +2,7 @@ package _02_controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -33,9 +33,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import _01_member.model.MemberBean;
-
-import _02_model.ActivityDAO;
-import _02_model.ActivityDetailDAO;
 import _02_model.Bean.ActivityBean;
 import _02_model.Bean.ActivityDetailBean;
 import _02_model.service.ActivityDetailService;
@@ -62,8 +59,9 @@ public class Activity_Controller {
 			RequestMethod.GET })
 	public String xxx(@SessionAttribute(name = "member") MemberBean member, ActivityBean bean,
 			ActivityDetailBean detailBean, BindingResult bindingResult, Model model, String doWhat,
-			HttpServletRequest request,HttpServletResponse response,String longitude_temp,String latitude_temp) throws IllegalStateException, IOException {
-
+			HttpServletRequest request,HttpServletResponse response,String longitude_temp,String latitude_temp,String actDetail_up,
+			String new_times,String new_kinds,String new_note,String new_budget,String new_dates,String new_longitude_temp,String new_latitude_temp) throws IllegalStateException, IOException {
+		
 		
 		// 代表是從schedule.jsp進來
 		if ("schedule".equals(doWhat)) {
@@ -172,26 +170,28 @@ public class Activity_Controller {
 			// 進入單獨行程頁面
 			return "up_soloPage";
 		}else if ("update".equals(doWhat)) {
-			System.out.println("進入修改 儲存資料");
-			System.out.println(detailBean);
-			HttpSession session = request.getSession();
-			Set<ActivityDetailBean> set = (Set<ActivityDetailBean>) session.getAttribute("soloDetail");
-
-			ActivityDetailBean[] array = set.toArray(new ActivityDetailBean[set.size()]);
-
-			// 要把消失的主key 和外部鍵塞回資料中
-			List<ActivityDetailBean> list = Activity_Controller.Detail_split(detailBean);
-			for (int i = 0; i < list.size(); i++) {
-				list.get(i).setActivityID(array[i].getActivityID());
-				list.get(i).setActDetail(array[i].getActDetail());
+			//list_up 是原本就有的資料 要做更新
+			List<ActivityDetailBean> list_up=Detail_split(detailBean);
+			String[] lan=longitude_temp.split(",");
+			String[] lat=latitude_temp.split(",");
+			String[] detail=actDetail_up.split(",");
+			for(int i=0;i<list_up.size();i++) {
+				list_up.get(i).setLatitude(Double.valueOf(lat[i]));
+				list_up.get(i).setLongitude((Double.valueOf(lan[i])));
+				list_up.get(i).setActDetail(Integer.valueOf(detail[i]));
+				list_up.get(i).setActivityID(bean.getActivityID());
 			}
-			System.out.println("修改結果");
-			for (ActivityDetailBean i : list) {
-				System.out.println(i);
-			}
-
-			activityService.Change_Schedule(bean);
-			activityDetailService.Allupdate(list);
+			
+			//這邊要處理新增部分
+			System.out.println("觀察 新增的細節");
+			System.out.println(new_times+" : "+new_kinds+" : "+new_note+" : "+new_budget+" : "+new_dates+" : "+new_longitude_temp+" : "+new_latitude_temp);
+			
+			
+			
+			// 要判斷如果有新增細節還要做 insert
+			//activityService.Change_Schedule(bean);
+			//activityDetailService.Allupdate(list_up);
+			
 
 			return "display";
 
@@ -249,25 +249,22 @@ public class Activity_Controller {
 		map.put("actBean",test);
 		map.put("detailBean",detail);	
 		return map;
-
 	}
 	
 	@RequestMapping(path= {"/_02_activity/update_page.do"},method= {RequestMethod.GET},produces = { "application/json;charset=UTF-8" })	
 	@ResponseBody
 	public Map<String,Object> update_page(String activityID) {
-		System.out.println(activityID);
-		
+		Map<String,Object> map=new HashMap<String,Object>();
 		ActivityBean actBean=activityService.solo_select(new Integer(activityID));
-		System.out.println("行程 "+actBean);
-		List<ActivityDetailBean> detailBean=activityDetailService.showALL(new Integer(activityID));
-		System.out.println("行程細節用日期排序");
+		map.put("actBean",actBean);
 		
+		
+		List<ActivityDetailBean> detailBean=activityDetailService.showALL(new Integer(activityID));	
+		map.put("detailBean",detailBean);
 		//第一步驟 先取得最大天數
 		Integer maxDay=new Integer(detailBean.get((detailBean.size()-1)).getDates());
-		System.out.println("最大天數為:"+maxDay);
 		
-		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("maxDay",maxDay);
+		//第二步 把相同天數的放一起 分類
 		//int count=1;
 		List<List<ActivityDetailBean>> superList=new ArrayList<List<ActivityDetailBean>>();
 		while(maxDay>=1) {
@@ -287,9 +284,6 @@ public class Activity_Controller {
 
 	}
 	
-	
-	
-	
 
 	public static List<ActivityDetailBean> Detail_split(ActivityDetailBean detailBean) {
 		List<ActivityDetailBean> list = new ArrayList<ActivityDetailBean>();
@@ -303,9 +297,6 @@ public class Activity_Controller {
 
 		for (int i = 0; i < kinds.length; i++) {
 			ActivityDetailBean temp = new ActivityDetailBean();
-			/*
-			 * if(haveID) { temp.setActivityID(Integer.valueOf(pk[i])); }
-			 */
 			temp.setTimes(times[i]);
 			temp.setKinds(kinds[i]);
 			temp.setNote(note[i]);
@@ -314,7 +305,6 @@ public class Activity_Controller {
 			list.add(temp);
 		}
 		return list;
-
 	}
 
 

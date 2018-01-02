@@ -31,7 +31,7 @@
                     </li>
                     <!--會員下拉式選單-->
                     <li class="nav-item dropdown mr-3">
-                        <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link drop-toggle" data-toggle="dropdown">會員中心</a>
+                        <a href="" class="nav-link drop-toggle" data-toggle="dropdown">會員中心</a>
                         <div class="dropdown-menu">
                             <a href="${pageContext.request.contextPath}/_05_web/Calendar.html" class="dropdown-item">行事曆</a>
                             <a href="${pageContext.request.contextPath}/_02_activity/display.jsp" class="dropdown-item">行程安排</a>
