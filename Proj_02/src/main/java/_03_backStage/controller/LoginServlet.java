@@ -18,7 +18,7 @@ import _03_backStage.model.BackStageLoginService;
 import _03_backStage.model.ManagerVO;
 
 
-@WebServlet("/_03_backStage/login2.aa")
+@WebServlet("/login2.aa")
 public class LoginServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet
 	{
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		
+		System.out.println("hahaha");
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
