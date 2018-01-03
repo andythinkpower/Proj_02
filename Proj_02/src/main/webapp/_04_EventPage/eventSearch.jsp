@@ -23,204 +23,13 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <!-- showEvent CSS -->
+<link rel="stylesheet" href="../css/showEvent.css">
 <!-- 圖標 -->
 <script src="https://use.fontawesome.com/8af200eebc.js"></script>
 <!-- 分頁 -->
 <script src="../js/jquery.twbsPagination.js"></script>
 
-<title>尋找活動</title>
-
-
-
-<style>
-body {
-	background-image: url('../img/event_background.jpg');
-	background-attachment:fixed;
-	background-size: cover;
-}
-
-#eventSelector {
-	width: 900px;
-	height:190px;
-	margin: auto;
-	background : #EBD6D6;
-	border-radius: 10px;
-}
-
-.subRegion {
-	float: left;
-	margin: 5px 0px 0px 15px;
-}
-
-#areaMark {
-	float: left;
-}
-
-#dateMark , #typeMark , #orderMark {
-	margin-top: 8px;
-	float: left;
-}
-
-#areaText {
-	width:200px;
-	position : relative;
-}
-
-.selectArea {
-	position : absolute;
-	top : 150px;
-	left: 655px;
-	width : 345px;
-	height : 170px;
-	border : 1px solid blue;
-	background : #E9E2E2;
-	display : none;
-}
-
-#selectDate , #selectType , #selectOrder {
-	width: 740px;
-	float: left;
-}
-
-#eventSelector label {
-	padding-left: 5px;
-}
-
-.selectArea span:hover , .selectDate span:hover  , .selectType span:hover , .selectOrder span:hover , #dateRangePicker:hover {
-	background-color : #A6D4DF;
-}
-
-#emsp , #count {
-	background-color : transparent;
-}
-
-.stateChecked {
-	background-color : yellow;
-}
-
-/* 下面每一個活動區塊 */
-#showEvent {
-	width: 1450px;
-	margin: auto;
-    border: 5px solid transparent;
-}
-
-.box {
-    width: 1400px;
-    height: 180px;
-    margin: auto;
-    margin-bottom: 5px;
-    background-color: #FFFFCC;
-    border: 4px solid #46A3FF;
-    border-radius: 10px;
-}
-
-.picBox {
-    width: 20%;
-    height: 100%;
-    float: left;
-    padding: 0px 0px;
-    text-align: center;
-    box-sizing: border-box;
-    border: 5px solid transparent;
-}
-
-#showEvent img {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    box-sizing: border-box;
-    border: 5px solid transparent;
-}
-
-.mainBox {
-    width: 67%;
-    height: 100%;
-    float: left;
-    text-align: center;
-    box-sizing: border-box;
-    border: 5px solid transparent;
-}
-
-#type {
-    font-size: 20px;
-	color: blue;
-    float: left;
-    margin-top: 22px;
-    padding-left: 15px;
-    text-align: left;
-}
-
-#title {
-    font-size: 25px;
-    font-weight: bolder;
-	color: red;
-    width: 75%;
-    float: left;
-    padding: 0px 20px;
-    margin-top: 15px;
-    text-align: left;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-#title:hover {
-	color: blue;
-}
-
-.row {
-	font-size: 23px;
-    width: 100%;
-    height: 24%;
-    float: left;
-	padding: 0px 20px;
-	margin-top: 6px;
-    box-sizing: border-box;
-    border: 5px solid transparent;
-}
-
-.row span {
-	padding: 0px 0px 0px 30px;
-	text-align: left;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-#collectCount {
-    float: right;
-	padding: 0px;
-    margin-left: 70px;
-}
-
-#days , #collect {
-    font-size: 20px;
-    font-weight: bolder;
-    width: 11%;
-    float: right;
-    margin: 25px 25px 20px 0px;
-    padding: 8px;
-    text-align: center;
-    box-sizing: border-box;
-    border: 5px solid transparent;
-    border-radius: 5px;
-}
-
-#days {
-    color: white;
-    background-color: #FF5151;
-}
-
-#collect {
-    color: #00E3E3;
-    background-color: #CCFF80;
-    margin: 5px 25px 0px 0px;
-    box-sizing: border-box;
-    border: 1.5px solid #8CEA00;
-}
-
-</style>
+<title>找活動</title>
 
 </head>
 <body>
@@ -292,7 +101,8 @@ body {
 		<div class="subRegion">
 		    <i class="fa fa-sort-amount-desc fa-lg" id="orderMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;排序依照&emsp;</span>
 			<div id="selectOrder" class="selectOrder">		
-				<label><input type="radio" name="pickOrder" value="datediff ( day , getdate() , DurationEnd )" checked="checked" id="toBeClose"><span>即將結束</span></label>
+				<input type="radio" name="pickUser" value="EventID" style="display: none;">
+				<label><input type="radio" name="pickOrder" value="datediff ( day , getdate() , DurationEnd )" id="toBeClose"><span>即將結束</span></label>
 				<label><input type="radio" name="pickOrder" value="InsertTime desc"><span>最新刊登</span></label>
 				<label><input type="radio" name="pickOrder" value="collectionCount desc"><span>收藏數</span></label>
 				<label><input type="radio" name="pickOrder" value="shareCount desc"><span>熱門分享</span></label>
@@ -319,9 +129,10 @@ body {
 			$('#allDate').next().addClass('stateChecked');
 			$(':checkbox[name="allArea"]').next().addClass('stateChecked');
 			$(':checkbox[name="allType"]').next().addClass('stateChecked');
-			$('#toBeClose').next().addClass('stateChecked');
 			var user = $("#member").text();
 			if(user.length != 0){
+				$(':radio[name="pickOrder"]').prop('checked',false);
+				$(':radio[name="pickUser"]').prop('checked',true);
 				// 取得會員喜好並改變篩選狀態
 				var likeregions = $('#memberRegions').text();
 					if (likeregions.match('中正區') != null) {$(':checkbox[value="正"]').prop('checked',true);}
@@ -380,9 +191,9 @@ body {
 					$(':checkbox[name="allType"]').prop('checked',false);
 				};
 				changeBackgroungColor();
-				$('#toBeClose').prop('checked',true);
 				doCount(selectDate , selectArea , selectType);
 			} else{
+				$('#toBeClose').prop('checked',true).next().addClass('stateChecked');
 				doCount(selectDate , selectArea , selectType);
 			}
 			//宣告全域變數
@@ -454,6 +265,7 @@ body {
 			$(':radio[name="pickOrder"]').click(function() {
 				$(':radio').each(function(){
 					if ($(this).prop('checked') == true) {
+						$(':radio[name="pickUser"]').prop('checked',false);
 						$(this).next().addClass('stateChecked');
 					} else {
 						$(this).next().removeClass('stateChecked');
