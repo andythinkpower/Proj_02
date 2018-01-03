@@ -26,4 +26,50 @@ public class Event02Service {
 		return result;
 	}
 	
+	public List<Event01> selectcollectionCount() {
+		List<Event01> result = event01dao.selectcollectionCount();
+		return result;
+	}
+	
+	public List<Event01> selectInsertTime() {
+		List<Event01> result = event01dao.selectInsertTime();
+		return result;
+	}
+	
+	
+	public List<Event01> selectshareCount() {
+		List<Event01> result = event01dao.selectshareCount();
+		return result;
+	}
+	
+	public List<Event01> selectthisweek() {
+		List<Event01> result = event01dao.selectthisweek();
+		return result;
+	}
+	
+	public List<Event01> selectcollectionCount(String types) {
+		List<Event01> result = event01dao.selectcollectionCount( types);
+		return result;
+	}
+	
+	public List<Event01> selectInsertTime(String types) {
+		List<Event01> result = event01dao.selectInsertTime( types);
+		return result;
+	}
+	
+	
+	public List<Event01> selectshareCount(String types) {
+		List<Event01> result = event01dao.selectshareCount( types);
+		return result;
+	}
+	
+	public List<Event01> selectthisweek(String types) {
+		List<Event01> result = event01dao.selectthisweek( types);
+		return result;
+	}
+	
+	
+	
+	
+	
 }

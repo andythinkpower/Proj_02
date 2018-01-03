@@ -244,7 +244,7 @@ data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="fals
 		FB.login(function(response){
 			if(response.status==="connected"){
 				testAPI();
-				setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",1000)		
+				setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",2000)		
 			}
 		  
 		  console.log(response)
