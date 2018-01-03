@@ -10,6 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8/BIG5">
 <title>活動新增</title>
 <link rel="shortcut icon" href="../img/favicon.ico.png"  type="image/x-icon"/>
@@ -160,14 +161,34 @@ table{
 </style>
 </head>
 <body>
-<%-- 	<jsp:include page="/fragment/top.jsp" /> --%>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">管理後台</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="BackStage.jsp">後台首頁 <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        活動管理
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="BookList.jsp">活動表單</a>
+                        <a class="dropdown-item" href="BookAdd.jsp">新增活動</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="MessageList.jsp">部落格管理</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
 <header class="intro">    
  		<div class="intro-body" >         
  				<table border='1' cellpadding='3' cellspacing='0' width='250'>
@@ -187,41 +208,53 @@ table{
 			<p>
 				<label for="EventName">活動名稱<font color=red><b>*</b></font></label>
 				<input id="EventName" name="EventName" type="text" >
-<%-- 				value="<%=(productListingBookVO == null) ? "XXX字典" : productListingBookVO.getProductListingBook_Name()%>">  --%>
+
 			</p>
 			<p>
 				<label for="Fee">票價<font color=red><b>*</b></font></label>
 				<input id="Fee" name="Fee" type="text">
-<%-- 				value="<%=(productListingBookVO == null) ? "2000.0" : productListingBookVO.getProductListingBook_Price()%>"> --%>
+
 			</p>
-<!-- 			<p> -->
-<!-- 				<label for="IsCharge">是否免費<font color=red><b>*</b></font></label> -->
-<!-- 				<input id="IsCharge" name="IsCharge" type="text"> -->
-<%-- <%-- 				value="<%=(productListingBookVO == null) ? "1.0" : productListingBookVO.getProductListingBook_Discount()%>" > --%> 
-<!-- 			</p> -->
 			<p>
-				<label for="DurationStart">活動開始&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-				<input id="DurationStart" name="DurationStart" type="date">
-<%-- 				value="<%=(productListingBookVO == null) ? "5" : productListingBookVO.getProductListingBook_Quantity()%>"> --%>
+				<label for="IsCharge">是否免費<font color=red><b>*</b></font></label>
+				<input id="IsCharge" name="IsCharge" type="text">
+ 			</p> 
+			<p>
+				<label for="DtStart">活動開始&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+				<input id="DtStart" name="DtStart" type="date">
 			</p>
 			<p>
 				<label for="DurationEnd">活動結束&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
 				<input id="DurationEnd" name="DurationEnd" type="date">
-<%-- 				value="<%=(productListingBookVO == null) ? "1900-01-01" : productListingBookVO.getProductListingBook_Publishedate()%>"> --%>
+			</p>
+			<p>
+				<label for="InsertTime">更新時間&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+				<input id="InsertTime" name="InsertTime" type="date">
+			</p>
+			<p style="display:none">
+				<label for="CityID">城市名&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+				<input id="CityID" name="CityID" type="text" value="臺北市">
+			</p>
+			<p>
+				<label for="AreaID">地區&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+				<input id="AreaID" name="AreaID" type="text">
+			</p>
+			<p>
+				<label for="Address">地址&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+				<input id="Address" name="Address" type="text">
 			</p>
 			<p>
 				<label for="ShowGroupName">演出單位&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
 				<input id="ShowGroupName" name="ShowGroupName" type="text">
-<%-- 				value="<%=(productListingBookVO == null) ? "XXX出版社" : productListingBookVO.getProductListingBook_Publisher()%>"> --%>
 			</p>
 			<p>
-				<label for="ContactName">演出連絡人&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-				<input id="ContactName" name="ContactName" type="text">
-<%-- 				value="<%=(productListingBookVO == null) ? "AaaBbb" : productListingBookVO.getProductListingBook_Authors()%>" > --%>
+				<label for="EventTypeID">活動類型&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+				<input id="EventTypeID" name="EventTypeID" type="text">
+
 			</p>
 			<p>
-				<label for="BriefIntroduction">活動簡介</label>
-				<textarea id="BriefIntroduction" name="BriefIntroduction" cols="40" rows="5" style="resize:none;"></textarea>
+				<label for="VContent">活動內容</label>
+				<textarea id="VContent" name="VContent" cols="40" rows="5" style="resize:none;"></textarea>
 			</p>
 			<p>
 			<label for="ImageFile">選擇上傳圖片<font color=red><b>*</b></font></label>
@@ -288,4 +321,7 @@ $().ready(function() {
 	});
 });
 </script>
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 </html>

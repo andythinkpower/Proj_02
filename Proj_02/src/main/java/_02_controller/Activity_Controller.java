@@ -284,7 +284,6 @@ public class Activity_Controller {
 
 	}
 	
-
 	public static List<ActivityDetailBean> Detail_split(ActivityDetailBean detailBean) {
 		List<ActivityDetailBean> list = new ArrayList<ActivityDetailBean>();
 		

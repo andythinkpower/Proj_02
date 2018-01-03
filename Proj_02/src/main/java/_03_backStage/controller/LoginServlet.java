@@ -17,9 +17,6 @@ import javax.servlet.http.HttpSession;
 import _03_backStage.model.BackStageLoginService;
 import _03_backStage.model.ManagerVO;
 
-
-
-
 @WebServlet("/_03_backStage/login2.dd")
 public class LoginServlet extends HttpServlet
 {

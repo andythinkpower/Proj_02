@@ -35,7 +35,4 @@ public class Event01Service {
 	public void addShareCount(String eventID){
 		event01dao.addShareCount(eventID);
 	}
-
-
-
 }

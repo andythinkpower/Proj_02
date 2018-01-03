@@ -18,19 +18,19 @@ public class EventDAO implements EventDAO_interface
 {
 	private static DataSource ds = null;
 	private static final String insert_stmt = "insert into event01 (EventID, EventName, Fee"
-			+ ", DurationStart, DurationEnd, "
-			+ "ShowGroupName, ImageFile, ContactName, BriefIntroduction) "
-			+ "values (?,?,?,?,?,?,?,?,?)";
-	
+			+ ", IsCharge, DtStart, DurationEnd, ShowGroupName, InsertTime"
+			+ ", CityID, AreaID, Address, ImageFile, EventTypeID, VContent) "
+			+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	//EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, TimeStart, InsertTime, Address, ImageFile, EventTypeID, VContent	
 //	private static final String update_ALL_stmt = "Update ProductListingBook set MessageBoard_Content=?, MessageBoard_Picture=?, "
 //			+ "MessageBoard_FileName=?, MessageBoard_Counts=?, MessageBoard_Status=?, MessageBoard_Reports=? where MessageBoard_ID = ?";
 	private static final String update_stmt = "UPDATE event01 SET EventName=?, Fee=?"
-			+ ", IsCharge=?, DurationStart=?, DurationEnd=?, "
-			+ "ShowGroupName=?, ContactName=?, BriefIntroduction=?, ImageFile=?"
+			+ ", IsCharge=?, DtStart=?, DurationEnd=?, "
+			+ "ShowGroupName=?, EventTypeID=?, VContent=?, ImageFile=?"
 			+ " WHERE EventID =?";
 	private static final String update_without_pic = "UPDATE event01 SET EventName=?, Fee=?"
-			+ ", IsCharge=?, DurationStart=?, DurationEnd=?, "
-			+ "ShowGroupName=?, ContactName=?, BriefIntroduction=?"
+			+ ", IsCharge=?, DtStart=?, DurationEnd=?, "
+			+ "ShowGroupName=?, EventTypeID=?, VContent=?"
 			+ " WHERE EventID =?";
 	private static final String delete_stmt = "Delete from event01 where EventID = ?";
 	private static final String get_one_stmt = "Select * from event01 where EventID = ?";
@@ -47,8 +47,10 @@ public class EventDAO implements EventDAO_interface
 		}
 	}
 	public static void insert(Integer EventID, String EventName, String Fee,
-			Date DurationStart, Date DurationEnd, String ShowGroupName,
-			String ImageFile, String ContactName, String BriefIntroduction)
+			String IsCharge, Date DtStart, Date DurationEnd, String ShowGroupName,
+			Date InsertTime, String CityID, String AreaID, String Address,String ImageFile,
+			String EventTypeID, String VContent)
+	//EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, TimeStart, InsertTime, Address, ImageFile, EventTypeID, VContent
 	{
 		Connection conn = null;
 		PreparedStatement pStmt = null;
@@ -62,18 +64,23 @@ public class EventDAO implements EventDAO_interface
 		{
 			conn = ds.getConnection();
 			conn.setAutoCommit(false); // 關閉自動交易
-
+//EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, TimeStart, InsertTime, Address, ImageFile, EventTypeID, VContent
 			pStmt = conn.prepareStatement(insert_stmt);
 			pStmt.setInt(1, EventID);
 			pStmt.setString(2, EventName);
 			pStmt.setString(3, Fee);
-//			pStmt.setString(4, IsCharge);
-			pStmt.setDate(4, (java.sql.Date) DurationStart);
-			pStmt.setDate(5, (java.sql.Date) DurationEnd);
-			pStmt.setString(6, ShowGroupName);
-			pStmt.setString(7, ImageFile);
-			pStmt.setString(8, ContactName);
-			pStmt.setString(9, BriefIntroduction);
+			pStmt.setString(4, IsCharge);
+			pStmt.setDate(5, (java.sql.Date) DtStart);
+			pStmt.setDate(6, (java.sql.Date) DurationEnd);
+			pStmt.setString(7, ShowGroupName);
+//			pStmt.setDate(8, (java.sql.Date) TimeStart);
+			pStmt.setDate(8, (java.sql.Date) InsertTime);
+			pStmt.setString(9, CityID);
+			pStmt.setString(10, AreaID);
+			pStmt.setString(11, Address);
+			pStmt.setString(12, ImageFile);
+			pStmt.setString(13, EventTypeID);
+			pStmt.setString(14, VContent);
 
 			i = pStmt.executeUpdate();
 
@@ -122,8 +129,8 @@ public class EventDAO implements EventDAO_interface
 	}
 
 	public static void update(String EventName, String Fee, String IsCharge,
-			Date DurationStart, Date DurationEnd, String ShowGroupName,
-			String imageFile, String ContactName, String BriefIntroduction,
+			Date DtStart, Date DurationEnd, String ShowGroupName,
+			String imageFile, String EventTypeID, String VContent,
 			Integer EventID){
 		int i = 0;
 		PreparedStatement pStmt = null;
@@ -139,11 +146,11 @@ public class EventDAO implements EventDAO_interface
 			pStmt.setString(1, EventName);
 			pStmt.setString(2, Fee);
 			pStmt.setString(3, IsCharge);
-			pStmt.setDate(4, (java.sql.Date) DurationStart);
+			pStmt.setDate(4, (java.sql.Date) DtStart);
 			pStmt.setDate(5, (java.sql.Date) DurationEnd);
 			pStmt.setString(6, ShowGroupName);			
-			pStmt.setString(7, ContactName);
-			pStmt.setString(8, BriefIntroduction);
+			pStmt.setString(7, EventTypeID);
+			pStmt.setString(8, VContent);
 			pStmt.setString(9, imageFile);
 			pStmt.setInt(10, EventID);
 			
@@ -195,8 +202,8 @@ public class EventDAO implements EventDAO_interface
 
 	}
 	public static void update_noPic(String EventName, String Fee, String IsCharge,
-			Date DurationStart, Date DurationEnd, String ShowGroupName, 
-			String ContactName, String BriefIntroduction,Integer EventID){
+			Date DtStart, Date DurationEnd, String ShowGroupName, 
+			String EventTypeID, String VContent,Integer EventID){
 		int i = 0;
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
@@ -211,11 +218,11 @@ public class EventDAO implements EventDAO_interface
 			pStmt.setString(1, EventName);
 			pStmt.setString(2, Fee);
 			pStmt.setString(3, IsCharge);
-			pStmt.setDate(4, (java.sql.Date) DurationStart);
+			pStmt.setDate(4, (java.sql.Date) DtStart);
 			pStmt.setDate(5, (java.sql.Date) DurationEnd);
 			pStmt.setString(6, ShowGroupName);			
-			pStmt.setString(7, ContactName);
-			pStmt.setString(8, BriefIntroduction);
+			pStmt.setString(7, EventTypeID);
+			pStmt.setString(8, VContent);
 			pStmt.setInt(9, EventID);
 			
 			i = pStmt.executeUpdate();
@@ -324,14 +331,14 @@ public class EventDAO implements EventDAO_interface
 				eventVO.setEventName(rs.getString("EventName"));
 				eventVO.setFee(rs.getString("Fee"));
 				eventVO.setIsCharge(rs.getString("IsCharge"));
-				eventVO.setDurationStart(rs.getDate("DurationStart"));
+				eventVO.setDtStart(rs.getDate("DtStart"));
 				eventVO.setDurationEnd(rs.getDate("DurationEnd"));
 				eventVO.setShowGroupName(rs.getString("ShowGroupName"));
 				eventVO.setImageFile(rs.getString("ImageFile"));
-				eventVO.setContactName(rs.getString("ContactName"));
-				eventVO.setBriefIntroduction(rs.getString("BriefIntroduction"));
+				eventVO.setEventTypeID(rs.getString("EventTypeID"));
+				eventVO.setVContent(rs.getString("VContent"));
 			}
-
+//EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, TimeStart, InsertTime, Address, ImageFile, EventTypeID, VContent
 			conn.commit();
 			conn.setAutoCommit(true);
 
@@ -404,12 +411,13 @@ public class EventDAO implements EventDAO_interface
 				eventVO.setEventName(rs.getString("EventName"));
 				eventVO.setFee(rs.getString("Fee"));
 				eventVO.setIsCharge(rs.getString("IsCharge"));
-				eventVO.setDurationStart(rs.getDate("DurationStart"));
+				eventVO.setDtStart(rs.getDate("DtStart"));
 				eventVO.setDurationEnd(rs.getDate("DurationEnd"));
 				eventVO.setShowGroupName(rs.getString("ShowGroupName"));
 				eventVO.setImageFile(rs.getString("ImageFile"));
-				eventVO.setContactName(rs.getString("ContactName"));
-				eventVO.setBriefIntroduction(rs.getString("BriefIntroduction"));
+				eventVO.setEventTypeID(rs.getString("EventTypeID"));
+				eventVO.setIsBlock(rs.getInt("IsBlock"));
+				eventVO.setVContent(rs.getString("VContent"));
 				list.add(eventVO);
 			}
 
