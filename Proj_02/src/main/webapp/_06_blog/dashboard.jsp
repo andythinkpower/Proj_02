@@ -31,6 +31,7 @@
 		<jsp:include page="/commons/header.jsp"></jsp:include>
 	</c:otherwise>
 </c:choose>
+<input type="text" id="s1" style="display:none" value="${member.memberemail}">
     <section id="posts">
         <div class="container p-5">
             <div class="row">
@@ -80,8 +81,9 @@
             crossorigin="anonymous"></script>
     <script>
     $(function(){
-    	var memberemail=Cookies.get('user');
+    	var memberemail=$('#s1').val();
     	console.log(memberemail);
+    	
     	$.get("show.controller",{"memberemail": memberemail},function(list){
 			//這裡是印出show.controller所回傳的所有資料，也就是該會員所有的文章(是一個陣列，裡面有很多bean，每一個bean都是一篇文章)
     		console.log(list);

@@ -14,7 +14,7 @@
  body {
 			font-family: Microsoft JhengHei;
 /* 			background-color:	#F2E6E6; */
-			background-image:url('${pageContext.request.contextPath}/img/tttt.jpeg');
+			background-image:url('${pageContext.request.contextPath}/img/05.jpg');
 			background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
@@ -71,7 +71,9 @@ $(function () {
                     </div>
                     <div class="form-group px-5">
                         <label for="exampleFormControlTextarea1">簡介:</label>
+
                         <textarea class="form-control" id="exampleFormControlTextarea1" name='introduction' rows="5"></textarea>
+
                     </div>
                     <div class="text-center pb-3">
                         <input id='sub' type="button" class="btn btn-primary px-5" value="下一步" />
@@ -116,7 +118,7 @@ $(function () {
 	    }
 	})
 	</script>
-	
+	  <br><br><br><br><br><br><br><br><br><br><br>
 <jsp:include page="../commons/footer.jsp"/>
 </body>
 </html>

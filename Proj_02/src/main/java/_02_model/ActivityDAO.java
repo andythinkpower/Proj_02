@@ -1,8 +1,10 @@
 package _02_model;
 
 import java.util.List;
+import java.util.Set;
 
 import _02_model.Bean.ActivityBean;
+import _02_model.Bean.ActivityDetailBean;
 
 public interface ActivityDAO {
 
@@ -17,7 +19,9 @@ public interface ActivityDAO {
 	public Integer insert(ActivityBean bean);
 
 	// 修改行程
-	public boolean update(ActivityBean pdateBean);
+	public boolean update(ActivityBean updateBean);
+	
+	
 	
 	// 刪除行程  
 	public boolean delete(Integer ActivityID);

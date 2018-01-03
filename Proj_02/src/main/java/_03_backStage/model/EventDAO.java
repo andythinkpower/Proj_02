@@ -263,117 +263,13 @@ public class EventDAO implements EventDAO_interface
 		}
 
 	}
-//	
-//	public InputStream test(int id) {
-//		Connection conn = null;
-//		ResultSet rs = null;
-//		OutputStream os = null;
-//		InputStream is = null;
-//		try {
-//			Context context = new InitialContext();
-//			//透過JNDI取得DataSource物件
-//			DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/disland");
-//			conn = ds.getConnection();
-//			PreparedStatement pstmt = null;
-//			
-//			conn = ds.getConnection();
-//			pstmt = conn.prepareStatement("Select productListingBook_Picture from ProductListingBook where productListingBook_ID = ?");
-//			pstmt.setInt(1, id);
-//			rs = pstmt.executeQuery();
-//			if(rs.next()){
-//				//Image欄位可以取出InputStream物件
-//				is = rs.getBinaryStream(1);
-//				//設定輸出資料的型態
-//				
-//				
-//				if(is == null){
-//					is = getServletContext().getResourceAsStream("/images/NoImage.jpg");
-//				}
-//				
-//				int count = 0;
-//				byte[] bytes = new byte[8192];
-//				while((count = is.read(bytes)) != -1){
-//					os.write(bytes, 0,count);
-//				}
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println(rs.toString());
-//		return rs;
-//		
-//		
-//	}
-//	@Override
-//	public void updateAll(ProductListingBookVO productListingBookVO)
-//	{
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		int i = 0;
-//
-//		try
-//		{
-//			conn = ds.getConnection();
-//			conn.setAutoCommit(false);
-//			pstmt = conn.prepareStatement(update_ALL_stmt);
-//
-//			pstmt.setString(1, productListingBookVO.getMessageBoard_Content());
-//			pstmt.setBlob(2, productListingBookVO.getMessageBoard_Picture());
-//			pstmt.setString(3, productListingBookVO.getMessageBoard_Name());
-//			pstmt.setInt(4, productListingBookVO.getMessageBoard_Counts());
-//			pstmt.setInt(5, productListingBookVO.getMessageBoard_Status());
-//			pstmt.setInt(6, productListingBookVO.getMessageBoard_Report());
-//			pstmt.setInt(7, productListingBookVO.getMessageBoard_Id());
-//
-//			i = pstmt.executeUpdate();
-//			System.out.println("update success count = " + i);
-//
-//			conn.commit();
-//			conn.setAutoCommit(true);
-//
-//		} catch (SQLException e)
-//		{
-//			try {
-//				conn.rollback();
-//			} catch (SQLException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//			throw new RuntimeException("A database error occured. " + e.getMessage());
-//		} finally
-//		{
-//			if (pstmt != null)
-//			{
-//				try
-//				{
-//					pstmt.close();
-//				} catch (SQLException se)
-//				{
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//
-//			if (conn != null)
-//			{
-//				try
-//				{
-//					conn.close();
-//				} catch (SQLException se)
-//				{
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//	}
+
 
 	
 	// 依Interests_ID來刪除單筆記錄
 		@Override
 		public Integer delete(Integer EventID) throws SQLException
 		{	
-			
-		//	InterestsVO interestsVO = null;
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			Integer i = 0;

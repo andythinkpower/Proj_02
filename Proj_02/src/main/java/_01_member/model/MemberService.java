@@ -1,7 +1,6 @@
 package _01_member.model;
 
-import java.security.SecureRandom;
-import java.sql.Blob;
+
 import java.util.Set;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -12,8 +11,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import _01_member.CipherUtils;
-import _01_member.EmailUtil;
 
 @Service
 @Transactional
@@ -120,16 +117,22 @@ public class MemberService {
 		return null;
 	}
 	
-//test	
-	public static void main(String[] args) {
-		ApplicationContext context= new ClassPathXmlApplicationContext("text.xml");
-		MemberService memberService=(MemberService) context.getBean("memberService");
-		
-		MemberBean bean=new MemberBean();
-		bean.setMemberemail("nnn@gmail.com");
-		System.out.println(memberService.checkAccount("nnn@gmail.com"));
-				
-		((ConfigurableApplicationContext)context).close();
-	}
+	public String getRandomPassword() {
+	    int z;
+	    StringBuilder sb = new StringBuilder();
+	    int i;
+	    for (i = 0; i < 8; i++) {
+	      z = (int) ((Math.random() * 7) % 3);
+		 
+	      if (z == 1) { // 放數字
+	        sb.append((int) ((Math.random() * 10) + 48));
+	      } else if (z == 2) { // 放大寫英文
+	        sb.append((char) (((Math.random() * 26) + 65)));
+	      } else {// 放小寫英文
+	        sb.append(((char) ((Math.random() * 26) + 97)));
+	      }
+	    }
+	    return sb.toString();
+	  }
 
 }

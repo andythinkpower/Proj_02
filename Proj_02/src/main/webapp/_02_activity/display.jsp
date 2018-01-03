@@ -15,7 +15,7 @@
 	body {
 			font-family: Microsoft JhengHei;
 /* 			background-color:	#F2E6E6; */
-			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-image:url('${pageContext.request.contextPath}/img/05.jpg');
 			background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
@@ -28,11 +28,6 @@
 <body>
 <jsp:include page="../commons/header_login.jsp"/>
 	
-	<h2>你好:${member.membernickname }</h2>
-	<!-- 暫時這樣取得會員email 之後要用cookie取才對 -->
-
-	<h1></h1>
-	<h1>顯示該會員 所有行程大綱頁面</h1>
 	<!-- ActivityController.do -->
 	<!-- 隱藏的表格 頁面不會顯示 -->
 	<form id="solo" action="ActivityController.do" method="get">
@@ -84,8 +79,9 @@
             //導向觀賞頁面
             $("body").on("click",".show",function () {
                     //取得所點選行程的primary key
+
                     var pk = $(this).prev().text();
-                    window.location.href = '<c:url value="/_02_activity/soloPage_update.jsp?activityID='+pk+'"/>' ;
+                    window.location.href = '<c:url value="/_02_activity/solopage_show.jsp?activityID='+pk+'"/>' ;
                 });
             //點擊修改按鈕
             $("body").on("click",".update",function () {
@@ -111,7 +107,7 @@
                 });
         });
     </script>
-
+  <br><br><br><br><br><br><br><br><br><br><br>
 <jsp:include page="../commons/footer.jsp"/>
 </body>
 </html>

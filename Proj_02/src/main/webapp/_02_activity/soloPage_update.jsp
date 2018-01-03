@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="../css/google_search.css" />
@@ -16,11 +17,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
 
+
 <title>顯示單獨頁面</title>
 <style>
 body {
-	background-color: #F2E6E6;
-}
+			font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/05.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+		}
 
 #section {
 	margin: 5%;
@@ -47,31 +55,41 @@ html, body {
 }
 </style>
 </head>
-<body>
+<body> 
 	<jsp:include page="../commons/header_login.jsp" />
 	<!-- 傳進來的參數 -->
 	<p id="activityID" style="display: none;"><%= request.getParameter("activityID") %></p>
 	
 	<script>
 		$(function(){
+
 			
 			var whole_Day=0;
 			$.getJSON("update_page.do",{"activityID":$("#activityID").text()},function(data){
+				console.log(data.actBean);
+				var date=new Date(data.actBean.actStartDate);
+				var date = date.getFullYear() +'-'+(date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-'+date.getDate();
+				$("input[name=actStartDate]").val(date);
+				$("input[name=activityID]").val(data.actBean.activityID);
+				$("input[name=actTitle]").val(data.actBean.actTitle);
+				$("input[name=actRegion]").val(data.actBean.actRegion);
+				$("textarea[name=introduction]").val(data.actBean.introduction);
+				$(".preview").attr("src","${pageContext.request.contextPath}"+data.actBean.photoPath);
 				
-				$.each(data.superList,function(i,v){
-					
+				$.each(data.superList,function(i,v){	
 					whole_Day++;
 					addDayX(i);
 					$.each(v,function(index,value){
 						var row = $("<div class='form-row my-2'>").html("<div class='col-2'>" +
 			                     "<input class='form-control setTime time' value='"+value.times+"' data-toggle='modal' data-target='#timeSlider' type='text' name='times' placeholder='停留時間' readonly />" +
-			                     "</div><div class='col'><select class='custom-select mb-2 mr-sm-2 mb-sm-0 name='kinds'>" +
-			                     "<option value='hhh' >選擇類型</option><option value='景點'>景點</option><option value='餐廳'>餐廳</option><option value='飯店'>飯店" +
+			                     "</div><div class='col'><select class='custom-select mb-2 mr-sm-2 mb-sm-0' name='kinds'>" +
+			                     "<option value='' >選擇類型</option><option value='景點'>景點</option><option value='餐廳'>餐廳</option><option value='飯店'>飯店" +
 			                     "</option><option value='活動'>活動</option><option value='其他'>其他</option></select></div> <div class='col-5'>" +
 			                     "<input class='form-control note' value='"+value.note+"' name='note' placeholder='輸入所要搜尋的資料' data-toggle='modal' data-target='#searchBox' readonly />" +
 			                     "</div> <div class='col'><input class='form-control' value='"+value.budget+"' name='budget' placeholder='預算' /></div>" +
 			                     "<div class='col'><img src='../img/trash-3x.png' class='mt-1 pl-2 delete'/></div><input name='dates' type='hidden' value='"+value.dates+"'/>" +
-			                     "<input name='longitude_temp' value='"+value.longitude+"' type='hidden' /><input name='latitude_temp' value='"+value.latitude+"' type='hidden' />");
+			                     "<input name='longitude_temp' value='"+value.longitude+"' type='hidden' /><input name='latitude_temp' value='"+value.latitude+"' type='hidden' />"+
+			                     "<input name='actDetail_up' value='"+value.actDetail+"' type='hidden'/>");
 			                $(".day"+i+"").before(row);
 			                
 			                $(".day"+i+"").prev().find(".custom-select").val(value.kinds);
@@ -110,14 +128,14 @@ html, body {
             
             function create_detail() {
                 var row = $("<div class='form-row my-2'>").html("<div class='col-2'>" +
-                     "<input class='form-control setTime time' data-toggle='modal' data-target='#timeSlider' type='text' name='times' placeholder='停留時間' readonly />" +
-                     "</div><div class='col'><select class='custom-select mb-2 mr-sm-2 mb-sm-0 id='inlineFormCustomSelect' name='kinds'>" +
+                     "<input class='form-control setTime time' data-toggle='modal' data-target='#timeSlider' type='text' name='new_times' placeholder='停留時間' readonly />" +
+                     "</div><div class='col'><select class='custom-select mb-2 mr-sm-2 mb-sm-0' name='new_kinds'>" +
                      "<option value='' selected>選擇類型</option><option value='景點'>景點</option><option value='餐廳'>餐廳</option><option value='飯店'>飯店" +
                      "</option><option value='活動'>活動</option><option value='其他'>其他</option></select></div> <div class='col-5'>" +
-                     "<input class='form-control note' name='note' placeholder='輸入所要搜尋的資料' data-toggle='modal' data-target='#searchBox' readonly />" +
-                     "</div> <div class='col'><input class='form-control' name='budget' placeholder='預算' /></div>" +
-                     "<div class='col'><img src='../img/trash-3x.png' class='mt-1 pl-2 delete'/></div><input name='dates' type='hidden' value='"+whole_Day+"'/>" +
-                     "<input name='longitude_temp' type='hidden' value=''/><input name='latitude_temp' type='hidden' value=''/>");
+                     "<input class='form-control note' name='new_note' placeholder='輸入所要搜尋的資料' data-toggle='modal' data-target='#searchBox' readonly />" +
+                     "</div> <div class='col'><input class='form-control' name='new_budget' placeholder='預算' /></div>" +
+                     "<div class='col'><img src='../img/trash-3x.png' class='mt-1 pl-2 delete'/></div><input name='new_dates' type='hidden' value='"+whole_Day+"'/>" +
+                     "<input name='new_longitude_temp' type='hidden' value=''/><input name='new_latitude_temp' type='hidden' value=''/>");
                 $(this).before(row);
             }
             
@@ -199,25 +217,26 @@ html, body {
 	 <div class="row">
         <div class="col"></div>
         <div class="col-5">
+        
 
             <h1 class="text-center">修改行程</h1>
-<h3>ee</h3>
             <form id="activity" action="ActivityController.do" method="post">
                 <div class="container" style="border:2px solid gray;border-radius:5px;background-color: white;">
                     <div class="form-row pt-4">
                         <div class="col text-center ">
-                            <input type="hidden" name="doWhat" value="detail">
+                       		 <input type="hidden" name="activityID" value="update">
+                            <input type="hidden" name="doWhat" value="update">
                             <div class="form-group pt-2">
                                 <label for="Title">行程名稱:</label>
-                                <input type="text" id="Title" name="actTitle" value="${activityBean.actTitle}" />
+                                <input type="text" id="Title" name="actTitle" value="" />
                             </div>
                             <div class="form-group pt-4">
                                 <label for="Region">活動地區:</label>
-                                <input type="text" id="Region" name="actRegion" value="${activityBean.actRegion}" />
+                                <input type="text" id="Region" name="actRegion" value="" />
                             </div>
                             <div class="form-group pt-4">
                                 <label for="date">出發日期:</label>
-                                <input type="text" name="actStartDate" id="date" value="${activityBean.actStartDate}" readonly>
+                                <input type="text" name="actStartDate" id="date" value="" readonly>
                                 <br>
                             </div>
                             <div class="form-group pl-5 ">
@@ -226,13 +245,13 @@ html, body {
                         </div>
                         <div class="col pr-5">
                          <label for='file'>
-                                <img src="${pageContext.request.contextPath}${activityBean.photoPath}" class="figure-img img-fluid rounded preview" width='300' style='height:250px'>
+                                <img src="#" class="figure-img img-fluid rounded preview"  width='300' style='height:250px'>
                            </label>
                         </div>
                     </div>
                     <div class="form-group px-5">
-                        <label for="exampleFormControlTextarea1">簡介:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" ></textarea>
+                        <label for="Introduction">簡介:</label>
+                        <textarea class="form-control" id="Introduction" name="introduction" rows="5" ></textarea>
                     </div>
 
                 </div>
@@ -312,12 +331,14 @@ html, body {
     <script>
         $(function () {
         	
-        	$("#introduction").val('${activityBean.introduction}');
-        	
-        	
-        	
         	
             $("body").on('click', 'input[name=note]', function () {
+                temp = $(this);
+                console.log(temp)
+                $("#pac-input").val("");
+            })
+            
+             $("body").on('click', 'input[name=new_note]', function () {
                 temp = $(this);
                 console.log(temp)
                 $("#pac-input").val("");
@@ -326,9 +347,19 @@ html, body {
             //選擇完停留時間 按下儲存按鈕  要抓到剛調整的時間值 存到input裡面
             $('body').on('click', ".savePlace", function () {
                 temp.val(simple_name);
-                console.log(lng);
-                temp.parent().nextAll('input[name=longitude_temp]').val(lng);
-                temp.parent().nextAll('input[name=latitude_temp]').val(lat);
+                var check=temp.parent().nextAll('input[name=longitude_temp]').length;
+               
+                //測試是新增還是修改的座標
+                if(check!=0){
+                	temp.parent().nextAll('input[name=longitude_temp]').val(lng);
+                    temp.parent().nextAll('input[name=latitude_temp]').val(lat);
+                }else{
+                	temp.parent().nextAll('input[name=new_longitude_temp]').val(lng);
+                    temp.parent().nextAll('input[name=new_latitude_temp]').val(lat);
+                }
+                
+                
+                
             });
         })
 
@@ -363,7 +394,7 @@ html, body {
 
 
 
-
+  <br><br><br><br><br><br><br><br><br><br><br>
 	<jsp:include page="../commons/footer.jsp" />
 </body>
 </html>

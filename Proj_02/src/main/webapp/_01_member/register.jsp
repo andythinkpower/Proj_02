@@ -38,13 +38,13 @@
 							<div class="form-group">
 								<label for="username">帳號：</label>
 								<input type="text" id="email" placeholder="請輸入E-mail" 
-									name="memberemail" onblur="checkName()">
+									name="memberemail" onchange="checkName()">
 									<span id="idsp"></span>
 							</div>
 							<div class="form-group">
 								<label for="password">密碼：</label>
 								<input type="password" id="password" placeholder="請輸入密碼" 
-									onblur="checkPwd()" name="memberpassword">
+									onchange="checkPwd()" name="memberpassword">
 									<span id="idsp2"></span>								
 							</div>
 <!-- 							<div class="form-group"> -->

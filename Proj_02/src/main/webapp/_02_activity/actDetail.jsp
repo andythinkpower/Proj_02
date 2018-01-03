@@ -20,7 +20,7 @@
    body {
 			font-family: Microsoft JhengHei;
 /* 			background-color:	#F2E6E6; */
-			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-image:url('${pageContext.request.contextPath}/img/05.jpg');
 			background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
@@ -48,7 +48,7 @@
         <div class="col"></div>
         <div class="col-5">
 
-            <h1 class="text-center">建立行程-2</h1>
+            <h1 class="text-center" style='color:white'>建立行程-2</h1>
 
             <form id="activity" action="ActivityController.do" method="post">
                 <div class="container" style="border:2px solid gray;border-radius:5px;background-color: white;">
@@ -79,8 +79,9 @@
                         </div>
                     </div>
                     <div class="form-group px-5">
+
                         <label for="introduction">簡介:</label>
-                        <textarea class="form-control" id="introduction" rows="5" ></textarea>
+                        <textarea class="form-control" id="introduction" name="introduction" rows="5" ></textarea>
                     </div>
 
                 </div>
@@ -160,12 +161,7 @@
 
     <script>
         $(function () {
-        	
         	$("#introduction").val('${activityBean.introduction}');
-        	
-        	
-        	
-        	
             $("body").on('click', 'input[name=note]', function () {
                 temp = $(this);
                 console.log(temp)
@@ -175,7 +171,7 @@
             //選擇完停留時間 按下儲存按鈕  要抓到剛調整的時間值 存到input裡面
             $('body').on('click', ".savePlace", function () {
                 temp.val(simple_name);
-                console.log(lng);
+                console.log(lng); 
                 temp.parent().nextAll('input[name=longitude_temp]').val(lng);
                 temp.parent().nextAll('input[name=latitude_temp]').val(lat);
             });
@@ -217,7 +213,7 @@
             $("#form").find("input[name='photoPath']").val(picPath);
         });
     </script>
-    
+    <br><br><br><br><br><br><br><br><br><br><br>
  <jsp:include page="../commons/footer.jsp"/>   
 </body>
 </html>

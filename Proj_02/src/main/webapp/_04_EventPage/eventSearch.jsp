@@ -18,9 +18,11 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 <!-- Bootstrap -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <!-- showEvent CSS -->
-<link rel="stylesheet" href="../css/showEvent.css">
 <!-- 圖標 -->
 <script src="https://use.fontawesome.com/8af200eebc.js"></script>
 <!-- 分頁 -->
@@ -383,6 +385,7 @@
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes , 'newOrder':newOrder , 'pageNumber':page} , function(data) {
 				$.each(data, function(index, eventData) {
 					// 對沒有提供圖片的活動給予圖片，else對圖片失效的連結做處理
+					console.log(eventData.eventName);
 					if (eventData.imageFile == 'null') {
 						var picBox = $('<div class="picBox"></div>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="../img/taipei_culture.png" title="' + eventData.briefIntroduction + '"></a>');
 					} else {

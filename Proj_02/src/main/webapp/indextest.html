@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+$.getJSON('selectallevent.controller',{},function(data){
+	var alldata=data;
+	console.log(alldata)	
+	console.log(alldata.InsertTime)
+	$.each(data,function(i,data){
+		
+	})
+	
+	})
+$.getJSON('selectevent.controller',{'types':'音樂','orders':'InsertTime'},function(data){
+	//alert('gg');
+	//console.log(data)
+	}
+	
+	
+	)
+
+</script>
+</body>
+</html>

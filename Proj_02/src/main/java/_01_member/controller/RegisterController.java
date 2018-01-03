@@ -32,40 +32,6 @@ public class RegisterController {
 		
 		System.out.println("使用者輸入準備註冊的帳號和密碼:"+memberemail+":"+memberpassword);
 		
-//		Map<String, String> errors = new HashMap<>();
-//		model.addAttribute("errors", errors);
-//
-//		if (memberemail == null || memberemail.trim().length() == 0) {
-//			errors.put("erremail", "請輸入帳號");
-//		}
-//		if (memberpassword == null || memberpassword.trim().length() == 0) {
-//			errors.put("errpsw", "請輸入密碼");
-//		}
-//
-//		if (errors != null && !errors.isEmpty()) {
-//			return "register.error";
-//		}
-		
-//		String key = "kittymickysnoopy"; // 對稱式金鑰
-//		byte[] iv = new byte[128 / 8]; // 初始向量
-//		SecureRandom srnd = new SecureRandom();
-//		srnd.nextBytes(iv);
-//		
-//		String plainText = memberpassword;
-//		String cipherText = "";
-////		String decryptedString = "";
-//		
-//		try {
-//			// encryptString(key, plainText, iv) : 將明文轉換為密文
-//			cipherText = CipherUtils.encryptString(key, plainText, iv);
-//			// decryptString(key, cipherText, iv) : 將密文還原為明文
-////			decryptedString = CipherUtils.decryptString(key, cipherText, iv);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		memberpassword=cipherText;
-		
 		MemberBean bean=memberService.register(memberemail, memberpassword);
 		
 		if(bean==null) {

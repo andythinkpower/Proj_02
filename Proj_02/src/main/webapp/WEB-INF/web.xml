@@ -1,67 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	version="3.1">
-	<display-name>Proj_02</display-name>
-
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
-
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<!-- _01_start -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/springConfig.xml</param-value>
-	</context-param>
-
-	<servlet>
-		<servlet-name>proj_02_Dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring-mvc.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>proj_02_Dispatcher</servlet-name>
-		<url-pattern>*.do</url-pattern>
-		<url-pattern>*.controller</url-pattern>
-	</servlet-mapping>
-	<!-- _01_end -->
-
-<!-- 	<security-constraint> -->
-<!-- 		<web-resource-collection> -->
-<!-- 			<web-resource-name>UpdateRecipes</web-resource-name> -->
-<!-- 			<url-pattern>/_01_member/*</url-pattern> -->
-<!-- 			<url-pattern>/_02_activity/*</url-pattern> -->
-<!-- 			<http-method>POST</http-method> -->
-<!-- 			<http-method>GET</http-method> -->
-<!-- 		</web-resource-collection> -->
-<!-- 		<auth-constraint> -->
-<!-- 			<role-name>member</role-name> -->
-<!-- 		</auth-constraint> -->
-<!-- 		<user-data-constraint> -->
-<!-- 			<transport-guarantee>NONE</transport-guarantee> -->
-<!-- 		</user-data-constraint> -->
-<!-- 	</security-constraint> -->
-<!-- 	<login-config> -->
-<!-- 		<auth-method>FORM</auth-method> -->
-<!-- 		<realm-name>file</realm-name> -->
-<!-- 		<form-login-config> -->
-<!-- 			<form-login-page>/security/login.jsp</form-login-page> -->
-<!-- 			<form-error-page>/security/error.jsp</form-error-page> -->
-<!-- 		</form-login-config> -->
-<!-- 	</login-config> -->
-<!-- 	<security-role> -->
-<!-- 		<role-name>member</role-name> -->
-<!-- 	</security-role> -->
-
-
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>Proj_02</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/springConfig.xml</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>proj_02_Dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>proj_02_Dispatcher</servlet-name>
+    <url-pattern>*.do</url-pattern>
+    <url-pattern>*.controller</url-pattern>
+  </servlet-mapping>
+  
+<!--   <security-constraint> -->
+<!--    <web-resource-collection> -->
+<!--    <web-resource-name>JSP/Servelt Example</web-resource-name> -->
+<!--       <url-pattern>/*</url-pattern> -->
+<!--    </web-resource-collection> -->
+<!--    <user-data-constraint> -->
+<!--       <transport-guarantee>CONFIDENTIAL</transport-guarantee> -->
+<!--    </user-data-constraint> -->
+<!-- </security-constraint> -->
+  
+  
 </web-app>

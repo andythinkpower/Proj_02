@@ -18,6 +18,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _01_member.GlobalService;
@@ -27,7 +28,6 @@ import _01_member.model.MemberService;
 import _01_member.model.RegionsBean;
 
 @Controller
-@RequestMapping(path = { "login.controller" })
 @SessionAttributes(names= {"member","types","regions","errors"})
 public class LoginController {
 
@@ -39,8 +39,24 @@ public class LoginController {
 		webDataBinder.registerCustomEditor(java.util.Date.class, "memberbdate", 
 				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
+	
+	@RequestMapping(path= {"/_01_member/fblogin.controller"}, method= {RequestMethod.GET}, produces = { "application/json;charset=UTF-8" })	
+	@ResponseBody
+	public void fblogin(MemberBean bean, String memberemail, Model model, HttpServletResponse response) {
 
-	@RequestMapping(method = { RequestMethod.POST })
+		System.out.println("fblogin.controller");
+		String memberpassword= "null";					
+		
+		MemberBean bean2= memberService.login(memberemail, memberpassword);
+
+			model.addAttribute("member", bean2);
+			System.out.println("bean2:"+bean2);
+			Cookie cookieUser = null;
+			cookieUser = new Cookie("user", memberemail);
+			response.addCookie(cookieUser);
+	}
+
+	@RequestMapping(path = { "login.controller" }, method = { RequestMethod.POST })
 	public String login(String memberemail, String memberpassword, 
 			MemberBean bean, BindingResult bindingResult, Model model, HttpServletRequest request,
 			HttpServletResponse response, String rememberme, String fb) {

@@ -75,7 +75,7 @@
 		$.get("blog.controller",function(list){
 			console.log(list)
     	    if(list.length==0){
-    	    	$('#table>tbody').html("<tr><td>#</td><td>您還沒有任何文章^_^</td><td></td><td></td><td></td></tr>")
+    	    	$('#body').html("<h3>目前還沒有任何文章^_^</h3>")
     	    }
 			var i=0;
 			$.each(list,function(index,anarticle){
