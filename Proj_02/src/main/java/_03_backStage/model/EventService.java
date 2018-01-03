@@ -25,8 +25,8 @@ public class EventService {
 	}
 
 	public EventVO updateevent01(String EventName, String Fee, String IsCharge,
-			Date DurationStart, Date DurationEnd, String ShowGroupName,
-			String ImageFile, String ContactName, String BriefIntroduction) {
+			Date DtStart, Date DurationEnd, String ShowGroupName,
+			String ImageFile, String EventTypeID, String BriefIntroduction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
