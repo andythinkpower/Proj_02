@@ -186,11 +186,11 @@ public class Favorites {
 			System.out.println(orders); 
 			result = event02Service.selectInsertTime(types);
 			 System.out.println(result);
-		}else if(orders=="collectionCount") {
+		}else if("collectionCount".equals(orders)) {
 			 result = event02Service.selectcollectionCount(types);
-		}else if(orders=="thisweek") {
+		}else if("thisweek".equals(orders)) {
 			 result = event02Service.selectthisweek(types);
-		}else if(orders=="shareCount") {
+		}else if("shareCount".equals(orders)) {
 			 result= event02Service.selectshareCount(types);
 		}
 		return result;
