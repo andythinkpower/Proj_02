@@ -255,30 +255,54 @@
 	<div class="test"></div>
 
 	<script>
+	
+	var temp;
+	
 		$(function() {
-			
 			$.getJSON('selectallevent.controller',function(data){
-				console.log(data)
+				temp=data;
+				$.each(data,function(index,value){
+						$.each(value,function(i,v){
+							 $("#"+index+i+"").attr("src", v.imageFile)
+								$("#"+index+i+"").attr("title", v.eventName)
+						})
+				})
 			})
-			
 			
 			$(".classType").on('click',function(){
 				//取得點選類型
 				var type=$(this).text();
 				var selectOrder=$(this).parent().attr("id");
-				console.log(selectOrder);
-				$.getJSON('selectevent.controller',{"types":type,"orders":selectOrder},function(data){
-					console.log(data)
-					$.each(data,function(i,v){
-						console.log(v)
-						  $("#"+selectOrder+i+"").attr("src", v.imageFile)
+				
+					if($(this).text()==='全部'){
+						$.each(temp,function(i,v){
+							if(i===selectOrder){
+								$.each(v,function(ii,vv){
+									console.log(vv.imageFile)
+									  $("#"+selectOrder+ii+"").attr("src", vv.imageFile)
+										$("#"+selectOrder+ii+"").attr("title", vv.eventName)
+								})
+							}
+						})
 						
-						
-						//v.eventName;
-					})
-					
-					//console.log(data);
-				})
+						//selectOrder
+					}else{
+						$.getJSON('selectevent.controller',{"types":type,"orders":selectOrder},function(data){
+							
+							$.each(data,function(i,v){
+								
+								  $("#"+selectOrder+i+"").attr("src", v.imageFile)
+								$("#"+selectOrder+i+"").attr("title", v.eventName)
+								
+								//v.eventName;
+							})
+							
+							//console.log(data);
+						})
+					}
+				
+				
+				
 				
 				
 			})
