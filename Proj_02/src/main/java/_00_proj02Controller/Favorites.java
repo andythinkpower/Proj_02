@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -153,7 +155,46 @@ public class Favorites {
 		return allevent;
 	}
 	
+	@RequestMapping(path="/selectallevent.controller",
+			method= {RequestMethod.POST,RequestMethod.GET},
+			produces= {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public Map<String, List<Event01>> selectallevent() {
+		Map<String, List<Event01>> result = new HashMap<String,  List<Event01>>();
+		List<Event01> InsertTime = event02Service.selectInsertTime();
+		
+		result.put("InsertTime", InsertTime);
+		List<Event01> collectionCount = event02Service.selectcollectionCount();
+		result.put("collectionCount", collectionCount);
+		
+		List<Event01> thisweek = event02Service.selectthisweek();
+		result.put("thisweek", thisweek);
+		
+		List<Event01> shareCount = event02Service.selectshareCount();
+		
+		result.put("shareCount", shareCount);
+		return result;
+	}
 	
+	
+	@RequestMapping(path="/selectevent.controller",method= {RequestMethod.POST,RequestMethod.GET},
+			produces= {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public List<Event01> selectevent(String types,String orders) {
+		List<Event01> result = null;
+		if("InsertTime".equals(orders)) {
+			result = event02Service.selectInsertTime(types);
+		}else if("collectionCount".equals(orders)) {
+			 result = event02Service.selectcollectionCount(types);
+		}else if("thisweek".equals(orders)) {
+			 result = event02Service.selectthisweek(types);
+		}else if("shareCount".equals(orders)) {
+			 result= event02Service.selectshareCount(types);
+		}
+		return result;
+		
+		
+	}
 	
 	
 	
