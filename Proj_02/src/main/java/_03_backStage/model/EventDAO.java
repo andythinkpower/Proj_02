@@ -18,19 +18,19 @@ public class EventDAO implements EventDAO_interface
 {
 	private static DataSource ds = null;
 	private static final String insert_stmt = "insert into event01 (EventID, EventName, Fee"
-			+ ", DurationStart, DurationEnd, "
-			+ "ShowGroupName, ImageFile, ContactName, BriefIntroduction) "
-			+ "values (?,?,?,?,?,?,?,?,?)";
-	
+			+ ", IsCharge, DtStart, DurationEnd, ShowGroupName, InsertTime"
+			+ ", CityID, AreaID, Address, ImageFile, EventTypeID, VContent) "
+			+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	//EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, TimeStart, InsertTime, Address, ImageFile, EventTypeID, VContent	
 //	private static final String update_ALL_stmt = "Update ProductListingBook set MessageBoard_Content=?, MessageBoard_Picture=?, "
 //			+ "MessageBoard_FileName=?, MessageBoard_Counts=?, MessageBoard_Status=?, MessageBoard_Reports=? where MessageBoard_ID = ?";
 	private static final String update_stmt = "UPDATE event01 SET EventName=?, Fee=?"
-			+ ", IsCharge=?, DurationStart=?, DurationEnd=?, "
-			+ "ShowGroupName=?, ContactName=?, BriefIntroduction=?, ImageFile=?"
+			+ ", IsCharge=?, DtStart=?, DurationEnd=?, "
+			+ "ShowGroupName=?, EventTypeID=?, VContent=?, ImageFile=?"
 			+ " WHERE EventID =?";
 	private static final String update_without_pic = "UPDATE event01 SET EventName=?, Fee=?"
-			+ ", IsCharge=?, DurationStart=?, DurationEnd=?, "
-			+ "ShowGroupName=?, ContactName=?, BriefIntroduction=?"
+			+ ", IsCharge=?, DtStart=?, DurationEnd=?, "
+			+ "ShowGroupName=?, EventTypeID=?, VContent=?"
 			+ " WHERE EventID =?";
 	private static final String delete_stmt = "Delete from event01 where EventID = ?";
 	private static final String get_one_stmt = "Select * from event01 where EventID = ?";
@@ -47,8 +47,10 @@ public class EventDAO implements EventDAO_interface
 		}
 	}
 	public static void insert(Integer EventID, String EventName, String Fee,
-			Date DurationStart, Date DurationEnd, String ShowGroupName,
-			String ImageFile, String ContactName, String BriefIntroduction)
+			String IsCharge, Date DtStart, Date DurationEnd, String ShowGroupName,
+			Date InsertTime, String CityID, String AreaID, String Address,String ImageFile,
+			String EventTypeID, String VContent)
+	//EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, TimeStart, InsertTime, Address, ImageFile, EventTypeID, VContent
 	{
 		Connection conn = null;
 		PreparedStatement pStmt = null;
@@ -62,18 +64,23 @@ public class EventDAO implements EventDAO_interface
 		{
 			conn = ds.getConnection();
 			conn.setAutoCommit(false); // 關閉自動交易
-
+//EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, TimeStart, InsertTime, Address, ImageFile, EventTypeID, VContent
 			pStmt = conn.prepareStatement(insert_stmt);
 			pStmt.setInt(1, EventID);
 			pStmt.setString(2, EventName);
 			pStmt.setString(3, Fee);
-//			pStmt.setString(4, IsCharge);
-			pStmt.setDate(4, (java.sql.Date) DurationStart);
-			pStmt.setDate(5, (java.sql.Date) DurationEnd);
-			pStmt.setString(6, ShowGroupName);
-			pStmt.setString(7, ImageFile);
-			pStmt.setString(8, ContactName);
-			pStmt.setString(9, BriefIntroduction);
+			pStmt.setString(4, IsCharge);
+			pStmt.setDate(5, (java.sql.Date) DtStart);
+			pStmt.setDate(6, (java.sql.Date) DurationEnd);
+			pStmt.setString(7, ShowGroupName);
+//			pStmt.setDate(8, (java.sql.Date) TimeStart);
+			pStmt.setDate(8, (java.sql.Date) InsertTime);
+			pStmt.setString(9, CityID);
+			pStmt.setString(10, AreaID);
+			pStmt.setString(11, Address);
+			pStmt.setString(12, ImageFile);
+			pStmt.setString(13, EventTypeID);
+			pStmt.setString(14, VContent);
 
 			i = pStmt.executeUpdate();
 
@@ -122,8 +129,8 @@ public class EventDAO implements EventDAO_interface
 	}
 
 	public static void update(String EventName, String Fee, String IsCharge,
-			Date DurationStart, Date DurationEnd, String ShowGroupName,
-			String imageFile, String ContactName, String BriefIntroduction,
+			Date DtStart, Date DurationEnd, String ShowGroupName,
+			String imageFile, String EventTypeID, String VContent,
 			Integer EventID){
 		int i = 0;
 		PreparedStatement pStmt = null;
@@ -139,11 +146,11 @@ public class EventDAO implements EventDAO_interface
 			pStmt.setString(1, EventName);
 			pStmt.setString(2, Fee);
 			pStmt.setString(3, IsCharge);
-			pStmt.setDate(4, (java.sql.Date) DurationStart);
+			pStmt.setDate(4, (java.sql.Date) DtStart);
 			pStmt.setDate(5, (java.sql.Date) DurationEnd);
 			pStmt.setString(6, ShowGroupName);			
-			pStmt.setString(7, ContactName);
-			pStmt.setString(8, BriefIntroduction);
+			pStmt.setString(7, EventTypeID);
+			pStmt.setString(8, VContent);
 			pStmt.setString(9, imageFile);
 			pStmt.setInt(10, EventID);
 			
@@ -195,8 +202,8 @@ public class EventDAO implements EventDAO_interface
 
 	}
 	public static void update_noPic(String EventName, String Fee, String IsCharge,
-			Date DurationStart, Date DurationEnd, String ShowGroupName, 
-			String ContactName, String BriefIntroduction,Integer EventID){
+			Date DtStart, Date DurationEnd, String ShowGroupName, 
+			String EventTypeID, String VContent,Integer EventID){
 		int i = 0;
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
@@ -211,11 +218,11 @@ public class EventDAO implements EventDAO_interface
 			pStmt.setString(1, EventName);
 			pStmt.setString(2, Fee);
 			pStmt.setString(3, IsCharge);
-			pStmt.setDate(4, (java.sql.Date) DurationStart);
+			pStmt.setDate(4, (java.sql.Date) DtStart);
 			pStmt.setDate(5, (java.sql.Date) DurationEnd);
 			pStmt.setString(6, ShowGroupName);			
-			pStmt.setString(7, ContactName);
-			pStmt.setString(8, BriefIntroduction);
+			pStmt.setString(7, EventTypeID);
+			pStmt.setString(8, VContent);
 			pStmt.setInt(9, EventID);
 			
 			i = pStmt.executeUpdate();
@@ -263,145 +270,41 @@ public class EventDAO implements EventDAO_interface
 		}
 
 	}
-//	
-//	public InputStream test(int id) {
-//		Connection conn = null;
-//		ResultSet rs = null;
-//		OutputStream os = null;
-//		InputStream is = null;
-//		try {
-//			Context context = new InitialContext();
-//			//透過JNDI取得DataSource物件
-//			DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/disland");
-//			conn = ds.getConnection();
-//			PreparedStatement pstmt = null;
-//			
-//			conn = ds.getConnection();
-//			pstmt = conn.prepareStatement("Select productListingBook_Picture from ProductListingBook where productListingBook_ID = ?");
-//			pstmt.setInt(1, id);
-//			rs = pstmt.executeQuery();
-//			if(rs.next()){
-//				//Image欄位可以取出InputStream物件
-//				is = rs.getBinaryStream(1);
-//				//設定輸出資料的型態
-//				
-//				
-//				if(is == null){
-//					is = getServletContext().getResourceAsStream("/images/NoImage.jpg");
-//				}
-//				
-//				int count = 0;
-//				byte[] bytes = new byte[8192];
-//				while((count = is.read(bytes)) != -1){
-//					os.write(bytes, 0,count);
-//				}
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println(rs.toString());
-//		return rs;
-//		
-//		
-//	}
-//	@Override
-//	public void updateAll(ProductListingBookVO productListingBookVO)
-//	{
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		int i = 0;
-//
-//		try
-//		{
-//			conn = ds.getConnection();
-//			conn.setAutoCommit(false);
-//			pstmt = conn.prepareStatement(update_ALL_stmt);
-//
-//			pstmt.setString(1, productListingBookVO.getMessageBoard_Content());
-//			pstmt.setBlob(2, productListingBookVO.getMessageBoard_Picture());
-//			pstmt.setString(3, productListingBookVO.getMessageBoard_Name());
-//			pstmt.setInt(4, productListingBookVO.getMessageBoard_Counts());
-//			pstmt.setInt(5, productListingBookVO.getMessageBoard_Status());
-//			pstmt.setInt(6, productListingBookVO.getMessageBoard_Report());
-//			pstmt.setInt(7, productListingBookVO.getMessageBoard_Id());
-//
-//			i = pstmt.executeUpdate();
-//			System.out.println("update success count = " + i);
-//
-//			conn.commit();
-//			conn.setAutoCommit(true);
-//
-//		} catch (SQLException e)
-//		{
-//			try {
-//				conn.rollback();
-//			} catch (SQLException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//			throw new RuntimeException("A database error occured. " + e.getMessage());
-//		} finally
-//		{
-//			if (pstmt != null)
-//			{
-//				try
-//				{
-//					pstmt.close();
-//				} catch (SQLException se)
-//				{
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//
-//			if (conn != null)
-//			{
-//				try
-//				{
-//					conn.close();
-//				} catch (SQLException se)
-//				{
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//	}
+
 
 	
 	// 依Interests_ID來刪除單筆記錄
-//		@Override
-//		public Integer delete(Integer EventID) throws SQLException
-//		{	
-//			
-//			ReportVO interestsVO = null;
-//			Connection conn = null;
-//			PreparedStatement pstmt = null;
-//			Integer i = 0;
-//			
-//			try {
-//				conn = ds.getConnection();
-//				pstmt = conn.prepareStatement(delete_stmt);
-//				pstmt.setInt(1, EventID);
-//				i = pstmt.executeUpdate();
-//			} finally {
-//				if (pstmt != null) {
-//					try {
-//						pstmt.close();
-//					} catch(SQLException e){
-//					   e.printStackTrace();
-//					}
-//				}
-//				if (conn != null) {
-//					try {
-//						conn.close();
-//					} catch(SQLException e){
-//						e.printStackTrace();
-//					}
-//				}
-//			}
-//			return i;
-//		}
-//		
+		@Override
+		public Integer delete(Integer EventID) throws SQLException
+		{	
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			Integer i = 0;
+			
+			try {
+				conn = ds.getConnection();
+				pstmt = conn.prepareStatement(delete_stmt);
+				pstmt.setInt(1, EventID);
+				i = pstmt.executeUpdate();
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch(SQLException e){
+					   e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch(SQLException e){
+						e.printStackTrace();
+					}
+				}
+			}
+			return i;
+		}
+		
 		
 	@Override
 	public EventVO findByPrimaryKey(Integer eventID)
@@ -428,14 +331,14 @@ public class EventDAO implements EventDAO_interface
 				eventVO.setEventName(rs.getString("EventName"));
 				eventVO.setFee(rs.getString("Fee"));
 				eventVO.setIsCharge(rs.getString("IsCharge"));
-				eventVO.setDurationStart(rs.getDate("DurationStart"));
+				eventVO.setDtStart(rs.getDate("DtStart"));
 				eventVO.setDurationEnd(rs.getDate("DurationEnd"));
 				eventVO.setShowGroupName(rs.getString("ShowGroupName"));
 				eventVO.setImageFile(rs.getString("ImageFile"));
-				eventVO.setContactName(rs.getString("ContactName"));
-				eventVO.setBriefIntroduction(rs.getString("BriefIntroduction"));
+				eventVO.setEventTypeID(rs.getString("EventTypeID"));
+				eventVO.setVContent(rs.getString("VContent"));
 			}
-
+//EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, TimeStart, InsertTime, Address, ImageFile, EventTypeID, VContent
 			conn.commit();
 			conn.setAutoCommit(true);
 
@@ -508,12 +411,13 @@ public class EventDAO implements EventDAO_interface
 				eventVO.setEventName(rs.getString("EventName"));
 				eventVO.setFee(rs.getString("Fee"));
 				eventVO.setIsCharge(rs.getString("IsCharge"));
-				eventVO.setDurationStart(rs.getDate("DurationStart"));
+				eventVO.setDtStart(rs.getDate("DtStart"));
 				eventVO.setDurationEnd(rs.getDate("DurationEnd"));
 				eventVO.setShowGroupName(rs.getString("ShowGroupName"));
 				eventVO.setImageFile(rs.getString("ImageFile"));
-				eventVO.setContactName(rs.getString("ContactName"));
-				eventVO.setBriefIntroduction(rs.getString("BriefIntroduction"));
+				eventVO.setEventTypeID(rs.getString("EventTypeID"));
+				eventVO.setIsBlock(rs.getInt("IsBlock"));
+				eventVO.setVContent(rs.getString("VContent"));
 				list.add(eventVO);
 			}
 
@@ -564,12 +468,6 @@ public class EventDAO implements EventDAO_interface
 		}
 		
 		return list;
-	}
-
-	@Override
-	public Integer delete(Integer EventID) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

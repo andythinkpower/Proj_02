@@ -18,6 +18,7 @@ import _03_backStage.model.BackStageLoginService;
 import _03_backStage.model.ManagerVO;
 
 
+
 @WebServlet("/_03_backStage/login2.dd")
 public class LoginServlet extends HttpServlet
 {
@@ -33,7 +34,7 @@ public class LoginServlet extends HttpServlet
 	{
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		
+		System.out.println("hahaha");
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
@@ -100,7 +101,7 @@ public class LoginServlet extends HttpServlet
 				return;
 			} else
 			{
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath()));
+			response.sendRedirect(request.getContextPath() + "/_03_backStage/BackStage.jsp");
 				System.out.println(request.getContextPath());
 				return;
 			}

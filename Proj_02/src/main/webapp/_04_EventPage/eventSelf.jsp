@@ -5,7 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
+<meta property="og:url"           content="http://localhost:8080/Proj_02/_04_EventPage/eventSelf.jsp?eventID=<%= request.getParameter("eventID") %>"/>
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="Your Website Title" />
+<meta property="og:description"   content="Your description" />
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -29,21 +32,21 @@
 <style>
 
 body {
-	background-image: url('../img/event_background.png');
+	background-image: url('../img/event_background.jpg');
 	background-attachment:fixed;
 	background-size: cover;
 }
 
 #bigBox{
 	width: 1450px;
-    height: 1095px;
+    height: 1210px;
     margin: 0px auto 20px auto;
 }
 
 #eventInfo {
 	width: 1450px;
     height: 750px;
-	margin: 0px auto 20px auto;
+	margin: 0px auto 0px auto;
     background-color: navajowhite;
     border: 5px solid red;
 }
@@ -54,7 +57,6 @@ body {
     margin: 15px 0px 0px 0px;
     float: left;
     box-sizing: border-box;
-    /*border: 3px solid #46A3FF;*/
 }
 
 #type {
@@ -81,12 +83,11 @@ body {
 }
 
 .collectBox {
-    width: 225px;
+    width: 200px;
     height: 100px;
-    margin: 15px 0px 0px 0px;
+    margin: 15px 10px 0px 0px;
     float: right;
     box-sizing: border-box;
-    /*border: 3px solid #46A3FF;*/
 }
 
 .dayBox {
@@ -95,7 +96,6 @@ body {
     margin: 0px 10px 0px 0px;
     float: right;
     box-sizing: border-box;
-    /*border: 3px solid #46A3FF;*/
 }
 
 .collect , .nonCollect , #days {
@@ -143,12 +143,11 @@ body {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    /*border: 5px solid red;*/
 }
 
 #ownImg {
-    width: 500px;
-    height: 500px;
+	width: 500px;
+	height: 500px;
     float: left;
 }
 
@@ -163,19 +162,16 @@ body {
     height: 35px;
     float: left;
     box-sizing: border-box;
-    /*border: 2px solid green;*/
 }
 
 .date {
     width: 595px;
     margin: 20px 0px 5px 25px;
-    /*border: 2px solid green;*/
 }
 
 .detail {
     width: 800px;
     margin: 5px 0px 0px 25px;
-    /*border: 2px solid green;*/
 }
 
 .mapBox {
@@ -184,7 +180,6 @@ body {
     margin: 15px 0px 0px 25px;
     float: left;
     box-sizing: border-box;
-    /*border: 5px solid red;*/
 }
 
 .hollowArea {
@@ -193,7 +188,6 @@ body {
     margin: 15px 25px 0px 0px;
     float: right;
     box-sizing: border-box;
-    /*border: 5px solid green;*/
 }
 
 .insertTime , .buttonBox {
@@ -202,7 +196,6 @@ body {
     margin: 0px 25px 0px 0px;
     float: right;
     box-sizing: border-box;
-    /*border: 5px solid green;*/
 }
 
 #report {
@@ -222,8 +215,8 @@ body {
 
 #contextBox {
     width: 1450px;
-    height: 400px;
-	margin: 60px auto 20px auto;
+    height: 500px;
+	margin: 10px auto 0px auto;
     float: left;
     background-color: navajowhite;
     border: 5px solid red;
@@ -239,7 +232,6 @@ body {
     align-items: center;
     justify-content: center;
     vertical-align: middle;
-    /*border: 5px solid red;*/
 }
 
 #context {
@@ -247,13 +239,21 @@ body {
     width: 1400px;
     height: 400px;
 	margin: 0px 0px 0px 20px;
-    /*border: 5px solid red;*/
 }
 
 </style>
 
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
 <c:set var='mem' value="${member }" ></c:set>
 <c:choose>
 	<c:when test="${not empty mem }">
@@ -263,139 +263,158 @@ body {
 		<jsp:include page="../commons/header.jsp"/>
 	</c:otherwise>
 </c:choose>
-	<p id="member" style="display: none;" >${member.memberemail }</p>
+	<p id="member" style="display: none;" >${member.memberemail}</p>
 	<p id="eventID" style="display: none;"><%= request.getParameter("eventID") %></p>
-	<div id="temp">
-	    
-	</div>
+	<div id="temp"></div>
 	<div id="bigBox">
-	<div id="eventInfo">
-
-		<div class="titleBox">
-			<span id="type"></span>
-			<div id="title"></div>
-		</div>
-		
-		<div class="collectBox">
-<!-- 			<div class="collect" id="favorite">加入收藏</div> -->
-<!-- 			<button class="collect" id="favorite">加入收藏</button> -->
-<!-- 			<input type="button" class="collect" id="favorite" value="加入收藏"> -->
-			<button type="button"  id="favorite"  class="btn btn-success">收藏</button>
-			<button type="button"  id="del_favorite"  class="btn btn-secondary disabled">取消收藏</button><br>
-			<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;<span></span>&nbsp;人
-		</div>
-		
-		<div class="dayBox">
-			<div id="days"></div>
-		</div>
-		
-		<div class="picBox">
-			<img id="ownImg" src="http://cultureexpress.taipei/Files/Event/LogoTemp/419a297b81c04b3789b53516eb31fb3d.jpg" />
-		</div>
-		
-		<div class="date">
-			<div class="mark"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></div><span></span>
-		</div>
-		
-		<div class="detail">
-			<div class="mark"><i class="fa fa-clock-o" aria-hidden="true"></i></div><span id="startTime"></span>
-		</div>
-		
-		<div class="detail">
-			<div class="mark"><i class="fa fa-usd fa-lg" aria-hidden="true"></i></div><span id="charge"></span>
-		</div>
-		
-		<div class="detail">
-			<div class="mark"><i class="fa fa-user" aria-hidden="true"></i></div><span id="sponsor"></span>
-		</div>
-		
-		<div class="detail">
-			<div class="mark"><i class="fa fa-phone fa-lg" aria-hidden="true"></i></div><span id="phone"></span>
-		</div>
-		
-		<div class="detail">
-			<div class="mark"><i class="fa fa-share" aria-hidden="true"></i></div>&nbsp;&nbsp;活動網址：<a id="url"></a>
-		</div>
-		
-		<div class="detail">
-		    <div class="mark"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></div><span id="address"></span>
-		</div>
-		
-		<div class="mapBox">
-			<iframe width=100% height=100% frameborder="0" style="border:0" allowfullscreen></iframe>
-		</div>
-		
-		<div class="hollowArea"></div>
+		<div id="eventInfo">
+	
+			<div class="titleBox">
+				<span id="type"></span>
+				<div id="title"></div>
+			</div>
 			
-		<div class="insertTime">
-			<span style="float: right"></span>
-		</div>
+			<div class="collectBox">
+				<div class="collect" id="favorite">加入收藏</div>
+				<div style="padding-left: 20px"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;<span></span>&nbsp;人</div>
+			</div>
+			
+			<div class="dayBox">
+				<div id="days"></div>
+			</div>
+			
+			<div class="picBox">
+				<img id="ownImg" src="http://cultureexpress.taipei/Files/Event/LogoTemp/419a297b81c04b3789b53516eb31fb3d.jpg" />
+			</div>
+			
+			<div class="date">
+				<div class="mark"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></div><span></span>
+			</div>
+			
+			<div class="detail">
+				<div class="mark"><i class="fa fa-clock-o" aria-hidden="true"></i></div><span id="startTime"></span>
+			</div>
+			
+			<div class="detail">
+				<div class="mark"><i class="fa fa-usd fa-lg" aria-hidden="true"></i></div><span id="charge"></span>
+			</div>
+			
+			<div class="detail">
+				<div class="mark"><i class="fa fa-user" aria-hidden="true"></i></div><span id="sponsor"></span>
+			</div>
+			
+			<div class="detail">
+				<div class="mark"><i class="fa fa-phone fa-lg" aria-hidden="true"></i></div><span id="phone"></span>
+			</div>
+			
+			<div class="detail">
+				<div class="mark"><i class="fa fa-share" aria-hidden="true"></i></div>&nbsp;&nbsp;活動網址：<a id="url"></a>
+			</div>
+			
+			<div class="detail">
+			    <div class="mark"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></div><span id="address"></span>
+			</div>
+			
+			<div class="mapBox">
+				<iframe width=100% height=100% frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+			
+			<div class="hollowArea"></div>
+				
+			<div class="insertTime">
+				<span style="float: right"></span>
+			</div>
+			
+			
+			<div class="buttonBox">
+				
+<!-- 				<div id="shaerCount"><span style="background-color: green;">分享</span></div> -->
+				<div id="idforFBdiv" class="fb-share-button" data-href="http://localhost:8080/Proj_02/_04_EventPage/eventSelf.jsp?eventID=<%= request.getParameter("eventID") %>" data-layout="button_count" data-size="small" data-mobile-iframe="true" style="margin: 10px 0px 0px 170px;">
+					<a id="idforFBa" class="fb-xfbml-parse-ignore" target="_blank" href='https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2FProj_02%2F_04_EventPage%2FeventSelf.jsp%3FeventID%3D<%= request.getParameter("eventID") %>&amp;src=sdkpreparse'>分享</a>
+				</div>
+				
+				<div id="report">檢舉 / 報錯</div>
+				
+			</div>
 		
-		<div class="buttonBox">
-			<div id="report">檢舉 / 報錯</div>
 		</div>
 		
 		<div id="contextBox">
 			<div id="contextText">詳細內容：</div>
 			<div id="context"></div>
 		</div>
-	
+		
 	</div>
-	</div>
-	
-	
 	
 	<script>
+	
+	
+	
+	
 		// 開啟即執行
 		$(function(){
 			
-			var user =$("#member").text();
+			//*******檢舉功能******//
+			$("#report").on('click',function(){
+				var eventID=$("#eventID").text();
+				
+				$.post('aaaa.controller',{"eventID":eventID},function(data){
+					console.log(data);
+				})
+				
+			})
+			
+			
+			//*******檢舉功能******//
+			
+			
+			
+			var user = $("#member").text();
 			var eventID = $("#eventID").text();
-			var collection=true;
-			if(user.length!=0){
-			$.get('checkFavorites.controller',{'eventid':eventID,'email':user},function(data){
-				if(data.toString() == ("collectioned")){
-				collection=false;
-				$('#favorite').text("已收藏")
-				$('#favorite').attr("class","btn btn-warning disabled")
-				$('#del_favorite').attr("class","btn btn-danger active")
-				};
-			});
-			}
-		   $('#favorite').click(function () {
-		        if(user.length!=0){
-		        	if(collection==true){
-			        	var pk = $("#eventID").text();
-			            var durationEnd=$("#durationEnd").text();
-			            var dtStart=$("#dtStart").text();
-			            var eventName=$("#eventName").text(); 
-			            var timeStart=$("#timeStart").text();
-			            var data={"eventID":pk,"durationEnd":durationEnd,"dtStart":dtStart,"eventName":eventName,"timeStart":timeStart};
+			var collection = true;
+			if(user.length != 0){
+				$.get('checkFavorites.controller' , {'eventid':eventID , 'email':user} , function(data){
+					if(data.toString() == ("collectioned")){
+						collection = false;
+						$('#favorite').text('取消收藏').attr('class','nonCollect').attr('id','del_favorite');
+					};
+				});
+			};
+			$('body').on('click' , '#favorite' , function(){
+		        if(user.length != 0){
+		        	if(collection == true){
+			        	var pk = $('#eventID').text();
+			            var durationEnd = $('#durationEnd').text();
+			            var dtStart = $('#dtStart').text();
+			            var eventName = $('#eventName').text(); 
+			            var timeStart = $('#timeStart').text();
+			            var data = { 'eventID':pk , 'durationEnd':durationEnd , 'dtStart':dtStart , 'eventName':eventName , 'timeStart':timeStart };
 			            $.post('insert.controller',data);  
-			            $('#favorite').text("已收藏")
-						$('#favorite').attr("class","btn btn-warning disabled")
-						$('#del_favorite').attr("class","btn btn-danger active")
-			            collection=false;
+			            $('#favorite').text('取消收藏').attr('class','nonCollect').attr('id','del_favorite');
+			            collection = false;
 			            var nowCount = $('.collectBox span').text();
-			            $('.collectBox span').text(parseInt(nowCount)+1);
-		        	}
+			            $('.collectBox span').text(parseInt(nowCount) + 1);
+		        	};
 	        	} else {
-	        		alert("請先登入會員!!")
-	        	}
+	        		alert('請先登入會員!!')
+	        	};
 		    });
-		    $('#del_favorite').click(function () {
-	    		 if(collection==false){
-	    			 $.post('disFavorite.controller',{'eventid':eventID,'email':user},function(data){
-		    			$('#favorite').text("收藏")
-		    			$('#favorite').attr("class","btn btn-success active")	 
-		    			$('#del_favorite').attr("class","btn btn-danger disabled")
-		    			collection=true;
+			$('body').on('click' , '#del_favorite' , function(){
+	    		if(collection == false){
+	    			$.post('disFavorite.controller' , {'eventid':eventID , 'email':user} , function(data){
+		    			$('#del_favorite').text('加入收藏').attr('class','collect').attr('id','favorite');
+		    			collection = true;
 		    			var nowCount = $('.collectBox span').text();
-			            $('.collectBox span').text(parseInt(nowCount)-1);
+			            $('.collectBox span').text(parseInt(nowCount) - 1);
 	    			 });
-	    		 }
+    			};
 		    });
-		    
+			
+			$('body').one('click' , '#_49vh _2pi7' , function(){
+				var eventID = $("#eventID").text();
+				alert(typeof eventID);
+				$.post('${pageContext.request.contextPath}/_04_EventPage/addShareCount.controller',{'eventID':eventID});
+			});
 			
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
 				$.each(data, function(index, eventData) {
@@ -415,32 +434,38 @@ body {
 					if (eventData.imageFile == 'null') {
 						$('#ownImg').attr('src' , '../img/taipei_culture.png');
 					} else {
-						$('#ownImg').attr('src' , eventData.imageFile).attr('onerror' , 'javascript:this.src=&apos;../img/taipei_culture.png&apos;');
+						$('#ownImg').attr('src' , eventData.imageFile).attr('onerror' , 'javascript:this.src="../img/taipei_culture.png"');
 					};
 						// 對毫秒數做轉換，取年月日再組裝 ↓
+						
 						var Start = new Date(eventData.dtStart);
 						var End = new Date(eventData.durationEnd);
 						var Y1 = Start.getFullYear() + '-';
 						var M1 = (Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-';
-						var D1 = Start.getDate() + ' ';
+						var D1 = (Start.getDate()+1 <= 10 ? '0'+Start.getDate() : Start.getDate());
 						var dtStart = Y1 + M1 + D1;
+						
 						var Y2 = End.getFullYear() + '-';
 						var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
-						var D2 = End.getDate() + ' ';
+						var D2 = (End.getDate()+1 <= 10 ? '0'+End.getDate() : End.getDate());
 						var durationEnd = Y2 + M2 + D2;
+						
 						var ts = new Date(eventData.timeStart);
 						var tsH = ts.getHours() + ':';
 						var tsM = ts.getMinutes();
 						var timeStartHM = tsH + tsM;
+						
 						var Y3 = ts.getFullYear() + '-';
 						var M3 = (ts.getMonth()+1 < 10 ? '0'+(ts.getMonth()+1) : ts.getMonth()+1) + '-';
-						var D3 = ts.getDate() + ' ';
+						var D3 = (ts.getDate()+1 <= 10 ? '0'+ts.getDate() : ts.getDate());
 						var timeStart = Y3 + M3 + D3;
+						
 						var Insert = new Date(eventData.insertTime);
 						var Y4 = Insert.getFullYear() + '-';
 						var M4 = (Insert.getMonth()+1 < 10 ? '0'+(Insert.getMonth()+1) : Insert.getMonth()+1) + '-';
-						var D4 = Insert.getDate() + ' ';
+						var D4 = (Insert.getDate()+1 <= 10 ? '0'+Insert.getDate() : Insert.getDate());
 						var insertTime = Y4 + M4 + D4;
+						
 					$('.date span').append('&nbsp;&nbsp;活動時間：' + dtStart + ' ~ ' + durationEnd);
 					if (timeStartHM == '0:0') {
 						$('#startTime').append('&nbsp;&nbsp;場次時間：');
@@ -474,23 +499,18 @@ body {
 				$('.insertTime span').append('更新時間：' + insertTime);
 				$('#context').append(eventData.vcontent);
 				
-				//--------Favorite使用---------
+				// favorite使用
 				$("#temp").append('<p id="durationEnd" style="display:none">'+durationEnd+'</p>');
 				$("#temp").append('<p id="dtStart" style="display:none">'+dtStart+'</p>');
 				$("#temp").append('<p id="eventName" style="display:none">'+eventData.eventName+'</p>');
 				$("#temp").append('<p id="timeStart" style="display:none">'+timeStart+'</p>');
-				//--------Favorite使用---------
 					
 				});
 			}); // JSON END
 		}); // 開啟即執行 END
 		
-		
-
-		
-		
-		
 	</script>
+	
 <jsp:include page="/commons/footer.jsp"></jsp:include>
 </body>
 </html>

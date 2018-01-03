@@ -32,25 +32,25 @@ public class BlogsBack_Servlet extends HttpServlet {
 		System.out.println(action);
 		
 		if ("delete".equals(action)) {
-System.out.println("1");
+System.out.println("1a");
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("2");
+			System.out.println("2a");
+//			System.out.println(articleId);
 			try {
-				System.out.println("3");
-				Integer articleId = new Integer(request.getParameter("ArticleId").trim());
-				//System.out.println(ArticleId);
-				System.out.println("4");
-				BlogsBackService bookSvc = new BlogsBackService();
-				bookSvc.deleteBlogs(articleId);
+				System.out.println("3a");
+				Integer articleId = new Integer(request.getParameter("ArticleId"));
+				System.out.println("ArticleId");
+				System.out.println("4a");
+				BlogsBackService blogsSvc = new BlogsBackService();
+				blogsSvc.deleteBlogs(articleId);
 				String url = "/_03_backStage/MessageList.jsp";
-				System.out.println("4");
+				System.out.println("4b");
 				RequestDispatcher sucessView = request.getRequestDispatcher(url);
 				sucessView.forward(request, response);
 			} catch (Exception e) {
+				System.out.println("6a");
 				errorMsgs.add("刪除資料失敗:" + e.getMessage());
-//				RequestDispatcher failureView = request.getRequestDispatcher("/_06_backStage/BookList.jsp");
-//				failureView.forward(request, response);
 				response.sendRedirect("../_03_backStage/MessageList.jsp");
 			}
 		}

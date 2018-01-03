@@ -16,11 +16,11 @@ public class BlogsBackVO implements java.io.Serializable {
 	private String MemberEmail; // 2.留言會員E-Mail
 	private String ArticleContent; // 3.部落格內容
 	private String ArticleName; // 4.名稱
-	private Blob BlogPhoto; // 5.部落格貼圖
+	private String BlogPhoto; // 5.部落格貼圖
 	private Date PostTime; // 6.留言時間
 	private Integer ViewNum; // 7.觀看數
 	private String ArticleType; // 8.部落格類型
-	private Integer Report; // 9.檢舉數
+	private Integer LikeNum; // 9.檢舉數
 
 	// ==============================================================
 	
@@ -49,10 +49,10 @@ public class BlogsBackVO implements java.io.Serializable {
 	public void setArticleName(String articleName) {
 		ArticleName = articleName;
 	}
-	public Blob getBlogPhoto() {
+	public String getBlogPhoto() {
 		return BlogPhoto;
 	}
-	public void setBlogPhoto(Blob blogPhoto) {
+	public void setBlogPhoto(String blogPhoto) {
 		BlogPhoto = blogPhoto;
 	}
 	public Date getPostTime() {
@@ -73,11 +73,11 @@ public class BlogsBackVO implements java.io.Serializable {
 	public void setArticleType(String articleType) {
 		ArticleType = articleType;
 	}
-	public Integer getReport() {
-		return Report;
+	public Integer getLikeNum() {
+		return LikeNum;
 	}
-	public void setReport(Integer report) {
-		Report = report;
+	public void setLikeNum(Integer likeNum) {
+		LikeNum = likeNum;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

@@ -15,13 +15,6 @@ import javax.sql.DataSource;
 public class BlogsBackDAO implements BlogsBackDAO_interface
 {
 	private static DataSource ds = null;
-//	private static final String insert_stmt = "insert into ProductListingBook (ProductListingBook_Name, ProductListingBook_Price"
-//			+ ", ProductListingBook_Discount, ProductListingBook_Quantity, ProductListingBook_Publishedate, "
-//			+ "ProductListingBook_Publisher, ProductListingBook_Picture, ProductListingBook_Authors, ProductListingBook_Des) "
-//			+ "values (?,?,?,?,?,?,?,?,?)";
-	
-//	private static final String update_ALL_stmt = "Update ProductListingBook set MessageBoard_Content=?, MessageBoard_Picture=?, "
-//			+ "MessageBoard_FileName=?, MessageBoard_Counts=?, MessageBoard_Status=?, MessageBoard_Reports=? where MessageBoard_ID = ?";
 	private static final String update_stmt = "UPDATE Blogs SET ArticleType=? WHERE ArticleId =?";
 
 	private static final String delete_stmt = "Delete from Blogs where ArticleId = ?";
@@ -162,7 +155,38 @@ public class BlogsBackDAO implements BlogsBackDAO_interface
 
 	}
 	@Override
-	public BlogsBackVO findByPrimaryKey(Integer productListingBook_ID)
+	public  Integer delete(Integer ArticleId) throws SQLException
+	{	
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		Integer i = 0;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(delete_stmt);
+			pstmt.setInt(1, ArticleId);
+			i = pstmt.executeUpdate();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch(SQLException e){
+				   e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+		return i;
+	}
+	@Override
+	public BlogsBackVO findByPrimaryKey(Integer EventID)
 	{
 		BlogsBackVO BlogsBackVO = null;
 		Connection conn = null;
@@ -175,7 +199,7 @@ public class BlogsBackDAO implements BlogsBackDAO_interface
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(get_one_stmt);
 
-			pstmt.setInt(1, productListingBook_ID);
+			pstmt.setInt(1, EventID);
 
 			rs = pstmt.executeQuery();
 
@@ -186,11 +210,11 @@ public class BlogsBackDAO implements BlogsBackDAO_interface
 				BlogsBackVO.setMemberEmail(rs.getString("memberEmail"));
 				BlogsBackVO.setArticleContent(rs.getString("articleContent"));
 				BlogsBackVO.setArticleName(rs.getString("articleName"));
-				BlogsBackVO.setBlogPhoto(rs.getBlob("blogPhoto"));
+				BlogsBackVO.setBlogPhoto(rs.getString("blogPhoto"));
 				BlogsBackVO.setPostTime(rs.getDate("postTime"));
 				BlogsBackVO.setViewNum(rs.getInt("viewNum"));
 				BlogsBackVO.setArticleType(rs.getString("articleType"));
-				BlogsBackVO.setReport(rs.getInt("report"));
+				BlogsBackVO.setLikeNum(rs.getInt("likeNum"));
 			}
 
 			conn.commit();
@@ -265,11 +289,11 @@ public class BlogsBackDAO implements BlogsBackDAO_interface
 				BlogBackVO.setMemberEmail(rs.getString("memberEmail"));
 				BlogBackVO.setArticleContent(rs.getString("articleContent"));
 				BlogBackVO.setArticleName(rs.getString("articleName"));
-				BlogBackVO.setBlogPhoto(rs.getBlob("blogPhoto"));
+				BlogBackVO.setBlogPhoto(rs.getString("blogPhoto"));
 				BlogBackVO.setPostTime(rs.getDate("postTime"));
 				BlogBackVO.setViewNum(rs.getInt("viewNum"));
 				BlogBackVO.setArticleType(rs.getString("articleType"));
-				BlogBackVO.setReport(rs.getInt("report"));
+				BlogBackVO.setLikeNum(rs.getInt("likeNum"));
 				list.add(BlogBackVO);
 			}
 
@@ -321,10 +345,6 @@ public class BlogsBackDAO implements BlogsBackDAO_interface
 		
 		return list;
 	}
-	@Override
-	public Integer delete(Integer ArticleId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

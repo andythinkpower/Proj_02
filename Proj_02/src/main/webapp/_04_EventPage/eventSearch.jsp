@@ -31,7 +31,7 @@
 <style>
 
 body {
-	background-image: url('../img/event_background.png');
+	background-image: url('../img/event_background.jpg');
 	background-attachment:fixed;
 	background-size: cover;
 }
@@ -64,9 +64,10 @@ body {
 
 .selectArea {
 	position : absolute;
-	top : 140px;
+	top : 150px;
+	left: 890px;
 	width : 345px;
-	height : 160px;
+	height : 170px;
 	border : 1px solid blue;
 	background : #E9E2E2;
 	display : none;
@@ -105,8 +106,11 @@ body {
 		<jsp:include page="../commons/header.jsp"/>
 	</c:otherwise>
 </c:choose>
+	<p id="member" style="display: none;">${member.memberemail}</p>
+	<p id="memberTypes" style="display: none;">${member.events}</p>
+	<p id="memberRegions" style="display: none;">${member.regions}</p>
 	<br>
-	<div id="eventSelector">aa
+	<div id="eventSelector">
 	
 		<div style="float: left; margin: 10px 0px 0px 15px">
 			<i class="fa fa-map-marker fa-2x" id="areaMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;去哪裡玩&nbsp;&emsp;</span><input type="text" id="areaText" value="">
@@ -184,10 +188,79 @@ body {
 	<script>
 		// --- 開啟即執行 ---------------------------------------------------------------------------
 		$(function(){
+			// 給全選的radio & checkbox 顏色
+			$('#allDate').next().addClass('stateChecked');
+			$(':checkbox[name="allArea"]').next().addClass('stateChecked');
+			$(':checkbox[name="allType"]').next().addClass('stateChecked');
+			$('#toBeClose').next().addClass('stateChecked');
+			var user = $("#member").text();
+			if(user.length != 0){
+				// 取得會員喜好並改變篩選狀態
+				var likeregions = $('#memberRegions').text();
+					if (likeregions.match('中正區') != null) {$(':checkbox[value="正"]').prop('checked',true);}
+					if (likeregions.match('大同區') != null) {$(':checkbox[value="同"]').prop('checked',true);}
+					if (likeregions.match('中山區') != null) {$(':checkbox[value="埔"]').prop('checked',true);}
+					if (likeregions.match('松山區') != null) {$(':checkbox[value="松"]').prop('checked',true);}
+					if (likeregions.match('大安區') != null) {$(':checkbox[value="安"]').prop('checked',true);}
+					if (likeregions.match('萬華區') != null) {$(':checkbox[value="萬"]').prop('checked',true);}
+					if (likeregions.match('信義區') != null) {$(':checkbox[value="信"]').prop('checked',true);}
+					if (likeregions.match('士林區') != null) {$(':checkbox[value="士"]').prop('checked',true);}
+					if (likeregions.match('北投區') != null) {$(':checkbox[value="北"]').prop('checked',true);}
+					if (likeregions.match('內湖區') != null) {$(':checkbox[value="內"]').prop('checked',true);}
+					if (likeregions.match('南港區') != null) {$(':checkbox[value="南"]').prop('checked',true);}
+					if (likeregions.match('文山區') != null) {$(':checkbox[value="文"]').prop('checked',true);}
+				var liketypes = $('#memberTypes').text();
+					if (liketypes.match('表演萬象') != null) {$(':checkbox[value="表演"]').prop('checked',true);}
+					if (liketypes.match('展覽廣場') != null) {$(':checkbox[value="展覽"]').prop('checked',true);}
+					if (liketypes.match('音樂現場') != null) {$(':checkbox[value="音樂"]').prop('checked',true);}
+					if (liketypes.match('講座研習') != null) {$(':checkbox[value="研習"]').prop('checked',true);}
+					if (liketypes.match('電影瞭望') != null) {$(':checkbox[value="影視"]').prop('checked',true);}
+					if (liketypes.match('城市萬花筒') != null) {$(':checkbox[value="休閒"]').prop('checked',true);}
+					if (liketypes.match('親子活動') != null) {$(':checkbox[value="親子"]').prop('checked',true);}
+				var area100 = $(':checkbox[value="正"]').prop('checked');
+				var area103 = $(':checkbox[value="同"]').prop('checked');
+				var area104 = $(':checkbox[value="埔"]').prop('checked');
+				var area105 = $(':checkbox[value="松"]').prop('checked');
+				var area106 = $(':checkbox[value="安"]').prop('checked');
+				var area108 = $(':checkbox[value="萬"]').prop('checked');
+				var area110 = $(':checkbox[value="信"]').prop('checked');
+				var area111 = $(':checkbox[value="士"]').prop('checked');
+				var area112 = $(':checkbox[value="北"]').prop('checked');
+				var area114 = $(':checkbox[value="內"]').prop('checked');
+				var area115 = $(':checkbox[value="南"]').prop('checked');
+				var area116 = $(':checkbox[value="文"]').prop('checked');
+				if ( area100 == true && area103 == true && area104 == true && area105 == true && area106 == true && area108 == true && area110 == true && area111 == true  && area112 == true  && area114 == true  && area115 == true  && area116 == true ) {
+					$(':checkbox[name="areaID"]').prop('checked',false);
+					$(':checkbox[name="allArea"]').prop('checked',true);
+				} else if ( area100 != true && area103 != true && area104 != true && area105 != true && area106 != true && area108 != true && area110 != true && area111 != true  && area112 != true  && area114 != true  && area115 != true  && area116 != true ) {
+					$(':checkbox[name="allArea"]').prop('checked',true);
+				} else if ( area100 == true || area103 == true || area104 == true || area105 == true || area106 == true || area108 == true || area110 == true || area111 == true  || area112 == true  || area114 == true  || area115 == true  || area116 == true  ) {
+					$(':checkbox[name="allArea"]').prop('checked',false);
+				};
+				var leisure = $(':checkbox[value="休閒"]').prop('checked');
+				var exhibit = $(':checkbox[value="展覽"]').prop('checked');
+				var music = $(':checkbox[value="音樂"]').prop('checked');
+				var show = $(':checkbox[value="表演"]').prop('checked');
+				var study = $(':checkbox[value="研習"]').prop('checked');
+				var family = $(':checkbox[value="親子"]').prop('checked');
+				var video = $(':checkbox[value="影視"]').prop('checked');
+				if ( leisure == true && exhibit == true && music == true && show == true && study == true && family == true && video == true ) {
+					$(':checkbox[name="eventType"]').prop('checked',false);
+					$(':checkbox[name="allType"]').prop('checked',true);
+				} else if ( leisure != true && exhibit != true && music != true && show != true && study != true && family != true && video != true ) {
+					$(':checkbox[name="allType"]').prop('checked',true);
+				} else if ( leisure == true || exhibit == true || music == true || show == true || study == true || family == true || video == true ) {
+					$(':checkbox[name="allType"]').prop('checked',false);
+				};
+				changeBackgroungColor();
+				$('#toBeClose').prop('checked',true);
+				doCount(selectDate , selectArea , selectType);
+			} else{
+				doCount(selectDate , selectArea , selectType);
+			}
 			//宣告全域變數
 			page = 1;
 			total_Count = 0;
-			doCount(selectDate , selectArea , selectType);
 			// 日期選取器
 			$('#dateRangePicker').daterangepicker({
 				alwaysShowCalendars: true,
@@ -218,11 +291,6 @@ body {
 				$('input[name="pickDate"]').next().removeClass('stateChecked');
 				$(this).addClass('stateChecked').val('請選擇日期').css('color','red');;
 			});
-			// 給全選的radio & checkbox 顏色
-			$('#allDate').next().addClass('stateChecked');
-			$(':checkbox[name="allArea"]').next().addClass('stateChecked');
-			$(':checkbox[name="allType"]').next().addClass('stateChecked');
-			$('#toBeClose').next().addClass('stateChecked');
 			// 地區選單懸浮效果binding
 			$("#areaText").mouseover(function(){
 				$(".selectArea").show();
@@ -250,7 +318,6 @@ body {
 			$(':checkbox[name="areaID"]').click(function() {
 				changeArea(this.id);
 			});
-			
 			$(':checkbox[name="allType"]').click(function() {
 				switchToAllType(this.id);
 			});
@@ -300,11 +367,15 @@ body {
 			var area115 = $(':checkbox[value="南"]').prop('checked');
 			var area116 = $(':checkbox[value="文"]').prop('checked');
 			
-			if ( area100 == true || area103 == true || area104 == true || area105 == true || area106 == true || area108 == true || area110 == true || area111 == true  || area112 == true  || area114 == true  || area115 == true  || area116 == true  ) {
-				$(':checkbox[name="allArea"]').prop('checked',false);
+			if ( area100 == true && area103 == true && area104 == true && area105 == true && area106 == true && area108 == true && area110 == true && area111 == true  && area112 == true  && area114 == true  && area115 == true  && area116 == true ) {
+				$(':checkbox[name="areaID"]').prop('checked',false);
+				$(':checkbox[name="allArea"]').prop('checked',true);
 				doCount(selectDate , selectArea , selectType)
 			} else if ( area100 == false && area103 == false && area104 == false && area105 == false && area106 == false && area108 == false && area110 == false && area111 == false  && area112 == false  && area114 == false  && area115 == false  && area116 == false ) {
 				$(':checkbox[name="allArea"]').prop('checked',true);
+				doCount(selectDate , selectArea , selectType)
+			} else if ( area100 == true || area103 == true || area104 == true || area105 == true || area106 == true || area108 == true || area110 == true || area111 == true  || area112 == true  || area114 == true  || area115 == true  || area116 == true  ) {
+				$(':checkbox[name="allArea"]').prop('checked',false);
 				doCount(selectDate , selectArea , selectType)
 			};
 			changeBackgroungColor();
@@ -326,11 +397,15 @@ body {
 			var family = $(':checkbox[value="親子"]').prop('checked');
 			var video = $(':checkbox[value="影視"]').prop('checked');
 			
-			if ( leisure == true || exhibit == true || music == true || show == true || study == true || family == true || video == true ) {
-				$(':checkbox[name="allType"]').prop('checked',false);
+			if ( leisure == true && exhibit == true && music == true && show == true && study == true && family == true && video == true ) {
+				$(':checkbox[name="eventType"]').prop('checked',false);
+				$(':checkbox[name="allType"]').prop('checked',true);
 				doCount(selectDate , selectArea , selectType)
 			} else if ( leisure == false && exhibit == false && music == false && show == false && study == false && family == false && video == false ) {
 				$(':checkbox[name="allType"]').prop('checked',true);
+				doCount(selectDate , selectArea , selectType)
+			} else if ( leisure == true || exhibit == true || music == true || show == true || study == true || family == true || video == true ) {
+				$(':checkbox[name="allType"]').prop('checked',false);
 				doCount(selectDate , selectArea , selectType)
 			};
 			changeBackgroungColor();
@@ -372,6 +447,7 @@ body {
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes , 'newOrder':newOrder , 'pageNumber':page} , function(data) {
 				$.each(data, function(index, eventData) {
 					// 對沒有提供圖片的活動給予圖片，else對圖片失效的連結做處理
+					console.log(eventData.eventName);
 					if (eventData.imageFile == 'null') {
 						var picBox = $('<div class="picBox"></div>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="../img/taipei_culture.png" title="' + eventData.briefIntroduction + '"></a>');
 					} else {
@@ -392,31 +468,46 @@ body {
 						var End = new Date(eventData.durationEnd);
 						var Y1 = Start.getFullYear() + '-';
 						var M1 = (Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-';
-						var D1 = Start.getDate() + ' ';
+						var D1 = (Start.getDate()+1 <= 10 ? '0'+Start.getDate() : Start.getDate());
 						var dtStart = Y1 + M1 + D1;
 						var Y2 = End.getFullYear() + '-';
 						var M2 = (End.getMonth()+1 < 10 ? '0'+(End.getMonth()+1) : End.getMonth()+1) + '-';
-						var D2 = End.getDate() + ' ';
+						var D2 = (End.getDate()+1 <= 10 ? '0'+End.getDate() : End.getDate());
 						var durationEnd = Y2 + M2 + D2;
 					var rs3 = $('<span></span>').html('<i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbsp;&nbsp;活動時間：' + dtStart + ' ~ ' + durationEnd);
 					var row1 = $('<div class="row"></div>').append([ rs1 , rs2 , rs3 ]);
 					var rs4 = $('<span style="width: 65%"></span>').html('<i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;主辦單位：' + eventData.showGroupName);
 					var rs5 = $('<span id="collectCount"></span>').html('<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;' + eventData.collectionCount + '&nbsp;人');
 					var row2 = $('<div class="row"></div>').append([ rs4 , rs5 ]);
-						// 計算天數差
-						var daysdiff = (eventData.durationEnd - new Date().getTime())/86400000;
-						if ( daysdiff < 0 ) {
-							var daysdiff = 0;
-						} else {
-							var daysdiff = Math.floor(daysdiff) + 1;
-						};
-					var days = $('<div id="days"></div>').html('還剩&nbsp;' + daysdiff + '&nbsp;天');
-					var collect = $('<div id="collect"></div>').text('加入收藏');
-					
-					var mainBox = $('<div class="mainBox"></div>').append([ titleBox , row1 , row2 ]);
-					var box = $('<div class="box"></div>').append([ picBox , mainBox , days , collect ]);
-					
-					$('#showEvent').append(box);
+					// 計算天數差
+					var daysdiff = (eventData.durationEnd - new Date().getTime())/86400000;
+					if ( daysdiff < 0 ) {
+						var daysdiff = 0;
+						var days = $('<div id="days"></div>').html('今天結束！');
+					} else {
+						var daysdiff = Math.floor(daysdiff) + 1;
+						var days = $('<div id="days"></div>').html('還剩&nbsp;' + daysdiff + '&nbsp;天');
+					};
+					var user = $("#member").text();
+					if(user.length != 0){
+						$.get('checkFavorites.controller' , {'eventid':eventData.eventID , 'email':user} , function(data){
+							if(data.toString() == ("collectioned")){
+								var collect = $('<div id="collect"></div>').text('已收藏');
+								var mainBox = $('<div class="mainBox"></div>').append([ titleBox , row1 , row2 ]);
+								var box = $('<div class="box"></div>').append([ picBox , mainBox , days , collect ]);
+								$('#showEvent').append(box);
+							} else {
+								var collect = $('<div id="collect" style="display: none;"></div>').text('加入收藏');
+								var mainBox = $('<div class="mainBox"></div>').append([ titleBox , row1 , row2 ]);
+								var box = $('<div class="box"></div>').append([ picBox , mainBox , days , collect ]);
+								$('#showEvent').append(box);
+							};
+						});
+					} else {
+						var mainBox = $('<div class="mainBox"></div>').append([ titleBox , row1 , row2 ]);
+						var box = $('<div class="box"></div>').append([ picBox , mainBox , days ]);
+						$('#showEvent').append(box);
+					};
 				});
 			}); // JSON END
 		}; // --- controller撈資料 END ---
