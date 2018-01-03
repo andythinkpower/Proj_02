@@ -15,6 +15,22 @@ public interface Event01DAO {
 	Event01 update(Event01 event);
 
 	boolean delete(int eventID);
+
+	List<Event01> selectcollectionCount();
+
+	List<Event01> selectcollectionCount(String types);
+
+	List<Event01> selectInsertTime();
+
+	List<Event01> selectInsertTime(String types);
+
+	List<Event01> selectshareCount();
+
+	List<Event01> selectshareCount(String types);
+
+	List<Event01> selectthisweek(String types);
+
+	List<Event01> selectthisweek();
 	
 	
 }

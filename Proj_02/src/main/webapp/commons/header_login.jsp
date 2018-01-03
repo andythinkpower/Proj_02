@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <style>
+     .navbar-expand-sm{
+        	font-size:1.5em;
+        	font-weight:bold;
+        }
+    </style>
+    
+    
 <!--      <img  src="../img/default.jpg" style="width:150px;"/> -->
     <nav class="navbar navbar-expand-sm navbar-light p-4" style="background-color:	#EBD6D6;">
         <div class="container">
             <a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand">
-                <img src="${pageContext.request.contextPath}/img/taipei-logo.jpg" width="30" height="30" class="d-inline-block align-top" />
-                TaipeiTalk
+                <img src="${pageContext.request.contextPath}/img/logo.png"   height="60"  class="d-inline-block align-top" />
+              
             </a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -20,7 +28,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item px-2">
 
-                        <a href="${pageContext.request.contextPath}/_04_EventPage/eventSearch.jsp" class="nav-link">活動篩選</a>
+                        <a href="${pageContext.request.contextPath}/_04_EventPage/eventSearch.jsp" class="nav-link">找活動</a>
 
                     </li>
                     <li class="nav-item px-2">
@@ -34,8 +42,8 @@
                         <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link drop-toggle" data-toggle="dropdown">會員中心</a>
                         <div class="dropdown-menu">
                             <a href="${pageContext.request.contextPath}/_05_web/Calendar.html" class="dropdown-item">行事曆</a>
-                            <a href="${pageContext.request.contextPath}/_02_activity/display.jsp" class="dropdown-item">行程安排</a>
                             <a href="${pageContext.request.contextPath}/_02_favorite/fav_display.jsp" class="dropdown-item">活動收藏</a>
+                            <a href="${pageContext.request.contextPath}/_02_activity/display.jsp" class="dropdown-item">行程安排</a>
                             <a href="${pageContext.request.contextPath}/_06_blog/dashboard.jsp" class="dropdown-item">部落格</a>
                         </div>
                     </li><!--會員下拉式選單end here-->
