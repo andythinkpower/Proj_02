@@ -5,7 +5,7 @@
         <div class="conatiner">
             <div class="row">
                 <div class="col">
-                    <p class="lead text-center">特別感謝台北市政府提供資料  &copy; FakeCityTalk&#8482;</p>
+                    <p class="lead text-center">特別感謝台北市政府提供資料  &copy; TaipeiTalk&#8482;</p>
                 </div>
             </div>
         </div>

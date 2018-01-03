@@ -154,7 +154,7 @@ public class Favorites {
 		}
 		return allevent;
 	}
-	
+	//搜全部
 	@RequestMapping(path="/selectallevent.controller",
 			method= {RequestMethod.POST,RequestMethod.GET},
 			produces= {"application/json;charset=UTF-8"})
@@ -176,14 +176,16 @@ public class Favorites {
 		return result;
 	}
 	
-	
+	//呼叫全部
 	@RequestMapping(path="/selectevent.controller",method= {RequestMethod.POST,RequestMethod.GET},
 			produces= {"application/json;charset=UTF-8"})
-	@ResponseBody
+	@ResponseBody					//日期
 	public List<Event01> selectevent(String types,String orders) {
 		List<Event01> result = null;
 		if("InsertTime".equals(orders)) {
+			System.out.println(orders); 
 			result = event02Service.selectInsertTime(types);
+			 System.out.println(result);
 		}else if("collectionCount".equals(orders)) {
 			 result = event02Service.selectcollectionCount(types);
 		}else if("thisweek".equals(orders)) {

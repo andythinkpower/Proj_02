@@ -58,7 +58,7 @@
 			
 			<div class="collectBox">
 				<div class="collect" id="favorite">加入收藏</div>
-				<div style="padding-left: 20px"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;<span></span>&nbsp;人</div>
+				<div style="font-size: 15px; padding-left: 20px"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;<span></span>&nbsp;人</div>
 			</div>
 			
 			<div class="dayBox">
@@ -66,7 +66,7 @@
 			</div>
 			
 			<div class="picBox">
-				<img id="ownImg" src="http://cultureexpress.taipei/Files/Event/LogoTemp/419a297b81c04b3789b53516eb31fb3d.jpg" />
+				<img id="ownImg"/>
 			</div>
 			
 			<div class="date">
@@ -115,7 +115,7 @@
 						<a class="btn btn-success clearfix" href="javascript:fbshareCurrentPage()" target="_blank" alt="Share on Facebook">FB分享</a>
 					</div>
 					<div style="width: 150px; float: left; margin-top: 8px;">
-						&nbsp;&nbsp;分享數：&nbsp;<span id="shareCount"></span>
+						分享數：<span id="shareCount"></span>
 					</div>
 				</div>
 
@@ -176,7 +176,7 @@
     			};
 		    });
 			
-			$('body').on('click' , '.btn' , function(){
+			$('body').one('click' , '.btn' , function(){
 				var eventID = $("#eventID").text();
 				$.post('${pageContext.request.contextPath}/_04_EventPage/addShareCount.controller',{'eventID':eventID});
 				var nowShare = $('#shareCount').text();
@@ -188,15 +188,9 @@
 					
 					$('#type').append('[&nbsp;' + eventData.eventTypeId + '&nbsp;]');
 					$('#title').append(eventData.eventName);
-					
-					
-					
 					$(document).ready(function() {
 				        document.title = $('#title').text();
 				    });
-					
-					
-					
 					$('.collectBox span').append(eventData.collectionCount)
 					$('#shareCount').append(eventData.shareCount)
 						// 計算天數差
@@ -266,7 +260,6 @@
 				} else {
 					$('.mapBox iframe').attr('src' , 'http://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=台北市' + eventData.address + '&z=15&output=embed');
 				};
-				
 				$('.insertTime span').append('更新時間：' + insertTime);
 				$('#context').append(eventData.vcontent);
 				

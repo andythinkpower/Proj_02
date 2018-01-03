@@ -82,7 +82,7 @@ html, body {
 	padding: 10px;
 }
 .option{
-	color:red;
+	font-weight:bold;
 }
 
 </style>
@@ -108,7 +108,7 @@ html, body {
 	<div class="row my-2 bg-white">
 	<div class='col-2'></div>
 	<div class='col-10'>
-		<button class="btn btn-sm option updatemy-2">修改資料</button>
+		<button class="btn btn-sm option update my-2">修改資料</button>
 		<button class="btn btn-sm option delete bg-white my-2">刪除</button>
 		</div>
 		
@@ -163,6 +163,9 @@ html, body {
                      })
 		
 	})
+	
+	
+	
 	
 	
 	$.ajaxSettings.async = false;
@@ -310,7 +313,7 @@ html, body {
 	</script>
 
 	
-
+  <br><br><br><br><br><br><br><br><br><br><br>
 	<jsp:include page="../commons/footer.jsp" />
 </body>
 </html>

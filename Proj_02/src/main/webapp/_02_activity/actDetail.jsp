@@ -48,7 +48,7 @@
         <div class="col"></div>
         <div class="col-5">
 
-            <h1 class="text-center">建立行程-2</h1>
+            <h1 class="text-center" style='color:white'>建立行程-2</h1>
 
             <form id="activity" action="ActivityController.do" method="post">
                 <div class="container" style="border:2px solid gray;border-radius:5px;background-color: white;">
@@ -213,7 +213,7 @@
             $("#form").find("input[name='photoPath']").val(picPath);
         });
     </script>
-    
+    <br><br><br><br><br><br><br><br><br><br><br>
  <jsp:include page="../commons/footer.jsp"/>   
 </body>
 </html>
