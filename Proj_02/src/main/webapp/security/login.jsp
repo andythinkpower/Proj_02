@@ -44,8 +44,8 @@
       
     } else {
       // The person is not logged into your app or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
+//       document.getElementById('status').innerHTML = 'Please log ' +
+//         'into this app.';
     }
   }
 
@@ -60,7 +60,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '{1964367790442563}',
+    appId      : '{518919515157014}',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -80,6 +80,7 @@
   // These three cases are handled in the callback function.
 
   FB.getLoginStatus(function(response) {
+	  console.log(response);
     statusChangeCallback(response);
   });
 
@@ -90,7 +91,7 @@
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=1964367790442563';
+  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=518919515157014';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
@@ -100,8 +101,8 @@
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', {fields:'email,name,id'}, function(response) {
       console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '! ' + response.email + '!';
+//       document.getElementById('status').innerHTML =
+//         'Thanks for logging in, ' + response.name + '! ' + response.email + '!';
       
 		$.post("${pageContext.request.contextPath}/_01_member/register.controller",
 				{"memberemail": response.email},function(x){
@@ -109,13 +110,13 @@
 					if(x==false){
 						  $.get("${pageContext.request.contextPath}/_01_member/fblogin.controller",
 									{"memberemail": response.email})						
-							$('#status').html("<h5 class='modal-title'>登入成功</h5>");
+// 							$('#status').html("<h5 class='modal-title'>登入成功</h5>");
 							console.log("登入成功");
 							
-							setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",2000)
+							setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",1000)
 
 					}else{
-						$('#status').html("<h5 class='modal-title'>註冊成功</h5>");
+// 						$('#status').html("<h5 class='modal-title'>註冊成功</h5>");
 						console.log("註冊成功");
 					}
 				},"json")
@@ -123,6 +124,8 @@
     });
   }
 
+  
+  
 </script>
 <div id="fb-root"></div>
 
@@ -152,22 +155,24 @@
                                 	<c:if test='${sessionScope.rememberme==true}'>checked='checked'</c:if> value="true"> 記住密碼
                                 </div>
                                 <br>
-                                <div class="form-group">
+                                                                <div class="form-group">
 <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" 
-data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div>
+data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="test()"></div>
 <!-- onlogin="refresh()" -->
+
+
 <!--                                 <input type="button" class="btn" id="fbbutton" value="FB"> -->
-								<div id="status">
-								</div>
+<!-- 								<div style="display:none" id="status"> -->
+<!-- 								</div> -->
                                 </div>
 
                                 <div class="form-group">
-                                    <a href="#" data-toggle="modal" data-target="#myModal">忘記密碼？</a>
+                                    <a href="#" data-toggle="modal" data-target="#myModal2">忘記密碼？</a>
                                     
 <!-- start here -->
 <!-- 							<input type="button" class="btn btn-primary" value="註冊" onclick="checkValid()" -->
 <!-- 								id="buttonPost" data-toggle="modal" data-target="#myModal" /> <span id="idsp3"></span> -->
-							<div class="modal" id="myModal">
+							<div class="modal" id="myModal2">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div id="show" class="modal-header">
@@ -193,6 +198,9 @@ data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false
                                     
                                     <a href="${pageContext.request.contextPath}/_01_member/register.jsp">建立新會員</a>
                                 </div>
+                                
+
+                                
                                 <input class="btn btn-primary" type="submit" value="登入" />                                
                             </form>
                         </div>
@@ -204,7 +212,7 @@ data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<!--     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
             integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
             crossorigin="anonymous"></script>
@@ -213,6 +221,8 @@ data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false
             crossorigin="anonymous"></script>
             
     <script>
+    
+
     
 	$('#forgot').click(function(){
 		console.log($('#forgotemail').val());
@@ -228,6 +238,20 @@ data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false
 					}
 				},"json")			
 	});
+	
+    function test(){
+		console.log("access")
+		FB.login(function(response){
+			if(response.status==="connected"){
+				testAPI();
+				setTimeout("location.href='${pageContext.request.contextPath}/index.jsp'",2000)		
+			}
+		  
+		  console.log(response)
+		  // Handle the response object, like in statusChangeCallback() in our demo
+		  // code.
+		});  
+	}
     
     </script>        
 

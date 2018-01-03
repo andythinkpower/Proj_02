@@ -25,11 +25,18 @@
 <title>台北通首頁</title>
 
 <style>
-body {
-	font-family: Microsoft JhengHei;
-}
-
-
+        body {
+            font-family: Microsoft JhengHei;
+/* 			background-color:	#F2E6E6; */
+			background-image:url('${pageContext.request.contextPath}/img/event_background.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+        
+       
+        
 </style>
 </head>
 <body>
@@ -58,28 +65,33 @@ body {
 					<div class="carousel-inner" role="listbox">
 						<!-- 輪播牆的各個項目 -->
 						<div class="carousel-item active">
-							<img class="d-block img-fluid" id="img1" src="img/test.jpg"
+						<div style='display:none'>99916308</div>
+							<img class="d-block img-fluid hot" id="img1" src="http://cultureexpress.taipei/Files/Event/LogoTemp/7cc106bb9e484cc3b8acd30da3bcfdf2.jpg"
 								alt="First Slide" style="height: 400px; width: 800px">
 
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" id="img2" src="img/dog.jpg"
+						<div style='display:none'>99916488</div>
+							<img class="d-block img-fluid hot" id="img2" src="http://cultureexpress.taipei/Files/Event/LogoTemp/126ac848561e44988bdb376338c92fe5.jpg"
 								alt="Second Slide" style="height: 400px; width: 800px">
 
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" id="img3" src="img/nopic.jpg"
+						<div style='display:none'>99916321</div>
+							<img class="d-block img-fluid hot" id="img3" src="http://cultureexpress.taipei/Files/Event/LogoTemp/c0ae963354f14f20997fd852137bd9e7.jpg"
 								alt="Third Slide" style="height: 400px; width: 800px">
 
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" id="img4" src="img/default.jpg"
+						<div style='display:none'>99916667</div>
+							<img class="d-block img-fluid hot" id="img4" src="http://cultureexpress.taipei/Files/Event/LogoTemp/c244b29cc97040a3b113fd75aff83293.jpg"
 								alt="Third Slide" style="height: 400px; width: 800px">
 
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" id="img5"
-								src="img/taipei-logo.jpg" alt="Third Slide"
+						<div style='display:none'>99916042</div>
+							<img class="d-block img-fluid hot" id="img5"
+								src="http://cultureexpress.taipei/Files/Event/LogoTemp/a2213621f90c4d0e81a0d73b27a05873.jpg" alt="Third Slide"
 								style="height: 400px; width: 800px">
 
 						</div>
@@ -95,10 +107,185 @@ body {
 				</div>
 			</div>
 		</div>
+		
+		<br><br><br>
+		<br>
+		<br>
+		
+	<div class="container mt-3">
+		<h1>最新上架</h1>
+		<ul class="nav nav-pills red mb-3" id="InsertTime" style="background-color:rgb(227, 215, 188)">
+			<li class="nav-item classType"><a class="nav-link active" data-toggle="pill" href="#本周活動0">全部</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動1">休閒</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動2">展覽</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動3">音樂</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動4">表演</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動5">研習</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動6">親子</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動7">影視</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="InsertTime">
+				<div class="card " style="background-color:rgb(227, 215, 188)">
+					<div class="row">
+						<div class="col m-2 pl-3">
+							<p style="display:none;"></p><img id='InsertTime0' class="img" src="img/dog.jpg" style="width:450px;height:250px">
+						</div> 
+						<div class="col m-2">
+							<div class="row">
+								<div class="col"><p style="display:none;"></p><img id='InsertTime1' class="img" src="" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='InsertTime2' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+							<div class="row mt-2 pt-2">
+								<div class="col"><p style="display:none;"></p><img id='InsertTime3' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='InsertTime4' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+		<h1>熱門收藏</h1>
+		<ul class="nav nav-pills red mb-3 " id='collectionCount' style="background-color:rgb(227, 215, 188)">
+			<li class="nav-item classType"><a class="nav-link active" data-toggle="pill" href="#本周活動0">全部</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動1">休閒</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動2">展覽</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動3">音樂</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動4">表演</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動5">研習</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動6">親子</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動7">影視</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" >
+				<div class="card " style="background-color:rgb(227, 215, 188)">
+					<div class="row">
+						<div class="col m-2 pl-3">
+							<p style="display:none;"></p><img id='collectionCount0' class="img" src="img/dog.jpg" style="width:450px;height:250px">
+						</div> 
+						<div class="col m-2">
+							<div class="row">
+								<div class="col"><p style="display:none;"></p><img id='collectionCount1' class="img" src="" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='collectionCount2' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+							<div class="row mt-2 pt-2">
+								<div class="col"><p style="display:none;"></p><img id='collectionCount3' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='collectionCount4' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+		<h1>本周活動</h1>
+		<ul class="nav nav-pills red mb-3 " id='thisweek' style="background-color:rgb(227, 215, 188)">
+			<li class="nav-item classType"><a class="nav-link active" data-toggle="pill" href="#本周活動0">全部</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動1">休閒</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動2">展覽</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動3">音樂</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動4">表演</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動5">研習</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動6">親子</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動7">影視</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" >
+				<div class="card " style="background-color:rgb(227, 215, 188)">
+					<div class="row">
+						<div class="col m-2 pl-3">
+							<p style="display:none;"></p><img id='thisweek0' class="img" src="img/dog.jpg" style="width:450px;height:250px">
+						</div> 
+						<div class="col m-2">
+							<div class="row">
+								<div class="col"><p style="display:none;"></p><img id='thisweek1' class="img" src="" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='thisweek2' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+							<div class="row mt-2 pt-2">
+								<div class="col"><p style="display:none;"></p><img id='thisweek3' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='thisweek4' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+		<h1>熱門分享</h1>
+		<ul class="nav nav-pills red mb-3 " id='shareCount' style="background-color:rgb(227, 215, 188)">
+			<li class="nav-item classType"><a class="nav-link active" data-toggle="pill" href="#本周活動0">全部</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動1">休閒</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動2">展覽</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動3">音樂</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動4">表演</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動5">研習</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動6">親子</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動7">影視</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" >
+				<div class="card " style="background-color:rgb(227, 215, 188)">
+					<div class="row">
+						<div class="col m-2 pl-3">
+							<p style="display:none;"></p><img id='shareCount0' class="img" src="img/dog.jpg" style="width:450px;height:250px">
+						</div> 
+						<div class="col m-2">
+							<div class="row">
+								<div class="col"><p style="display:none;"></p><img id='shareCount1' class="img" src="" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='shareCount2' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+							<div class="row mt-2 pt-2">
+								<div class="col"><p style="display:none;"></p><img id='shareCount3' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='shareCount4' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+		
+</div>	
+	
+		
+		
+		
+		
 	<div class="test"></div>
 
 	<script>
 		$(function() {
+			
+			$.getJSON('selectallevent.controller',function(data){
+				console.log(data)
+			})
+			
+			
+			$(".classType").on('click',function(){
+				//取得點選類型
+				var type=$(this).text();
+				var selectOrder=$(this).parent().attr("id");
+				console.log(selectOrder);
+				$.getJSON('selectevent.controller',{"types":type,"orders":selectOrder},function(data){
+					console.log(data)
+					$.each(data,function(i,v){
+						console.log(v)
+						  $("#"+selectOrder+i+"").attr("src", v.imageFile)
+						
+						
+						//v.eventName;
+					})
+					
+					//console.log(data);
+				})
+				
+				
+			})
+			
+			
+			
+			
 			$("#tabs").tabs();
 			$("#tabs2").tabs();
 
@@ -115,152 +302,9 @@ body {
 
 
 
-	<script>
-	$.ajaxSettings.async = false;
-        $(function () {
-          
-             var selectDate = "where dateadd ( week , datediff( week , '' , getdate() ) , 6 ) >= dtStart  and";
-             var selectDate2='where';
-             var selectOrder="datediff ( day , getdate() , DurationEnd )"
-             var selectOrder2='collectionCount desc';
-             var selectOrder3="InsertTime desc";
-             var selectOrder4="shareCount desc";
-             
-             var selectArea = "正同埔松安萬信士北內南文";
-             var page = 1;
-             var type = ["休閒展覽音樂表演研習親子影視", "休閒", "展覽", "音樂", "表演", "研習", "親子", "影視"]
-             
-             tempfile=[];
-             tempID=[];
-             temp=[];
-             dynamicCard('本周活動',selectDate,selectOrder);
-             
-             dynamicCard('熱門收藏',selectDate2,selectOrder2);
-             
-             dynamicCard('最新刊登',selectDate2,selectOrder3);
-             
-             dynamicCard('熱門分享',selectDate2,selectOrder4);
-             
-             function dynamicCard(id_name,Date,Order){
-            	 var ul = $('<ul class="nav nav-pills red mb-3">');
-                 var tab_content = $("<div class='tab-content'>");
-                 var container = $("<div class='container mt-3'>"); 
-                 date_count = -1;
-             $.each(type, function (index, value) {
-            	 tempID=[];
-            	 tempfile=[];
-            	 temp=[];
-                 date_count++;
-                 if (index == 0) {
-                	 $(".test").append("<h2 class='text-center mt-2'>"+id_name+"</h2>");
-                     ul.append('<li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#'+id_name + date_count + '" >全部</a></li>');               
-                 } else {
-                     ul.append('<li class="nav-item"><a class="nav-link " data-toggle="pill" href="#'+ id_name+ date_count + '">' + value + '</a></li>');            
-                 }
-                 if (index == 0) {
-                     tab_content.append($('<div class="tab-pane fade show active" id="'+id_name + date_count + '" ><div class="card bg-info"><div class="row">' +
-                  '<div class="col m-2 pl-3"><p style="display:none;"></p><img class="img" src="img/dog.jpg" style="width:450px;height:250px" /></div> <div class="col m-2"><div class="row">' +
-                  '<div class="col"><p style="display:none;"></p><img class="img" src="" style="width:200px;height:115px" /></div><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" />' +
-                  '</div></div><div class="row mt-2 pt-2"><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col">' +
-                  '<p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div></div></div></div></div></div>'));
-                 } else {
-                     tab_content.append($('<div class="tab-pane fade show" id="'+id_name + date_count + '" ><div class="card bg-info"><div class="row">' +
-                 '<div class="col m-2 pl-3"><p style="display:none;"></p><img class="img" src="img/dog.jpg" style="width:450px;height:250px" /></div> <div class="col m-2"><div class="row">' +
-                 '<div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" />' +
-                 '</div></div><div class="row mt-2 pt-2"><div class="col"><p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div><div class="col">' +
-                 '<p style="display:none;"></p><img class="img" src="img/test.jpg" style="width:200px;height:115px" /></div></div></div></div></div></div>'));
-                 }
-                 doSearch(Date, selectArea, value, Order, page);
-            
-                 
-                 temp.push(tempfile);
-                 temp.push(tempID);
-                 //console.log(temp);
-                 container.append(ul);
-                 container.append(tab_content);
-                
-                 $(".test").append(container); 
-                 
-                  //放圖片             
-                 $.each(temp,function(ind,val){
-                	 $.each(val,function(i,v){
-                		 if(ind==0){
-                			 if(i==0){
-                				 //console.log("#"+id_name+index);
-                        		 $("#"+id_name+index).find(".pl-3 img").attr("src",v);	 
-                        	 }else if(i==1){
-                        		$("#"+id_name+index).find(".row .col .row:first-child .col:first-child img").attr("src",v);	
-                        	 }else if(i==2){
-                        		 $("#"+id_name+index).find(".row .col .row:first-child .col:nth-child(2) img").attr("src",v);	
-                        	 }else if(i==3){
-                        		 $("#"+id_name+index).find(".row .col .row:nth-child(2) .col:first-child img").attr("src",v);
-                        	 }else if(i==4){
-                        		 $("#"+id_name+index).find(".row .col .row:nth-child(2) .col:nth-child(2) img").attr("src",v);
-                        	 }
-                		 }else{
-                			 if(i==0){
-                        		 $("#"+id_name+index).find(".pl-3 p").text(v);	 
-                        	 }else if(i==1){
-                        		$("#"+id_name+index).find(".row .col .row:first-child .col:first-child p").text(v);	
-                        	 }else if(i==2){
-                        		 $("#"+id_name+index).find(".row .col .row:first-child .col:nth-child(2) p").text(v);
-                        	 }else if(i==3){
-                        		 $("#"+id_name+index).find(".row .col .row:nth-child(2) .col:first-child p").text(v);
-                        	 }else if(i==4){
-                        		 $("#"+id_name+index).find(".row .col .row:nth-child(2) .col:nth-child(2) p").text(v);
-                        	 }
-                		 }
-                	 })
-                 })
-  				
-             })
-        }
-             
-             
-             
-           //綁定事件 應該可以用迴圈合併
-             $("body").on('click','.img',function(){
-            		var pk=$(this).prev().text();
-            		//console.log(pk);
-            		window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
-             })
-              
-             
-          
-            
-            
-           
-		
-        function doSearch(newDate, newAreas, newTypes,newOrder, page) {
-            var count = 0;
-            $.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller',{
-				  'newDate': newDate,
-				  'newAreas': newAreas,
-			      'newTypes': newTypes,
-			      'newOrder':newOrder, 
-				  'pageNumber': page
-			}, function (data) {
-							    $.each(data, function (i, v) {
-							        if (count < 5 &&v.imageFile.length > 5) {
-							            count++;						            
-							            	tempfile.push(v.imageFile);		
-							            	 tempID.push(v.eventID);
-							        }
-							    })
-							}); // JSON END	
-        }; // --- controller撈資料 END ---
-        
-        });
-    </script>
-
-
-
-
-
-
-
-
+</div>
 
 	<jsp:include page="/commons/footer.jsp"></jsp:include>
+
 </body>
 </html>

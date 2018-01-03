@@ -32,7 +32,7 @@ public class BlogsBack_Servlet extends HttpServlet {
 		System.out.println(action);
 		
 		if ("delete".equals(action)) {
-System.out.println("1a");
+
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
 			System.out.println("2a");
@@ -41,7 +41,6 @@ System.out.println("1a");
 				System.out.println("3a");
 				Integer articleId = new Integer(request.getParameter("ArticleId"));
 				System.out.println("ArticleId");
-				System.out.println("4a");
 				BlogsBackService blogsSvc = new BlogsBackService();
 				blogsSvc.deleteBlogs(articleId);
 				String url = "/_03_backStage/MessageList.jsp";
@@ -49,7 +48,6 @@ System.out.println("1a");
 				RequestDispatcher sucessView = request.getRequestDispatcher(url);
 				sucessView.forward(request, response);
 			} catch (Exception e) {
-				System.out.println("6a");
 				errorMsgs.add("刪除資料失敗:" + e.getMessage());
 				response.sendRedirect("../_03_backStage/MessageList.jsp");
 			}

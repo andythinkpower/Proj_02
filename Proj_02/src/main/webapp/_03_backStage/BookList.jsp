@@ -140,7 +140,7 @@ input[type="submit"] {
 /* 	border-radius: 5px; */
 /* } */
 
-<!-- </style>  -->
+<!-- </style>  
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">

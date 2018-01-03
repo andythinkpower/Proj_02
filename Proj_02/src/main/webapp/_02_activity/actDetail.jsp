@@ -20,7 +20,7 @@
    body {
 			font-family: Microsoft JhengHei;
 /* 			background-color:	#F2E6E6; */
-			background-image:url('${pageContext.request.contextPath}/img/OGA1IU0.jpg');
+			background-image:url('${pageContext.request.contextPath}/img/05.jpg');
 			background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
@@ -48,7 +48,7 @@
         <div class="col"></div>
         <div class="col-5">
 
-            <h1 class="text-center">建立行程-2</h1>
+            <h1 class="text-center" style='color:white'>建立行程-2</h1>
 
             <form id="activity" action="ActivityController.do" method="post">
                 <div class="container" style="border:2px solid gray;border-radius:5px;background-color: white;">
@@ -161,8 +161,6 @@
 
     <script>
         $(function () {
-        	
-
         	$("#introduction").val('${activityBean.introduction}');
             $("body").on('click', 'input[name=note]', function () {
                 temp = $(this);
@@ -215,7 +213,7 @@
             $("#form").find("input[name='photoPath']").val(picPath);
         });
     </script>
-    
+    <br><br><br><br><br><br><br><br><br><br><br>
  <jsp:include page="../commons/footer.jsp"/>   
 </body>
 </html>

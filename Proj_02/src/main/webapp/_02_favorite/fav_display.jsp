@@ -60,6 +60,29 @@ body {
 
 	<script>
 		$(function(){
+			
+			$('body').on('click','.show',function(){
+				var pk=$(this).prev().text();
+				//console.log(pk)
+				window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + pk +'"/>' ;
+			})
+			
+			
+			
+			$('body').on("click",".delete",function(){
+				
+				var pk=$(this).parents(".target").find(".actID").text();
+				var email=$("#member").text();
+				console.log("pk:"+email);
+				$.get("disFavorite.controller",{"eventid":pk,"email":email},function(){
+					$("#wholePage").empty();
+					loadevent();
+				})
+				
+			})
+			
+			
+			
 			var email =$("#member").text();
 			loadevent();
 			function loadevent(){
@@ -69,11 +92,15 @@ body {
 				var title = (event01.eventName.length>12)?(event01.eventName.substring(0,13)+"..."):event01.eventName;
 				var id=event01.eventID; 
 				var img=(event01.imageFile.length>5)?event01.imageFile:'../img/taipei_culture.png';
+				var Start=new Date(event01.durationEnd);
+     			var Start = Start.getFullYear() +'-'+(Start.getMonth()+1 < 10 ? '0'+(Start.getMonth()+1) : Start.getMonth()+1) + '-'+Start.getDate();
+				
+				
 				var link="../_04_EventPage/eventSelf.jsp?eventID="+id;
 				
 				var act=$("<div class='col-4'>").html("<div class='card  target' style='width:300px;border:1px solid #BEBEBE;'><div class='actID' style='display:none;'>"+
              			+id+"</div><img class='card-img-top show' src='"+img+"' alt='Card image' width='300' height='250'/>"+
-             			"<div class='card-body' style='background-color:#F2E6E6'><h4 class='card-title'>"+title+"</h4><p class='card-text'>出發日期:</p>"+
+             			"<div class='card-body' style='background-color:#F2E6E6'><h4 class='card-title'>"+title+"</h4><p class='card-text'>結束時間:"+Start+"</p>"+
              			"<div class='row float-xl-right px-2 '><button class='btn btn-danger delete'>刪除</button></div></div></div>");   			
 
      							if(i%3==0){
@@ -92,6 +119,6 @@ body {
 		});
 		
 	</script>
-
+  <br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>
