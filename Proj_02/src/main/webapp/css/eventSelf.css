@@ -1,0 +1,217 @@
+body {
+	background-image: url('../img/event_background.jpg');
+	background-attachment:fixed;
+	background-size: cover;
+}
+
+#bigBox{
+	width: 1450px;
+	height: 1300px;
+    margin: 0px auto auto auto;
+}
+
+#eventInfo {
+	width: 1450px;
+    height: 750px;
+	margin: 30px auto 0px auto;
+    background-color: navajowhite;
+    border: 5px solid red;
+	border-radius: 15px;
+}
+
+.titleBox {
+    width: 1200px;
+    height: 100px;
+    margin: 15px 0px 0px 0px;
+    float: left;
+    box-sizing: border-box;
+}
+
+#type {
+    font-size: 20px;
+	color: blue;
+    text-align: center;
+    width: 80px;
+    margin: 20px;
+    float: left;
+}
+
+#title {
+    font-size: 30px;
+    font-weight: bolder;
+	color: red;
+    width: 85%;
+    height: 90px;
+    margin: 15px;
+    float: left;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+	white-space: nowrap;
+}
+
+.collectBox {
+    width: 200px;
+    height: 100px;
+    margin: 15px 10px 0px 0px;
+    float: right;
+    box-sizing: border-box;
+}
+
+.dayBox {
+    width: 200px;
+    height: 60px;
+    margin: 0px 10px 0px 0px;
+    float: right;
+    box-sizing: border-box;
+}
+
+.collect , .nonCollect , #days {
+    font-size: 20px;
+    font-weight: bolder;
+    width: 80%;
+    height: 50px;
+    float: right;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.collect {
+    color: #00d7e3;
+    margin: 10px 25px 0px 0px;
+    background-color: #CCFF80;
+    box-sizing: border-box;
+    border: 1.5px solid #8CEA00;
+}
+
+.nonCollect {
+    color: #00E3E3;
+    margin: 10px 25px 0px 0px;
+    background-color: gray;
+    box-sizing: border-box;
+    border: 1.5px solid #8CEA00;
+}
+
+#days {
+    color: white;
+    margin: 0px 25px 0px 0px;
+    background-color: #FF5151;
+}
+
+.picBox {
+    width: 40%;
+    height: 75%;
+    margin: 20px 0px 0px 20px;
+    float: left;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#ownImg {
+	width: 500px;
+	height: 500px;
+    float: left;
+}
+
+.mark {
+    width: 30px;
+    float: left;
+    background-color: navajowhite;
+}
+
+.date , .detail {
+    font-size: 22px;
+    height: 35px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.date {
+    width: 595px;
+    margin: 20px 0px 5px 25px;
+}
+
+.detail {
+    width: 800px;
+    margin: 5px 0px 0px 25px;
+}
+
+.mapBox {
+    width: 350px;
+    height: 258px;
+    margin: 15px 0px 0px 25px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.hollowArea {
+    width: 400px;
+    height: 160px;
+    margin: 15px 25px 0px 0px;
+    float: right;
+    box-sizing: border-box;
+}
+
+.insertTime , .buttonBox {
+    width: 400px;
+    height: 40px;
+    margin: 0px 25px 0px 0px;
+    float: right;
+    box-sizing: border-box;
+}
+
+.btn-success {
+    height: 50px;
+}
+
+#report {
+    color: white;
+    font-size: 20px;
+    width: 30%;
+    height: 50px;
+    margin: 0px 0px 0px 0px;
+    float: right;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: darkgray;
+}
+
+#contextBox {
+    width: 1450px;
+	height: 600px;
+	margin: 10px auto 0px auto;
+    float: left;
+    background-color: navajowhite;
+    border: 5px solid red;
+    border-radius: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#contextText {
+	font-size: 30px;
+	font-weight: bolder;
+    width: 1400px;
+    height: 50px;
+	margin: 0px 0px 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+#context {
+	font-size: 25px;
+    width: 1400px;
+	height: 400px;
+	margin: 0px 0px 0px 20px;
+}
