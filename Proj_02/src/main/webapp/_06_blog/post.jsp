@@ -38,7 +38,6 @@
 </head>
 <body>
 <jsp:include page="/commons/header_login.jsp"></jsp:include>
-<input type="text" id="s1" style="display:none" value="${member.memberemail}">
     <section>
         <div class="container p-5">
             <div class="row">
@@ -148,8 +147,9 @@ CKEDITOR.replace( 'articlecontent', {});
     <script>
     
     	$(function(){
-        	var memberemail=$('#s1').val();
+        	var memberemail=Cookies.get('user');
         	console.log(memberemail);
+        	$('#memberemail').attr("value",memberemail);
     	
 
 // 			$('#buttonPost').click(function(){
