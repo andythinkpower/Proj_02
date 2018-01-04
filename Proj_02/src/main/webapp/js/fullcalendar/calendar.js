@@ -18,7 +18,7 @@ $(function() {
 			 	    allDay:false,
 			 	    rendering: 'background'
 			 	};
-			//console.log(eventallow)
+			console.log(eventallow)
 			if(event01.targetDate!=0){
 			var event= {
 		 		id:event01.eventID,
@@ -108,7 +108,7 @@ $(function() {
                 	title: event.title, 
                 	id :event.id, 
                 	stick: true ,url:"../_04_EventPage/eventSelf.jsp?eventID="+event.id,
-                	duration:duration
+                	duration:event.duration
                 });
             }
         },

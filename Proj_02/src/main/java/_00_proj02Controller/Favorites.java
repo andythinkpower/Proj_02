@@ -35,7 +35,7 @@ public class Favorites {
 	
 	//單一會員收藏單一活動
 	@RequestMapping(path= {"/_04_EventPage/insert.controller"},method= {RequestMethod.POST,RequestMethod.GET})
-	public void insert(List<ActivityDetailBean> list,String eventName,String eventID,String durationEnd,String dtStart,String timeStart,String doWhat,
+	public void insert(String eventName,String eventID,String durationEnd,String dtStart,String timeStart,String doWhat,
 			@SessionAttribute(name="member")MemberBean member,HttpServletResponse rs) throws IOException {
 		rs.setHeader("Access-Control-Allow-Origin", "*");
 		rs.setHeader("content-type", "text/html;charset=UTF-8");
@@ -44,7 +44,6 @@ public class Favorites {
 		Event01 event = event02Service.select(Integer.parseInt(eventID));
 		event.setCollectionCount(Integer.valueOf((event.getCollectionCount()+1)));
 		event02Service.update(event);
-		System.out.println(event);
 		FavoritesBean bean=new FavoritesBean();
 		bean.setEventID(Integer.valueOf(eventID));
 		bean.setEventName(eventName);
@@ -60,13 +59,13 @@ public class Favorites {
 			date1=sdate2.parse(timeStart);
 			bean.setTimeStart(date1);			
 		} catch (ParseException e) {
-			System.out.println("轉換錯誤");
+			//System.out.println("轉換錯誤");
 			e.printStackTrace();
 		}
-		System.out.println("bean"+bean);
+		//System.out.println("bean"+bean);
 		//資料如果沒問題 新增進資料庫
 		Integer pk=favoritesService.Create_fav(bean);
-		System.out.println("新增主key為:"+pk);
+		//System.out.println("新增主key為:"+pk);
 		
 		out.println(pk);
 	
