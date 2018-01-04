@@ -166,7 +166,7 @@ table{
 
 </style>
 </head>
-<body>
+<body style="align:center">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">管理後台</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -284,6 +284,14 @@ $('#submit').click(function() {
 				$('#forImg').val('/uploadFile/123.jpg');
 			  $( "#signupForm" ).submit();
 			});
+			
+
+$('#forImg').mouseover(function() {
+	
+	$('#img').click(function () {
+		$('#img').attr('src','${pageContext.request.contextPath}/img/123.jpg');
+	});
+})
 
 $().ready(function() {
 	// validate the comment form when it is submitted

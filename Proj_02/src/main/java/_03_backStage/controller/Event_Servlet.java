@@ -53,14 +53,10 @@ System.out.println("1");
 					System.out.println("5");
 				}
 				String Fee = String.valueOf(request.getParameter("Fee"));
-
-				String FeeString = String.valueOf(Fee);
-
-				String IsCharge = String.valueOf(request.getParameter("IsCharge"));
-			
-				String IsChargeString = String.valueOf(IsCharge);
-                
+				String IsCharge = request.getParameter("IsCharge");
+				System.out.println("121214234");
 				String ImageFile = String.valueOf(request.getParameter("ImageFile"));
+				System.out.println(ImageFile);
 				System.out.println("6");
 				String Date= request.getParameter("DtStart");
 				System.out.println(Date);
@@ -167,7 +163,8 @@ System.out.println("1");
 				bookSvc.deleteevent01(eventID);
 				String url = "/_03_backStage/BookList.jsp";
 				RequestDispatcher sucessView = request.getRequestDispatcher(url);
-				sucessView.forward(request, response);
+//				sucessView.forward(request, response);
+				response.sendRedirect("../_03_backStage/BookList.jsp");
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:" + e.getMessage());
 //				RequestDispatcher failureView = request.getRequestDispatcher("/_06_backStage/BookList.jsp");
