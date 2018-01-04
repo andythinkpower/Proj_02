@@ -219,7 +219,7 @@ html, body {
         <div class="col-5">
         
 
-            <h1 class="text-center">修改行程</h1>
+            <h1 class="text-center" style="color:white">修改行程</h1>
             <form id="activity" action="ActivityController.do" method="post">
                 <div class="container" style="border:2px solid gray;border-radius:5px;background-color: white;">
                     <div class="form-row pt-4">

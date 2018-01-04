@@ -52,7 +52,7 @@
 
             function create_detail() {
                 var row = $("<div class='form-row my-2'>").html("<div class='col-2'>" +
-                     "<input class='form-control setTime time' data-toggle='modal' data-target='#timeSlider' type='text' name='times' placeholder='停留時間' readonly />" +
+                     "<input class='form-control setTime time' data-toggle='modal' data-target='#timeSlider' type='text' name='times' placeholder='時間' readonly />" +
                      "</div><div class='col'><select class='custom-select mb-2 mr-sm-2 mb-sm-0 id='inlineFormCustomSelect' name='kinds'>" +
                      "<option value='' selected>選擇類型</option><option value='景點'>景點</option><option value='餐廳'>餐廳</option><option value='飯店'>飯店" +
                      "</option><option value='活動'>活動</option><option value='其他'>其他</option></select></div> <div class='col-5'>" +

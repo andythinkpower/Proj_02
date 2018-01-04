@@ -40,11 +40,11 @@ $(function () {
 </head>
 <body>
 <jsp:include page="../commons/header_login.jsp"/>
-    <div class="row">sss
+    <div class="row">
         <div class="col"></div>
         <div class="col-5">
             <div class="container">
-                <h1 class="text-center">建立行程-1</h1>
+                <h1 class="text-center" style='color:white'>建立行程-1</h1>
                 <form id="activity" action="ActivityController.do" method="post" enctype="multipart/form-data" style="border:1px solid gray;border-radius:10px">
                     <div class="form-row pt-4">
                         <div class="col text-center pt-4">

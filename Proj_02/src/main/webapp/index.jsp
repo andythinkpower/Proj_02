@@ -49,7 +49,7 @@
 			<jsp:include page="/commons/header.jsp"></jsp:include>
 		</c:otherwise>
 	</c:choose>
-	
+	<br><br><br>
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-sm-8 m-auto">
@@ -113,38 +113,7 @@
 		<br>
 		
 	<div class="container mt-3">
-		<h1>最新上架</h1>
-		<ul class="nav nav-pills red mb-3" id="InsertTime" style="background-color:rgb(227, 215, 188)">
-			<li class="nav-item classType"><a class="nav-link active" data-toggle="pill" href="#本周活動0">全部</a></li>
-			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動1">休閒</a></li>
-			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動2">展覽</a></li>
-			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動3">音樂</a></li>
-			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動4">表演</a></li>
-			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動5">研習</a></li>
-			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動6">親子</a></li>
-			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動7">影視</a></li>
-		</ul>
-		<div class="tab-content">
-			<div class="tab-pane fade show active" id="InsertTime">
-				<div class="card " style="background-color:rgb(227, 215, 188)">
-					<div class="row">
-						<div class="col m-2 pl-3">
-							<p style="display:none;"></p><img id='InsertTime0' class="img" src="img/dog.jpg" style="width:450px;height:250px">
-						</div> 
-						<div class="col m-2">
-							<div class="row">
-								<div class="col"><p style="display:none;"></p><img id='InsertTime1' class="img" src="" style="width:200px;height:115px"></div>
-								<div class="col"><p style="display:none;"></p><img id='InsertTime2' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
-							</div>
-							<div class="row mt-2 pt-2">
-								<div class="col"><p style="display:none;"></p><img id='InsertTime3' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
-								<div class="col"><p style="display:none;"></p><img id='InsertTime4' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
-							</div>
-						</div>					
-					</div>
-				</div>
-			</div>	
-		</div>
+		
 		
 		<h1>熱門收藏</h1>
 		<ul class="nav nav-pills red mb-3 " id='collectionCount' style="background-color:rgb(227, 215, 188)">
@@ -245,6 +214,41 @@
 			</div>	
 		</div>
 		
+		<h1>最新上架</h1>
+		<ul class="nav nav-pills red mb-3" id="InsertTime" style="background-color:rgb(227, 215, 188)">
+			<li class="nav-item classType"><a class="nav-link active" data-toggle="pill" href="#本周活動0">全部</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動1">休閒</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動2">展覽</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動3">音樂</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動4">表演</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動5">研習</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動6">親子</a></li>
+			<li class="nav-item classType"><a class="nav-link " data-toggle="pill" href="#本周活動7">影視</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="InsertTime">
+				<div class="card " style="background-color:rgb(227, 215, 188)">
+					<div class="row">
+						<div class="col m-2 pl-3">
+							<p style="display:none;"></p><img id='InsertTime0' class="img" src="img/dog.jpg" style="width:450px;height:250px">
+						</div> 
+						<div class="col m-2">
+							<div class="row">
+								<div class="col"><p style="display:none;"></p><img id='InsertTime1' class="img" src="" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='InsertTime2' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+							<div class="row mt-2 pt-2">
+								<div class="col"><p style="display:none;"></p><img id='InsertTime3' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+								<div class="col"><p style="display:none;"></p><img id='InsertTime4' class="img" src="img/test.jpg" style="width:200px;height:115px"></div>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+		
+		
 		
 </div>	
 	
@@ -253,7 +257,7 @@
 		
 		
 	<div class="test"></div>
-
+ 
 	<script>
 	
 	var temp;
@@ -263,14 +267,26 @@
 				temp=data;
 				$.each(data,function(index,value){
 						$.each(value,function(i,v){
+							var a=$("#"+index+i+"").prev().text(v.eventID);
 							 $("#"+index+i+"").attr("src", v.imageFile)
 								$("#"+index+i+"").attr("title", v.eventName)
 						})
 				})
 			})
 			
+			
+			
+			$(".img").on('click',function(){
+				
+				var pk=$(this).prev().text();
+				 window.location.href = '<c:url value="/_04_EventPage/eventSelf.jsp?eventID='+pk+'"/>' ;
+			})
+			
+			
 			$(".classType").on('click',function(){
 				//取得點選類型
+				
+				
 				var type=$(this).text();
 				var selectOrder=$(this).parent().attr("id");
 				
@@ -278,6 +294,8 @@
 						$.each(temp,function(i,v){
 							if(i===selectOrder){
 								$.each(v,function(ii,vv){
+									var dd=$("#"+selectOrder+ii+"").prev().text(vv.eventID);
+									console.log("gggg:"+dd)
 									console.log(vv.imageFile)
 									  $("#"+selectOrder+ii+"").attr("src", vv.imageFile)
 										$("#"+selectOrder+ii+"").attr("title", vv.eventName)

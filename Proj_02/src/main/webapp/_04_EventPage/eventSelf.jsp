@@ -137,19 +137,12 @@
 		// 開啟即執行
 		$(function(){
 			
-			
-			console.log("qqqq");
-			
 			$("#report").on('click',function(){
 				var pk=$("#eventID").text();
-				console.log("here");
-				console.log(pk);
-				$.get("${pageContext.request.contextPath}/_04_EventPage/aaaa.controller",{"eventID":pk},function(data){
-					alert("檢舉成功");
+				alert("檢舉成功");
+				$.get("aaaa.controller",{"eventID":pk},function(data){
 				})
 			})
-			
-			
 			
 			var user = $("#member").text();
 			var eventID = $("#eventID").text();
@@ -198,20 +191,6 @@
 				var nowShare = $('#shareCount').text();
 	            $('#shareCount').text(parseInt(nowShare) + 1);
 			});
-			
-			
-			
-// 			$('body').one('click', '#report' , function(){
-// 				var pk = $('#eventID').text();
-// 				console.log("here");
-// 				console.log(pk);
-// 				$.post('${pageContext.request.contextPath}/_04_EventPage/aaaa.controller', {'eventID':pk} , function(data){
-// 					alert("檢舉成功");
-// 				});
-// 			});
-			
-			
-			
 			
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
 				$.each(data, function(index, eventData) {

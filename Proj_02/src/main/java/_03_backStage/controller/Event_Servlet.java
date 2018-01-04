@@ -53,10 +53,14 @@ System.out.println("1");
 					System.out.println("5");
 				}
 				String Fee = String.valueOf(request.getParameter("Fee"));
-				String IsCharge = request.getParameter("IsCharge");
-				System.out.println("121214234");
+
+				String FeeString = String.valueOf(Fee);
+
+				String IsCharge = String.valueOf(request.getParameter("IsCharge"));
+			
+				String IsChargeString = String.valueOf(IsCharge);
+                
 				String ImageFile = String.valueOf(request.getParameter("ImageFile"));
-				System.out.println(ImageFile);
 				System.out.println("6");
 				String Date= request.getParameter("DtStart");
 				System.out.println(Date);
