@@ -9,95 +9,56 @@
 	src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-	<script>
-		window.fbAsyncInit = function() {
-			FB.init({
-				appId : '1952637041657654',
-				autoLogAppEvents : true,
-				xfbml : true,
-				version : 'v2.11'
-			});
 
-			FB
-					.getLoginStatus(function(response) {
+    停留時間:<input class="aa1" type="text"/>
+    種類:<input class="aa2" type="text" />
+    名稱:<input class="aa3" type="text" />
+    預算:<input class="aa4" type="text" />
+    
+    停留時間:<input class="bb1" type="text"/>
+    種類:<input class="bb2" type="text" />
+    名稱:<input class="bb3" type="text" />
+    預算:<input class="bb4" type="text" />
+    
+    停留時間:<input class="vv1" type="text"/>
+    種類:<input class="vv2" type="text" />
+    名稱:<input class="vv3" type="text" />
+    預算:<input class="vv4" type="text" />
 
-						if (response.status === 'connected') {
-							document.getElementById("status").innerHTML = "we are connected !";
-							document.getElementById('login').style.visibility = 'hidden';
-						} else if (response.status === 'not_authorized') {
-							document.getElementById("status").innerHTML = "we fail";
-						} else {
-							document.getElementById("status").innerHTML = "you are not login facebook";
-						}
-					})
-		};
-
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) {
-				return;
-			}
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "https://connect.facebook.net/en_US/sdk.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-
-		function login() {
-			FB.login(function(response) {
-				console.log(response)
-						if (response.status === 'connected') {
-							document.getElementById("status").innerHTML = "we are connected !";
-							document.getElementById('login').style.visibility = 'hidden';
-						} else if (response.status === 'not_authorized') {
-							document.getElementById("status").innerHTML = "we fail";
-						} else {
-							document.getElementById("status").innerHTML = "you are not login facebook";
-						}
-					}, {scope:'public_profile,email'});
-		}
-		
-		
-		function getInfo() {
-			FB.api('/me', 'GET', {fields: 'name,email'}, function(response) {
-				console.log(response)
-				document.getElementById('status').innerHTML = "email "+response.email+"name "+response.name;
-			});
-		}
-		
-	</script>
-
-
-	<div id="status"></div>
-	<button onclick="getInfo()">Get Info</button>
-	<button onclick="login()" id='login'>Login</button>
-
-	<h1>測試顯示頁面</h1>
+    <button id="sub">儲存</button>
+	
 
 
 	<script>
-		// 		$(function(){
-		// 			$.getJSON('${pageContext.request.contextPath}/show.controller'),function(data){
-		// 				console.log(data);
-		// 			}
-		// 			console.log("fin");
-		// 		})
+	
+	 $(function () {
+         var list_bean = []
+		
+         $("body").on('click', '#sub', function () {
+             var bean = { "kinds": $(".aa1").val(), "note": $(".aa2").val(), "budgets": $(".aa3").val(), "dates": $(".aa4").val() };
+             list_bean.push(bean);
+             bean = { "kinds": $(".bb1").val(), "note": $(".bb2").val(), "budgets": $(".bb3").val(), "dates": $(".bb4").val() };
+             list_bean.push(bean);
+             bean = { "kinds": $(".vv1").val(), "note": $(".vvv2").val(), "budgets": $(".vv3").val(), "dates": $(".vv4").val() };
+             list_bean.push(bean);
+             
+            var test= JSON.stringify(list_bean);
+            
+            
+            $.ajax({url:'download.do',
+            		data:{"list":test},
+            		type:"get"});
+            
+            
+             console.log(test);
+             console.log(list_bean);
+//              $.getJSON("download.do",{"list_bean":test},function(data){
+//             	 console.log(data)
+//              })
+         })
 
-		$(function() {
-			$.getJSON('${pageContext.request.contextPath}/show.controller',
-					function(data) {
-						$.each(data, function(i, v) {
-							console.log("value :" + v.actTitle);
-
-						})
-
-					});
-
-			// 				$.getJSON('${pageContext.request.contextPath}/show.controller',function(data){
-			// 				console.log(data);
-			// 				})
-
-		})
+     })
+     
 	</script>
 </body>
 </html>

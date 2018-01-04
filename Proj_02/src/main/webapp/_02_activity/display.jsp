@@ -34,7 +34,7 @@
 		<input id="doWhat" type="hidden" name="doWhat" value="">
 		<input id="pk" type="hidden" name="activityID" value="">
 	</form>	
-	<div id="wholePage">
+	<div id="wholePage" class='mt-3'>
 	</div>
 	<div class='fixed-bottom  float-sm-right'>
 	<a href="../_02_activity/schedule.jsp"><img src="../img/add2.png" class='float-sm-right m-5' width="75"/></a>
@@ -99,7 +99,6 @@
                     	data:{"ActivityID":pk},
                     	dataType:"html",
                     	success:function(data){
-                    		alert(data);
                     		$("#wholePage").empty();
                     		reflashPage();
                     	}

@@ -135,6 +135,18 @@
 	<script>
 		// 開啟即執行
 		$(function(){
+			
+			$("#report").on('click',function(){
+				var pk=$("#eventID").text();
+				$.get("aaaa.controller",{"eventID":pk},function(data){
+					alert("檢舉成功");
+				})
+			})
+			
+			
+			
+			
+			
 			var user = $("#member").text();
 			var eventID = $("#eventID").text();
 			var collection = true;

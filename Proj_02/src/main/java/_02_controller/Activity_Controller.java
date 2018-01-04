@@ -110,6 +110,33 @@ public class Activity_Controller {
 			System.out.println("lat:"+latitude_temp);
 			System.out.println("lan:"+longitude_temp);
 			
+			CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
+					request.getSession().getServletContext());
+			if(multipartResolver.isMultipart(request)) {
+				MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;	
+				
+				MultipartFile file=multiRequest.getFile("file");
+				if(file.isEmpty()) {
+					System.out.println("檔案是空的");
+				}else {
+					System.out.println("有傳檔案");
+					ServletContext context=request.getServletContext();
+					String filename=file.getOriginalFilename();
+					//要存到資料庫的路徑
+					String showPic="/uploadFile/"+filename;
+					Cookie picPath=new Cookie("picPath",showPic);
+					bean.setPhotoPath(showPic);
+					picPath.setMaxAge(60*60);
+					
+					response.addCookie(picPath);
+					
+					String path=context.getRealPath("/uploadFile/"+filename);
+					System.out.println("路徑"+path);
+					file.transferTo(new File(path));
+				}
+			}		
+			
+			
 			
 			// 呼叫自己寫的方法 把多的細節拆開
 			List<ActivityDetailBean> list = Activity_Controller.Detail_split(detailBean);
@@ -186,12 +213,25 @@ public class Activity_Controller {
 			System.out.println("觀察 新增的細節");
 			System.out.println(new_times+" : "+new_kinds+" : "+new_note+" : "+new_budget+" : "+new_dates+" : "+new_longitude_temp+" : "+new_latitude_temp);
 			
+			ActivityDetailBean temp=new ActivityDetailBean();
+			temp.setTimes(new_times);
+			temp.setKinds(new_kinds);
+			temp.setNote(new_note);
+			temp.setBudget(new_budget);
+			temp.setDates(new_dates);
+			temp.setLatitude(Double.valueOf(new_latitude_temp));
+			temp.setLongitude((Double.valueOf(new_longitude_temp)));
+			temp.setActivityID(bean.getActivityID());
+			List<ActivityDetailBean> tempList=new ArrayList<ActivityDetailBean>();
+			//System.out.println("新的detailBean"+temp);
+			
+			tempList.add(temp);
 			
 			
 			// 要判斷如果有新增細節還要做 insert
-			//activityService.Change_Schedule(bean);
-			//activityDetailService.Allupdate(list_up);
-			
+			activityService.Change_Schedule(bean);
+			activityDetailService.Allupdate(list_up);
+			activityDetailService.insert(tempList);
 
 			return "display";
 
@@ -284,6 +324,7 @@ public class Activity_Controller {
 
 	}
 	
+
 	public static List<ActivityDetailBean> Detail_split(ActivityDetailBean detailBean) {
 		List<ActivityDetailBean> list = new ArrayList<ActivityDetailBean>();
 		

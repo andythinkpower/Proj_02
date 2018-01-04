@@ -68,9 +68,9 @@
                                 <input type="text" name="actStartDate" id="date" value="${activityBean.actStartDate}" readonly>
                                 <br>
                             </div>
-                            <div class="form-group pl-5 ">
+                         <!--  <div class="form-group pl-5 ">
                                 <input type="file" id="file" name="file" class="form-control-file" accept="image/*" style='display:none'>
-                            </div>
+                            </div> -->  
                         </div>
                         <div class="col pr-5">
                          <label for='file'>

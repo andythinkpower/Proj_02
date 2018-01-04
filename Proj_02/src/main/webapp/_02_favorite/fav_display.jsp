@@ -51,7 +51,7 @@ body {
 	</div>
 	<p id="member" style="display: none;">${member.memberemail }</p>
 
-	<div id="wholePage"></div>
+	<div id="wholePage" class='mt-3'></div>
 
 	<div id='allevent'></div>
 	<div class="push"></div>

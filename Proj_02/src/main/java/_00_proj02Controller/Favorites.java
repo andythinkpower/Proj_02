@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import _00_proj02Bean.Event01;
 import _00_proj02Bean.FavoritesBean;
 import _01_member.model.MemberBean;
+import _02_model.Bean.ActivityDetailBean;
 import _05_model.Event02Service;
 import _05_model.FavoritesService;
 
@@ -34,7 +35,7 @@ public class Favorites {
 	
 	//單一會員收藏單一活動
 	@RequestMapping(path= {"/_04_EventPage/insert.controller"},method= {RequestMethod.POST,RequestMethod.GET})
-	public void insert(String eventName,String eventID,String durationEnd,String dtStart,String timeStart,String doWhat,
+	public void insert(List<ActivityDetailBean> list,String eventName,String eventID,String durationEnd,String dtStart,String timeStart,String doWhat,
 			@SessionAttribute(name="member")MemberBean member,HttpServletResponse rs) throws IOException {
 		rs.setHeader("Access-Control-Allow-Origin", "*");
 		rs.setHeader("content-type", "text/html;charset=UTF-8");
