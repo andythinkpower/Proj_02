@@ -57,7 +57,8 @@
 			</div>
 			
 			<div class="collectBox">
-				<div class="collect" id="favorite">加入收藏</div>
+<!-- 				<div class="collect" id="favorite">加入收藏</div> -->
+				<button class="collect" id="favorite">加入收藏</button>
 				<div style="font-size: 15px; padding-left: 20px"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;收藏人數：&nbsp;<span></span>&nbsp;人</div>
 			</div>
 			
@@ -114,12 +115,12 @@
 					<div style="width: 100px; float: left;">
 						<a class="btn btn-success clearfix" href="javascript:fbshareCurrentPage()" target="_blank" alt="Share on Facebook">FB分享</a>
 					</div>
-					<div style="width: 150px; float: left; margin-top: 8px;">
+					<div style="width: 150px; float: left; margin-top: 12px;">
 						分享數：<span id="shareCount"></span>
 					</div>
 				</div>
 
-				<div id="report">檢舉 / 報錯</div>
+				<button id="report">檢舉 / 報錯</button>
 				
 			</div>
 		
@@ -135,6 +136,21 @@
 	<script>
 		// 開啟即執行
 		$(function(){
+			
+			
+			console.log("qqqq");
+			
+			$("#report").on('click',function(){
+				var pk=$("#eventID").text();
+				console.log("here");
+				console.log(pk);
+				$.get("${pageContext.request.contextPath}/_04_EventPage/aaaa.controller",{"eventID":pk},function(data){
+					alert("檢舉成功");
+				})
+			})
+			
+			
+			
 			var user = $("#member").text();
 			var eventID = $("#eventID").text();
 			var collection = true;
@@ -183,6 +199,20 @@
 	            $('#shareCount').text(parseInt(nowShare) + 1);
 			});
 			
+			
+			
+// 			$('body').one('click', '#report' , function(){
+// 				var pk = $('#eventID').text();
+// 				console.log("here");
+// 				console.log(pk);
+// 				$.post('${pageContext.request.contextPath}/_04_EventPage/aaaa.controller', {'eventID':pk} , function(data){
+// 					alert("檢舉成功");
+// 				});
+// 			});
+			
+			
+			
+			
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/oneEvent.controller', 'eventID='+eventID , function(data) {
 				$.each(data, function(index, eventData) {
 					
@@ -193,14 +223,15 @@
 				    });
 					$('.collectBox span').append(eventData.collectionCount)
 					$('#shareCount').append(eventData.shareCount)
-						// 計算天數差
-						var daysdiff = (eventData.durationEnd - new Date().getTime())/86400000;
-						if ( daysdiff < 0 ) {
-							var daysdiff = 0;
-						} else {
-							var daysdiff = Math.floor(daysdiff) + 1;
-						};
-					$('#days').append('還剩&nbsp;' + daysdiff + '&nbsp;天');
+					// 計算天數差
+					var daysdiff = (eventData.durationEnd - new Date().getTime())/86400000;
+					if ( daysdiff < 0 ) {
+						var daysdiff = 0;
+						$('#days').append('今天結束！');
+					} else {
+						var daysdiff = Math.floor(daysdiff) + 1;
+						$('#days').append('還剩&nbsp;' + daysdiff + '&nbsp;天');
+					};
 					// 對沒有提供圖片的活動給予圖片，else對圖片失效的連結做處理
 					if (eventData.imageFile == 'null') {
 						$('#ownImg').attr('src' , '../img/taipei_culture.png');

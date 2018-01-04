@@ -35,81 +35,106 @@ public class Event_Servlet extends HttpServlet {
 		System.out.println(action);
 	
 		if ("insert".equals(action)) {
-
+System.out.println("1");
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
-
+			System.out.println("2");
 			try {
+				System.out.println("3");
 				PrintWriter out = response.getWriter();
-				
+				System.out.println("4");
 				Integer EventID = Integer.valueOf(request.getParameter("EventID"));
+				System.out.println(EventID);
 
 				String EventName = request.getParameter("EventName");
+				System.out.println(EventName);
 				if (EventName == null || EventName.trim().length() == 0) {
 					errorMsgs.add("活動名稱:空白");
+					System.out.println("5");
 				}
 				String Fee = String.valueOf(request.getParameter("Fee"));
-
-				String FeeString = String.valueOf(Fee);
-
-//				String IsCharge = String.valueOf(request.getParameter("IsCharge"));
-//			
-//				String IsChargeString = String.valueOf(IsCharge);
-                
+				String IsCharge = request.getParameter("IsCharge");
+				System.out.println("121214234");
 				String ImageFile = String.valueOf(request.getParameter("ImageFile"));
-				
-				String Date= request.getParameter("DurationStart");
-				java.sql.Date DurationStart = java.sql.Date.valueOf(Date);
+				System.out.println(ImageFile);
+				System.out.println("6");
+				String Date= request.getParameter("DtStart");
+				System.out.println(Date);
+				java.sql.Date DtStart = java.sql.Date.valueOf(Date);
+				System.out.println(DtStart);
 				if (Date == null || Date.trim().length() == 0) {
 					errorMsgs.add("活動開始日期:空白");
+					System.out.println("123");
 				}
 				String Date1= request.getParameter("DurationEnd");
 				java.sql.Date DurationEnd = java.sql.Date.valueOf(Date1);
+				System.out.println("a");
 				if (Date1 == null || Date1.trim().length() == 0) {
-					errorMsgs.add("活動開始日期:空白");
+					errorMsgs.add("活動結束日期:空白");
+				}
+				String Date3= request.getParameter("InsertTime");
+				java.sql.Date InsertTime = java.sql.Date.valueOf(Date3);
+				System.out.println("c");
+				if (Date3 == null || Date3.trim().length() == 0) {
+					errorMsgs.add("更新時間:空白");
+				}
+				String CityID = request.getParameter("CityID");
+				if (CityID == null || CityID.trim().length() == 0) {
+					errorMsgs.add("城市名:空白");
+				}
+				String AreaID = request.getParameter("AreaID");
+				if (AreaID == null || AreaID.trim().length() == 0) {
+					errorMsgs.add("地區:空白");
+				}
+				String Address = request.getParameter("Address");
+				if (Address == null || Address.trim().length() == 0) {
+					errorMsgs.add("地址:空白");
 				}
 				String ShowGroupName = request.getParameter("ShowGroupName");
 				if (ShowGroupName == null || ShowGroupName.trim().length() == 0) {
 					errorMsgs.add("演出單位:空白");
 				}
 
-				String ContactName= request.getParameter("ContactName");
-				if (ContactName == null || ContactName.trim().length() == 0) {
+				String EventTypeID= request.getParameter("EventTypeID");
+				if (EventTypeID == null || EventTypeID.trim().length() == 0) {
 					errorMsgs.add("活動連絡人:空白");
 				}
-
-				String BriefIntroduction = request.getParameter("BriefIntroduction");
-				if (BriefIntroduction == null || BriefIntroduction.trim().length() == 0) {
-					errorMsgs.add("活動簡介:空白");
+				System.out.println("7");
+				String VContent = request.getParameter("VContent");
+				if (VContent == null || VContent.trim().length() == 0) {
+					errorMsgs.add("活動內容:空白");
 				}
-
+				System.out.println("8");
 				Collection<Part> parts = request.getParts();
 				out.write("<h2> Total parts : " + parts.size() + "</h2>");
 				EventVO eventVO = new EventVO();
 				eventVO.setEventID(EventID);
 				eventVO.setEventName(EventName);
 				eventVO.setFee(Fee);
-//				eventVO.setIsCharge(IsCharge);
-				eventVO.setDurationStart(DurationStart);
+				eventVO.setIsCharge(IsCharge);
+				eventVO.setDtStart(DtStart);
 				eventVO.setDurationEnd(DurationEnd);
+//				eventVO.setTimeStart(Date2);
+				eventVO.setInsertTime(InsertTime);
+				eventVO.setCityID(CityID);
+				eventVO.setAreaID(AreaID);
+				eventVO.setAddress(Address);
 				eventVO.setShowGroupName(ShowGroupName);
-				eventVO.setContactName(ContactName);
-				eventVO.setBriefIntroduction(BriefIntroduction);
+				eventVO.setEventTypeID(EventTypeID);
+				eventVO.setVContent(VContent);
 				eventVO.setImageFile(ImageFile);
 				for (Part part : parts) {
 					if (getFileNameFromPart(part) != null && part.getContentType() != null) {
-						
+						System.out.println("9");
 						if (!errorMsgs.isEmpty()) {
 							request.setAttribute("EventVO", eventVO);
 							response.sendRedirect("../_03_backStage/BookAdd.jsp");
-//							RequestDispatcher failureView = request.getRequestDispatcher("/_06_backStage/BookAdd.jsp");
-//							failureView.forward(request, response);
 							return;// 程式中斷
 						}					
 //						
 //						InputStream ImageFile = part.getInputStream();
 						
-						EventDAO.insert(EventID, EventName, Fee, DurationStart, DurationEnd, ShowGroupName, ImageFile, ContactName, BriefIntroduction);
+						EventDAO.insert(EventID, EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, InsertTime, CityID, AreaID, Address, ImageFile, EventTypeID, VContent);
 						
 //						ImageFile.close();
 					}
@@ -162,8 +187,6 @@ public class Event_Servlet extends HttpServlet {
 				sucessView.forward(request, response);
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = request.getRequestDispatcher("/_06_backStage/BookList.jsp");
-//				failureView.forward(request, response);
 				response.sendRedirect("../_03_backStage/BookList.jsp");
 			}
 		}
@@ -193,8 +216,8 @@ public class Event_Servlet extends HttpServlet {
 				
 			
 				
-				String date = request.getParameter("DurationStart");
-				java.sql.Date DurationStart = java.sql.Date.valueOf(date);
+				String date = request.getParameter("DtStart");
+				java.sql.Date DtStart = java.sql.Date.valueOf(date);
 				if(date == null || date.trim().length() == 0 ){
 					errorMsgs.add("活動開始日期:空白");
 				}
@@ -210,14 +233,14 @@ public class Event_Servlet extends HttpServlet {
 				}
 			
 				
-				String ContactName= request.getParameter("ContactName");
-				if (ContactName == null || ContactName.trim().length() == 0) {
+				String EventTypeID= request.getParameter("EventTypeID");
+				if (EventTypeID == null || EventTypeID.trim().length() == 0) {
 					errorMsgs.add("活動連絡人:空白");
 				}
 				
 				 
-				String BriefIntroduction = request.getParameter("BriefIntroduction");
-				if (BriefIntroduction == null || BriefIntroduction.trim().length() == 0) {
+				String VContent = request.getParameter("VContent");
+				if (VContent == null || VContent.trim().length() == 0) {
 					errorMsgs.add("簡介:空白");
 				}
 				
@@ -231,11 +254,11 @@ public class Event_Servlet extends HttpServlet {
 				eventVO.setEventName(EventName);
 				eventVO.setFee(Fee);
 				eventVO.setIsCharge(IsCharge);
-				eventVO.setDurationStart(DurationStart);
+				eventVO.setDtStart(DtStart);
 				eventVO.setDurationEnd(DurationEnd);
 				eventVO.setShowGroupName(ShowGroupName);
-				eventVO.setContactName(ContactName);
-				eventVO.setBriefIntroduction(BriefIntroduction);	
+				eventVO.setEventTypeID(EventTypeID);
+				eventVO.setVContent(VContent);	
 				eventVO.setImageFile(ImageFile);
 				System.out.println("2");
 				for (Part part : parts) {
@@ -249,12 +272,12 @@ public class Event_Servlet extends HttpServlet {
 						
 //						InputStream ImageFile = part.getInputStream();
 						
-						EventDAO.update(EventName, Fee, IsCharge, DurationStart, DurationEnd, ShowGroupName, ImageFile, ContactName, BriefIntroduction, EventID);
+						EventDAO.update(EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, ImageFile, EventTypeID, VContent, EventID);
 						
 //						ImageFile.close();
 						
 					}else {
-						EventDAO.update_noPic(EventName, Fee, IsCharge, DurationStart, DurationEnd, ShowGroupName, ContactName, BriefIntroduction, EventID);
+						EventDAO.update_noPic(EventName, Fee, IsCharge, DtStart, DurationEnd, ShowGroupName, EventTypeID, VContent, EventID);
 					}
 				}
 				

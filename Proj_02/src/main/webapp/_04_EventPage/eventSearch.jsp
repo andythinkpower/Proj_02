@@ -28,7 +28,6 @@
 <script src="https://use.fontawesome.com/8af200eebc.js"></script>
 <!-- 分頁 -->
 <script src="../js/jquery.twbsPagination.js"></script>
-
 <title>找活動</title>
 
 </head>
@@ -48,7 +47,7 @@
 	<br>
 	<div id="eventSelector">
 	
-		<div style="float: left; margin: 10px 0px 0px 15px">
+		<div style="float: left; margin: 10px 0px 0px 25px">
 			<i class="fa fa-map-marker fa-2x" id="areaMark" aria-hidden="true"></i><span style="float: left;">&nbsp;&nbsp;去哪裡玩&nbsp;&emsp;</span><input type="text" id="areaText" value="">
 				<div id="selectArea" class="selectArea">
 			    	<label><input type="checkbox" name="allArea" value="正同埔松安萬信士北內南文" checked="checked"><span>全部</span></label>
@@ -78,7 +77,7 @@
 			    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart  and"><span>下週</span></label>
 			    <label><input type="radio" name="pickDate" value="where dateadd ( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 6 ) ) >= dtStart and dateadd( day , 7 , dateadd( week , datediff( week , '' , getdate() ) , 5 ) ) <= DurationEnd and"><span>下週末</span></label>
 			    <span id="emsp">&emsp;&emsp;</span>
-			    <i class="fa fa-calendar-check-o" aria-hidden="true"></i><input type="text" style="width: 240px" value="自訂日期" id="dateRangePicker">
+			    <i class="fa fa-calendar-check-o" aria-hidden="true"></i><input type="text" style="width: 195px" value="自訂日期" id="dateRangePicker">
 			    <input type="radio" name="pickDate" value="" style="display: none;" id="forDateRangePicker">
 		    </div>
 		</div>
@@ -386,7 +385,6 @@
 			$.getJSON('${pageContext.request.contextPath}/_04_EventPage/searchEvent.controller', {'newDate':newDate , 'newAreas':newAreas , 'newTypes':newTypes , 'newOrder':newOrder , 'pageNumber':page} , function(data) {
 				$.each(data, function(index, eventData) {
 					// 對沒有提供圖片的活動給予圖片，else對圖片失效的連結做處理
-					console.log(eventData.eventName);
 					if (eventData.imageFile == 'null') {
 						var picBox = $('<div class="picBox"></div>').html('<a href="<c:url value="/_04_EventPage/eventSelf.jsp?eventID=' + eventData.eventID + '"/>"><img width=75px src="../img/taipei_culture.png" title="' + eventData.briefIntroduction + '"></a>');
 					} else {

@@ -168,6 +168,10 @@ body {
 
 .btn-success {
     height: 50px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #report {
@@ -187,7 +191,7 @@ body {
 
 #contextBox {
     width: 1450px;
-	height: 600px;
+	height: 590px;
 	margin: 10px auto 0px auto;
     float: left;
     background-color: navajowhite;

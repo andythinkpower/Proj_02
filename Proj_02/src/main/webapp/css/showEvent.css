@@ -5,8 +5,8 @@ body {
 }
 
 #eventSelector {
-	width: 900px;
-	height:190px;
+	width: 765px;
+	height:160px;
 	margin: auto;
 	background : #EBD6D6;
 	border-radius: 10px;
@@ -14,7 +14,7 @@ body {
 
 .subRegion {
 	float: left;
-	margin: 5px 0px 0px 15px;
+	margin: 5px 0px 0px 25px;
 }
 
 #areaMark {
@@ -34,16 +34,16 @@ body {
 .selectArea {
 	position : absolute;
 	top : 150px;
-	left: 655px;
-	width : 345px;
-	height : 170px;
+	left: 700px;
+	width : 295px;
+	height : 145px;
 	border : 1px solid blue;
 	background : #E9E2E2;
 	display : none;
 }
 
 #selectDate , #selectType , #selectOrder {
-	width: 740px;
+	width: 620px;
 	float: left;
 }
 
